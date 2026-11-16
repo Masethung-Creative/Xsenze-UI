@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Guidelines · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="patterns">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Guidelines</p>
+  <h1 class="xz-h1">States, accessibility and words</h1>
+  <p class="xz-lead">The rules that make screens built with the kit behave the same way, read the same way and work for everyone.</p>
+</header>
+
+<section class="doc-section" id="states">
+  <h2>Interaction states</h2>
+  <p>Every interactive component has the same set of states, and each state looks the same across components. To show a state in a design review without touching the control, add the matching class.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>State</th><th>How it looks</th><th>Trigger</th><th>Class for demos</th></tr></thead>
+    <tbody>
+      <tr><td>Default</td><td>1px outline or fill</td><td></td><td></td></tr>
+      <tr><td>Hover</td><td>Fill moves one step. Outline turns to the text colour.</td><td>Pointer over the control</td><td><code>is-hover</code></td></tr>
+      <tr><td>Focus</td><td>2px ring in the focus colour, 2px away from the control</td><td>Keyboard focus</td><td><code>is-focus</code></td></tr>
+      <tr><td>Pressed</td><td>Fill moves another step. Buttons move down 1px.</td><td>Mouse down or touch</td><td><code>is-active</code></td></tr>
+      <tr><td>Selected</td><td>Inverse fill, or the brand fill for navigation</td><td><code>aria-pressed</code>, <code>aria-selected</code>, <code>aria-current</code></td><td></td></tr>
+      <tr><td>Disabled</td><td>Grey fill, grey text, no outline</td><td><code>disabled</code> or <code>aria-disabled="true"</code></td><td><code>is-disabled</code></td></tr>
+      <tr><td>Loading</td><td>Spinner replaces the label. Width does not change.</td><td>Add the class and <code>aria-busy="true"</code></td><td><code>is-loading</code></td></tr>
+      <tr><td>Invalid</td><td>Rose outline and a message below</td><td><code>aria-invalid="true"</code></td><td><code>is-invalid</code></td></tr>
+      <tr><td>Read-only</td><td>Muted fill, text can be selected</td><td><code>readonly</code></td><td></td></tr>
+    </tbody>
+  </table></div>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--primary" type="button">Default</button>
+    <button class="xz-btn xz-btn--primary is-hover" type="button">Hover</button>
+    <button class="xz-btn xz-btn--primary is-focus" type="button">Focus</button>
+    <button class="xz-btn xz-btn--primary is-active" type="button">Pressed</button>
+    <button class="xz-btn xz-btn--primary" type="button" disabled>Disabled</button>
+    <button class="xz-btn xz-btn--primary is-loading" type="button" aria-busy="true">Loading</button>
+  </div>
+  <p>Selected state is set with ARIA attributes, not classes. That way the look and the meaning cannot drift apart.</p>
+</section>
+
+<section class="doc-section" id="accessibility">
+  <h2>Accessibility</h2>
+  <p>The kit targets WCAG 2.2 level AA. The components handle the parts below. The parts in the checklist are yours to do on each screen.</p>
+  <h3>What the kit does</h3>
+  <ul>
+    <li><strong>Contrast.</strong> Text is at least 4.5:1 and control outlines and focus rings at least 3:1, in both themes. <code class="xz-code">npm run check</code> tests this.</li>
+    <li><strong>Focus.</strong> Every control shows a 2px ring on keyboard focus. Nothing removes the ring.</li>
+    <li><strong>Touch targets.</strong> On touch screens, buttons, inputs, menu items and navigation links are at least 44px tall. Checkboxes and radios include their label in the target.</li>
+    <li><strong>Keyboard.</strong> Tabs, menus and the combobox use arrow keys, Home, End, Enter and Escape. Modals and drawers hold focus inside and return it when they close.</li>
+    <li><strong>Screen readers.</strong> Components set their own roles and states. Toasts and table counts are announced.</li>
+    <li><strong>Motion.</strong> Animation stops when the device asks for reduced motion.</li>
+    <li><strong>Zoom.</strong> Sizes use rem, so text scales with the browser setting, and layouts reflow down to 320px wide.</li>
+  </ul>
+  <h3>Keyboard reference</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Component</th><th>Keys</th></tr></thead>
+    <tbody>
+      <tr><td>Tabs</td><td><span class="xz-kbd">←</span> <span class="xz-kbd">→</span> move and select. <span class="xz-kbd">Home</span> <span class="xz-kbd">End</span> jump to first and last.</td></tr>
+      <tr><td>Dropdown menu</td><td><span class="xz-kbd">Enter</span> or <span class="xz-kbd">↓</span> opens. <span class="xz-kbd">↑</span> <span class="xz-kbd">↓</span> move. <span class="xz-kbd">Esc</span> closes and returns focus.</td></tr>
+      <tr><td>Combobox</td><td>Type to filter. <span class="xz-kbd">↑</span> <span class="xz-kbd">↓</span> move. <span class="xz-kbd">Enter</span> chooses. <span class="xz-kbd">Esc</span> closes.</td></tr>
+      <tr><td>Modal and drawer</td><td><span class="xz-kbd">Tab</span> stays inside. <span class="xz-kbd">Esc</span> closes.</td></tr>
+      <tr><td>Accordion</td><td><span class="xz-kbd">Enter</span> or <span class="xz-kbd">Space</span> opens and closes a section.</td></tr>
+      <tr><td>Tooltip</td><td>Shows on focus. <span class="xz-kbd">Esc</span> hides it.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Checklist for each screen</h3>
+  <ul>
+    <li>The page has one <code class="xz-code">h1</code>, and headings go down one level at a time.</li>
+    <li>The page uses <code class="xz-code">header</code>, <code class="xz-code">nav</code>, <code class="xz-code">main</code> and <code class="xz-code">footer</code>, and starts with a skip link (<code class="xz-code">xz-skip-link</code>).</li>
+    <li>Every input has a visible <code class="xz-code">label</code>. A placeholder is not a label.</li>
+    <li>Every icon-only button has an <code class="xz-code">aria-label</code>.</li>
+    <li>Status is never shown by colour alone. Add a word or an icon.</li>
+    <li>Error messages are linked to their field with <code class="xz-code">aria-describedby</code>. Form validation in the kit does this for you.</li>
+    <li>Images have <code class="xz-code">alt</code> text, or <code class="xz-code">alt=""</code> when they are decoration.</li>
+    <li>The <code class="xz-code">html</code> element has the right <code class="xz-code">lang</code>, and text in another language has its own.</li>
+    <li>You can finish the main task using only the keyboard.</li>
+  </ul>
+</section>
+
+<section class="doc-section" id="microcopy">
+  <h2>Microcopy</h2>
+  <p>Write the way a helpful colleague would speak: plain, short and specific. Many people using Xsenze products read English as a second language, so choose common words.</p>
+  <h3>Basics</h3>
+  <ul>
+    <li><strong>Sentence case everywhere.</strong> "Create account", not "Create Account". Only names take capitals.</li>
+    <li><strong>No full stop</strong> on buttons, labels, headings or single-line messages.</li>
+    <li><strong>No exclamation marks.</strong></li>
+    <li><strong>Use the same word for the same thing.</strong> If the menu says "Learners", the page title and the button say "learner" too.</li>
+    <li><strong>Address the person as "you".</strong> The product is "we" only when it must take responsibility.</li>
+  </ul>
+  <h3>Button labels</h3>
+  <p>Start with a verb and name the thing. The label should make sense when read alone.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Use</th><th>Instead of</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Save changes</td><td>Submit, OK</td><td>Says what will happen</td></tr>
+      <tr><td>Create course</td><td>Create, New</td><td>Names the thing</td></tr>
+      <tr><td>Delete invoice</td><td>Yes, Confirm</td><td>A confirm button repeats the action, so nobody has to re-read the question</td></tr>
+      <tr><td>Cancel</td><td>No, Dismiss, Back</td><td>Always the way out of a dialog without changes</td></tr>
+      <tr><td>Sign in, Sign out</td><td>Login, Log off</td><td>One pair of words across all products</td></tr>
+      <tr><td>Send reset link</td><td>Continue</td><td>Sets the right expectation</td></tr>
+      <tr><td>Download report</td><td>Click here</td><td>Works for screen readers and scanning</td></tr>
+    </tbody>
+  </table></div>
+  <p>A dialog has one primary button. Put it last, on the right, with "Cancel" before it. For a destructive action use the danger button.</p>
+  <h3>Error messages</h3>
+  <p>Say what to do next. Do not blame the person, and do not show codes they cannot use.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Situation</th><th>Use</th><th>Instead of</th></tr></thead>
+    <tbody>
+      <tr><td>Empty required field</td><td>Enter your email</td><td>This field is required</td></tr>
+      <tr><td>Wrong format</td><td>Enter an email address like name@example.com</td><td>Invalid email</td></tr>
+      <tr><td>Mobile number</td><td>Enter a 10-digit mobile number</td><td>Invalid input</td></tr>
+      <tr><td>Password too short</td><td>Use at least 8 characters</td><td>Password does not meet requirements</td></tr>
+      <tr><td>Wrong sign-in details</td><td>Email or password is incorrect. Check both and try again.</td><td>Authentication failed</td></tr>
+      <tr><td>Nothing selected</td><td>Select a batch</td><td>Error: null value</td></tr>
+      <tr><td>Server problem</td><td>We could not save your changes. Try again in a minute.</td><td>Error 500</td></tr>
+      <tr><td>No connection</td><td>You are offline. Check your connection and try again.</td><td>Network error</td></tr>
+      <tr><td>File too large</td><td>Choose a file smaller than 5 MB</td><td>Upload failed</td></tr>
+    </tbody>
+  </table></div>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 24rem">
+      <label class="xz-label" for="mc-mobile">Mobile number</label>
+      <div class="xz-input-group">
+        <span class="xz-input-group__addon">+91</span>
+        <input class="xz-input" id="mc-mobile" type="tel" inputmode="numeric" value="98765" aria-invalid="true" aria-describedby="mc-mobile-error">
+      </div>
+      <p class="xz-error" id="mc-mobile-error"><i data-xz-icon="circle-alert" data-size="sm"></i> Enter a 10-digit mobile number</p>
+    </div>
+  </div>
+  <h3>Other messages</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Type</th><th>Pattern</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Success toast</td><td>Thing + past verb</td><td>Course created</td></tr>
+      <tr><td>Confirm dialog title</td><td>Question naming the thing</td><td>Delete "Batch 14"?</td></tr>
+      <tr><td>Confirm dialog text</td><td>The consequence, in one sentence</td><td>This removes 32 learners from the batch. You cannot undo this.</td></tr>
+      <tr><td>Empty state, first use</td><td>What goes here + how to start</td><td>No courses yet. Create your first course to start enrolling learners.</td></tr>
+      <tr><td>Empty state, no results</td><td>What was not found + next step</td><td>No learners match "anan". Check the spelling or clear the search.</td></tr>
+      <tr><td>Helper text</td><td>One short hint, shown before any error</td><td>Use at least 8 characters</td></tr>
+      <tr><td>Placeholder</td><td>An example value, never an instruction</td><td>name@company.in</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="doc-section" id="formats">
+  <h2>Indian formats</h2>
+  <p>Use these formats in every product. The helpers in <code class="xz-code">Xsenze.format</code> produce them, and the table lists the server-side match.</p>
+  <h3>Money and numbers</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Rule</th><th>Example</th><th>Helper</th></tr></thead>
+    <tbody>
+      <tr><td>Rupee sign before the amount, no space</td><td class="xz-num">₹24,500</td><td><code>format.inr(24500)</code></td></tr>
+      <tr><td>Group digits as 3, then 2, 2, 2</td><td class="xz-num">₹12,34,567</td><td><code>format.inr(1234567)</code></td></tr>
+      <tr><td>Show paise only when there are paise</td><td class="xz-num">₹1,499.50</td><td><code>format.inr(1499.5)</code></td></tr>
+      <tr><td>On invoices, always show two decimals</td><td class="xz-num">₹24,500.00</td><td><code>format.inr(24500, { decimals: 2 })</code></td></tr>
+      <tr><td>Shorten large amounts with L and Cr</td><td class="xz-num">₹2.5 L, ₹1.25 Cr</td><td><code>format.inrCompact(12500000)</code></td></tr>
+      <tr><td>Write lakh and crore in sentences</td><td>Revenue crossed 1.25 crore</td><td><code>format.unit(12500000)</code></td></tr>
+      <tr><td>Negative amounts use a minus sign</td><td class="xz-num">−₹3,200</td><td><code>format.inr(-3200)</code></td></tr>
+      <tr><td>Plain numbers use the same grouping</td><td class="xz-num">1,25,000 learners</td><td><code>format.number(125000)</code></td></tr>
+      <tr><td>Percentages have no space</td><td class="xz-num">12.5%</td><td><code>format.percent(0.125)</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Do not use "K" or "M" for Indian audiences, and do not write "Rs." or "INR" where the ₹ sign fits. Right-align amounts in tables with <code class="xz-code">xz-table__num</code> so the digits line up.</p>
+  <h3>Dates and time</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Rule</th><th>Example</th><th>Helper</th></tr></thead>
+    <tbody>
+      <tr><td>Day first, short month name. Use this by default.</td><td>15 Nov 2026</td><td><code>format.date('2026-11-15')</code></td></tr>
+      <tr><td>Numeric dates are day, month, year</td><td>15/11/2026</td><td><code>format.dateShort('2026-11-15')</code></td></tr>
+      <tr><td>12-hour time with am and pm</td><td>15 Nov 2026, 2:30 pm</td><td><code>format.dateTime('2026-11-15T14:30')</code></td></tr>
+      <tr><td>Recent times as words</td><td>2 hours ago, yesterday</td><td><code>format.relative(date)</code></td></tr>
+      <tr><td>Financial year runs April to March</td><td>FY 2026-27</td><td><code>format.financialYear(date)</code></td></tr>
+      <tr><td>Times are in IST unless the screen says otherwise</td><td>2:30 pm IST</td><td></td></tr>
+    </tbody>
+  </table></div>
+  <p>Prefer "15 Nov 2026" to "15/11/2026". The month name removes any doubt about day and month order.</p>
+  <h3>Phone, PIN and tax numbers</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Field</th><th>Format</th><th>Input settings</th></tr></thead>
+    <tbody>
+      <tr><td>Mobile number</td><td>+91 98765 43210</td><td><code>type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}"</code>, with +91 as an addon</td></tr>
+      <tr><td>PIN code</td><td>560 001 or 560001</td><td><code>inputmode="numeric" pattern="[1-9][0-9]{5}"</code></td></tr>
+      <tr><td>GSTIN</td><td>29ABCDE1234F1Z5</td><td>15 characters, shown in capitals and monospace</td></tr>
+      <tr><td>PAN</td><td>ABCDE1234F</td><td>10 characters, shown in capitals and monospace</td></tr>
+    </tbody>
+  </table></div>
+  <h3>In markup</h3>
+  <p>Add <code class="xz-code">data-xz-format</code> to an element and the kit formats its value when the page loads. The raw value stays in <code class="xz-code">data-value</code>.</p>
+  <div class="doc-example" data-layout="stack">
+    <p>Fee: <strong data-xz-format="inr" data-value="118000"></strong></p>
+    <p>Revenue: <strong data-xz-format="inr-compact" data-value="18400000"></strong></p>
+    <p>Enrolled: <strong data-xz-format="date" data-value="2026-11-15"></strong></p>
+    <p>Learners: <strong data-xz-format="number" data-value="125000"></strong></p>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Value of data-xz-format</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td><code>inr</code>, <code>inr-compact</code></td><td>₹1,18,000 and ₹1.84 Cr</td></tr>
+      <tr><td><code>number</code>, <code>compact</code>, <code>percent</code></td><td>1,25,000 and 1.25 L and 12.5%</td></tr>
+      <tr><td><code>date</code>, <code>date-short</code>, <code>date-time</code>, <code>relative</code></td><td>15 Nov 2026 and 15/11/2026 and 15 Nov 2026, 2:30 pm and 2 days ago</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+</body>
+</html>

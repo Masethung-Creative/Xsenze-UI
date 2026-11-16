@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Forms · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="data.generated.js" defer></script>
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="forms">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Forms</p>
+  <h1 class="xz-h1">Advanced form controls</h1>
+  <p class="xz-lead">Pickers, uploads and richer inputs. Each one keeps a normal form field up to date, so a plain HTML or PHP form post receives the value without any extra script.</p>
+</header>
+
+<section class="doc-section" id="date">
+  <h2>Date picker</h2>
+  <p>People can type a date as DD/MM/YYYY or pick it from the calendar. The hidden field holds the value as YYYY-MM-DD, which is what your server should read.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 20rem">
+      <label class="xz-label" for="dp-start">Batch start date</label>
+      <div class="xz-datepicker" data-xz-datepicker data-xz-min="2026-11-01" data-xz-max="2027-03-31">
+        <div class="xz-input-group xz-input-group--action">
+          <input class="xz-input" id="dp-start" type="text" inputmode="numeric" placeholder="DD/MM/YYYY" aria-describedby="dp-start-help">
+          <button type="button" class="xz-input-group__action" aria-label="Choose a date"><i data-xz-icon="calendar" data-size="sm"></i></button>
+        </div>
+        <input type="hidden" name="start_date" value="2026-11-20">
+      </div>
+      <p class="xz-help" id="dp-start-help">Between 1 Nov 2026 and 31 Mar 2027.</p>
+    </div>
+  </div>
+
+  <h3>Date range</h3>
+  <p>Add <code class="xz-code">data-xz-datepicker="range"</code> and a second hidden field. The first click sets the start and the second sets the end.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 20rem">
+      <label class="xz-label" for="dp-range">Report period</label>
+      <div class="xz-datepicker" data-xz-datepicker="range">
+        <div class="xz-input-group xz-input-group--action">
+          <input class="xz-input" id="dp-range" type="text" placeholder="DD/MM/YYYY – DD/MM/YYYY">
+          <button type="button" class="xz-input-group__action" aria-label="Choose dates"><i data-xz-icon="calendar-range" data-size="sm"></i></button>
+        </div>
+        <input type="hidden" name="from" value="2026-11-01">
+        <input type="hidden" name="to" value="2026-11-15">
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-datepicker</code></td><td>Turns the wrapper into a date picker. Use the value <code>range</code> for two dates.</td></tr>
+      <tr><td><code>data-xz-min</code>, <code>data-xz-max</code></td><td>Earliest and latest allowed date, as YYYY-MM-DD. Days outside are struck through and cannot be chosen.</td></tr>
+      <tr><td><code>data-xz-week-start="0"</code></td><td>Starts the week on Sunday. The default is Monday.</td></tr>
+      <tr><td><code>xz:date</code> event</td><td>Fires on the wrapper when the value changes. <code>event.detail</code> has <code>start</code> and <code>end</code>.</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Keyboard:</strong> Down arrow in the field opens the calendar. Arrow keys move by day and week, Page Up and Page Down by month, Home and End to the ends of the week, Enter chooses, Escape closes.</p>
+</section>
+
+<section class="doc-section" id="time">
+  <h2>Time picker</h2>
+  <p>A list of times at a fixed step. People can also type a time such as 2:30 pm, 230pm or 14:30. The hidden field holds 24-hour HH:MM.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 14rem">
+      <label class="xz-label" for="tp-class">Class time</label>
+      <div class="xz-timepicker" data-xz-timepicker data-xz-step="30" data-xz-min="08:00" data-xz-max="20:00">
+        <div class="xz-input-group xz-input-group--action">
+          <input class="xz-input" id="tp-class" type="text" placeholder="hh:mm am">
+          <button type="button" class="xz-input-group__action" aria-label="Choose a time" tabindex="-1"><i data-xz-icon="clock" data-size="sm"></i></button>
+        </div>
+        <input type="hidden" name="class_time" value="18:30">
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-step</code></td><td>Minutes between the times in the list. The default is 30.</td></tr>
+      <tr><td><code>data-xz-min</code>, <code>data-xz-max</code></td><td>First and last time, as HH:MM in 24-hour form.</td></tr>
+      <tr><td><code>xz:time</code> event</td><td>Fires on the wrapper with <code>event.detail.value</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="doc-section" id="upload">
+  <h2>File upload</h2>
+  <p>People can drag files in or browse for them. Files that are the wrong type or too large are listed with the reason and are not sent. The real file input always matches the list.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <span class="xz-label" id="dz-label">ID proof</span>
+      <div class="xz-dropzone" data-xz-dropzone data-xz-max-size="5" data-xz-max-files="3">
+        <input class="xz-sr-only" id="dz-file" name="documents[]" type="file" multiple accept=".pdf,image/jpeg,image/png" aria-labelledby="dz-label">
+        <label class="xz-dropzone__area" for="dz-file">
+          <i data-xz-icon="cloud-upload" data-size="lg"></i>
+          <span class="xz-dropzone__title">Drag files here or <u>browse</u></span>
+          <span class="xz-dropzone__hint">PDF, JPG or PNG. Up to 3 files, 5 MB each.</span>
+        </label>
+        <ul class="xz-dropzone__list"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>accept</code> on the input</td><td>Allowed types, such as <code>.pdf,image/*</code>. Also checked for dropped files.</td></tr>
+      <tr><td><code>multiple</code> on the input</td><td>Allows more than one file. Without it, a new file replaces the old one.</td></tr>
+      <tr><td><code>data-xz-max-size</code></td><td>Largest allowed file in MB.</td></tr>
+      <tr><td><code>data-xz-max-files</code></td><td>Most files allowed.</td></tr>
+      <tr><td><code>xz:files</code> event</td><td>Fires with <code>event.detail.files</code> and <code>event.detail.rejected</code>.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Check the type and size again on the server. Browser checks help people, but they can be bypassed.</p>
+</section>
+
+<section class="doc-section" id="slider">
+  <h2>Slider</h2>
+  <p>Use a slider when the rough position matters more than the exact number, such as a budget or a pass mark. Link an <code class="xz-code">output</code> to show the value.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 24rem">
+      <div class="xz-slider-head">
+        <label class="xz-label" for="sl-pass">Pass mark</label>
+        <output class="xz-slider__value" for="sl-pass"></output>
+      </div>
+      <input class="xz-slider" id="sl-pass" name="pass_mark" type="range" min="0" max="100" step="5" value="60" data-xz-suffix="%">
+      <div class="xz-slider-scale" aria-hidden="true"><span>0%</span><span>100%</span></div>
+    </div>
+    <div class="xz-field" style="max-width: 24rem">
+      <div class="xz-slider-head">
+        <label class="xz-label" for="sl-fee">Maximum fee</label>
+        <output class="xz-slider__value" for="sl-fee"></output>
+      </div>
+      <input class="xz-slider" id="sl-fee" name="max_fee" type="range" min="5000" max="200000" step="5000" value="125000" data-xz-prefix="₹">
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="stepper">
+  <h2>Number stepper</h2>
+  <p>For small whole numbers that people adjust by one or two, such as seats or copies. The buttons stop at the minimum and maximum.</p>
+  <div class="doc-example">
+    <div class="xz-field">
+      <label class="xz-label" for="st-seats">Seats</label>
+      <div class="xz-stepper" data-xz-stepper>
+        <button type="button" class="xz-stepper__btn" data-xz-step="-1" aria-label="One seat fewer"><i data-xz-icon="minus" data-size="sm"></i></button>
+        <input class="xz-input" id="st-seats" name="seats" type="number" min="1" max="10" step="1" value="2">
+        <button type="button" class="xz-stepper__btn" data-xz-step="1" aria-label="One seat more"><i data-xz-icon="plus" data-size="sm"></i></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="rating">
+  <h2>Rating</h2>
+  <p>Five radio buttons drawn as stars, so it works with the keyboard and in a form post. Use the static version to show a rating that cannot be changed.</p>
+  <div class="doc-example" data-layout="stack">
+    <fieldset class="xz-rating">
+      <legend class="xz-sr-only">Rate this course</legend>
+      <label><input type="radio" name="rating" value="1"><span class="xz-sr-only">1 star</span><i data-xz-icon="star"></i></label>
+      <label><input type="radio" name="rating" value="2"><span class="xz-sr-only">2 stars</span><i data-xz-icon="star"></i></label>
+      <label><input type="radio" name="rating" value="3"><span class="xz-sr-only">3 stars</span><i data-xz-icon="star"></i></label>
+      <label><input type="radio" name="rating" value="4" checked><span class="xz-sr-only">4 stars</span><i data-xz-icon="star"></i></label>
+      <label><input type="radio" name="rating" value="5"><span class="xz-sr-only">5 stars</span><i data-xz-icon="star"></i></label>
+    </fieldset>
+    <div class="xz-row xz-gap-2">
+      <span class="xz-rating xz-rating--static" role="img" aria-label="Rated 4 out of 5">
+        <i data-xz-icon="star" class="is-on"></i><i data-xz-icon="star" class="is-on"></i><i data-xz-icon="star" class="is-on"></i><i data-xz-icon="star" class="is-on"></i><i data-xz-icon="star"></i>
+      </span>
+      <span class="xz-small xz-text-muted">4.0 from 128 learners</span>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="otp">
+  <h2>One-time code</h2>
+  <p>One box per digit. Typing moves to the next box, Backspace moves back, and a pasted or auto-filled code fills every box. The hidden field holds the full code.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <span class="xz-label" id="otp-label">Enter the 6-digit code sent to +91 98765 43210</span>
+      <div class="xz-otp" data-xz-otp role="group" aria-labelledby="otp-label">
+        <input class="xz-input xz-otp__cell" type="text" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1">
+        <input class="xz-input xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 2">
+        <input class="xz-input xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 3">
+        <input class="xz-input xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 4">
+        <input class="xz-input xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 5">
+        <input class="xz-input xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 6">
+        <input type="hidden" name="otp">
+      </div>
+      <p class="xz-help">Did not get it? <a class="xz-link" href="#otp">Send the code again</a></p>
+    </div>
+  </div>
+  <p>The wrapper fires <code class="xz-code">xz:otp-complete</code> with <code class="xz-code">event.detail.value</code> when every box is filled, so you can submit the form at once.</p>
+</section>
+
+<section class="doc-section" id="tags">
+  <h2>Tag input</h2>
+  <p>Type a word and press Enter or comma to add it. Backspace in an empty field removes the last tag. The hidden field holds the tags separated by commas.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 28rem">
+      <label class="xz-label" for="tg-skills">Skills covered</label>
+      <div class="xz-tag-input" data-xz-tag-input data-xz-max="6">
+        <input class="xz-tag-input__field" id="tg-skills" type="text" placeholder="Add a skill" aria-describedby="tg-skills-help">
+        <input type="hidden" name="skills" value="Excel,Pivot tables,Dashboards">
+      </div>
+      <p class="xz-help" id="tg-skills-help">Up to 6. Press Enter after each one.</p>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="editor">
+  <h2>Rich text editor</h2>
+  <p>A small editor for descriptions and notes: bold, italic, underline, a heading, lists and links. The hidden textarea holds clean HTML with only those tags. Pasted text comes in as plain text.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-field">
+      <span class="xz-label" id="ed-label">Course description</span>
+      <div class="xz-editor" data-xz-editor>
+        <div class="xz-editor__toolbar" role="toolbar" aria-label="Formatting">
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="bold" aria-pressed="false" aria-label="Bold"><i data-xz-icon="bold" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="italic" aria-pressed="false" aria-label="Italic"><i data-xz-icon="italic" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="underline" aria-pressed="false" aria-label="Underline"><i data-xz-icon="underline" data-size="sm"></i></button>
+          <span class="xz-editor__sep" role="separator"></span>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="h3" aria-pressed="false" aria-label="Heading"><i data-xz-icon="heading" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="insertUnorderedList" aria-pressed="false" aria-label="Bulleted list"><i data-xz-icon="list" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="insertOrderedList" aria-pressed="false" aria-label="Numbered list"><i data-xz-icon="list-ordered" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="link" aria-label="Add a link"><i data-xz-icon="link" data-size="sm"></i></button>
+          <span class="xz-editor__sep" role="separator"></span>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="undo" aria-label="Undo"><i data-xz-icon="undo-2" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="redo" aria-label="Redo"><i data-xz-icon="redo-2" data-size="sm"></i></button>
+        </div>
+        <div class="xz-editor__content" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="ed-label" data-placeholder="What will learners be able to do after this course?"></div>
+        <div class="xz-editor__footer"><span data-xz-editor-count></span></div>
+        <textarea name="description" hidden>&lt;p&gt;A &lt;b&gt;6-week course&lt;/b&gt; on spreadsheets and dashboards for working professionals.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Live classes on weekends&lt;/li&gt;&lt;li&gt;Certificate on completion&lt;/li&gt;&lt;/ul&gt;</textarea>
+      </div>
+    </div>
+  </div>
+  <p>Clean the HTML again on the server before you store or show it. <code class="xz-code">Xsenze.sanitize(html)</code> applies the same rules in the browser.</p>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+</body>
+</html>

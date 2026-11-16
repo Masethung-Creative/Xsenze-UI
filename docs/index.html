@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Xsenze UI Kit: one kit for every screen</title>
+<meta name="description" content="Design tokens, components, form controls and page templates for Xsenze products. Two files, no build step. Works in plain HTML, PHP and any framework.">
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<link rel="stylesheet" href="landing.css">
+<script src="data.generated.js" defer></script>
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+<script src="landing.js" defer></script>
+</head>
+<body class="doc lp" data-page="home">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+
+<main id="main">
+  <!-- hero -->
+  <section class="lp-hero">
+    <div class="xz-container lp-hero__grid">
+      <div>
+        <a class="lp-pill" href="create.html"><span class="xz-badge xz-badge--solid">New</span> Build your own theme in Create <i data-xz-icon="arrow-right" data-size="xs"></i></a>
+        <h1 class="xz-display">One kit for <span class="lp-mark">every</span> Xsenze screen.</h1>
+        <p class="xz-lead">Tokens, components, form controls and whole page templates. Add two files to any HTML or PHP page and start building. No build step.</p>
+        <div class="xz-row">
+          <a class="xz-btn xz-btn--primary xz-btn--lg" href="getting-started.html">Get started <i data-xz-icon="arrow-right" data-size="sm"></i></a>
+          <a class="xz-btn xz-btn--lg" href="components.html">Browse components</a>
+        </div>
+        <div class="lp-install">
+          <code>&lt;link rel="stylesheet" href="xsenze.min.css"&gt;</code>
+          <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-doc-copy='<link rel="stylesheet" href="xsenze.min.css">'>Copy</button>
+        </div>
+        <ul class="lp-ticks">
+          <li><i data-xz-icon="check" data-size="sm"></i> No dependencies</li>
+          <li><i data-xz-icon="check" data-size="sm"></i> Light and dark</li>
+          <li><i data-xz-icon="check" data-size="sm"></i> AA contrast checked</li>
+        </ul>
+      </div>
+
+      <div class="lp-shot">
+        <div class="lp-window">
+          <div class="lp-window__bar" aria-hidden="true"><i></i><i></i><i></i><span>academy.xsenze.in/dashboard</span></div>
+          <div class="lp-window__body">
+            <div class="xz-row xz-row--between">
+              <div>
+                <p class="xz-overline">November 2026</p>
+                <p class="xz-h4">Good morning, Priya</p>
+              </div>
+              <button class="xz-btn xz-btn--primary xz-btn--sm" type="button" data-xz-toast="Batch B-15 is ready for learners." data-xz-toast-title="Batch created" data-xz-toast-variant="success"><i data-xz-icon="plus" data-size="sm"></i>New batch</button>
+            </div>
+            <div class="xz-grid">
+              <div class="xz-stat xz-col-6 xz-stat--accent">
+                <span class="xz-stat__label">Revenue</span>
+                <span class="xz-stat__value">₹18.4 L</span>
+                <span class="xz-stat__meta"><span class="xz-stat__trend"><i data-xz-icon="trending-up" data-size="sm"></i> 12.5%</span> vs October</span>
+              </div>
+              <div class="xz-stat xz-col-6">
+                <span class="xz-stat__label">Active learners</span>
+                <span class="xz-stat__value">2,480</span>
+                <span class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--up"><i data-xz-icon="trending-up" data-size="sm"></i> 184</span> new</span>
+              </div>
+            </div>
+            <div class="xz-table-wrap">
+              <table class="xz-table xz-table--compact">
+                <thead><tr><th>Learner</th><th>Status</th><th class="xz-table__num">Fee</th></tr></thead>
+                <tbody>
+                  <tr><td class="xz-table__primary">Ananya Iyer</td><td><span class="xz-badge xz-badge--success">Paid</span></td><td class="xz-table__num">₹24,500</td></tr>
+                  <tr><td class="xz-table__primary">Rohan Deshmukh</td><td><span class="xz-badge xz-badge--warning">Pending</span></td><td class="xz-table__num">₹1,18,000</td></tr>
+                  <tr><td class="xz-table__primary">Meenakshi Sundaram</td><td><span class="xz-badge xz-badge--danger">Overdue</span></td><td class="xz-table__num">₹36,750</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="xz-alert xz-alert--success lp-float" role="status">
+          <i data-xz-icon="circle-check"></i>
+          <div class="xz-alert__body">
+            <p class="xz-alert__title">Payment received</p>
+            <p class="xz-alert__text">₹24,500 paid by UPI. Invoice sent.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- numbers -->
+  <section class="lp-facts" aria-label="The kit in numbers">
+    <div class="xz-container lp-facts__grid">
+      <div class="lp-fact"><strong id="lp-fact-css">13 KB</strong><span>of CSS, gzipped</span></div>
+      <div class="lp-fact"><strong id="lp-fact-icons">114</strong><span>icons built in</span></div>
+      <div class="lp-fact"><strong>6</strong><span>page templates</span></div>
+      <div class="lp-fact"><strong>0</strong><span>dependencies at run time</span></div>
+    </div>
+  </section>
+
+  <!-- what is inside -->
+  <section id="inside">
+    <div class="xz-container">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">01</span> · What is inside</p>
+        <h2 class="xz-h2">The parts every screen needs, already working.</h2>
+        <p class="xz-lead">These are the real components, not pictures. Click, type and tab through them.</p>
+      </div>
+
+      <div class="lp-bento">
+        <article class="lp-tile lp-span-2">
+          <div class="lp-tile__demo">
+            <div class="xz-row">
+              <button class="xz-btn xz-btn--primary" type="button">Save changes</button>
+              <button class="xz-btn" type="button">Cancel</button>
+              <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="More options" data-xz-tooltip="More options"><i data-xz-icon="ellipsis"></i></button>
+            </div>
+            <div class="xz-row">
+              <span class="xz-badge xz-badge--success xz-badge--dot">Active</span>
+              <span class="xz-badge xz-badge--warning xz-badge--dot">Pending</span>
+              <span class="xz-badge xz-badge--danger xz-badge--dot">Overdue</span>
+            </div>
+            <div class="xz-row">
+              <label class="xz-check"><input type="checkbox" checked> Email me the report</label>
+              <label class="xz-toggle"><input type="checkbox" role="switch" checked> Auto-renew</label>
+            </div>
+          </div>
+          <div class="lp-tile__text">
+            <h3 class="xz-h5"><a href="components.html">Core components</a></h3>
+            <p>Buttons, badges, choices, cards, tabs and alerts, each with hover, focus, disabled and error states.</p>
+          </div>
+        </article>
+
+        <article class="lp-tile lp-span-2">
+          <div class="lp-tile__demo">
+            <div class="xz-field">
+              <label class="xz-label" for="lp-date">Batch start date</label>
+              <div class="xz-datepicker" data-xz-datepicker>
+                <div class="xz-input-group xz-input-group--action">
+                  <input class="xz-input" id="lp-date" type="text" inputmode="numeric" placeholder="DD/MM/YYYY">
+                  <button type="button" class="xz-input-group__action" aria-label="Choose a date"><i data-xz-icon="calendar" data-size="sm"></i></button>
+                </div>
+                <input type="hidden" name="start_date" value="2026-11-20">
+              </div>
+            </div>
+            <div class="xz-field">
+              <div class="xz-slider-head">
+                <label class="xz-label" for="lp-fee">Maximum fee</label>
+                <output class="xz-slider__value" for="lp-fee"></output>
+              </div>
+              <input class="xz-slider" id="lp-fee" type="range" min="5000" max="200000" step="5000" value="125000" data-xz-prefix="₹">
+            </div>
+          </div>
+          <div class="lp-tile__text">
+            <h3 class="xz-h5"><a href="forms.html">Form controls</a></h3>
+            <p>Date and time pickers, file upload, slider, rating, one-time code, tags and a text editor.</p>
+          </div>
+        </article>
+
+        <article class="lp-tile lp-span-2">
+          <div class="lp-tile__demo">
+            <div class="xz-row">
+              <button class="xz-btn" type="button" data-xz-open="#lp-modal">Open a modal</button>
+              <button class="xz-btn" type="button" data-xz-toast="We could not reach the server. Try again." data-xz-toast-title="Not saved" data-xz-toast-variant="danger">Show a toast</button>
+            </div>
+            <div class="xz-alert xz-alert--warning" role="status">
+              <i data-xz-icon="triangle-alert"></i>
+              <div class="xz-alert__body">
+                <p class="xz-alert__title">Your plan ends in 3 days</p>
+                <p class="xz-alert__text">Renew to keep access for all 40 learners.</p>
+              </div>
+            </div>
+          </div>
+          <div class="lp-tile__text">
+            <h3 class="xz-h5"><a href="components.html#overlays">Overlays and feedback</a></h3>
+            <p>Modal, drawer, bottom sheet, popover, menus and toast, with focus handling and the Escape key built in.</p>
+          </div>
+        </article>
+
+        <article class="lp-tile lp-span-4">
+          <div class="lp-tile__demo">
+            <div class="xz-tabs" data-xz-tabs>
+              <div class="xz-tabs__list" aria-label="Fee records">
+                <button class="xz-tabs__tab" aria-selected="true">All <span class="xz-badge xz-badge--count">3</span></button>
+                <button class="xz-tabs__tab">Notes</button>
+              </div>
+              <div class="xz-tabs__panel">
+                <div class="xz-table-wrap">
+                  <table class="xz-table xz-table--compact" data-xz-table>
+                    <thead><tr><th scope="col" data-xz-sort="text">Learner</th><th scope="col">Course</th><th scope="col">Status</th><th scope="col" class="xz-table__num" data-xz-sort="number">Fee</th></tr></thead>
+                    <tbody>
+                      <tr><td class="xz-table__primary">Ananya Iyer</td><td>Data Analytics</td><td><span class="xz-badge xz-badge--success">Paid</span></td><td class="xz-table__num" data-value="24500">₹24,500</td></tr>
+                      <tr><td class="xz-table__primary">Rohan Deshmukh</td><td>Full Stack</td><td><span class="xz-badge xz-badge--warning">Pending</span></td><td class="xz-table__num" data-value="118000">₹1,18,000</td></tr>
+                      <tr><td class="xz-table__primary">Meenakshi Sundaram</td><td>UX Design</td><td><span class="xz-badge xz-badge--danger">Overdue</span></td><td class="xz-table__num" data-value="36750">₹36,750</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="xz-tabs__panel" hidden>
+                <p class="xz-text-muted">Select a column heading to sort the table. Amounts sort as numbers, not as text.</p>
+              </div>
+            </div>
+          </div>
+          <div class="lp-tile__text">
+            <h3 class="xz-h5"><a href="components.html#table">Tables and tabs</a></h3>
+            <p>A sortable table that reads amounts as numbers, with tabs that work from the keyboard.</p>
+          </div>
+        </article>
+
+        <article class="lp-tile lp-span-2">
+          <div class="lp-tile__demo">
+            <div class="lp-swatches" id="lp-swatches" aria-hidden="true"></div>
+            <div class="lp-icons" id="lp-icons" aria-hidden="true"></div>
+          </div>
+          <div class="lp-tile__text">
+            <h3 class="xz-h5"><a href="foundations.html">Foundations</a></h3>
+            <p>Colour, type, spacing, motion and icons, all stored as tokens in one file.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- theme -->
+  <section id="theme">
+    <div class="xz-container lp-split">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">02</span> · Make it yours</p>
+        <h2 class="xz-h2">Change the colour. Keep the contrast.</h2>
+        <p class="xz-lead">Pick a colour and a corner size here and watch the components follow. The Create page does the full job and gives you the theme file.</p>
+        <ul class="lp-checks">
+          <li><i data-xz-icon="check" data-size="sm"></i><span><strong>One file to change.</strong> A theme is a short list of CSS variables.</span></li>
+          <li><i data-xz-icon="check" data-size="sm"></i><span><strong>Checked for you.</strong> Every option is tested for readable contrast in light and dark.</span></li>
+          <li><i data-xz-icon="check" data-size="sm"></i><span><strong>Easy to share.</strong> A theme is a short code you can send to a teammate.</span></li>
+        </ul>
+        <a class="xz-btn xz-btn--primary" href="create.html" id="lp-theme-link"><i data-xz-icon="palette" data-size="sm"></i>Open this theme in Create</a>
+      </div>
+
+      <div class="lp-theme" id="lp-theme" data-theme="light">
+        <div class="lp-theme__bar">
+          <div class="lp-theme__group" role="group" aria-label="Main colour" id="lp-theme-colours"><span>Colour</span></div>
+          <div class="lp-theme__group" role="group" aria-label="Corners">
+            <span>Corners</span>
+            <div class="xz-btn-group" id="lp-theme-radius">
+              <button class="xz-btn xz-btn--sm" type="button" data-radius="0" aria-pressed="false">0</button>
+              <button class="xz-btn xz-btn--sm" type="button" data-radius="4" aria-pressed="true">4</button>
+              <button class="xz-btn xz-btn--sm" type="button" data-radius="12" aria-pressed="false">12</button>
+              <button class="xz-btn xz-btn--sm" type="button" data-radius="pill" aria-pressed="false">Pill</button>
+            </div>
+          </div>
+          <span class="xz-grow"></span>
+          <button class="xz-btn xz-btn--sm" type="button" id="lp-theme-mode"><i data-xz-icon="moon" data-size="sm"></i>Dark</button>
+        </div>
+        <div class="lp-theme__body">
+          <div class="xz-card">
+            <div class="xz-card__header"><h3 class="xz-card__title">Enrol a learner</h3><span class="xz-badge xz-badge--accent">Batch B-14</span></div>
+            <div class="xz-card__body xz-stack">
+              <div class="xz-field">
+                <label class="xz-label" for="lp-name">Full name</label>
+                <input class="xz-input" id="lp-name" type="text" value="Kavya Reddy" autocomplete="off">
+              </div>
+              <label class="xz-check"><input type="checkbox" checked> Send the welcome email</label>
+              <label class="xz-toggle"><input type="checkbox" role="switch" checked> Allow instalments</label>
+            </div>
+            <div class="xz-card__footer xz-row xz-row--end">
+              <button class="xz-btn" type="button">Cancel</button>
+              <button class="xz-btn xz-btn--primary" type="button">Enrol</button>
+            </div>
+          </div>
+          <div class="xz-stack">
+            <div class="xz-stat xz-stat--accent">
+              <span class="xz-stat__label">Seats filled</span>
+              <span class="xz-stat__value">36 / 40</span>
+              <span class="xz-stat__meta">4 seats left</span>
+            </div>
+            <div>
+              <div class="xz-progress-label"><span>Course progress</span><span class="xz-num">72%</span></div>
+              <div class="xz-progress" role="progressbar" aria-label="Course progress" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 72%"><div class="xz-progress__bar"></div></div>
+            </div>
+            <fieldset class="xz-rating">
+              <legend class="xz-sr-only">Rate this course</legend>
+              <label><input type="radio" name="lp-rating" value="1"><span class="xz-sr-only">1 star</span><i data-xz-icon="star"></i></label>
+              <label><input type="radio" name="lp-rating" value="2"><span class="xz-sr-only">2 stars</span><i data-xz-icon="star"></i></label>
+              <label><input type="radio" name="lp-rating" value="3"><span class="xz-sr-only">3 stars</span><i data-xz-icon="star"></i></label>
+              <label><input type="radio" name="lp-rating" value="4" checked><span class="xz-sr-only">4 stars</span><i data-xz-icon="star"></i></label>
+              <label><input type="radio" name="lp-rating" value="5"><span class="xz-sr-only">5 stars</span><i data-xz-icon="star"></i></label>
+            </fieldset>
+            <a class="xz-link xz-link--standalone" href="create.html">See all options</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section id="start">
+    <div class="xz-container">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">03</span> · How it works</p>
+        <h2 class="xz-h2">From empty file to working page in three steps.</h2>
+      </div>
+      <div class="lp-steps">
+        <div class="lp-step">
+          <h3 class="xz-h4">Add two files</h3>
+          <p>One stylesheet and one script. Nothing to compile.</p>
+          <textarea class="doc-snippet" data-lang="html" hidden>
+<link rel="stylesheet" href="xsenze.min.css">
+<script src="xsenze.min.js" defer></script>
+          </textarea>
+        </div>
+        <div class="lp-step">
+          <h3 class="xz-h4">Write plain HTML</h3>
+          <p>Classes start with <code class="xz-code">xz-</code>. Behaviour comes from <code class="xz-code">data-xz-</code> attributes.</p>
+          <textarea class="doc-snippet" data-lang="html" hidden>
+<button class="xz-btn xz-btn--primary"
+  data-xz-toast="Your changes are saved.">
+  Save changes
+</button>
+          </textarea>
+        </div>
+        <div class="lp-step">
+          <h3 class="xz-h4">Switch the theme</h3>
+          <p>One attribute changes a page, or one part of it, to dark.</p>
+          <textarea class="doc-snippet" data-lang="html" hidden>
+<html data-theme="dark">
+  ...
+  <aside data-theme="light">...</aside>
+</html>
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- templates -->
+  <section id="templates">
+    <div class="xz-container">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">04</span> · Templates</p>
+        <h2 class="xz-h2">Start from a whole page.</h2>
+        <p class="xz-lead">Each template is one HTML file that uses only kit classes. Copy it and change the words.</p>
+      </div>
+      <div class="lp-templates">
+        <a class="xz-card xz-card--interactive lp-thumb" href="../templates/dashboard.html">
+          <div class="lp-thumb__frame"><iframe src="../templates/dashboard.html" title="" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+          <div class="lp-thumb__text"><span class="xz-card__title">Dashboard</span><i data-xz-icon="arrow-up-right" data-size="sm"></i></div>
+        </a>
+        <a class="xz-card xz-card--interactive lp-thumb" href="../templates/login.html">
+          <div class="lp-thumb__frame"><iframe src="../templates/login.html" title="" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+          <div class="lp-thumb__text"><span class="xz-card__title">Login</span><i data-xz-icon="arrow-up-right" data-size="sm"></i></div>
+        </a>
+        <a class="xz-card xz-card--interactive lp-thumb" href="../templates/signup.html">
+          <div class="lp-thumb__frame"><iframe src="../templates/signup.html" title="" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+          <div class="lp-thumb__text"><span class="xz-card__title">Sign up</span><i data-xz-icon="arrow-up-right" data-size="sm"></i></div>
+        </a>
+        <a class="xz-card xz-card--interactive lp-thumb" href="../templates/404.html">
+          <div class="lp-thumb__frame"><iframe src="../templates/404.html" title="" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div>
+          <div class="lp-thumb__text"><span class="xz-card__title">Error pages</span><i data-xz-icon="arrow-up-right" data-size="sm"></i></div>
+        </a>
+      </div>
+      <p style="margin-top: var(--xz-space-6)"><a class="xz-link xz-link--standalone" href="templates.html">See all templates</a></p>
+    </div>
+  </section>
+
+  <!-- india -->
+  <section id="india">
+    <div class="xz-container lp-split lp-split--flip">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">05</span> · Built for India</p>
+        <h2 class="xz-h2">Rupees, lakhs and crores, done right.</h2>
+        <p class="xz-lead">Number, money and date helpers follow Indian conventions. Type an amount to see them.</p>
+        <ul class="lp-checks">
+          <li><i data-xz-icon="check" data-size="sm"></i><span>Commas in the Indian places: 1,25,00,000.</span></li>
+          <li><i data-xz-icon="check" data-size="sm"></i><span>Dates as DD/MM/YYYY and the April to March financial year.</span></li>
+          <li><i data-xz-icon="check" data-size="sm"></i><span>Falls back to Noto Sans for Hindi, Tamil, Kannada and Marathi.</span></li>
+        </ul>
+        <a class="xz-link xz-link--standalone" href="patterns.html#formats">Read about Indian formats</a>
+      </div>
+      <div class="lp-stage">
+        <div class="xz-field">
+          <label class="xz-label" for="lp-amount">Type an amount</label>
+          <div class="xz-input-group">
+            <span class="xz-input-group__addon">₹</span>
+            <input class="xz-input xz-input--lg" id="lp-amount" type="number" value="12500000" min="0" inputmode="numeric">
+          </div>
+        </div>
+        <ul class="lp-rows" id="lp-formats" aria-live="polite"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- accessibility -->
+  <section id="accessible">
+    <div class="xz-container lp-split">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">06</span> · Accessible and small</p>
+        <h2 class="xz-h2">Readable, usable from the keyboard, and light.</h2>
+        <p class="xz-lead">A script tests every text, control and focus colour pair in both themes against WCAG 2.2 AA each time the kit is built.</p>
+        <ul class="lp-checks">
+          <li><i data-xz-icon="check" data-size="sm"></i><span>Every component works with the keyboard alone.</span></li>
+          <li><i data-xz-icon="check" data-size="sm"></i><span>Controls grow to 44px on touch screens.</span></li>
+          <li><i data-xz-icon="check" data-size="sm"></i><span>Motion stops when a person asks their device to reduce it.</span></li>
+        </ul>
+        <a class="xz-link xz-link--standalone" href="patterns.html#accessibility">Read the accessibility rules</a>
+      </div>
+      <div class="lp-stage">
+        <p class="xz-overline">File sizes, minified and gzipped</p>
+        <ul class="lp-rows" id="lp-sizes"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- roadmap -->
+  <section id="roadmap">
+    <div class="xz-container">
+      <div class="lp-head">
+        <p class="xz-overline"><span class="lp-num">07</span> · Roadmap</p>
+        <h2 class="xz-h2">Where the kit is going.</h2>
+      </div>
+      <div class="lp-phases">
+        <div class="xz-card">
+          <div class="xz-card__header"><h3 class="xz-card__title">Phase 1: Foundation and core</h3><span class="xz-badge xz-badge--success">Shipped</span></div>
+          <div class="xz-card__body xz-small xz-text-muted">Tokens, core components, navigation, overlays, table, login and dashboard templates.</div>
+        </div>
+        <div class="xz-card">
+          <div class="xz-card__header"><h3 class="xz-card__title">Phase 2: Product patterns</h3><span class="xz-badge xz-badge--warning">In progress</span></div>
+          <div class="xz-card__body xz-small xz-text-muted">Done: motion and chart colours, ten form controls, the Create page and 13 new components. Next: charts, an advanced table, calendar and kanban, then course, fee and CRM patterns.</div>
+        </div>
+        <div class="xz-card">
+          <div class="xz-card__header"><h3 class="xz-card__title">Phase 3: Scale and governance</h3><span class="xz-badge">Later</span></div>
+          <div class="xz-card__body xz-small xz-text-muted">Indian language support, command palette, chat, framework packages, visual testing and contribution rules.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- questions -->
+  <section id="questions">
+    <div class="xz-container">
+      <div class="lp-head lp-head--center">
+        <p class="xz-overline">Questions</p>
+        <h2 class="xz-h2">Good to know before you start.</h2>
+      </div>
+      <div class="xz-accordion lp-faq">
+        <details class="xz-accordion__item" open>
+          <summary class="xz-accordion__trigger">Do I need a build step or a framework?</summary>
+          <div class="xz-accordion__content">No. Add the stylesheet and the script to a page and write HTML. The kit works the same in plain HTML, PHP, Laravel, WordPress or a JavaScript framework.</div>
+        </details>
+        <details class="xz-accordion__item">
+          <summary class="xz-accordion__trigger">Can I change the colours, fonts and corners?</summary>
+          <div class="xz-accordion__content">Yes. Every value is a CSS variable. Use the <a class="xz-link" href="create.html">Create page</a> to choose a look and download a small theme file that you load after the kit.</div>
+        </details>
+        <details class="xz-accordion__item">
+          <summary class="xz-accordion__trigger">How does dark mode work?</summary>
+          <div class="xz-accordion__content">Set <code class="xz-code">data-theme="dark"</code> on the page, or on one part of it. A theme button remembers the choice for each person.</div>
+        </details>
+        <details class="xz-accordion__item">
+          <summary class="xz-accordion__trigger">Do forms still work without JavaScript on the server side?</summary>
+          <div class="xz-accordion__content">Yes. Each form control keeps a normal form field up to date, so a plain form post to PHP receives the values as usual.</div>
+        </details>
+        <details class="xz-accordion__item">
+          <summary class="xz-accordion__trigger">What is the licence?</summary>
+          <div class="xz-accordion__content">The kit's code is under the MIT licence. The heading font, Satoshi, has its own free licence with rules about sharing the font files, so read it before you publish them.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- closing -->
+  <section class="lp-cta">
+    <div class="xz-container">
+      <h2 class="xz-h1">Build your next screen with Xsenze.</h2>
+      <p class="xz-lead" style="color: inherit">Two files, a page of HTML, and the parts are already there.</p>
+      <div class="xz-row">
+        <a class="xz-btn xz-btn--primary xz-btn--lg" href="getting-started.html">Get started <i data-xz-icon="arrow-right" data-size="sm"></i></a>
+        <a class="xz-btn xz-btn--ghost xz-btn--lg" href="create.html">Create a theme</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="xz-footer lp-footer">
+  <div class="xz-container">
+    <div class="xz-footer__grid">
+      <div class="lp-footer__brand">
+        <span class="xz-logo">Xsenze UI Kit</span>
+        <p>Tokens, components and page templates for Xsenze products. Built in India.</p>
+      </div>
+      <div>
+        <p class="xz-footer__heading">Learn</p>
+        <ul class="xz-footer__links">
+          <li><a href="getting-started.html">Get started</a></li>
+          <li><a href="foundations.html">Foundations</a></li>
+          <li><a href="patterns.html">Guidelines</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="xz-footer__heading">Build</p>
+        <ul class="xz-footer__links">
+          <li><a href="components.html">Components</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="templates.html">Templates</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="xz-footer__heading">Customise</p>
+        <ul class="xz-footer__links">
+          <li><a href="create.html">Create a theme</a></li>
+          <li><a href="foundations.html#colour">Colour tokens</a></li>
+          <li><a href="foundations.html#icons">Icons</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="xz-footer__bottom"><span>Xsenze UI Kit <span id="lp-version"></span>. MIT licence.</span><span>Formats: ₹, lakh and crore, DD/MM/YYYY.</span></div>
+  </div>
+</footer>
+
+<dialog class="xz-modal xz-modal--sm" id="lp-modal" aria-labelledby="lp-modal-title">
+  <div class="xz-modal__header">
+    <h3 class="xz-modal__title" id="lp-modal-title">Send fee reminders?</h3>
+    <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+  </div>
+  <div class="xz-modal__body">12 learners in Batch B-14 will get an SMS and an email today.</div>
+  <div class="xz-modal__footer">
+    <button class="xz-btn" type="button" data-xz-close>Not now</button>
+    <button class="xz-btn xz-btn--primary" type="button" data-xz-close data-xz-toast="12 reminders sent." data-xz-toast-variant="success">Send reminders</button>
+  </div>
+</dialog>
+</body>
+</html>

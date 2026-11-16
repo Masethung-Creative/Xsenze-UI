@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Create account · Xsenze</title>
+<link rel="stylesheet" href="../dist/xsenze.min.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<script src="../dist/xsenze.min.js" defer></script>
+</head>
+<body>
+<div class="xz-auth">
+
+  <!-- Brand panel. Shown from 1024px up. -->
+  <aside class="xz-auth__aside" aria-label="About Xsenze">
+    <a class="xz-logo" href="./login.html">Xsenze</a>
+    <p class="xz-auth__quote">Set up your first course in <em>minutes</em>.</p>
+    <p class="xz-auth__meta">Free for 14 days. No card needed.</p>
+  </aside>
+
+  <main class="xz-auth__main">
+    <div class="xz-auth__panel">
+      <div class="xz-auth__mobile-logo">
+        <a class="xz-logo" href="./login.html">Xsenze</a>
+      </div>
+
+      <header class="xz-auth__header">
+        <h1 class="xz-auth__title">Create your account</h1>
+        <p class="xz-auth__text">It takes about a minute.</p>
+      </header>
+
+      <form class="xz-form" data-xz-validate action="#" method="post">
+        <div class="xz-field">
+          <label class="xz-label" for="name">Full name</label>
+          <input class="xz-input xz-input--lg" id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+
+        <div class="xz-field">
+          <label class="xz-label" for="email">Work email</label>
+          <input class="xz-input xz-input--lg" id="email" name="email" type="email" autocomplete="email" placeholder="name@company.in" required>
+        </div>
+
+        <div class="xz-field">
+          <label class="xz-label" for="mobile">Mobile number</label>
+          <div class="xz-input-group">
+            <span class="xz-input-group__addon" aria-hidden="true">+91</span>
+            <!-- The title is shown as the error when the pattern does not match. -->
+            <input class="xz-input xz-input--lg" id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" pattern="[6-9][0-9]{9}" title="Enter a 10-digit mobile number, like 98765 43210 without spaces" aria-describedby="mobile-help" required>
+          </div>
+          <p class="xz-help" id="mobile-help">10 digits. We send your sign-in code here.</p>
+        </div>
+
+        <div class="xz-field">
+          <label class="xz-label" for="password">Password</label>
+          <div class="xz-input-group xz-input-group--action">
+            <input class="xz-input xz-input--lg" id="password" name="password" type="password" autocomplete="new-password" minlength="8" aria-describedby="password-help" required>
+            <button type="button" class="xz-input-group__action" data-xz-password-toggle aria-label="Show password" aria-pressed="false"><i data-xz-icon="eye" data-size="sm"></i></button>
+          </div>
+          <p class="xz-help" id="password-help">Use at least 8 characters.</p>
+        </div>
+
+        <div class="xz-field">
+          <label class="xz-label" for="role">Role</label>
+          <select class="xz-select xz-select--lg" id="role" name="role" required>
+            <option value="">Select a role</option>
+            <option value="learner">Learner</option>
+            <option value="trainer">Trainer</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <div class="xz-field">
+          <label class="xz-check">
+            <input type="checkbox" name="terms" value="1" required>
+            <span>I agree to the <a class="xz-link" href="#">terms of use</a> and <a class="xz-link" href="#">privacy policy</a></span>
+          </label>
+        </div>
+
+        <button class="xz-btn xz-btn--primary xz-btn--lg xz-btn--block" type="submit">Create account</button>
+      </form>
+
+      <p class="xz-auth__footer">Already have an account? <a class="xz-link" href="./login.html">Sign in</a></p>
+    </div>
+  </main>
+
+</div>
+</body>
+</html>

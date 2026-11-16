@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Dashboard · Xsenze</title>
+<link rel="stylesheet" href="../dist/xsenze.min.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<script src="../dist/xsenze.min.js" defer></script>
+</head>
+<body>
+<a class="xz-skip-link" href="#main">Skip to content</a>
+
+<div class="xz-shell">
+
+  <!-- Sidebar. Shown from 1024px up. A copy lives in the drawer at the end of the page for smaller screens. -->
+  <aside class="xz-sidebar">
+    <div class="xz-sidebar__header">
+      <a class="xz-logo" href="./dashboard.html">Xsenze</a>
+    </div>
+    <nav aria-label="Main">
+      <div class="xz-sidebar__section">
+        <div class="xz-sidebar__heading" id="nav-overview">Overview</div>
+        <ul class="xz-sidebar__nav" aria-labelledby="nav-overview">
+          <li><a class="xz-sidebar__link" href="./dashboard.html" aria-current="page"><i data-xz-icon="layout-dashboard"></i> Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="book-open"></i> Courses</a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="users"></i> Learners <span class="xz-badge xz-badge--count">48</span></a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="graduation-cap"></i> Batches</a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__section">
+        <div class="xz-sidebar__heading" id="nav-finance">Finance</div>
+        <ul class="xz-sidebar__nav" aria-labelledby="nav-finance">
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="receipt"></i> Invoices</a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="wallet"></i> Payments</a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__section">
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="settings"></i> Settings</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="xz-sidebar__footer">
+      <div class="xz-row xz-row--nowrap">
+        <span class="xz-avatar xz-avatar--accent" aria-hidden="true">MR</span>
+        <div class="xz-grow">
+          <div class="xz-small xz-truncate"><strong>Meera Raghavan</strong></div>
+          <div class="xz-caption xz-truncate">Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="xz-shell__main">
+
+    <header class="xz-navbar">
+      <button class="xz-btn xz-btn--ghost xz-btn--icon xz-shell__toggle" type="button" data-xz-open="#nav-drawer" aria-label="Open menu"><i data-xz-icon="menu"></i></button>
+      <span class="xz-navbar__title">Dashboard</span>
+      <span class="xz-navbar__spacer"></span>
+      <div class="xz-navbar__actions">
+        <form class="xz-input-group xz-hide-mobile" style="width: 16rem" role="search" action="#">
+          <i class="xz-input-group__icon" data-xz-icon="search" data-size="sm"></i>
+          <label class="xz-sr-only" for="site-search">Search</label>
+          <input class="xz-input" id="site-search" name="q" type="search" placeholder="Search courses and learners">
+        </form>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-theme-toggle aria-pressed="false" aria-label="Dark theme" data-xz-tooltip="Switch theme" data-xz-tooltip-place="bottom"><i data-xz-icon="moon"></i></button>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="Notifications, 3 unread" data-xz-tooltip="3 unread notifications" data-xz-tooltip-place="bottom"><i data-xz-icon="bell"></i></button>
+        <div class="xz-menu xz-menu--end" data-xz-menu>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="Account menu"><span class="xz-avatar xz-avatar--sm xz-avatar--accent" aria-hidden="true">MR</span></button>
+          <ul class="xz-menu__list">
+            <li role="none" class="xz-menu__label">meera@example.com</li>
+            <li role="none"><a class="xz-menu__item" href="#"><i data-xz-icon="user" data-size="sm"></i> Profile</a></li>
+            <li role="none"><a class="xz-menu__item" href="#"><i data-xz-icon="settings" data-size="sm"></i> Settings</a></li>
+            <li role="none" class="xz-menu__separator"></li>
+            <li role="none"><a class="xz-menu__item" href="./login.html"><i data-xz-icon="log-out" data-size="sm"></i> Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <main class="xz-shell__content" id="main">
+
+      <div class="xz-page-header">
+        <div>
+          <h1 class="xz-page-header__title">Dashboard</h1>
+          <p class="xz-page-header__text">1 Nov to 15 Nov 2026 · FY 2026-27</p>
+        </div>
+        <div class="xz-page-header__actions">
+          <button class="xz-btn" type="button" data-xz-toast="Your export is being prepared. We will email it to you." data-xz-toast-title="Export started"><i data-xz-icon="download"></i> Export</button>
+          <button class="xz-btn xz-btn--primary" type="button" data-xz-open="#new-course"><i data-xz-icon="plus"></i> New course</button>
+        </div>
+      </div>
+
+      <div class="xz-stack xz-gap-6">
+
+        <div class="xz-alert xz-alert--info" role="status">
+          <i data-xz-icon="info"></i>
+          <div class="xz-alert__body">
+            <p class="xz-alert__title">GST invoices for October are ready</p>
+            <p class="xz-alert__text">Review and send them before 20 Nov 2026.</p>
+          </div>
+          <button class="xz-alert__close" type="button" data-xz-dismiss aria-label="Dismiss message"><i data-xz-icon="x" data-size="sm"></i></button>
+        </div>
+
+        <!-- KPI row -->
+        <section class="xz-grid" aria-label="Key numbers">
+          <div class="xz-stat xz-col-sm-6 xz-col-lg-3">
+            <div class="xz-stat__label">Revenue <i data-xz-icon="indian-rupee" data-size="sm"></i></div>
+            <div class="xz-stat__value">₹18.4 L</div>
+            <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--up"><i data-xz-icon="trending-up" data-size="sm"></i> 12.5%</span> from last month</div>
+          </div>
+          <div class="xz-stat xz-col-sm-6 xz-col-lg-3">
+            <div class="xz-stat__label">Active learners <i data-xz-icon="users" data-size="sm"></i></div>
+            <div class="xz-stat__value">2,480</div>
+            <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--up"><i data-xz-icon="trending-up" data-size="sm"></i> 184</span> new this month</div>
+          </div>
+          <div class="xz-stat xz-col-sm-6 xz-col-lg-3">
+            <div class="xz-stat__label">Course completion <i data-xz-icon="graduation-cap" data-size="sm"></i></div>
+            <div class="xz-stat__value">72%</div>
+            <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--down"><i data-xz-icon="trending-down" data-size="sm"></i> 3%</span> from last month</div>
+          </div>
+          <div class="xz-stat xz-col-sm-6 xz-col-lg-3">
+            <div class="xz-stat__label">Pending invoices <i data-xz-icon="receipt" data-size="sm"></i></div>
+            <div class="xz-stat__value">₹3.2 L</div>
+            <div class="xz-stat__meta">14 invoices · 5 overdue</div>
+          </div>
+        </section>
+
+        <div class="xz-grid">
+
+          <!-- Recent enrolments: toolbar + table + footer read as one card. -->
+          <section class="xz-col-lg-8" aria-labelledby="enrol-title">
+            <div class="xz-table-toolbar">
+              <h2 class="xz-card__title" id="enrol-title">Recent enrolments</h2>
+              <div class="xz-input-group" style="width: 16rem; max-width: 100%">
+                <i class="xz-input-group__icon" data-xz-icon="search" data-size="sm"></i>
+                <label class="xz-sr-only" for="enrol-search">Search enrolments</label>
+                <input class="xz-input" id="enrol-search" type="search" placeholder="Search by name, course or city">
+              </div>
+            </div>
+            <div class="xz-table-wrap">
+              <!-- Sort, search and paging are handled by the kit. In PHP, print one <tr> per record. -->
+              <table class="xz-table" data-xz-table data-xz-page-size="5" data-xz-search="#enrol-search" data-xz-pagination="#enrol-pages" data-xz-empty="#enrol-empty">
+                <thead>
+                  <tr>
+                    <th scope="col" data-xz-sort="text">Learner</th>
+                    <th scope="col" data-xz-sort="text">Course</th>
+                    <th scope="col" data-xz-sort="date">Enrolled</th>
+                    <th scope="col" data-xz-sort="number" class="xz-table__num">Fee</th>
+                    <th scope="col" data-xz-sort="text">Status</th>
+                    <th scope="col" class="xz-table__actions"><span class="xz-sr-only">Actions</span></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="xz-table__primary">Aarav Sharma</span><span class="xz-table__secondary">Pune</span></td>
+                    <td>Advanced Excel for Finance</td>
+                    <td data-value="2026-11-15">15 Nov 2026</td>
+                    <td class="xz-table__num" data-value="24500">₹24,500</td>
+                    <td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Aarav Sharma"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Priya Nair</span><span class="xz-table__secondary">Kochi</span></td>
+                    <td>Data Analytics with Python</td>
+                    <td data-value="2026-11-14">14 Nov 2026</td>
+                    <td class="xz-table__num" data-value="125000">₹1,25,000</td>
+                    <td><span class="xz-badge xz-badge--warning xz-badge--dot">Pending</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Priya Nair"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Rohan Mehta</span><span class="xz-table__secondary">Ahmedabad</span></td>
+                    <td>Sales Leadership</td>
+                    <td data-value="2026-11-13">13 Nov 2026</td>
+                    <td class="xz-table__num" data-value="48000">₹48,000</td>
+                    <td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Rohan Mehta"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Ananya Iyer</span><span class="xz-table__secondary">Chennai</span></td>
+                    <td>Business Communication</td>
+                    <td data-value="2026-11-12">12 Nov 2026</td>
+                    <td class="xz-table__num" data-value="18000">₹18,000</td>
+                    <td><span class="xz-badge xz-badge--danger xz-badge--dot">Overdue</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Ananya Iyer"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send reminder</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Vikram Reddy</span><span class="xz-table__secondary">Hyderabad</span></td>
+                    <td>Project Management Basics</td>
+                    <td data-value="2026-11-11">11 Nov 2026</td>
+                    <td class="xz-table__num" data-value="32000">₹32,000</td>
+                    <td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Vikram Reddy"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Sneha Kulkarni</span><span class="xz-table__secondary">Nagpur</span></td>
+                    <td>Advanced Excel for Finance</td>
+                    <td data-value="2026-11-10">10 Nov 2026</td>
+                    <td class="xz-table__num" data-value="24500">₹24,500</td>
+                    <td><span class="xz-badge xz-badge--info xz-badge--dot">Trial</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Sneha Kulkarni"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Arjun Singh</span><span class="xz-table__secondary">Chandigarh</span></td>
+                    <td>Leadership for New Managers</td>
+                    <td data-value="2026-11-08">8 Nov 2026</td>
+                    <td class="xz-table__num" data-value="210000">₹2,10,000</td>
+                    <td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Arjun Singh"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Kavya Menon</span><span class="xz-table__secondary">Bengaluru</span></td>
+                    <td>Data Analytics with Python</td>
+                    <td data-value="2026-11-07">7 Nov 2026</td>
+                    <td class="xz-table__num" data-value="125000">₹1,25,000</td>
+                    <td><span class="xz-badge xz-badge--warning xz-badge--dot">Pending</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Kavya Menon"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Imran Khan</span><span class="xz-table__secondary">Lucknow</span></td>
+                    <td>Sales Leadership</td>
+                    <td data-value="2026-11-06">6 Nov 2026</td>
+                    <td class="xz-table__num" data-value="48000">₹48,000</td>
+                    <td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Imran Khan"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Divya Pillai</span><span class="xz-table__secondary">Coimbatore</span></td>
+                    <td>Business Communication</td>
+                    <td data-value="2026-11-04">4 Nov 2026</td>
+                    <td class="xz-table__num" data-value="18000">₹18,000</td>
+                    <td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Divya Pillai"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send invoice</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><span class="xz-table__primary">Siddharth Joshi</span><span class="xz-table__secondary">Indore</span></td>
+                    <td>Project Management Basics</td>
+                    <td data-value="2026-11-02">2 Nov 2026</td>
+                    <td class="xz-table__num" data-value="32000">₹32,000</td>
+                    <td><span class="xz-badge xz-badge--danger xz-badge--dot">Overdue</span></td>
+                    <td class="xz-table__actions">
+                      <div class="xz-menu xz-menu--end" data-xz-menu>
+                        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Siddharth Joshi"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                        <ul class="xz-menu__list">
+                          <li role="none"><button class="xz-menu__item" type="button">View learner</button></li>
+                          <li role="none"><button class="xz-menu__item" type="button">Send reminder</button></li>
+                          <li role="none" class="xz-menu__separator"></li>
+                          <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button">Cancel enrolment</button></li>
+                        </ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Shown by the kit when a search has no matches. -->
+            <div class="xz-card" id="enrol-empty" hidden>
+              <div class="xz-empty">
+                <span class="xz-empty__icon"><i data-xz-icon="search" data-size="lg"></i></span>
+                <h3 class="xz-empty__title">No enrolments match your search</h3>
+                <p class="xz-empty__text">Check the spelling, or search by a different name, course or city.</p>
+              </div>
+            </div>
+            <div class="xz-table-footer">
+              <div class="xz-w-full" id="enrol-pages"></div>
+            </div>
+          </section>
+
+          <div class="xz-col-lg-4 xz-stack xz-gap-6">
+
+            <section class="xz-card" aria-labelledby="batch-title">
+              <div class="xz-card__header">
+                <h2 class="xz-card__title" id="batch-title">Batch progress</h2>
+                <a class="xz-link xz-small" href="#">View all</a>
+              </div>
+              <div class="xz-card__body xz-stack xz-gap-4">
+                <div>
+                  <div class="xz-progress-label"><span id="batch-1">Excel · Batch 12</span><span class="xz-num">86%</span></div>
+                  <div class="xz-progress xz-progress--success" role="progressbar" aria-labelledby="batch-1" aria-valuenow="86" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 86%"><div class="xz-progress__bar"></div></div>
+                </div>
+                <div>
+                  <div class="xz-progress-label"><span id="batch-2">Python · Batch 7</span><span class="xz-num">64%</span></div>
+                  <div class="xz-progress" role="progressbar" aria-labelledby="batch-2" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 64%"><div class="xz-progress__bar"></div></div>
+                </div>
+                <div>
+                  <div class="xz-progress-label"><span id="batch-3">Sales · Batch 4</span><span class="xz-num">41%</span></div>
+                  <div class="xz-progress xz-progress--warning" role="progressbar" aria-labelledby="batch-3" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 41%"><div class="xz-progress__bar"></div></div>
+                </div>
+                <div>
+                  <div class="xz-progress-label"><span id="batch-4">Leadership · Batch 2</span><span class="xz-num">18%</span></div>
+                  <div class="xz-progress xz-progress--danger" role="progressbar" aria-labelledby="batch-4" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 18%"><div class="xz-progress__bar"></div></div>
+                </div>
+              </div>
+            </section>
+
+            <section class="xz-card" aria-labelledby="activity-title">
+              <div class="xz-card__header">
+                <h2 class="xz-card__title" id="activity-title">Recent activity</h2>
+              </div>
+              <div class="xz-card__body xz-stack xz-gap-4">
+                <div class="xz-row xz-row--nowrap">
+                  <span class="xz-avatar xz-avatar--sm" aria-hidden="true">PN</span>
+                  <div class="xz-grow">
+                    <p class="xz-small"><strong>Priya Nair</strong> finished module 4 of Data Analytics</p>
+                    <p class="xz-caption">10 minutes ago</p>
+                  </div>
+                </div>
+                <div class="xz-row xz-row--nowrap">
+                  <span class="xz-avatar xz-avatar--sm" aria-hidden="true">RM</span>
+                  <div class="xz-grow">
+                    <p class="xz-small"><strong>Rohan Mehta</strong> paid ₹48,000 for Sales Leadership</p>
+                    <p class="xz-caption">2 hours ago</p>
+                  </div>
+                </div>
+                <div class="xz-row xz-row--nowrap">
+                  <span class="xz-avatar xz-avatar--sm" aria-hidden="true">AS</span>
+                  <div class="xz-grow">
+                    <p class="xz-small"><strong>Aarav Sharma</strong> enrolled in Advanced Excel for Finance</p>
+                    <p class="xz-caption">Today, 9:15 am</p>
+                  </div>
+                </div>
+                <div class="xz-row xz-row--nowrap">
+                  <span class="xz-avatar xz-avatar--sm" aria-hidden="true">KM</span>
+                  <div class="xz-grow">
+                    <p class="xz-small"><strong>Kavya Menon</strong> asked a question in Batch 7</p>
+                    <p class="xz-caption">Yesterday, 6:40 pm</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="xz-footer xz-footer--simple">
+      <div class="xz-footer__bottom">
+        <span>© 2026 Xsenze</span>
+        <a class="xz-link xz-link--quiet" href="mailto:support@example.com">Contact support</a>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<!-- Navigation drawer for screens below 1024px. Keep its links the same as the sidebar. -->
+<dialog class="xz-drawer xz-drawer--left xz-drawer--nav" id="nav-drawer" aria-label="Menu">
+  <div class="xz-sidebar">
+    <div class="xz-sidebar__header xz-row xz-row--between">
+      <a class="xz-logo" href="./dashboard.html">Xsenze</a>
+      <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-close aria-label="Close menu"><i data-xz-icon="x"></i></button>
+    </div>
+    <nav aria-label="Main, mobile">
+      <div class="xz-sidebar__section">
+        <div class="xz-sidebar__heading">Overview</div>
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="./dashboard.html" aria-current="page"><i data-xz-icon="layout-dashboard"></i> Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="book-open"></i> Courses</a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="users"></i> Learners <span class="xz-badge xz-badge--count">48</span></a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="graduation-cap"></i> Batches</a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__section">
+        <div class="xz-sidebar__heading">Finance</div>
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="receipt"></i> Invoices</a></li>
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="wallet"></i> Payments</a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__section">
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="settings"></i> Settings</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="xz-sidebar__footer">
+      <div class="xz-row xz-row--nowrap">
+        <span class="xz-avatar xz-avatar--accent" aria-hidden="true">MR</span>
+        <div class="xz-grow">
+          <div class="xz-small xz-truncate"><strong>Meera Raghavan</strong></div>
+          <div class="xz-caption xz-truncate">Admin</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- New course dialog -->
+<dialog class="xz-modal" id="new-course" aria-labelledby="new-course-title">
+  <div class="xz-modal__header">
+    <h2 class="xz-modal__title" id="new-course-title">New course</h2>
+    <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x"></i></button>
+  </div>
+  <div class="xz-modal__body">
+    <form class="xz-form" id="new-course-form" data-xz-validate action="#" method="post">
+      <div class="xz-field">
+        <label class="xz-label" for="course-name">Course name</label>
+        <input class="xz-input" id="course-name" name="name" type="text" maxlength="80" required>
+      </div>
+      <div class="xz-field">
+        <label class="xz-label" for="course-category">Category</label>
+        <select class="xz-select" id="course-category" name="category" required>
+          <option value="">Select a category</option>
+          <option>Finance</option>
+          <option>Data</option>
+          <option>Sales</option>
+          <option>Leadership</option>
+        </select>
+      </div>
+      <div class="xz-field">
+        <label class="xz-label" for="course-fee">Fee per learner</label>
+        <div class="xz-input-group">
+          <span class="xz-input-group__addon" aria-hidden="true">₹</span>
+          <input class="xz-input" id="course-fee" name="fee" type="number" inputmode="numeric" min="0" step="1" aria-describedby="course-fee-help" required>
+        </div>
+        <p class="xz-help" id="course-fee-help">In rupees, before GST.</p>
+      </div>
+    </form>
+  </div>
+  <div class="xz-modal__footer">
+    <button class="xz-btn" type="button" data-xz-close>Cancel</button>
+    <button class="xz-btn xz-btn--primary" type="submit" form="new-course-form">Create course</button>
+  </div>
+</dialog>
+
+<script>
+  // Runs after the kit has attached its validation, so this only fires for a valid form.
+  // Replace with a real request to your server.
+  document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('new-course-form');
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      var name = form.elements.name.value;
+      Xsenze.modal.close('#new-course');
+      form.reset();
+      Xsenze.toast({ title: 'Course created', message: name + ' is saved as a draft.', variant: 'success' });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Sign in · Xsenze</title>
+<link rel="stylesheet" href="../dist/xsenze.min.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<script src="../dist/xsenze.min.js" defer></script>
+</head>
+<body>
+<div class="xz-auth">
+
+  <!-- Brand panel. Shown from 1024px up. -->
+  <aside class="xz-auth__aside" aria-label="About Xsenze">
+    <a class="xz-logo" href="./login.html">Xsenze</a>
+    <p class="xz-auth__quote">Train every team. Track every <em>rupee</em>.</p>
+    <p class="xz-auth__meta">Used by 2,480 learners across 14 cities in India.</p>
+  </aside>
+
+  <main class="xz-auth__main">
+    <div class="xz-auth__panel">
+      <div class="xz-auth__mobile-logo">
+        <a class="xz-logo" href="./login.html">Xsenze</a>
+      </div>
+
+      <header class="xz-auth__header">
+        <h1 class="xz-auth__title">Sign in</h1>
+        <p class="xz-auth__text">Enter your details to open your dashboard.</p>
+      </header>
+
+      <!-- data-xz-validate shows a clear message under each field that needs fixing. -->
+      <form class="xz-form" data-xz-validate action="#" method="post">
+        <div class="xz-field">
+          <label class="xz-label" for="email">Email</label>
+          <input class="xz-input xz-input--lg" id="email" name="email" type="email" autocomplete="email" placeholder="name@company.in" required>
+        </div>
+
+        <div class="xz-field">
+          <label class="xz-label" for="password">Password</label>
+          <div class="xz-input-group xz-input-group--action">
+            <input class="xz-input xz-input--lg" id="password" name="password" type="password" autocomplete="current-password" required>
+            <button type="button" class="xz-input-group__action" data-xz-password-toggle aria-label="Show password" aria-pressed="false"><i data-xz-icon="eye" data-size="sm"></i></button>
+          </div>
+        </div>
+
+        <div class="xz-row xz-row--between">
+          <label class="xz-check"><input type="checkbox" name="remember" value="1"> Keep me signed in</label>
+          <a class="xz-link xz-small" href="./forgot-password.html">Forgot password?</a>
+        </div>
+
+        <button class="xz-btn xz-btn--primary xz-btn--lg xz-btn--block" type="submit">Sign in</button>
+
+        <div class="xz-divider xz-divider--label" role="separator">or</div>
+
+        <button class="xz-btn xz-btn--lg xz-btn--block" type="button"><i data-xz-icon="globe"></i> Continue with Google</button>
+      </form>
+
+      <p class="xz-auth__footer">New to Xsenze? <a class="xz-link" href="./signup.html">Create an account</a></p>
+    </div>
+  </main>
+
+</div>
+</body>
+</html>

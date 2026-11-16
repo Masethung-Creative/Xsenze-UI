@@ -1,0 +1,9 @@
+node_modules
+.DS_Store
+.playwright-mcp
+
+# Satoshi (ITF Free Font License) may not be shared, so it stays out of the repository.
+# Download it from Fontshare into src/fonts/Satoshi_Complete; the build copies it into dist/fonts.
+src/fonts/Satoshi_Complete/
+dist/fonts/Satoshi-Variable.woff2
+dist/fonts/Satoshi-FFL.txt

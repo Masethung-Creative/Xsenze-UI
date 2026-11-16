@@ -1,0 +1,76 @@
+# Changelog
+
+This project follows semantic versioning.
+
+## Unreleased
+
+- Create page: every option is now a row of picture tiles (grey stripes, colour dots, "Aa" in each font, corner shapes, icon weights), picked with one click or the arrow keys. Lock a setting so Shuffle keeps it, and undo or redo any change (Ctrl+Z, Ctrl+Y). Get code stays on screen on laptops, and on phones the options open from a bar at the bottom so the preview stays visible. The exported theme is unchanged
+- Satoshi's `@font-face` moves from `xsenze.css` to a new `xsenze-satoshi.css`, and the npm package no longer includes the Satoshi font file, because its licence does not allow passing it on. Add `xsenze-satoshi.css` after the main stylesheet and put your own `Satoshi-Variable.woff2` in `fonts/`. Without them, headings fall back to Space Grotesk
+- Removed the unused DIN font files from `dist/fonts/`. The package is now about 280 KB instead of 5.9 MB
+
+## 0.5.0 (16 Nov 2026)
+
+Phase 2, second part: components.
+
+- Media, profile and pricing cards, with a monthly and yearly price switch (`data-xz-pricing`)
+- Segmented control (`xz-segmented`), built from radio buttons
+- Popover (`data-xz-popover`) and a notification centre with unread count (`data-xz-notifications`)
+- Context menu on right click, long press or Shift+F10 (`data-xz-context-menu`)
+- Search with grouped suggestions, recent searches and optional server results (`data-xz-search`)
+- Mega menu for the navbar (`data-xz-megamenu`)
+- Bottom sheet that closes with a downward drag (`dialog.xz-sheet`, `Xsenze.sheet`)
+- Bottom navigation for phones (`xz-bottom-nav`)
+- Wizard that checks each step before moving on (`data-xz-wizard`)
+- Carousel with arrows and dots (`data-xz-carousel`), gallery and lightbox (`data-xz-lightbox`)
+- Video and audio player with kit controls, captions, speed, full screen and resume (`data-xz-player`)
+- New `xz-badge--highlight` (orange)
+- 10 more icons
+- The docs dev server now serves video, audio and captions, and supports seeking
+
+## 0.4.0 (16 Nov 2026)
+
+Phase 2, first part.
+
+- Foundations: motion tokens and entrance classes, an eight-colour chart palette (`viz-1` to `viz-8`), gradients, blur (`xz-glass`), aspect ratio classes, and imagery guidelines
+- Advanced form controls: date picker, date range, time picker, file upload with drag and drop, slider, number stepper, rating, one-time code, tag input and a rich text editor
+- `Xsenze.sanitize(html)` cleans editor HTML in the browser
+- New Forms page in the docs
+- New landing page for the docs site, built from kit components, with a live theme demo and template previews
+- 12 more icons
+
+## 0.3.0 (16 Nov 2026)
+
+Mono look.
+
+- The main colour is now near-black in the light theme and near-white in the dark theme (`accent`, buttons, links, focus, ticked controls)
+- Neutrals are pure greys with no tint
+- The brand orange `#ff6300` moves to the second accent (`accent-2`) and the logo. The `sun` ramp is removed
+- The checkbox tick now follows `on-accent`, so it stays readable on any main colour
+- New Create page in the docs: pick greys, main colour, fonts, corners and icon weight, preview the result live, and export it as CSS or JSON. It replaces the foundation preview page
+- The X mark is removed until the final logo is ready. The logo is the name as text, and `xz-logo__mark` is now a slot for a logo image
+- `xz-btn--solid` now looks the same as `xz-btn--primary`; it is kept for existing pages
+- Breaking: `--xz-sun-*` variables are removed
+
+## 0.2.0 (16 Nov 2026)
+
+New foundation. Same components and class names, new look.
+
+- Satoshi is now the primary font (headings, buttons, labels, numbers). Space Grotesk is the secondary font (body text, form content). New tokens: `font-display`, `letter-spacing-label`
+- The brand orange moves from `#ff3800` to `#ff6300`, with a new `brand` ramp
+- Warm charcoal neutrals replace the stone greys
+- New second accent: the `sun` ramp and the `accent-2` theme tokens
+- Corners are 4px (`radius-control`, `radius-surface`); every component now follows these two tokens
+- Toasts, the logo mark and the sign-in side panel now follow the theme tokens
+- Breaking: `--xz-stone-*` variables are renamed to `--xz-neutral-*`
+
+## 0.1.0 (15 Nov 2026)
+
+First release. Phase 1: foundation and core.
+
+- Design tokens with CSS variable and JSON exports
+- Light and dark themes
+- Core components, navigation, overlays and a sortable table
+- Login, signup, forgot password, dashboard, 404 and 500 templates
+- Form validation, Indian number, currency and date formats
+- Contrast check for WCAG 2.2 AA
+- Documentation site

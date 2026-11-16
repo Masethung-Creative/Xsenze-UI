@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Create a theme · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<link rel="stylesheet" href="create.css">
+<script src="data.generated.js" defer></script>
+<script src="docs.js" defer></script>
+<script src="create.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="create">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<main id="main" class="cr-main">
+
+<div class="cr-layout">
+
+  <aside class="cr-panel" aria-label="Theme options" data-cr-panel>
+    <!-- Phones and tablets: the panel is a bar at the bottom that opens upwards. -->
+    <div class="cr-panel__bar">
+      <button class="cr-panel__toggle" type="button" aria-expanded="false" aria-controls="cr-options" data-cr-toggle>
+        <span class="cr-panel__toggle-text"><span class="cr-panel__toggle-label">Theme</span><code data-cr-preset-short></code></span>
+        <span class="xz-btn xz-btn--sm xz-btn--primary"><i data-xz-icon="sliders-horizontal" data-size="sm"></i><span data-cr-toggle-text>Customise</span></span>
+      </button>
+      <button class="xz-btn xz-btn--sm xz-btn--icon" type="button" data-xz-open="#cr-code" aria-label="Get code"><i data-xz-icon="code" data-size="sm"></i></button>
+    </div>
+
+    <form class="cr-panel__form" id="cr-options" data-cr-form>
+      <div class="cr-panel__rows">
+        <div class="cr-opt" data-cr-opt="mode"></div>
+        <div class="cr-opt" data-cr-opt="base"></div>
+        <div class="cr-opt" data-cr-opt="theme"></div>
+        <div class="cr-opt" data-cr-opt="heading"></div>
+        <div class="cr-opt" data-cr-opt="body"></div>
+        <div class="cr-opt" data-cr-opt="radius"></div>
+        <div class="cr-opt" data-cr-opt="icon"></div>
+      </div>
+
+      <div class="cr-panel__foot">
+        <div class="cr-panel__status" data-cr-status role="status"></div>
+        <div class="cr-preset">
+          <label class="cr-preset__label" for="cr-preset">Preset code</label>
+          <div class="xz-input-group xz-input-group--action">
+            <input class="xz-input cr-preset__input" id="cr-preset" type="text" spellcheck="false" autocomplete="off" aria-describedby="cr-preset-help" data-cr-preset>
+            <button type="button" class="xz-input-group__action" data-cr-action="copy-link" aria-label="Copy a link to this theme" data-xz-tooltip="Copy a link to this theme"><i data-xz-icon="link" data-size="sm"></i></button>
+          </div>
+          <p class="cr-preset__help" id="cr-preset-help">Paste a code and press Enter to open it.</p>
+        </div>
+        <div class="cr-tools">
+          <button class="xz-btn xz-btn--sm cr-tools__grow" type="button" data-cr-action="shuffle" data-xz-tooltip="Changes every setting that is not locked"><i data-xz-icon="shuffle" data-size="sm"></i>Shuffle</button>
+          <button class="xz-btn xz-btn--sm xz-btn--icon" type="button" data-cr-action="undo" aria-label="Undo" data-xz-tooltip="Undo (Ctrl+Z)"><i data-xz-icon="undo-2" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--sm xz-btn--icon" type="button" data-cr-action="redo" aria-label="Redo" data-xz-tooltip="Redo (Ctrl+Y)"><i data-xz-icon="redo-2" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--sm" type="button" data-cr-action="reset">Reset</button>
+        </div>
+        <button class="xz-btn xz-btn--primary xz-btn--block" type="button" data-xz-open="#cr-code"><i data-xz-icon="code"></i>Get code</button>
+      </div>
+    </form>
+  </aside>
+
+  <div class="cr-stage">
+  <header class="cr-intro">
+    <h1 class="xz-h2">Create a theme</h1>
+    <p class="xz-text-muted">Pick a look and the preview follows. When it feels right, Get code gives you the file.</p>
+  </header>
+  <div class="cr-preview" data-cr-preview data-theme="dark">
+    <div class="cr-preview__body">
+  <section class="fp-section">
+    <p class="xz-overline">Preview</p>
+    <p class="xz-display">Build clear screens, fast.</p>
+    <p class="xz-lead">Headings use the heading font. This paragraph, form fields and tables use the body font. Invoice INV-2026-0418 for ₹24,500 is due on 20/11/2026.</p>
+  </section>
+
+  <section class="fp-section">
+    <h2 class="xz-h3">Components</h2>
+
+    <h3 class="xz-h6 fp-sub">Buttons</h3>
+    <div class="fp-row">
+      <button class="xz-btn xz-btn--primary" type="button">Save changes</button>
+      <button class="xz-btn xz-btn--soft" type="button">Tinted</button>
+      <button class="xz-btn" type="button">Outline</button>
+      <button class="xz-btn xz-btn--ghost" type="button">Ghost</button>
+      <button class="xz-btn xz-btn--solid" type="button">Solid</button>
+      <button class="xz-btn xz-btn--danger" type="button">Delete</button>
+      <button class="xz-btn xz-btn--link" type="button">Link</button>
+    </div>
+    <div class="fp-row">
+      <button class="xz-btn xz-btn--primary xz-btn--sm" type="button">Small</button>
+      <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="plus"></i> With icon</button>
+      <button class="xz-btn xz-btn--primary xz-btn--lg" type="button">Large</button>
+      <button class="xz-btn xz-btn--primary is-hover" type="button">Hover</button>
+      <button class="xz-btn xz-btn--primary is-focus" type="button">Focus</button>
+      <button class="xz-btn xz-btn--primary is-loading" type="button">Loading</button>
+      <button class="xz-btn xz-btn--primary" type="button" disabled>Disabled</button>
+    </div>
+    <div class="fp-row">
+      <span class="fp-accent2"><i data-xz-icon="star" data-size="sm"></i> Second accent fill</span>
+      <span class="fp-accent2 fp-accent2--soft">Second accent, tinted</span>
+    </div>
+
+    <h3 class="xz-h6 fp-sub">Form fields</h3>
+    <div class="fp-cols">
+      <div class="xz-stack xz-gap-4">
+        <div class="xz-field">
+          <label class="xz-label" for="fp-name-0">Full name</label>
+          <input class="xz-input" id="fp-name-0" type="text" placeholder="As on your PAN card">
+          <p class="xz-help">We print this on your certificate.</p>
+        </div>
+        <div class="xz-field">
+          <label class="xz-label" for="fp-email-0">Email</label>
+          <input class="xz-input" id="fp-email-0" type="email" value="priya@" aria-invalid="true" aria-describedby="fp-email-err-0">
+          <p class="xz-error" id="fp-email-err-0"><i data-xz-icon="circle-alert" data-size="sm"></i>Enter an email address like name@example.com</p>
+        </div>
+      </div>
+      <div class="xz-stack xz-gap-4">
+        <div class="xz-field">
+          <label class="xz-label" for="fp-role-0">Role</label>
+          <select class="xz-select" id="fp-role-0"><option>Trainer</option><option>Admin</option><option>Learner</option></select>
+        </div>
+        <div class="xz-field">
+          <label class="xz-label" for="fp-fee-0">Course fee</label>
+          <div class="xz-input-group">
+            <span class="xz-input-group__addon">₹</span>
+            <input class="xz-input" id="fp-fee-0" type="text" inputmode="numeric" value="24,500">
+          </div>
+        </div>
+        <div class="fp-row" style="gap: var(--xz-space-5)">
+          <label class="xz-check"><input type="checkbox" checked> Send invoice</label>
+          <label class="xz-radio"><input type="radio" name="fp-pay-0" checked><span>UPI</span></label>
+          <label class="xz-radio"><input type="radio" name="fp-pay-0"><span>Card</span></label>
+          <label class="xz-toggle"><input type="checkbox" role="switch" checked><span>Reminders</span></label>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="xz-h6 fp-sub">Badges, tags and chips</h3>
+    <div class="fp-row">
+      <span class="xz-badge">Draft</span>
+      <span class="xz-badge xz-badge--success xz-badge--dot">Paid</span>
+      <span class="xz-badge xz-badge--warning xz-badge--dot">Pending</span>
+      <span class="xz-badge xz-badge--danger xz-badge--dot">Overdue</span>
+      <span class="xz-badge xz-badge--info">New</span>
+      <span class="xz-tag">python</span>
+      <span class="xz-tag">excel</span>
+      <button class="xz-chip" type="button" aria-pressed="true">All</button>
+      <button class="xz-chip" type="button" aria-pressed="false">Active</button>
+      <span class="xz-avatar xz-avatar--accent" role="img" aria-label="Sana Qureshi">SQ</span>
+    </div>
+
+    <h3 class="xz-h6 fp-sub">Messages and progress</h3>
+    <div class="xz-stack xz-gap-3">
+      <div class="xz-alert xz-alert--success" role="status">
+        <i data-xz-icon="circle-check"></i>
+        <div class="xz-alert__body">
+          <p class="xz-alert__title">Payment received</p>
+          <p class="xz-alert__text">₹24,999 paid by UPI. Your invoice is on its way.</p>
+        </div>
+      </div>
+      <div class="xz-alert xz-alert--danger" role="alert">
+        <i data-xz-icon="circle-alert"></i>
+        <div class="xz-alert__body">
+          <p class="xz-alert__title">We could not save your changes</p>
+          <p class="xz-alert__text">Check your connection and try again.</p>
+        </div>
+      </div>
+      <div class="xz-progress" role="progressbar" aria-label="Course progress" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 64%"><div class="xz-progress__bar"></div></div>
+    </div>
+
+    <h3 class="xz-h6 fp-sub">Tabs</h3>
+    <div class="xz-tabs" data-xz-tabs>
+      <div class="xz-tabs__list" aria-label="Course sections">
+        <button class="xz-tabs__tab" aria-selected="true">Overview</button>
+        <button class="xz-tabs__tab">Lessons <span class="xz-badge xz-badge--count">12</span></button>
+        <button class="xz-tabs__tab">Learners</button>
+      </div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">A 6-week course on spreadsheets and dashboards for working professionals.</p></div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">12 lessons, about 40 minutes each.</p></div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">184 learners joined this month.</p></div>
+    </div>
+  </section>
+
+  <section class="fp-section">
+    <h2 class="xz-h3">On real screens</h2>
+
+    <h3 class="xz-h6 fp-sub">Sign in</h3>
+    <div class="fp-screen">
+      <div class="fp-screen__body">
+        <div class="xz-card fp-login">
+          <form class="xz-card__body xz-stack xz-gap-4" action="#">
+            <span class="xz-logo">Xsenze</span>
+            <div>
+              <h4 class="xz-h3">Sign in</h4>
+              <p class="xz-small xz-text-muted">Enter your details to open your dashboard.</p>
+            </div>
+            <div class="xz-field">
+              <label class="xz-label" for="fp-login-email-0">Email</label>
+              <input class="xz-input xz-input--lg" id="fp-login-email-0" type="email" placeholder="name@company.in">
+            </div>
+            <div class="xz-field">
+              <label class="xz-label" for="fp-login-pass-0">Password</label>
+              <input class="xz-input xz-input--lg" id="fp-login-pass-0" type="password" value="password">
+            </div>
+            <div class="xz-row xz-row--between">
+              <label class="xz-check"><input type="checkbox" checked> Keep me signed in</label>
+              <a class="xz-link xz-small" href="#main">Forgot password?</a>
+            </div>
+            <button class="xz-btn xz-btn--primary xz-btn--lg xz-btn--block" type="submit">Sign in</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="xz-h6 fp-sub">Dashboard</h3>
+    <div class="fp-screen">
+      <div class="xz-navbar xz-navbar--static">
+        <span class="xz-logo">Xsenze</span>
+        <ul class="xz-navbar__nav xz-hide-mobile">
+          <li><a class="xz-navbar__link" href="#main" aria-current="page">Dashboard</a></li>
+          <li><a class="xz-navbar__link" href="#main">Courses</a></li>
+          <li><a class="xz-navbar__link" href="#main">Invoices</a></li>
+        </ul>
+        <span class="xz-navbar__spacer"></span>
+        <span class="xz-avatar xz-avatar--sm xz-avatar--accent" aria-hidden="true">MR</span>
+      </div>
+      <div class="fp-screen__body">
+        <div class="xz-row xz-row--between">
+          <div>
+            <h4 class="xz-h3">Dashboard</h4>
+            <p class="xz-small xz-text-muted">1 Nov to 15 Nov 2026 · FY 2026-27</p>
+          </div>
+          <div class="fp-row">
+            <button class="xz-btn" type="button"><i data-xz-icon="download"></i> Export</button>
+            <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="plus"></i> New course</button>
+          </div>
+        </div>
+        <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 11rem">
+          <div class="xz-stat xz-stat--accent">
+            <div class="xz-stat__label">Revenue <i data-xz-icon="indian-rupee" data-size="sm"></i></div>
+            <div class="xz-stat__value">₹18.4 L</div>
+            <div class="xz-stat__meta"><span class="xz-stat__trend"><i data-xz-icon="trending-up" data-size="sm"></i> 12.5%</span> from last month</div>
+          </div>
+          <div class="xz-stat">
+            <div class="xz-stat__label">Active learners <i data-xz-icon="users" data-size="sm"></i></div>
+            <div class="xz-stat__value">2,480</div>
+            <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--up"><i data-xz-icon="trending-up" data-size="sm"></i> 184</span> new this month</div>
+          </div>
+          <div class="xz-stat">
+            <div class="xz-stat__label">Completion <i data-xz-icon="graduation-cap" data-size="sm"></i></div>
+            <div class="xz-stat__value">72%</div>
+            <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--down"><i data-xz-icon="trending-down" data-size="sm"></i> 3%</span> from last month</div>
+          </div>
+          <div class="xz-stat">
+            <div class="xz-stat__label">Pending invoices <i data-xz-icon="receipt" data-size="sm"></i></div>
+            <div class="xz-stat__value">₹3.2 L</div>
+            <div class="xz-stat__meta">14 invoices · 5 overdue</div>
+          </div>
+        </div>
+        <div class="xz-table-wrap">
+          <table class="xz-table" data-xz-table>
+            <thead>
+              <tr>
+                <th scope="col" data-xz-sort="text">Learner</th>
+                <th scope="col" data-xz-sort="text">Course</th>
+                <th scope="col" data-xz-sort="date">Enrolled</th>
+                <th scope="col" data-xz-sort="number" class="xz-table__num">Fee</th>
+                <th scope="col" data-xz-sort="text">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><span class="xz-table__primary">Aarav Sharma</span><span class="xz-table__secondary">Pune</span></td><td>Advanced Excel for Finance</td><td data-value="2026-11-15">15 Nov 2026</td><td class="xz-table__num" data-value="24500">₹24,500</td><td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td></tr>
+              <tr><td><span class="xz-table__primary">Priya Nair</span><span class="xz-table__secondary">Kochi</span></td><td>Data Analytics with Python</td><td data-value="2026-11-14">14 Nov 2026</td><td class="xz-table__num" data-value="32000">₹32,000</td><td><span class="xz-badge xz-badge--warning xz-badge--dot">Pending</span></td></tr>
+              <tr><td><span class="xz-table__primary">Rohan Mehta</span><span class="xz-table__secondary">Ahmedabad</span></td><td>Project Management Basics</td><td data-value="2026-11-12">12 Nov 2026</td><td class="xz-table__num" data-value="18750">₹18,750</td><td><span class="xz-badge xz-badge--danger xz-badge--dot">Overdue</span></td></tr>
+              <tr><td><span class="xz-table__primary">Sana Qureshi</span><span class="xz-table__secondary">Hyderabad</span></td><td>Business Communication</td><td data-value="2026-11-10">10 Nov 2026</td><td class="xz-table__num" data-value="112500">₹1,12,500</td><td><span class="xz-badge xz-badge--success xz-badge--dot">Paid</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+    </div>
+  </div>
+  </div>
+
+</div>
+
+<dialog class="xz-modal xz-modal--lg" id="cr-code" aria-labelledby="cr-code-title">
+  <div class="xz-modal__header">
+    <h2 class="xz-modal__title" id="cr-code-title">Theme code</h2>
+    <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+  </div>
+  <div class="xz-modal__body">
+    <div class="xz-tabs" data-xz-tabs>
+      <div class="xz-tabs__list" aria-label="Code format">
+        <button class="xz-tabs__tab" aria-selected="true">CSS</button>
+        <button class="xz-tabs__tab">JSON tokens</button>
+      </div>
+      <div class="xz-tabs__panel">
+        <p class="xz-small xz-text-muted">Save this as <code class="xz-code">theme.css</code> and load it after <code class="xz-code">xsenze.css</code>. It sets both the light and the dark theme.</p>
+        <pre class="cr-code" tabindex="0"><code data-cr-code="css"></code></pre>
+        <div class="cr-code__actions">
+          <button class="xz-btn xz-btn--primary" type="button" data-cr-action="copy-css"><i data-xz-icon="copy"></i> Copy CSS</button>
+          <button class="xz-btn" type="button" data-cr-action="download-css"><i data-xz-icon="download"></i> Download theme.css</button>
+        </div>
+      </div>
+      <div class="xz-tabs__panel">
+        <p class="xz-small xz-text-muted">The same values as data, for design tools or your own build.</p>
+        <pre class="cr-code" tabindex="0"><code data-cr-code="json"></code></pre>
+        <div class="cr-code__actions">
+          <button class="xz-btn xz-btn--primary" type="button" data-cr-action="copy-json"><i data-xz-icon="copy"></i> Copy JSON</button>
+          <button class="xz-btn" type="button" data-cr-action="download-json"><i data-xz-icon="download"></i> Download theme.json</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+</main>
+<footer data-doc-footer></footer>
+</body>
+</html>

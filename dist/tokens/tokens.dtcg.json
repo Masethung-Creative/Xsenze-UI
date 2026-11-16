@@ -1,0 +1,930 @@
+{
+  "$description": "Xsenze UI Kit design tokens. Source of truth. Run `npm run build` to export CSS variables and flat JSON.",
+  "core": {
+    "color": {
+      "$type": "color",
+      "white": {
+        "$value": "#ffffff"
+      },
+      "black": {
+        "$value": "#000000"
+      },
+      "brand": {
+        "50": {
+          "$value": "#fff5eb"
+        },
+        "100": {
+          "$value": "#ffe8d1"
+        },
+        "200": {
+          "$value": "#ffcfa3"
+        },
+        "300": {
+          "$value": "#ffae6b"
+        },
+        "400": {
+          "$value": "#ff8a33"
+        },
+        "500": {
+          "$value": "#ff6300"
+        },
+        "600": {
+          "$value": "#db5200"
+        },
+        "700": {
+          "$value": "#a83e00"
+        },
+        "800": {
+          "$value": "#853200"
+        },
+        "900": {
+          "$value": "#5e2400"
+        },
+        "950": {
+          "$value": "#381500"
+        }
+      },
+      "neutral": {
+        "50": {
+          "$value": "#fafafa"
+        },
+        "100": {
+          "$value": "#f5f5f5"
+        },
+        "200": {
+          "$value": "#e5e5e5"
+        },
+        "300": {
+          "$value": "#d4d4d4"
+        },
+        "400": {
+          "$value": "#a3a3a3"
+        },
+        "500": {
+          "$value": "#737373"
+        },
+        "600": {
+          "$value": "#525252"
+        },
+        "700": {
+          "$value": "#404040"
+        },
+        "800": {
+          "$value": "#262626"
+        },
+        "900": {
+          "$value": "#171717"
+        },
+        "950": {
+          "$value": "#0a0a0a"
+        }
+      },
+      "green": {
+        "100": {
+          "$value": "#dcfce7"
+        },
+        "300": {
+          "$value": "#86efac"
+        },
+        "400": {
+          "$value": "#4ade80"
+        },
+        "500": {
+          "$value": "#22c55e"
+        },
+        "700": {
+          "$value": "#15803d"
+        },
+        "800": {
+          "$value": "#166534"
+        }
+      },
+      "amber": {
+        "100": {
+          "$value": "#fef3c7"
+        },
+        "300": {
+          "$value": "#fcd34d"
+        },
+        "400": {
+          "$value": "#fbbf24"
+        },
+        "500": {
+          "$value": "#f59e0b"
+        },
+        "700": {
+          "$value": "#b45309"
+        },
+        "800": {
+          "$value": "#92400e"
+        }
+      },
+      "rose": {
+        "100": {
+          "$value": "#ffe4e6"
+        },
+        "300": {
+          "$value": "#fda4af"
+        },
+        "400": {
+          "$value": "#fb7185"
+        },
+        "500": {
+          "$value": "#f43f5e"
+        },
+        "600": {
+          "$value": "#e11d48"
+        },
+        "700": {
+          "$value": "#be123c"
+        }
+      },
+      "blue": {
+        "100": {
+          "$value": "#dbeafe"
+        },
+        "300": {
+          "$value": "#93c5fd"
+        },
+        "400": {
+          "$value": "#60a5fa"
+        },
+        "500": {
+          "$value": "#3b82f6"
+        },
+        "600": {
+          "$value": "#2563eb"
+        },
+        "700": {
+          "$value": "#1d4ed8"
+        }
+      }
+    },
+    "font": {
+      "$type": "fontFamily",
+      "display": {
+        "$value": "\"Satoshi\", \"Space Grotesk Variable\", \"Space Grotesk\", \"Noto Sans\", system-ui, sans-serif",
+        "$description": "Primary. Headings, buttons, labels and numbers. Space Grotesk fills the glyphs Satoshi lacks, such as the rupee sign."
+      },
+      "sans": {
+        "$value": "\"Space Grotesk Variable\", \"Space Grotesk\", \"Noto Sans\", \"Noto Sans Devanagari\", \"Noto Sans Tamil\", \"Noto Sans Kannada\", system-ui, -apple-system, \"Segoe UI\", Roboto, sans-serif",
+        "$description": "Secondary. Body text and form content."
+      },
+      "mono": {
+        "$value": "\"JetBrains Mono Variable\", \"JetBrains Mono\", ui-monospace, \"Cascadia Code\", Consolas, monospace",
+        "$description": "Code, keyboard keys and token names."
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$description": "Type scale. Base is 16px.",
+      "xs": {
+        "$value": "0.75rem"
+      },
+      "sm": {
+        "$value": "0.875rem"
+      },
+      "md": {
+        "$value": "1rem"
+      },
+      "lg": {
+        "$value": "1.125rem"
+      },
+      "xl": {
+        "$value": "1.25rem"
+      },
+      "2xl": {
+        "$value": "1.5rem"
+      },
+      "3xl": {
+        "$value": "1.875rem"
+      },
+      "4xl": {
+        "$value": "2.25rem"
+      },
+      "5xl": {
+        "$value": "3rem"
+      },
+      "6xl": {
+        "$value": "4rem"
+      }
+    },
+    "font-weight": {
+      "$type": "fontWeight",
+      "regular": {
+        "$value": "400"
+      },
+      "medium": {
+        "$value": "500"
+      },
+      "semibold": {
+        "$value": "600"
+      },
+      "bold": {
+        "$value": "700"
+      }
+    },
+    "line-height": {
+      "$type": "number",
+      "tight": {
+        "$value": "1.1"
+      },
+      "snug": {
+        "$value": "1.3"
+      },
+      "normal": {
+        "$value": "1.5"
+      },
+      "relaxed": {
+        "$value": "1.65"
+      }
+    },
+    "letter-spacing": {
+      "$type": "dimension",
+      "tight": {
+        "$value": "-0.02em"
+      },
+      "normal": {
+        "$value": "0"
+      },
+      "label": {
+        "$value": "0.06em",
+        "$description": "Uppercase labels set in the display font."
+      },
+      "wide": {
+        "$value": "0.08em"
+      }
+    },
+    "space": {
+      "0": {
+        "$value": "0"
+      },
+      "1": {
+        "$value": "0.25rem"
+      },
+      "2": {
+        "$value": "0.5rem"
+      },
+      "3": {
+        "$value": "0.75rem"
+      },
+      "4": {
+        "$value": "1rem"
+      },
+      "5": {
+        "$value": "1.25rem"
+      },
+      "6": {
+        "$value": "1.5rem"
+      },
+      "8": {
+        "$value": "2rem"
+      },
+      "10": {
+        "$value": "2.5rem"
+      },
+      "12": {
+        "$value": "3rem"
+      },
+      "16": {
+        "$value": "4rem"
+      },
+      "20": {
+        "$value": "5rem"
+      },
+      "24": {
+        "$value": "6rem"
+      },
+      "$type": "dimension",
+      "$description": "4px base spacing scale.",
+      "px": {
+        "$value": "1px"
+      },
+      "0-5": {
+        "$value": "0.125rem"
+      }
+    },
+    "radius": {
+      "$type": "dimension",
+      "$description": "Corners are small. `control` and `surface` are what components use; change them to square or round the whole kit.",
+      "none": {
+        "$value": "0"
+      },
+      "sm": {
+        "$value": "2px"
+      },
+      "md": {
+        "$value": "4px"
+      },
+      "lg": {
+        "$value": "8px"
+      },
+      "full": {
+        "$value": "9999px"
+      },
+      "control": {
+        "$value": "4px"
+      },
+      "surface": {
+        "$value": "4px"
+      }
+    },
+    "border-width": {
+      "0": {
+        "$value": "0"
+      },
+      "1": {
+        "$value": "1px"
+      },
+      "2": {
+        "$value": "2px"
+      },
+      "4": {
+        "$value": "4px"
+      },
+      "$type": "dimension"
+    },
+    "z": {
+      "$type": "number",
+      "base": {
+        "$value": "0"
+      },
+      "raised": {
+        "$value": "10"
+      },
+      "sticky": {
+        "$value": "1000"
+      },
+      "dropdown": {
+        "$value": "1100"
+      },
+      "overlay": {
+        "$value": "1300"
+      },
+      "modal": {
+        "$value": "1400"
+      },
+      "toast": {
+        "$value": "1500"
+      },
+      "tooltip": {
+        "$value": "1600"
+      }
+    },
+    "opacity": {
+      "0": {
+        "$value": "0"
+      },
+      "5": {
+        "$value": "0.05"
+      },
+      "10": {
+        "$value": "0.1"
+      },
+      "20": {
+        "$value": "0.2"
+      },
+      "40": {
+        "$value": "0.4"
+      },
+      "60": {
+        "$value": "0.6"
+      },
+      "80": {
+        "$value": "0.8"
+      },
+      "100": {
+        "$value": "1"
+      },
+      "$type": "number"
+    },
+    "breakpoint": {
+      "$type": "dimension",
+      "$description": "Min-width breakpoints. CSS cannot read variables in media queries, so these are reference values.",
+      "sm": {
+        "$value": "640px"
+      },
+      "md": {
+        "$value": "768px"
+      },
+      "lg": {
+        "$value": "1024px"
+      },
+      "xl": {
+        "$value": "1280px"
+      },
+      "2xl": {
+        "$value": "1536px"
+      }
+    },
+    "container": {
+      "$type": "dimension",
+      "sm": {
+        "$value": "640px"
+      },
+      "md": {
+        "$value": "768px"
+      },
+      "lg": {
+        "$value": "1024px"
+      },
+      "xl": {
+        "$value": "1200px"
+      },
+      "2xl": {
+        "$value": "1440px"
+      }
+    },
+    "icon": {
+      "$type": "dimension",
+      "xs": {
+        "$value": "12px"
+      },
+      "sm": {
+        "$value": "16px"
+      },
+      "md": {
+        "$value": "20px"
+      },
+      "lg": {
+        "$value": "24px"
+      },
+      "xl": {
+        "$value": "32px"
+      }
+    },
+    "control": {
+      "$type": "dimension",
+      "$description": "Heights of buttons, inputs and selects. On touch screens every control grows to at least `touch`.",
+      "sm": {
+        "$value": "32px"
+      },
+      "md": {
+        "$value": "40px"
+      },
+      "lg": {
+        "$value": "48px"
+      },
+      "touch": {
+        "$value": "44px"
+      }
+    },
+    "duration": {
+      "$type": "duration",
+      "fast": {
+        "$value": "120ms"
+      },
+      "base": {
+        "$value": "200ms"
+      },
+      "slow": {
+        "$value": "320ms"
+      },
+      "slower": {
+        "$value": "480ms",
+        "$description": "Large surfaces: drawers, full-page transitions."
+      }
+    },
+    "ease": {
+      "$type": "cubicBezier",
+      "out": {
+        "$value": "cubic-bezier(0.25, 1, 0.5, 1)"
+      },
+      "in-out": {
+        "$value": "cubic-bezier(0.65, 0, 0.35, 1)"
+      },
+      "in": {
+        "$value": "cubic-bezier(0.5, 0, 0.75, 0)",
+        "$description": "Things leaving the screen."
+      },
+      "$description": "out for things entering, in for things leaving, in-out for things that move across the screen."
+    },
+    "blur": {
+      "$type": "dimension",
+      "$description": "Backdrop blur behind floating surfaces.",
+      "sm": {
+        "$value": "4px"
+      },
+      "md": {
+        "$value": "8px"
+      },
+      "lg": {
+        "$value": "16px"
+      },
+      "xl": {
+        "$value": "24px"
+      }
+    },
+    "aspect": {
+      "$type": "number",
+      "$description": "Aspect ratios for media.",
+      "square": {
+        "$value": "1 / 1"
+      },
+      "photo": {
+        "$value": "4 / 3"
+      },
+      "video": {
+        "$value": "16 / 9"
+      },
+      "wide": {
+        "$value": "21 / 9"
+      },
+      "portrait": {
+        "$value": "3 / 4"
+      }
+    },
+    "gradient": {
+      "$type": "gradient",
+      "$description": "Use sparingly: one gradient per screen at most.",
+      "brand": {
+        "$value": "linear-gradient(135deg, #ff6300, #ff8a33)",
+        "$description": "Brand highlight: hero bands, featured cards."
+      },
+      "ink": {
+        "$value": "linear-gradient(135deg, #0a0a0a, #404040)",
+        "$description": "Dark promo surfaces."
+      },
+      "scrim": {
+        "$value": "linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0))",
+        "$description": "Behind text placed on a photo."
+      }
+    }
+  },
+  "theme": {
+    "light": {
+      "$type": "color",
+      "bg": {
+        "$value": "{core.color.neutral.50}",
+        "$description": "Page background"
+      },
+      "surface": {
+        "$value": "{core.color.white}",
+        "$description": "Cards, panels, inputs"
+      },
+      "surface-2": {
+        "$value": "{core.color.neutral.100}",
+        "$description": "Muted fills, table headers, hover"
+      },
+      "surface-3": {
+        "$value": "{core.color.neutral.200}",
+        "$description": "Pressed, tracks, skeletons"
+      },
+      "inverse": {
+        "$value": "{core.color.neutral.900}",
+        "$description": "Tooltips, dark chips"
+      },
+      "on-inverse": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "text": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "text-muted": {
+        "$value": "{core.color.neutral.600}"
+      },
+      "text-subtle": {
+        "$value": "#666666",
+        "$description": "Placeholders and captions. AA on every surface."
+      },
+      "border": {
+        "$value": "{core.color.neutral.300}",
+        "$description": "Dividers, card outlines"
+      },
+      "border-control": {
+        "$value": "#8a8a8a",
+        "$description": "Input outlines. 3:1 against surfaces."
+      },
+      "border-strong": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "accent": {
+        "$value": "{core.color.neutral.900}",
+        "$description": "Main colour. Near-black in light, near-white in dark."
+      },
+      "accent-hover": {
+        "$value": "{core.color.neutral.700}"
+      },
+      "accent-active": {
+        "$value": "{core.color.neutral.600}",
+        "$description": "Pressed."
+      },
+      "accent-strong": {
+        "$value": "{core.color.neutral.900}",
+        "$description": "Outline of filled controls such as a ticked checkbox."
+      },
+      "on-accent": {
+        "$value": "{core.color.neutral.50}",
+        "$description": "Text on the main colour."
+      },
+      "accent-text": {
+        "$value": "{core.color.neutral.900}",
+        "$description": "Links and emphasised text."
+      },
+      "accent-soft": {
+        "$value": "{core.color.neutral.100}"
+      },
+      "accent-border": {
+        "$value": "{core.color.neutral.300}"
+      },
+      "accent-2": {
+        "$value": "{core.color.brand.500}",
+        "$description": "Brand orange. Highlights, data and the logo, not main actions."
+      },
+      "on-accent-2": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "accent-2-text": {
+        "$value": "{core.color.brand.700}"
+      },
+      "accent-2-soft": {
+        "$value": "{core.color.brand.50}"
+      },
+      "accent-2-border": {
+        "$value": "{core.color.brand.200}"
+      },
+      "success": {
+        "$value": "{core.color.green.700}"
+      },
+      "on-success": {
+        "$value": "{core.color.white}"
+      },
+      "success-text": {
+        "$value": "{core.color.green.800}"
+      },
+      "success-soft": {
+        "$value": "{core.color.green.100}"
+      },
+      "success-border": {
+        "$value": "{core.color.green.300}"
+      },
+      "warning": {
+        "$value": "{core.color.amber.500}"
+      },
+      "on-warning": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "warning-text": {
+        "$value": "{core.color.amber.800}"
+      },
+      "warning-soft": {
+        "$value": "{core.color.amber.100}"
+      },
+      "warning-border": {
+        "$value": "{core.color.amber.300}"
+      },
+      "danger": {
+        "$value": "{core.color.rose.600}"
+      },
+      "on-danger": {
+        "$value": "{core.color.white}"
+      },
+      "danger-text": {
+        "$value": "{core.color.rose.700}"
+      },
+      "danger-soft": {
+        "$value": "{core.color.rose.100}"
+      },
+      "danger-border": {
+        "$value": "{core.color.rose.300}"
+      },
+      "info": {
+        "$value": "{core.color.blue.600}"
+      },
+      "on-info": {
+        "$value": "{core.color.white}"
+      },
+      "info-text": {
+        "$value": "{core.color.blue.700}"
+      },
+      "info-soft": {
+        "$value": "{core.color.blue.100}"
+      },
+      "info-border": {
+        "$value": "{core.color.blue.300}"
+      },
+      "focus": {
+        "$value": "{core.color.neutral.900}",
+        "$description": "Focus ring"
+      },
+      "overlay": {
+        "$value": "rgba(10, 10, 10, 0.55)",
+        "$description": "Scrim behind modals and drawers"
+      },
+      "disabled-bg": {
+        "$value": "{core.color.neutral.200}"
+      },
+      "disabled-text": {
+        "$value": "{core.color.neutral.400}"
+      },
+      "shadow-color": {
+        "$value": "rgba(10, 10, 10, 0.12)"
+      },
+      "viz-1": {
+        "$value": "#db5200",
+        "$description": "Chart series 1 to 8. Use them in order."
+      },
+      "viz-2": {
+        "$value": "#2563eb"
+      },
+      "viz-3": {
+        "$value": "#16a34a"
+      },
+      "viz-4": {
+        "$value": "#9333ea"
+      },
+      "viz-5": {
+        "$value": "#0891b2"
+      },
+      "viz-6": {
+        "$value": "#db2777"
+      },
+      "viz-7": {
+        "$value": "#a16207"
+      },
+      "viz-8": {
+        "$value": "#737373"
+      }
+    },
+    "dark": {
+      "$type": "color",
+      "bg": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "surface": {
+        "$value": "{core.color.neutral.900}"
+      },
+      "surface-2": {
+        "$value": "{core.color.neutral.800}"
+      },
+      "surface-3": {
+        "$value": "{core.color.neutral.700}"
+      },
+      "inverse": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "on-inverse": {
+        "$value": "{core.color.neutral.900}"
+      },
+      "text": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "text-muted": {
+        "$value": "{core.color.neutral.400}"
+      },
+      "text-subtle": {
+        "$value": "#9a9a9a"
+      },
+      "border": {
+        "$value": "rgba(255, 255, 255, 0.12)"
+      },
+      "border-control": {
+        "$value": "{core.color.neutral.500}"
+      },
+      "border-strong": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "accent": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "accent-hover": {
+        "$value": "{core.color.neutral.200}"
+      },
+      "accent-active": {
+        "$value": "{core.color.neutral.300}",
+        "$description": "Pressed."
+      },
+      "accent-strong": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "on-accent": {
+        "$value": "{core.color.neutral.900}"
+      },
+      "accent-text": {
+        "$value": "{core.color.neutral.50}"
+      },
+      "accent-soft": {
+        "$value": "rgba(255, 255, 255, 0.1)"
+      },
+      "accent-border": {
+        "$value": "rgba(255, 255, 255, 0.3)"
+      },
+      "accent-2": {
+        "$value": "{core.color.brand.500}",
+        "$description": "Brand orange. Highlights, data and the logo, not main actions."
+      },
+      "on-accent-2": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "accent-2-text": {
+        "$value": "{core.color.brand.400}"
+      },
+      "accent-2-soft": {
+        "$value": "rgba(255, 99, 0, 0.16)"
+      },
+      "accent-2-border": {
+        "$value": "rgba(255, 99, 0, 0.45)"
+      },
+      "success": {
+        "$value": "{core.color.green.500}"
+      },
+      "on-success": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "success-text": {
+        "$value": "{core.color.green.400}"
+      },
+      "success-soft": {
+        "$value": "rgba(34, 197, 94, 0.14)"
+      },
+      "success-border": {
+        "$value": "rgba(34, 197, 94, 0.4)"
+      },
+      "warning": {
+        "$value": "{core.color.amber.500}"
+      },
+      "on-warning": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "warning-text": {
+        "$value": "{core.color.amber.400}"
+      },
+      "warning-soft": {
+        "$value": "rgba(245, 158, 11, 0.14)"
+      },
+      "warning-border": {
+        "$value": "rgba(245, 158, 11, 0.4)"
+      },
+      "danger": {
+        "$value": "{core.color.rose.500}"
+      },
+      "on-danger": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "danger-text": {
+        "$value": "{core.color.rose.400}"
+      },
+      "danger-soft": {
+        "$value": "rgba(244, 63, 94, 0.14)"
+      },
+      "danger-border": {
+        "$value": "rgba(244, 63, 94, 0.4)"
+      },
+      "info": {
+        "$value": "{core.color.blue.500}"
+      },
+      "on-info": {
+        "$value": "{core.color.neutral.950}"
+      },
+      "info-text": {
+        "$value": "{core.color.blue.400}"
+      },
+      "info-soft": {
+        "$value": "rgba(59, 130, 246, 0.16)"
+      },
+      "info-border": {
+        "$value": "rgba(59, 130, 246, 0.4)"
+      },
+      "focus": {
+        "$value": "{core.color.neutral.300}"
+      },
+      "overlay": {
+        "$value": "rgba(0, 0, 0, 0.7)"
+      },
+      "disabled-bg": {
+        "$value": "{core.color.neutral.800}"
+      },
+      "disabled-text": {
+        "$value": "{core.color.neutral.500}"
+      },
+      "shadow-color": {
+        "$value": "rgba(0, 0, 0, 0.5)"
+      },
+      "viz-1": {
+        "$value": "#ff8a33",
+        "$description": "Chart series 1 to 8. Use them in order."
+      },
+      "viz-2": {
+        "$value": "#60a5fa"
+      },
+      "viz-3": {
+        "$value": "#4ade80"
+      },
+      "viz-4": {
+        "$value": "#c084fc"
+      },
+      "viz-5": {
+        "$value": "#22d3ee"
+      },
+      "viz-6": {
+        "$value": "#f472b6"
+      },
+      "viz-7": {
+        "$value": "#facc15"
+      },
+      "viz-8": {
+        "$value": "#a3a3a3"
+      }
+    }
+  }
+}

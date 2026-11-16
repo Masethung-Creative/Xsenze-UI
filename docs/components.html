@@ -1,0 +1,2358 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Components · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="components">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Components</p>
+  <h1 class="xz-h1">Every part, every state</h1>
+  <p class="xz-lead">Copy the markup, keep the classes. Each example below is live, and its code panel shows exactly what to paste into an HTML or PHP page.</p>
+</header>
+
+<!-- ================= 1. BUTTONS ================= -->
+<section class="doc-section" id="buttons">
+  <h2>Buttons</h2>
+  <p>Use a button for an action and a link for navigation. Give each screen one primary button, and label it with a verb and an object: "Save changes", not "OK".</p>
+
+  <h3>Variants</h3>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--primary" type="button">Save changes</button>
+    <button class="xz-btn" type="button">Cancel</button>
+    <button class="xz-btn xz-btn--soft" type="button">Add learner</button>
+    <button class="xz-btn xz-btn--ghost" type="button">Skip for now</button>
+    <button class="xz-btn xz-btn--link" type="button">View all invoices</button>
+    <button class="xz-btn xz-btn--danger" type="button">Delete course</button>
+    <button class="xz-btn xz-btn--danger-outline" type="button">Remove access</button>
+  </div>
+
+  <h3>Sizes</h3>
+  <p>Small is 32px, medium 40px and large 48px. On touch screens every size grows to at least 44px.</p>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--primary xz-btn--sm" type="button">Small</button>
+    <button class="xz-btn xz-btn--primary" type="button">Medium</button>
+    <button class="xz-btn xz-btn--primary xz-btn--lg" type="button">Large</button>
+  </div>
+
+  <h3>With icons</h3>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="plus" data-size="sm"></i>Add learner</button>
+    <button class="xz-btn" type="button"><i data-xz-icon="download" data-size="sm"></i>Export CSV</button>
+    <button class="xz-btn xz-btn--ghost" type="button">Next step<i data-xz-icon="arrow-right" data-size="sm"></i></button>
+  </div>
+
+  <h3>Icon only</h3>
+  <p>An icon-only button always needs an <code class="xz-code">aria-label</code>. Add a tooltip so sighted people get the same name.</p>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--icon xz-btn--sm" type="button" aria-label="Edit" data-xz-tooltip="Edit"><i data-xz-icon="pencil" data-size="sm"></i></button>
+    <button class="xz-btn xz-btn--icon" type="button" aria-label="Copy link" data-xz-tooltip="Copy link"><i data-xz-icon="copy"></i></button>
+    <button class="xz-btn xz-btn--icon xz-btn--primary" type="button" aria-label="Add course" data-xz-tooltip="Add course"><i data-xz-icon="plus"></i></button>
+    <button class="xz-btn xz-btn--icon xz-btn--ghost xz-btn--lg" type="button" aria-label="Settings" data-xz-tooltip="Settings"><i data-xz-icon="settings" data-size="lg"></i></button>
+  </div>
+
+  <h3>Block</h3>
+  <div class="doc-example" data-layout="stack">
+    <button class="xz-btn xz-btn--primary xz-btn--block xz-btn--lg" type="button">Sign in</button>
+  </div>
+
+  <h3>States</h3>
+  <p>The <code class="xz-code">is-*</code> classes pin a state for documentation and design review. Real buttons get these states by themselves.</p>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--primary" type="button">Default</button>
+    <button class="xz-btn xz-btn--primary is-hover" type="button">Hover</button>
+    <button class="xz-btn xz-btn--primary is-active" type="button">Pressed</button>
+    <button class="xz-btn xz-btn--primary is-focus" type="button">Focus</button>
+    <button class="xz-btn xz-btn--primary" type="button" disabled>Disabled</button>
+    <button class="xz-btn xz-btn--primary is-loading" type="button" aria-busy="true">Saving</button>
+  </div>
+  <div class="doc-example">
+    <button class="xz-btn" type="button">Default</button>
+    <button class="xz-btn is-hover" type="button">Hover</button>
+    <button class="xz-btn is-active" type="button">Pressed</button>
+    <button class="xz-btn is-focus" type="button">Focus</button>
+    <button class="xz-btn" type="button" disabled>Disabled</button>
+    <button class="xz-btn is-loading" type="button" aria-busy="true">Saving</button>
+  </div>
+
+  <h3>Button group</h3>
+  <p>With <code class="xz-code">data-xz-toggle</code> the group works as a single choice: the pressed button gets <code class="xz-code">aria-pressed="true"</code>.</p>
+  <div class="doc-example">
+    <div class="xz-btn-group" data-xz-toggle role="group" aria-label="Report period">
+      <button class="xz-btn" type="button" aria-pressed="true">Week</button>
+      <button class="xz-btn" type="button" aria-pressed="false">Month</button>
+      <button class="xz-btn" type="button" aria-pressed="false">Quarter</button>
+      <button class="xz-btn" type="button" aria-pressed="false">FY</button>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-btn</code></td><td>Default outlined button. Works on <code>button</code> and <code>a</code>.</td></tr>
+      <tr><td><code>xz-btn--primary</code></td><td>The main action. One per view.</td></tr>
+      <tr><td><code>xz-btn--soft</code> <code>--ghost</code> <code>--link</code></td><td>Secondary emphasis levels, strongest to quietest.</td></tr>
+      <tr><td><code>xz-btn--solid</code></td><td>Looks the same as <code>--primary</code> since 0.3.0. Kept so existing pages keep working; use <code>--primary</code> in new work.</td></tr>
+      <tr><td><code>xz-btn--danger</code> <code>--danger-outline</code></td><td>Destructive actions. Pair with a confirm modal.</td></tr>
+      <tr><td><code>xz-btn--sm</code> <code>--lg</code></td><td>Size.</td></tr>
+      <tr><td><code>xz-btn--icon</code></td><td>Square, icon only. Needs <code>aria-label</code>.</td></tr>
+      <tr><td><code>xz-btn--block</code></td><td>Full width.</td></tr>
+      <tr><td><code>is-loading</code></td><td>Shows a spinner and blocks clicks. Add <code>aria-busy="true"</code>.</td></tr>
+      <tr><td><code>xz-btn-group</code> + <code>data-xz-toggle</code></td><td>Joined buttons, single choice.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 2. INPUTS ================= -->
+<section class="doc-section" id="inputs">
+  <h2>Inputs</h2>
+  <p>Use an input for short free text and a textarea for longer answers. Every input has a visible label above it. Placeholder text is a hint, never the label.</p>
+
+  <h3>Text</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-name">Full name</label>
+      <input class="xz-input" id="in-name" type="text" placeholder="As on your Aadhaar card" autocomplete="name" aria-describedby="in-name-help">
+      <p class="xz-help" id="in-name-help">This name is printed on your certificate.</p>
+    </div>
+  </div>
+
+  <h3>Password</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-password">Password</label>
+      <div class="xz-input-group xz-input-group--action">
+        <input class="xz-input" id="in-password" type="password" autocomplete="current-password">
+        <button class="xz-input-group__action" type="button" data-xz-password-toggle aria-label="Show password" aria-pressed="false"><i data-xz-icon="eye" data-size="sm"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <h3>Number with an addon</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-fee">Course fee</label>
+      <div class="xz-input-group">
+        <span class="xz-input-group__addon">₹</span>
+        <input class="xz-input" id="in-fee" type="number" inputmode="decimal" min="0" step="1" value="24999">
+        <span class="xz-input-group__addon">per learner</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>Search</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-search">Search courses</label>
+      <div class="xz-input-group">
+        <i data-xz-icon="search" data-size="sm" class="xz-input-group__icon"></i>
+        <input class="xz-input" id="in-search" type="search" placeholder="Course name or code">
+        <kbd class="xz-kbd xz-input-group__kbd">Ctrl K</kbd>
+      </div>
+    </div>
+  </div>
+
+  <h3>Textarea</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-notes">Notes for the trainer <span class="xz-label__optional">(optional)</span></label>
+      <textarea class="xz-textarea" id="in-notes" rows="4" placeholder="Anything the trainer should know before the first session"></textarea>
+    </div>
+  </div>
+
+  <h3>Sizes</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-size-sm">Small</label>
+      <input class="xz-input xz-input--sm" id="in-size-sm" type="text" placeholder="32px">
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-size-md">Medium</label>
+      <input class="xz-input" id="in-size-md" type="text" placeholder="40px">
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-size-lg">Large</label>
+      <input class="xz-input xz-input--lg" id="in-size-lg" type="text" placeholder="48px">
+    </div>
+  </div>
+
+  <h3>Labels and helper text</h3>
+  <p>Mark the less common case. If most fields are required, mark only the optional ones.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-mobile">Mobile number <span class="xz-label__required" aria-hidden="true">*</span></label>
+      <div class="xz-input-group">
+        <span class="xz-input-group__addon">+91</span>
+        <input class="xz-input" id="in-mobile" type="tel" inputmode="numeric" autocomplete="tel-national" required aria-describedby="in-mobile-help">
+      </div>
+      <p class="xz-help" id="in-mobile-help">We send the OTP to this number.</p>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-gstin">GSTIN <span class="xz-label__optional">(optional)</span></label>
+      <input class="xz-input" id="in-gstin" type="text" placeholder="22AAAAA0000A1Z5">
+    </div>
+  </div>
+
+  <h3>States</h3>
+  <p>An error message says what went wrong and how to fix it. Link it to the input with <code class="xz-code">aria-describedby</code> and set <code class="xz-code">aria-invalid="true"</code>.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-st-hover">Hover</label>
+      <input class="xz-input is-hover" id="in-st-hover" type="text" value="Priya Nair">
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-st-focus">Focus</label>
+      <input class="xz-input is-focus" id="in-st-focus" type="text" value="Priya Nair">
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-st-invalid">Invalid</label>
+      <input class="xz-input" id="in-st-invalid" type="email" value="priya.nair@" aria-invalid="true" aria-describedby="in-st-invalid-error">
+      <p class="xz-error" id="in-st-invalid-error"><i data-xz-icon="circle-alert" data-size="sm"></i>Enter an email address like name@example.com</p>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-st-valid">Valid</label>
+      <input class="xz-input is-valid" id="in-st-valid" type="text" value="XSENZE25" aria-describedby="in-st-valid-msg">
+      <p class="xz-success-text" id="in-st-valid-msg">Coupon applied. You save ₹2,500.</p>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-st-disabled">Disabled</label>
+      <input class="xz-input" id="in-st-disabled" type="text" value="Not available on this plan" disabled>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-st-readonly">Read only</label>
+      <input class="xz-input" id="in-st-readonly" type="text" value="INV-2026-00482" readonly>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-field</code></td><td>Stacks label, control, helper text and error.</td></tr>
+      <tr><td><code>xz-label</code> <code>xz-help</code> <code>xz-error</code></td><td>Label, helper text, error message.</td></tr>
+      <tr><td><code>xz-input</code> <code>xz-textarea</code></td><td>The control. Sizes: <code>xz-input--sm</code>, <code>xz-input--lg</code>.</td></tr>
+      <tr><td><code>xz-input-group</code></td><td>Wraps an input with <code>__icon</code>, <code>__addon</code>, <code>__action</code> or <code>__kbd</code>. Add <code>--action</code> when there is a trailing button.</td></tr>
+      <tr><td><code>data-xz-password-toggle</code></td><td>On the trailing button. Shows or hides the password and updates its label.</td></tr>
+      <tr><td><code>aria-invalid="true"</code></td><td>Error outline. <code>is-valid</code> gives the success outline.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 3. CHECKBOX RADIO TOGGLE ================= -->
+<section class="doc-section" id="choices">
+  <h2>Checkbox, radio, toggle</h2>
+  <p>Use checkboxes to pick any number of options, radios to pick exactly one, and a toggle for a setting that takes effect straight away. The whole label is the click target.</p>
+
+  <h3>Checkbox</h3>
+  <p>The indeterminate state can only be set from script: <code class="xz-code">input.indeterminate = true</code>. Use it for a "select all" box when some rows are selected.</p>
+  <div class="doc-example" data-layout="stack">
+    <label class="xz-check"><input type="checkbox" name="ch-a"><span>Email me the weekly progress report</span></label>
+    <label class="xz-check"><input type="checkbox" name="ch-b" checked><span>Send payment reminders on WhatsApp</span></label>
+    <label class="xz-check"><input type="checkbox" name="ch-c" id="ch-indeterminate"><span>Select all learners (some selected)</span></label>
+    <label class="xz-check">
+      <input type="checkbox" name="ch-d">
+      <span>Issue certificates automatically
+        <span class="xz-check__hint">Learners get a certificate as soon as they pass the final quiz.</span>
+      </span>
+    </label>
+    <label class="xz-check"><input type="checkbox" name="ch-e" disabled><span>Disabled</span></label>
+    <label class="xz-check"><input type="checkbox" name="ch-f" checked disabled><span>Disabled and checked</span></label>
+  </div>
+
+  <h3>Radio group</h3>
+  <p>Group related choices in a <code class="xz-code">fieldset</code> with a <code class="xz-code">legend</code>, so screen readers announce the question with each option.</p>
+  <div class="doc-example" data-layout="stack">
+    <fieldset class="xz-fieldset">
+      <legend>How do you want to pay?</legend>
+      <div class="xz-stack xz-gap-3">
+        <label class="xz-radio"><input type="radio" name="rd-pay" value="upi" checked><span>UPI</span></label>
+        <label class="xz-radio"><input type="radio" name="rd-pay" value="card"><span>Credit or debit card</span></label>
+        <label class="xz-radio">
+          <input type="radio" name="rd-pay" value="emi">
+          <span>No-cost EMI
+            <span class="xz-check__hint">3 or 6 months, on orders above ₹10,000.</span>
+          </span>
+        </label>
+        <label class="xz-radio"><input type="radio" name="rd-pay" value="cod" disabled><span>Cash (not available for online courses)</span></label>
+      </div>
+    </fieldset>
+  </div>
+
+  <h3>Toggle</h3>
+  <div class="doc-example" data-layout="stack">
+    <label class="xz-toggle"><input type="checkbox" role="switch" name="tg-a"><span>Dark theme</span></label>
+    <label class="xz-toggle"><input type="checkbox" role="switch" name="tg-b" checked><span>Attendance reminders</span></label>
+    <label class="xz-toggle">
+      <input type="checkbox" role="switch" name="tg-c" checked>
+      <span>Show amounts in lakh and crore
+        <span class="xz-check__hint">₹12,50,000 is shown as ₹12.5 L.</span>
+      </span>
+    </label>
+    <label class="xz-toggle"><input type="checkbox" role="switch" name="tg-d" disabled><span>Disabled</span></label>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-check</code></td><td>Label wrapping a checkbox and its text.</td></tr>
+      <tr><td><code>xz-radio</code></td><td>Label wrapping a radio and its text.</td></tr>
+      <tr><td><code>xz-toggle</code></td><td>Label wrapping a checkbox with <code>role="switch"</code>.</td></tr>
+      <tr><td><code>xz-check__hint</code></td><td>Second line under the label text. Works in all three.</td></tr>
+      <tr><td><code>xz-fieldset</code></td><td>Unstyled <code>fieldset</code> with a styled <code>legend</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 4. SELECT ================= -->
+<section class="doc-section" id="select">
+  <h2>Select and combobox</h2>
+  <p>Use a native select for up to about ten options. Past that, use the searchable combobox so people can type to filter. For two or three options, radios are quicker.</p>
+
+  <h3>Native select</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="sel-role">Role</label>
+      <select class="xz-select" id="sel-role">
+        <option value="">Select a role</option>
+        <option value="admin">Admin</option>
+        <option value="trainer">Trainer</option>
+        <option value="learner">Learner</option>
+      </select>
+    </div>
+  </div>
+
+  <h3>Sizes and states</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="sel-sm">Small</label>
+      <select class="xz-select xz-select--sm" id="sel-sm"><option>10 per page</option><option>25 per page</option><option>50 per page</option></select>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="sel-lg">Large</label>
+      <select class="xz-select xz-select--lg" id="sel-lg"><option>English</option><option>हिन्दी</option><option>தமிழ்</option><option>ಕನ್ನಡ</option></select>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="sel-invalid">Invalid</label>
+      <select class="xz-select" id="sel-invalid" aria-invalid="true" aria-describedby="sel-invalid-error">
+        <option value="">Select a batch</option>
+        <option>Morning, 7:00 am</option>
+        <option>Evening, 6:30 pm</option>
+      </select>
+      <p class="xz-error" id="sel-invalid-error">Select a batch</p>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="sel-disabled">Disabled</label>
+      <select class="xz-select" id="sel-disabled" disabled><option>FY 2026-27</option></select>
+    </div>
+  </div>
+
+  <h3>Searchable combobox</h3>
+  <p>Wrap a normal select in <code class="xz-code">data-xz-combobox</code>. Without script it stays a working select; with it, people can type to filter, move with the arrow keys and choose with Enter. The select keeps the value, so forms submit as usual.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="sel-state">State</label>
+      <div data-xz-combobox data-empty="No state matches. Check the spelling.">
+        <select class="xz-select" id="sel-state" name="state">
+          <option value="">Search states</option>
+          <option value="AP">Andhra Pradesh</option>
+          <option value="AS">Assam</option>
+          <option value="BR">Bihar</option>
+          <option value="DL">Delhi</option>
+          <option value="GA">Goa</option>
+          <option value="GJ">Gujarat</option>
+          <option value="HR">Haryana</option>
+          <option value="KA">Karnataka</option>
+          <option value="KL">Kerala</option>
+          <option value="MP">Madhya Pradesh</option>
+          <option value="MH">Maharashtra</option>
+          <option value="MN">Manipur</option>
+          <option value="OD">Odisha</option>
+          <option value="PB">Punjab</option>
+          <option value="RJ">Rajasthan</option>
+          <option value="TN" selected>Tamil Nadu</option>
+          <option value="TS">Telangana</option>
+          <option value="UP">Uttar Pradesh</option>
+          <option value="UK">Uttarakhand</option>
+          <option value="WB">West Bengal</option>
+        </select>
+      </div>
+      <p class="xz-help">Used to work out GST on your invoice.</p>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-select</code></td><td>Styled native select. Sizes: <code>xz-select--sm</code>, <code>xz-select--lg</code>.</td></tr>
+      <tr><td><code>data-xz-combobox</code></td><td>On a wrapper around the select. Turns it into a searchable list.</td></tr>
+      <tr><td><code>option value=""</code></td><td>Its text becomes the combobox placeholder.</td></tr>
+      <tr><td><code>data-empty</code></td><td>Message shown when nothing matches.</td></tr>
+      <tr><td><code>change</code> event</td><td>Fires on the select when the choice changes.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 5. VALIDATION ================= -->
+<section class="doc-section" id="validation">
+  <h2>Form validation</h2>
+  <p>Add <code class="xz-code">data-xz-validate</code> to a form to check it on submit with the browser's own rules (<code class="xz-code">required</code>, <code class="xz-code">type</code>, <code class="xz-code">minlength</code>, <code class="xz-code">pattern</code>). Errors appear under each field in plain language, focus moves to the first one, and each field re-checks as the person fixes it.</p>
+
+  <div class="doc-example" data-layout="stack">
+    <form class="xz-form" data-xz-validate id="val-form" action="#validation">
+      <div class="xz-field">
+        <label class="xz-label" for="val-email">Email address</label>
+        <input class="xz-input" id="val-email" name="email" type="email" autocomplete="email" required>
+      </div>
+      <div class="xz-field">
+        <label class="xz-label" for="val-password">Password</label>
+        <input class="xz-input" id="val-password" name="password" type="password" autocomplete="new-password" required minlength="8" aria-describedby="val-password-help">
+        <p class="xz-help" id="val-password-help">At least 8 characters.</p>
+      </div>
+      <div class="xz-field">
+        <label class="xz-check">
+          <input type="checkbox" name="terms" required data-xz-msg-valuemissing="Accept the terms to create your account">
+          <span>I accept the terms of use</span>
+        </label>
+      </div>
+      <div class="xz-row">
+        <button class="xz-btn xz-btn--primary" type="submit">Create account</button>
+        <button class="xz-btn xz-btn--ghost" type="reset">Clear form</button>
+      </div>
+    </form>
+  </div>
+
+  <h3>Custom messages</h3>
+  <p>The default messages cover the common cases. Override one rule, or all of them, per field.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>Used when</th><th>Default message</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-msg-valuemissing</code></td><td>A required field is empty</td><td>Enter your email address</td></tr>
+      <tr><td><code>data-xz-msg-typemismatch</code></td><td>Email or URL is malformed</td><td>Enter an email address like name@example.com</td></tr>
+      <tr><td><code>data-xz-msg-tooshort</code></td><td>Shorter than <code>minlength</code></td><td>Use at least 8 characters</td></tr>
+      <tr><td><code>data-xz-msg-toolong</code></td><td>Longer than <code>maxlength</code></td><td>Use 50 characters or fewer</td></tr>
+      <tr><td><code>data-xz-msg-patternmismatch</code></td><td>Does not match <code>pattern</code></td><td>The field's <code>title</code>, or "Check the format"</td></tr>
+      <tr><td><code>data-xz-msg-rangeunderflow</code> <code>-rangeoverflow</code></td><td>Below <code>min</code> or above <code>max</code></td><td>Enter 1 or more</td></tr>
+      <tr><td><code>data-xz-msg</code></td><td>Any rule fails</td><td>One message for every rule on this field</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>From script</h3>
+  <pre class="doc-snippet" data-lang="text">
+    const form = document.querySelector('#val-form');
+
+    // Returns true when every field passes. Shows the errors and focuses the first one when not.
+    if (Xsenze.validate(form)) {
+      form.submit();
+    }
+  </pre>
+</section>
+
+<!-- ================= 6. BADGES TAGS CHIPS ================= -->
+<section class="doc-section" id="badges">
+  <h2>Badges, tags, chips</h2>
+  <p>Three small labels with three different jobs. A <strong>badge</strong> shows status and cannot be clicked. A <strong>tag</strong> names a category. A <strong>chip</strong> is a control: it can be selected or removed.</p>
+
+  <h3>Badges</h3>
+  <p>Never rely on colour alone. The text carries the meaning; the colour supports it.</p>
+  <div class="doc-example">
+    <span class="xz-badge">Draft</span>
+    <span class="xz-badge xz-badge--accent">New</span>
+    <span class="xz-badge xz-badge--success">Paid</span>
+    <span class="xz-badge xz-badge--warning">Due in 3 days</span>
+    <span class="xz-badge xz-badge--danger">Overdue</span>
+    <span class="xz-badge xz-badge--info">In review</span>
+    <span class="xz-badge xz-badge--solid">Pro</span>
+  </div>
+  <div class="doc-example">
+    <span class="xz-badge xz-badge--dot xz-badge--success">Active</span>
+    <span class="xz-badge xz-badge--dot xz-badge--warning">On hold</span>
+    <span class="xz-badge xz-badge--dot xz-badge--danger">Suspended</span>
+    <span class="xz-badge xz-badge--dot">Archived</span>
+    <span class="xz-badge xz-badge--count xz-badge--solid">8</span>
+    <span class="xz-badge xz-badge--count">24</span>
+    <span class="xz-badge xz-badge--count xz-badge--danger">99+</span>
+  </div>
+
+  <h3>Tags</h3>
+  <div class="doc-example">
+    <span class="xz-tag">python</span>
+    <span class="xz-tag">data-science</span>
+    <span class="xz-tag"><i data-xz-icon="tag" data-size="xs"></i>beginner</span>
+    <a class="xz-tag" href="#badges">weekend-batch</a>
+  </div>
+
+  <h3>Chips</h3>
+  <p>A toggle chip is a <code class="xz-code">button</code> with <code class="xz-code">aria-pressed</code>. A removable chip is a <code class="xz-code">span</code> with a remove button inside.</p>
+  <div class="doc-example">
+    <button class="xz-chip" type="button" aria-pressed="true">All</button>
+    <button class="xz-chip" type="button" aria-pressed="false">Live classes</button>
+    <button class="xz-chip" type="button" aria-pressed="false">Recorded</button>
+    <button class="xz-chip" type="button" aria-pressed="false"><i data-xz-icon="star" data-size="sm"></i>Top rated</button>
+    <button class="xz-chip" type="button" disabled>Offline</button>
+  </div>
+  <div class="doc-example">
+    <span class="xz-chip">Bengaluru <button class="xz-chip__remove" type="button" data-xz-dismiss aria-label="Remove Bengaluru"><i data-xz-icon="x" data-size="xs"></i></button></span>
+    <span class="xz-chip">Chennai <button class="xz-chip__remove" type="button" data-xz-dismiss aria-label="Remove Chennai"><i data-xz-icon="x" data-size="xs"></i></button></span>
+    <span class="xz-chip">Fee under ₹25,000 <button class="xz-chip__remove" type="button" data-xz-dismiss aria-label="Remove fee filter"><i data-xz-icon="x" data-size="xs"></i></button></span>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-badge</code></td><td>Neutral status. Colours: <code>--accent</code> <code>--success</code> <code>--warning</code> <code>--danger</code> <code>--info</code> <code>--solid</code>.</td></tr>
+      <tr><td><code>xz-badge--dot</code> <code>xz-badge--count</code></td><td>Leading dot. Centred number.</td></tr>
+      <tr><td><code>xz-tag</code></td><td>Monospace category label. Use <code>a</code> to make it a link.</td></tr>
+      <tr><td><code>xz-chip</code> + <code>aria-pressed</code></td><td>Toggle chip. The script flips <code>aria-pressed</code> on click.</td></tr>
+      <tr><td><code>xz-chip__remove</code> + <code>data-xz-dismiss</code></td><td>Removes the chip from the page.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 7. AVATARS ================= -->
+<section class="doc-section" id="avatars">
+  <h2>Avatars</h2>
+  <p>Use an avatar to represent a person or a team. Show a photo when there is one, and fall back to one or two initials.</p>
+
+  <h3>Sizes</h3>
+  <div class="doc-example">
+    <span class="xz-avatar xz-avatar--xs" aria-hidden="true">AK</span>
+    <span class="xz-avatar xz-avatar--sm" aria-hidden="true">AK</span>
+    <span class="xz-avatar" aria-hidden="true">AK</span>
+    <span class="xz-avatar xz-avatar--lg" aria-hidden="true">AK</span>
+    <span class="xz-avatar xz-avatar--xl" aria-hidden="true">AK</span>
+  </div>
+
+  <h3>Shape and colour</h3>
+  <div class="doc-example">
+    <span class="xz-avatar" role="img" aria-label="Meera Iyer">MI</span>
+    <span class="xz-avatar xz-avatar--round" role="img" aria-label="Rohan Deshmukh">RD</span>
+    <span class="xz-avatar xz-avatar--accent" role="img" aria-label="Sana Qureshi">SQ</span>
+    <span class="xz-avatar xz-avatar--accent xz-avatar--round" role="img" aria-label="Vikram Singh">VS</span>
+    <span class="xz-avatar" role="img" aria-label="Guest"><i data-xz-icon="user"></i></span>
+  </div>
+
+  <h3>Status</h3>
+  <div class="doc-example">
+    <span class="xz-avatar" role="img" aria-label="Meera Iyer, online">MI<span class="xz-avatar__status"></span></span>
+    <span class="xz-avatar" role="img" aria-label="Rohan Deshmukh, away">RD<span class="xz-avatar__status xz-avatar__status--away"></span></span>
+    <span class="xz-avatar" role="img" aria-label="Sana Qureshi, offline">SQ<span class="xz-avatar__status xz-avatar__status--offline"></span></span>
+  </div>
+
+  <h3>Group and with text</h3>
+  <div class="doc-example">
+    <div class="xz-avatar-group" role="img" aria-label="Meera, Rohan, Sana and 5 others">
+      <span class="xz-avatar xz-avatar--sm">MI</span>
+      <span class="xz-avatar xz-avatar--sm xz-avatar--accent">RD</span>
+      <span class="xz-avatar xz-avatar--sm">SQ</span>
+      <span class="xz-avatar xz-avatar--sm">+5</span>
+    </div>
+    <div class="xz-row xz-row--nowrap">
+      <span class="xz-avatar xz-avatar--accent" aria-hidden="true">AK</span>
+      <div>
+        <div class="xz-small"><strong>Ananya Krishnan</strong></div>
+        <div class="xz-caption">Trainer, Coimbatore</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-avatar</code></td><td>40px square. Put initials, an <code>img</code> or an icon inside.</td></tr>
+      <tr><td><code>--xs</code> <code>--sm</code> <code>--lg</code> <code>--xl</code></td><td>24, 32, 48 and 64px.</td></tr>
+      <tr><td><code>--round</code> <code>--accent</code></td><td>Circle. Brand fill.</td></tr>
+      <tr><td><code>xz-avatar__status</code></td><td>Status dot. Add <code>--away</code> or <code>--offline</code>. Say the status in the label too.</td></tr>
+      <tr><td><code>xz-avatar-group</code></td><td>Overlapping stack.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 8. LINKS DIVIDERS ================= -->
+<section class="doc-section" id="links">
+  <h2>Links and dividers</h2>
+  <p>Links take people somewhere; they are underlined so they do not depend on colour. Dividers separate groups of content when spacing alone is not enough.</p>
+
+  <h3>Links</h3>
+  <div class="doc-example" data-layout="stack">
+    <p class="xz-body">Read the <a class="xz-link" href="#links">refund policy</a> before you cancel a batch.</p>
+    <p class="xz-body xz-text-muted">Need help? <a class="xz-link xz-link--quiet" href="#links">Contact support</a>, Monday to Saturday.</p>
+    <p><a class="xz-link xz-link--standalone" href="#links">View all courses <i data-xz-icon="arrow-right" data-size="sm"></i></a></p>
+    <p><a class="xz-link xz-link--standalone" href="#links" target="_blank" rel="noopener">GST portal <i data-xz-icon="external-link" data-size="sm"></i><span class="xz-sr-only">(opens in a new tab)</span></a></p>
+    <p><a class="xz-link" aria-disabled="true">Download certificate</a> <span class="xz-caption">Available after you finish the course</span></p>
+  </div>
+
+  <h3>Dividers</h3>
+  <div class="doc-example" data-layout="stack">
+    <hr class="xz-divider">
+    <hr class="xz-divider xz-divider--strong">
+    <div class="xz-divider xz-divider--label" role="separator">or</div>
+    <div class="xz-row">
+      <span class="xz-small">12 lessons</span>
+      <span class="xz-divider xz-divider--vertical" role="separator" aria-orientation="vertical"></span>
+      <span class="xz-small">6 hours</span>
+      <span class="xz-divider xz-divider--vertical" role="separator" aria-orientation="vertical"></span>
+      <span class="xz-small">Certificate included</span>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-link</code></td><td>Brand-coloured, underlined link.</td></tr>
+      <tr><td><code>xz-link--quiet</code></td><td>Takes the text colour. For links inside muted text.</td></tr>
+      <tr><td><code>xz-link--standalone</code></td><td>No underline until hover. For a link on its own line, with an icon.</td></tr>
+      <tr><td><code>xz-divider</code></td><td>Horizontal rule. Variants: <code>--strong</code>, <code>--vertical</code>, <code>--label</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 9. TOOLTIPS ================= -->
+<section class="doc-section" id="tooltips">
+  <h2>Tooltips</h2>
+  <p>Use a tooltip to name an icon button or add a short hint. It shows on hover and on keyboard focus, and Escape hides it. Never put essential information or links in a tooltip: touch users may not see it.</p>
+
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--icon" type="button" aria-label="Download invoice" data-xz-tooltip="Download invoice"><i data-xz-icon="download"></i></button>
+    <button class="xz-btn xz-btn--icon" type="button" aria-label="Print" data-xz-tooltip="Print" data-xz-tooltip-place="bottom"><i data-xz-icon="printer"></i></button>
+    <button class="xz-btn" type="button" data-xz-tooltip="Sends a payment link by SMS and email">Send reminder</button>
+    <span class="xz-small">GST <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="About GST" data-xz-tooltip="18% GST is added at checkout"><i data-xz-icon="circle-help" data-size="sm"></i></button></span>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-tooltip="Text"</code></td><td>Tooltip text. Keep it under about eight words.</td></tr>
+      <tr><td><code>data-xz-tooltip-place="bottom"</code></td><td>Opens below. The default is above; it flips when there is no room.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 10. LOADING ================= -->
+<section class="doc-section" id="loading">
+  <h2>Spinners, progress, skeleton</h2>
+  <p>Use a spinner for a short wait with no known length, a progress bar when you can measure it, and a skeleton when a whole block of content is loading. For waits under a second, show nothing.</p>
+
+  <h3>Spinner</h3>
+  <div class="doc-example">
+    <span class="xz-spinner xz-spinner--sm" role="status" aria-label="Loading"></span>
+    <span class="xz-spinner" role="status" aria-label="Loading"></span>
+    <span class="xz-spinner xz-spinner--lg" role="status" aria-label="Loading"></span>
+    <span class="xz-row xz-gap-2"><span class="xz-spinner xz-spinner--sm" aria-hidden="true"></span><span class="xz-small" role="status">Checking payment status</span></span>
+  </div>
+
+  <h3>Progress bar</h3>
+  <p>Set the value twice: <code class="xz-code">aria-valuenow</code> for assistive technology and <code class="xz-code">--xz-progress</code> for the bar.</p>
+  <div class="doc-example" data-layout="stack">
+    <div>
+      <div class="xz-progress-label"><span id="pg-course">Course progress</span><span class="xz-num">64%</span></div>
+      <div class="xz-progress" role="progressbar" aria-labelledby="pg-course" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 64%">
+        <div class="xz-progress__bar"></div>
+      </div>
+    </div>
+    <div class="xz-progress xz-progress--sm xz-progress--success" role="progressbar" aria-label="Attendance" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 92%">
+      <div class="xz-progress__bar"></div>
+    </div>
+    <div class="xz-progress xz-progress--warning" role="progressbar" aria-label="Storage used" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 78%">
+      <div class="xz-progress__bar"></div>
+    </div>
+    <div class="xz-progress xz-progress--lg xz-progress--danger" role="progressbar" aria-label="Fee overdue" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" style="--xz-progress: 35%">
+      <div class="xz-progress__bar"></div>
+    </div>
+    <div class="xz-progress xz-progress--indeterminate" role="progressbar" aria-label="Uploading learner list">
+      <div class="xz-progress__bar"></div>
+    </div>
+  </div>
+
+  <h3>Skeleton</h3>
+  <p>Match the skeleton to the shape of the content that will replace it. Mark the container <code class="xz-code">aria-busy="true"</code> while it loads.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-card" aria-busy="true" aria-label="Loading course">
+      <div class="xz-card__body xz-stack xz-gap-3">
+        <span class="xz-skeleton xz-skeleton--block"></span>
+        <span class="xz-skeleton xz-skeleton--title"></span>
+        <span class="xz-skeleton xz-skeleton--text"></span>
+        <span class="xz-skeleton xz-skeleton--text" style="width: 80%"></span>
+        <div class="xz-row xz-row--nowrap">
+          <span class="xz-skeleton xz-skeleton--avatar"></span>
+          <span class="xz-skeleton xz-skeleton--text xz-grow"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-spinner</code></td><td>Sizes: <code>--sm</code>, <code>--lg</code>.</td></tr>
+      <tr><td><code>xz-progress</code> + <code>xz-progress__bar</code></td><td>Sizes: <code>--sm</code>, <code>--lg</code>. Colours: <code>--success</code>, <code>--warning</code>, <code>--danger</code>.</td></tr>
+      <tr><td><code>xz-progress--indeterminate</code></td><td>Moving bar for unknown length. Leave out <code>aria-valuenow</code>.</td></tr>
+      <tr><td><code>xz-skeleton</code></td><td>Shapes: <code>--text</code>, <code>--title</code>, <code>--avatar</code>, <code>--block</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 11. CARDS ================= -->
+<section class="doc-section" id="cards">
+  <h2>Cards</h2>
+  <p>Use a card to group one subject: a course, an invoice, a setting. Use a stat card for a single number that people check often.</p>
+
+  <h3>Basic</h3>
+  <div class="doc-example" data-layout="stack">
+    <article class="xz-card">
+      <header class="xz-card__header">
+        <div>
+          <h4 class="xz-card__title">Batch B-14, Data Analytics</h4>
+          <p class="xz-card__subtitle">Starts 1 Dec 2026, weekday evenings</p>
+        </div>
+        <span class="xz-badge xz-badge--success">Enrolling</span>
+      </header>
+      <div class="xz-card__body">
+        <p class="xz-small xz-text-muted">28 of 40 seats filled. Trainer: Ananya Krishnan. Classes run Monday to Thursday, 6:30 pm to 8:00 pm.</p>
+      </div>
+      <footer class="xz-card__footer">
+        <button class="xz-btn xz-btn--ghost" type="button">View learners</button>
+        <button class="xz-btn xz-btn--primary" type="button">Edit batch</button>
+      </footer>
+    </article>
+  </div>
+
+  <h3>Muted, raised, interactive</h3>
+  <p>An interactive card is one link. Do not put other buttons or links inside it.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto">
+      <div class="xz-card xz-card--muted">
+        <div class="xz-card__body">
+          <h4 class="xz-card__title">Muted</h4>
+          <p class="xz-small xz-text-muted">For secondary content next to a main card.</p>
+        </div>
+      </div>
+      <div class="xz-card xz-card--raised">
+        <div class="xz-card__body">
+          <h4 class="xz-card__title">Raised</h4>
+          <p class="xz-small xz-text-muted">Shadow in place of a border. For content that floats above the page.</p>
+        </div>
+      </div>
+      <a class="xz-card xz-card--interactive" href="#cards">
+        <div class="xz-card__body">
+          <h4 class="xz-card__title">Interactive</h4>
+          <p class="xz-small xz-text-muted">The whole card is a link. Hover or focus to see it lift.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <h3>Stat or KPI</h3>
+  <p>Shorten large rupee amounts to lakh (L) and crore (Cr). Say what the trend compares against.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 200px">
+      <div class="xz-stat xz-stat--accent">
+        <div class="xz-stat__label">Revenue, FY 2026-27 <i data-xz-icon="indian-rupee" data-size="sm"></i></div>
+        <div class="xz-stat__value">₹1.82 Cr</div>
+        <div class="xz-stat__meta"><span class="xz-stat__trend"><i data-xz-icon="trending-up" data-size="sm"></i>18.4%</span> against last year</div>
+      </div>
+      <div class="xz-stat">
+        <div class="xz-stat__label">Collected this month <i data-xz-icon="wallet" data-size="sm"></i></div>
+        <div class="xz-stat__value">₹12,48,500</div>
+        <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--up"><i data-xz-icon="trending-up" data-size="sm"></i>6.2%</span> against October</div>
+      </div>
+      <div class="xz-stat">
+        <div class="xz-stat__label">Active learners <i data-xz-icon="users" data-size="sm"></i></div>
+        <div class="xz-stat__value">3,216</div>
+        <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--up"><i data-xz-icon="trending-up" data-size="sm"></i>214</span> joined this month</div>
+      </div>
+      <div class="xz-stat">
+        <div class="xz-stat__label">Fees overdue <i data-xz-icon="circle-alert" data-size="sm"></i></div>
+        <div class="xz-stat__value">₹3.4 L</div>
+        <div class="xz-stat__meta"><span class="xz-stat__trend xz-stat__trend--down"><i data-xz-icon="trending-down" data-size="sm"></i>12 learners</span> past 30 days</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-card</code></td><td>Container. Parts: <code>__header</code>, <code>__title</code>, <code>__subtitle</code>, <code>__body</code>, <code>__footer</code>.</td></tr>
+      <tr><td><code>xz-card__body--flush</code></td><td>No padding. For a table or list that touches the edges.</td></tr>
+      <tr><td><code>xz-card--muted</code> <code>--raised</code> <code>--interactive</code></td><td>Grey fill. Shadow. Clickable.</td></tr>
+      <tr><td><code>xz-stat</code></td><td>KPI card. Parts: <code>__label</code>, <code>__value</code>, <code>__meta</code>, <code>__trend</code> with <code>--up</code> or <code>--down</code>.</td></tr>
+      <tr><td><code>xz-stat--accent</code></td><td>Brand fill. For the one number that matters most.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 12. TABS ================= -->
+<section class="doc-section" id="tabs">
+  <h2>Tabs</h2>
+  <p>Use tabs to switch between views of the same thing without leaving the page. If each view is its own page, use navigation links.</p>
+  <p>Keyboard: Tab moves into the list, Left and Right arrows move between tabs, Home and End jump to the first and last.</p>
+
+  <h3>Underline</h3>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-tabs" data-xz-tabs>
+      <div class="xz-tabs__list" aria-label="Course sections">
+        <button class="xz-tabs__tab" aria-selected="true">Overview</button>
+        <button class="xz-tabs__tab">Lessons <span class="xz-badge xz-badge--count">12</span></button>
+        <button class="xz-tabs__tab">Learners</button>
+        <button class="xz-tabs__tab" disabled>Certificates</button>
+      </div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">A 6-week course on spreadsheets and dashboards for working professionals.</p></div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">12 lessons, 6 hours of video and 4 graded quizzes.</p></div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">28 learners enrolled. 24 attended the last session.</p></div>
+      <div class="xz-tabs__panel"><p class="xz-small xz-text-muted">Certificates open when the batch ends.</p></div>
+    </div>
+  </div>
+
+  <h3>Boxed</h3>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-tabs xz-tabs--boxed" data-xz-tabs>
+      <div class="xz-tabs__list" aria-label="Billing period">
+        <button class="xz-tabs__tab" aria-selected="true">Monthly</button>
+        <button class="xz-tabs__tab">Quarterly</button>
+        <button class="xz-tabs__tab">Yearly</button>
+      </div>
+      <div class="xz-tabs__panel"><p class="xz-h3">₹2,499 <span class="xz-small xz-text-muted">a month</span></p></div>
+      <div class="xz-tabs__panel"><p class="xz-h3">₹6,999 <span class="xz-small xz-text-muted">a quarter</span></p></div>
+      <div class="xz-tabs__panel"><p class="xz-h3">₹24,999 <span class="xz-small xz-text-muted">a year</span></p></div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class, attribute or event</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-tabs</code></td><td>On the wrapper. Adds roles, ids and keyboard support.</td></tr>
+      <tr><td><code>xz-tabs__list</code> &gt; <code>xz-tabs__tab</code></td><td>The tab buttons. Give the list an <code>aria-label</code>.</td></tr>
+      <tr><td><code>xz-tabs__panel</code></td><td>One per tab, in the same order, as direct children of the wrapper.</td></tr>
+      <tr><td><code>aria-selected="true"</code></td><td>The tab that starts open. Defaults to the first.</td></tr>
+      <tr><td><code>xz-tabs--boxed</code></td><td>Segmented style.</td></tr>
+      <tr><td><code>xz:tab</code></td><td>Event on the wrapper. <code>event.detail.index</code> is the new tab.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 13. ACCORDION ================= -->
+<section class="doc-section" id="accordion">
+  <h2>Accordion</h2>
+  <p>Use an accordion for content people scan and open selectively, such as FAQs. It is built on the native <code class="xz-code">details</code> element, so it works without script and browser find-in-page can open it.</p>
+
+  <h3>Independent items</h3>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-accordion">
+      <details class="xz-accordion__item" open>
+        <summary class="xz-accordion__trigger">How do I pay the course fee?</summary>
+        <div class="xz-accordion__content">Pay by UPI, card or net banking from the Fees page. You get a GST invoice by email within a few minutes.</div>
+      </details>
+      <details class="xz-accordion__item">
+        <summary class="xz-accordion__trigger">Can I pay in instalments?</summary>
+        <div class="xz-accordion__content">Yes. Courses above ₹10,000 can be paid in 3 or 6 monthly instalments at no extra cost.</div>
+      </details>
+      <details class="xz-accordion__item">
+        <summary class="xz-accordion__trigger">What if I miss a live class?</summary>
+        <div class="xz-accordion__content">Every class is recorded. The recording appears under Lessons within 24 hours.</div>
+      </details>
+    </div>
+  </div>
+
+  <h3>One open at a time</h3>
+  <p>Give the items the same <code class="xz-code">name</code>. Opening one closes the others.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-accordion">
+      <details class="xz-accordion__item" name="acc-refund" open>
+        <summary class="xz-accordion__trigger">Refund before the batch starts</summary>
+        <div class="xz-accordion__content">Full refund to the original payment method in 5 to 7 working days.</div>
+      </details>
+      <details class="xz-accordion__item" name="acc-refund">
+        <summary class="xz-accordion__trigger">Refund in the first week</summary>
+        <div class="xz-accordion__content">80% of the fee is refunded. GST is refunded in full.</div>
+      </details>
+      <details class="xz-accordion__item" name="acc-refund">
+        <summary class="xz-accordion__trigger">Refund after the first week</summary>
+        <div class="xz-accordion__content">No refund, but you can move to a later batch once at no cost.</div>
+      </details>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-accordion</code></td><td>Bordered wrapper.</td></tr>
+      <tr><td><code>details.xz-accordion__item</code></td><td>One section. Add <code>open</code> to start expanded.</td></tr>
+      <tr><td><code>summary.xz-accordion__trigger</code></td><td>The clickable heading.</td></tr>
+      <tr><td><code>xz-accordion__content</code></td><td>The body.</td></tr>
+      <tr><td><code>name="group"</code></td><td>Same name on several items: only one stays open.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 14. BREADCRUMBS PAGINATION ================= -->
+<section class="doc-section" id="wayfinding">
+  <h2>Breadcrumbs and pagination</h2>
+  <p>Breadcrumbs show where a page sits and let people step back up. Pagination splits a long list into pages. For tables, the table script builds the pagination for you.</p>
+
+  <h3>Breadcrumbs</h3>
+  <div class="doc-example">
+    <nav aria-label="Breadcrumb">
+      <ol class="xz-breadcrumbs">
+        <li><a href="#wayfinding">Home</a></li>
+        <li><a href="#wayfinding">Courses</a></li>
+        <li><a href="#wayfinding">Data Analytics</a></li>
+        <li><span aria-current="page">Batch B-14</span></li>
+      </ol>
+    </nav>
+  </div>
+
+  <h3>Pagination</h3>
+  <div class="doc-example" data-layout="block">
+    <nav class="xz-pagination" aria-label="Pagination">
+      <span class="xz-pagination__info">Showing 41 to 50 of 196</span>
+      <button class="xz-pagination__item" type="button" aria-label="Previous page">←</button>
+      <button class="xz-pagination__item" type="button" aria-label="Page 1">1</button>
+      <span class="xz-pagination__gap">…</span>
+      <button class="xz-pagination__item" type="button" aria-label="Page 4">4</button>
+      <button class="xz-pagination__item" type="button" aria-label="Page 5" aria-current="page">5</button>
+      <button class="xz-pagination__item" type="button" aria-label="Page 6">6</button>
+      <span class="xz-pagination__gap">…</span>
+      <button class="xz-pagination__item" type="button" aria-label="Page 20">20</button>
+      <button class="xz-pagination__item" type="button" aria-label="Next page">→</button>
+    </nav>
+  </div>
+  <div class="doc-example" data-layout="block">
+    <nav class="xz-pagination" aria-label="Pagination, first page">
+      <span class="xz-pagination__info">Showing 1 to 10 of 24</span>
+      <button class="xz-pagination__item" type="button" aria-label="Previous page" disabled>←</button>
+      <button class="xz-pagination__item" type="button" aria-label="Page 1" aria-current="page">1</button>
+      <button class="xz-pagination__item" type="button" aria-label="Page 2">2</button>
+      <button class="xz-pagination__item" type="button" aria-label="Page 3">3</button>
+      <button class="xz-pagination__item" type="button" aria-label="Next page">→</button>
+    </nav>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>ol.xz-breadcrumbs</code></td><td>Inside <code>nav aria-label="Breadcrumb"</code>. Separators are added for you.</td></tr>
+      <tr><td><code>aria-current="page"</code></td><td>The current page, in breadcrumbs and pagination.</td></tr>
+      <tr><td><code>xz-pagination</code></td><td>Wrapper. Parts: <code>__info</code>, <code>__item</code>, <code>__gap</code>.</td></tr>
+      <tr><td><code>disabled</code></td><td>On Previous for the first page and Next for the last.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 15. ALERTS BANNERS ================= -->
+<section class="doc-section" id="alerts">
+  <h2>Alerts and banners</h2>
+  <p>An alert is a message inside the page about that page's content. A banner runs across the top and applies to the whole product. For feedback on something the person just did, use a toast.</p>
+  <p>Use <code class="xz-code">role="alert"</code> only for errors that need attention now, since it interrupts screen readers. Use <code class="xz-code">role="status"</code> for everything else that appears after the page loads. Alerts that are there from the start need no role.</p>
+
+  <h3>Alerts</h3>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-alert">
+      <i data-xz-icon="info"></i>
+      <div class="xz-alert__body">
+        <p class="xz-alert__title">Scheduled maintenance</p>
+        <p class="xz-alert__text">The portal is offline on Sunday, 22 Nov 2026, from 2:00 am to 4:00 am.</p>
+      </div>
+    </div>
+    <div class="xz-alert xz-alert--info" role="status">
+      <i data-xz-icon="info"></i>
+      <div class="xz-alert__body">
+        <p class="xz-alert__title">New batch dates are open</p>
+        <p class="xz-alert__text">December batches for all courses can now be booked.</p>
+      </div>
+      <button class="xz-alert__close" type="button" data-xz-dismiss aria-label="Dismiss"><i data-xz-icon="x" data-size="sm"></i></button>
+    </div>
+    <div class="xz-alert xz-alert--success" role="status">
+      <i data-xz-icon="circle-check"></i>
+      <div class="xz-alert__body">
+        <p class="xz-alert__title">Payment received</p>
+        <p class="xz-alert__text">₹24,999 paid by UPI. Your invoice is on its way to priya.nair@example.com.</p>
+      </div>
+      <button class="xz-alert__close" type="button" data-xz-dismiss aria-label="Dismiss"><i data-xz-icon="x" data-size="sm"></i></button>
+    </div>
+    <div class="xz-alert xz-alert--warning" role="status">
+      <i data-xz-icon="triangle-alert"></i>
+      <div class="xz-alert__body">
+        <p class="xz-alert__title">Your plan ends in 3 days</p>
+        <p class="xz-alert__text">Renew by 18 Nov 2026 to keep access for all 40 learners.</p>
+        <div class="xz-alert__actions">
+          <button class="xz-btn xz-btn--sm xz-btn--solid" type="button">Renew plan</button>
+          <button class="xz-btn xz-btn--sm xz-btn--ghost" type="button">Remind me tomorrow</button>
+        </div>
+      </div>
+    </div>
+    <div class="xz-alert xz-alert--danger" role="alert">
+      <i data-xz-icon="circle-alert"></i>
+      <div class="xz-alert__body">
+        <p class="xz-alert__title">We could not import 4 rows</p>
+        <p class="xz-alert__text">Rows 12, 18, 31 and 44 have no mobile number. Add the numbers and upload the file again.</p>
+        <div class="xz-alert__actions">
+          <button class="xz-btn xz-btn--sm xz-btn--solid" type="button">Download error report</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Banners</h3>
+  <div class="doc-example" data-layout="stack" data-flush>
+    <div class="xz-banner">
+      <span>Republic Day offer: 20% off all yearly plans until 26 Jan.</span>
+      <a href="#alerts">See plans</a>
+      <button class="xz-banner__close" type="button" data-xz-dismiss aria-label="Dismiss"><i data-xz-icon="x" data-size="sm"></i></button>
+    </div>
+    <div class="xz-banner xz-banner--accent">
+      <span>You are viewing the demo workspace. Changes are not saved.</span>
+      <a href="#alerts">Create your workspace</a>
+    </div>
+    <div class="xz-banner xz-banner--warning" role="status">
+      <i data-xz-icon="triangle-alert" data-size="sm"></i>
+      <span>You are offline. We will save your changes when you reconnect.</span>
+    </div>
+    <div class="xz-banner xz-banner--danger" role="alert">
+      <i data-xz-icon="circle-alert" data-size="sm"></i>
+      <span>Payment failed for invoice INV-2026-00482.</span>
+      <a href="#alerts">Update payment method</a>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-alert</code></td><td>Neutral. Colours: <code>--info</code>, <code>--success</code>, <code>--warning</code>, <code>--danger</code>.</td></tr>
+      <tr><td><code>xz-alert__body</code></td><td>Holds <code>__title</code>, <code>__text</code> and <code>__actions</code>.</td></tr>
+      <tr><td><code>xz-alert__close</code> + <code>data-xz-dismiss</code></td><td>Removes the alert. Leave it out when the message must stay.</td></tr>
+      <tr><td><code>xz-banner</code></td><td>Dark strip. Colours: <code>--accent</code>, <code>--warning</code>, <code>--danger</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 16. EMPTY STATES ================= -->
+<section class="doc-section" id="empty-states">
+  <h2>Empty states</h2>
+  <p>An empty state says why there is nothing here and what to do next. Write one for each cause: nothing created yet, nothing matches, or something failed.</p>
+
+  <h3>First use</h3>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-empty">
+      <div class="xz-empty__icon"><i data-xz-icon="graduation-cap" data-size="lg"></i></div>
+      <h4 class="xz-empty__title">No courses yet</h4>
+      <p class="xz-empty__text">Create your first course to start enrolling learners. You can add lessons and quizzes later.</p>
+      <div class="xz-empty__actions">
+        <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="plus" data-size="sm"></i>Create course</button>
+        <button class="xz-btn xz-btn--ghost" type="button">Import from CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <h3>No results</h3>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-empty">
+      <div class="xz-empty__icon"><i data-xz-icon="search" data-size="lg"></i></div>
+      <h4 class="xz-empty__title">No learners match "Kavya R"</h4>
+      <p class="xz-empty__text">Check the spelling, or search by mobile number or enrolment ID.</p>
+      <div class="xz-empty__actions">
+        <button class="xz-btn" type="button">Clear search</button>
+      </div>
+    </div>
+  </div>
+
+  <h3>Error</h3>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-empty" role="alert">
+      <div class="xz-empty__icon"><i data-xz-icon="file-warning" data-size="lg"></i></div>
+      <h4 class="xz-empty__title">We could not load your invoices</h4>
+      <p class="xz-empty__text">This is a problem on our side. Your payments are safe. Try again in a minute.</p>
+      <div class="xz-empty__actions">
+        <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="refresh-cw" data-size="sm"></i>Try again</button>
+        <button class="xz-btn xz-btn--ghost" type="button">Contact support</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-empty</code></td><td>Centred column, 28rem wide at most.</td></tr>
+      <tr><td><code>xz-empty__icon</code></td><td>Boxed icon. Decorative, so no label needed.</td></tr>
+      <tr><td><code>xz-empty__title</code> <code>__text</code></td><td>What happened, then what to do.</td></tr>
+      <tr><td><code>xz-empty__actions</code></td><td>One primary action, at most one secondary.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 17. NAVIGATION ================= -->
+<section class="doc-section" id="navigation">
+  <h2>Navigation</h2>
+  <p>Use the top navbar for a handful of top-level sections and the sidebar when a product has many. Mark the current page with <code class="xz-code">aria-current="page"</code> in both.</p>
+
+  <h3>Top navbar</h3>
+  <p>The navbar sticks to the top of the page. <code class="xz-code">xz-navbar--static</code> turns that off, as in this example. Below 768px the links hide; put them in a left drawer opened by a menu button.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <header class="xz-navbar xz-navbar--static">
+      <a class="xz-logo" href="#navigation">Xsenze</a>
+      <nav aria-label="Example main">
+        <ul class="xz-navbar__nav">
+          <li><a class="xz-navbar__link" href="#navigation" aria-current="page">Dashboard</a></li>
+          <li><a class="xz-navbar__link" href="#navigation">Courses</a></li>
+          <li><a class="xz-navbar__link" href="#navigation">Learners</a></li>
+          <li><a class="xz-navbar__link" href="#navigation">Fees</a></li>
+        </ul>
+      </nav>
+      <span class="xz-navbar__spacer"></span>
+      <div class="xz-navbar__actions">
+        <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="Notifications, 3 unread" data-xz-tooltip="Notifications"><i data-xz-icon="bell"></i></button>
+        <span class="xz-avatar xz-avatar--sm xz-avatar--accent" role="img" aria-label="Ananya Krishnan">AK</span>
+      </div>
+    </header>
+  </div>
+
+  <h3>Sidebar</h3>
+  <p>Inside <code class="xz-code">xz-shell</code> the sidebar fills the viewport height and hides below 1024px. On its own it takes the height you give it.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <nav class="xz-sidebar" aria-label="Example sidebar" style="height: 28rem">
+      <div class="xz-sidebar__header">
+        <a class="xz-logo" href="#navigation">Xsenze</a>
+      </div>
+      <div class="xz-sidebar__section">
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#navigation" aria-current="page"><i data-xz-icon="layout-dashboard" data-size="sm"></i>Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#navigation"><i data-xz-icon="book-open" data-size="sm"></i>Courses</a></li>
+          <li><a class="xz-sidebar__link" href="#navigation"><i data-xz-icon="users" data-size="sm"></i>Learners <span class="xz-badge xz-badge--count">24</span></a></li>
+          <li><a class="xz-sidebar__link" href="#navigation"><i data-xz-icon="calendar" data-size="sm"></i>Attendance</a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__section">
+        <div class="xz-sidebar__heading">Finance</div>
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#navigation"><i data-xz-icon="indian-rupee" data-size="sm"></i>Fees</a></li>
+          <li><a class="xz-sidebar__link" href="#navigation"><i data-xz-icon="receipt" data-size="sm"></i>Invoices</a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__footer">
+        <div class="xz-row xz-row--nowrap">
+          <span class="xz-avatar xz-avatar--sm" aria-hidden="true">AK</span>
+          <div class="xz-grow">
+            <div class="xz-small xz-truncate"><strong>Ananya Krishnan</strong></div>
+            <div class="xz-caption xz-truncate">Admin</div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <h3>Footer</h3>
+  <div class="doc-example" data-layout="block" data-flush>
+    <footer class="xz-footer">
+      <div class="xz-footer__grid">
+        <div>
+          <a class="xz-logo" href="#navigation">Xsenze</a>
+          <p class="xz-caption" style="margin-top: var(--xz-space-3)">Training and business software, built in India.</p>
+        </div>
+        <div>
+          <h4 class="xz-footer__heading">Product</h4>
+          <ul class="xz-footer__links">
+            <li><a href="#navigation">Courses</a></li>
+            <li><a href="#navigation">Pricing</a></li>
+            <li><a href="#navigation">What is new</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="xz-footer__heading">Company</h4>
+          <ul class="xz-footer__links">
+            <li><a href="#navigation">About</a></li>
+            <li><a href="#navigation">Careers</a></li>
+            <li><a href="#navigation">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="xz-footer__heading">Legal</h4>
+          <ul class="xz-footer__links">
+            <li><a href="#navigation">Terms of use</a></li>
+            <li><a href="#navigation">Privacy policy</a></li>
+            <li><a href="#navigation">Refund policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="xz-footer__bottom">
+        <span>© 2026 Xsenze. All rights reserved.</span>
+        <span>Chennai, Tamil Nadu</span>
+      </div>
+    </footer>
+  </div>
+  <div class="doc-example" data-layout="block" data-flush>
+    <footer class="xz-footer xz-footer--simple">
+      <div class="xz-footer__bottom">
+        <span>© 2026 Xsenze</span>
+        <span><a class="xz-link xz-link--quiet" href="#navigation">Privacy</a> · <a class="xz-link xz-link--quiet" href="#navigation">Terms</a></span>
+      </div>
+    </footer>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-navbar</code></td><td>Sticky top bar. Parts: <code>__nav</code>, <code>__link</code>, <code>__spacer</code>, <code>__actions</code>, <code>__title</code>.</td></tr>
+      <tr><td><code>xz-shell</code></td><td>Page layout: sidebar plus <code>xz-shell__main</code> and <code>xz-shell__content</code>.</td></tr>
+      <tr><td><code>xz-sidebar</code></td><td>Parts: <code>__header</code>, <code>__section</code>, <code>__heading</code>, <code>__nav</code>, <code>__link</code>, <code>__footer</code>.</td></tr>
+      <tr><td><code>xz-drawer--nav</code></td><td>A left drawer sized to hold the sidebar on small screens.</td></tr>
+      <tr><td><code>xz-footer</code></td><td>Parts: <code>__grid</code>, <code>__heading</code>, <code>__links</code>, <code>__bottom</code>. <code>--simple</code> is one line.</td></tr>
+      <tr><td><code>xz-logo</code></td><td>The name as text. <code>xz-logo--lg</code> for auth pages. <code>xz-logo__mark</code> is the slot for a logo image.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 18. OVERLAYS ================= -->
+<section class="doc-section" id="overlays">
+  <h2>Modal, drawer, toast</h2>
+  <p>Use a modal for a short task or a decision that must be made before going on. Use a drawer for details or a longer form next to the page. Use a toast to confirm something that just happened.</p>
+  <p>Modals and drawers are native <code class="xz-code">dialog</code> elements: focus is kept inside, Escape closes them, and focus returns to the button that opened them.</p>
+
+  <h3>Modal</h3>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" data-xz-open="#ov-modal-sm">Small</button>
+    <button class="xz-btn xz-btn--primary" type="button" data-xz-open="#ov-modal">Invite a trainer</button>
+    <button class="xz-btn" type="button" data-xz-open="#ov-modal-lg">Large</button>
+
+    <dialog class="xz-modal xz-modal--sm" id="ov-modal-sm" aria-labelledby="ov-modal-sm-title">
+      <div class="xz-modal__header">
+        <h3 class="xz-modal__title" id="ov-modal-sm-title">Sign out of all devices?</h3>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+      </div>
+      <div class="xz-modal__body">You will need to sign in again on your phone and laptop.</div>
+      <div class="xz-modal__footer">
+        <button class="xz-btn" type="button" data-xz-close>Stay signed in</button>
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-close>Sign out</button>
+      </div>
+    </dialog>
+
+    <dialog class="xz-modal" id="ov-modal" aria-labelledby="ov-modal-title">
+      <div class="xz-modal__header">
+        <h3 class="xz-modal__title" id="ov-modal-title">Invite a trainer</h3>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+      </div>
+      <div class="xz-modal__body">
+        <div class="xz-form">
+          <div class="xz-field">
+            <label class="xz-label" for="ov-invite-email">Email address</label>
+            <input class="xz-input" id="ov-invite-email" type="email" placeholder="name@example.com">
+          </div>
+          <div class="xz-field">
+            <label class="xz-label" for="ov-invite-course">Course</label>
+            <select class="xz-select" id="ov-invite-course">
+              <option>Data Analytics</option>
+              <option>Spoken English</option>
+              <option>Tally with GST</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="xz-modal__footer">
+        <button class="xz-btn" type="button" data-xz-close>Cancel</button>
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-close data-xz-toast="Invitation sent" data-xz-toast-variant="success">Send invitation</button>
+      </div>
+    </dialog>
+
+    <dialog class="xz-modal xz-modal--lg" id="ov-modal-lg" aria-labelledby="ov-modal-lg-title">
+      <div class="xz-modal__header">
+        <h3 class="xz-modal__title" id="ov-modal-lg-title">Refund policy</h3>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+      </div>
+      <div class="xz-modal__body xz-prose">
+        <p>Cancel before the batch starts and we refund the full fee to your original payment method in 5 to 7 working days.</p>
+        <p>Cancel in the first week and we refund 80% of the fee and all of the GST. After the first week there is no refund, but you can move to a later batch once at no cost.</p>
+      </div>
+      <div class="xz-modal__footer">
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-close>Close</button>
+      </div>
+    </dialog>
+  </div>
+
+  <h3>Destructive confirmation</h3>
+  <p>Name the thing being deleted and say what is lost. <code class="xz-code">data-xz-static</code> stops a stray click on the backdrop from closing it, and the safe button comes first so it gets focus.</p>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--danger-outline" type="button" data-xz-open="#ov-confirm"><i data-xz-icon="trash-2" data-size="sm"></i>Delete course</button>
+
+    <dialog class="xz-modal xz-modal--sm" id="ov-confirm" data-xz-static aria-labelledby="ov-confirm-title" aria-describedby="ov-confirm-text">
+      <div class="xz-modal__header">
+        <h3 class="xz-modal__title" id="ov-confirm-title">Delete "Tally with GST"?</h3>
+      </div>
+      <div class="xz-modal__body" id="ov-confirm-text">This removes 12 lessons and the progress of 28 learners. You cannot undo this.</div>
+      <div class="xz-modal__footer">
+        <button class="xz-btn" type="button" data-xz-close>Keep course</button>
+        <button class="xz-btn xz-btn--danger" type="button" data-xz-close="delete" data-xz-toast="Course deleted" data-xz-toast-variant="danger">Delete course</button>
+      </div>
+    </dialog>
+  </div>
+
+  <h3>Drawer</h3>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" data-xz-open="#ov-drawer-left"><i data-xz-icon="panel-left" data-size="sm"></i>Open left drawer</button>
+    <button class="xz-btn" type="button" data-xz-open="#ov-drawer-right">Open right drawer<i data-xz-icon="sliders-horizontal" data-size="sm"></i></button>
+
+    <dialog class="xz-drawer" id="ov-drawer-right" aria-labelledby="ov-drawer-right-title">
+      <div class="xz-drawer__header">
+        <h3 class="xz-drawer__title" id="ov-drawer-right-title">Filter learners</h3>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+      </div>
+      <div class="xz-drawer__body">
+        <div class="xz-form">
+          <div class="xz-field">
+            <label class="xz-label" for="ov-filter-city">City</label>
+            <select class="xz-select" id="ov-filter-city">
+              <option>All cities</option>
+              <option>Bengaluru</option>
+              <option>Chennai</option>
+              <option>Pune</option>
+            </select>
+          </div>
+          <fieldset class="xz-fieldset">
+            <legend>Fee status</legend>
+            <div class="xz-stack xz-gap-3">
+              <label class="xz-check"><input type="checkbox" name="ov-fee" checked><span>Paid</span></label>
+              <label class="xz-check"><input type="checkbox" name="ov-fee"><span>Due</span></label>
+              <label class="xz-check"><input type="checkbox" name="ov-fee"><span>Overdue</span></label>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="xz-drawer__footer">
+        <button class="xz-btn" type="button" data-xz-close>Clear filters</button>
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-close>Show 18 learners</button>
+      </div>
+    </dialog>
+
+    <dialog class="xz-drawer xz-drawer--left" id="ov-drawer-left" aria-labelledby="ov-drawer-left-title">
+      <div class="xz-drawer__header">
+        <h3 class="xz-drawer__title" id="ov-drawer-left-title">Menu</h3>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-modal__close" type="button" data-xz-close aria-label="Close"><i data-xz-icon="x" data-size="sm"></i></button>
+      </div>
+      <div class="xz-drawer__body">
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#overlays" aria-current="page"><i data-xz-icon="layout-dashboard" data-size="sm"></i>Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#overlays"><i data-xz-icon="book-open" data-size="sm"></i>Courses</a></li>
+          <li><a class="xz-sidebar__link" href="#overlays"><i data-xz-icon="users" data-size="sm"></i>Learners</a></li>
+        </ul>
+      </div>
+    </dialog>
+  </div>
+
+  <h3>Toast</h3>
+  <p>Toasts appear at the bottom right and leave after 5 seconds. They pause while the pointer or keyboard focus is on them. Keep the text to one line, and never use a toast for an error that needs a fix: put that next to the field.</p>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" data-xz-toast="Changes saved">Neutral</button>
+    <button class="xz-btn" type="button" data-xz-toast="Invoice sent to priya.nair@example.com" data-xz-toast-title="Invoice sent" data-xz-toast-variant="success">Success</button>
+    <button class="xz-btn" type="button" data-xz-toast="3 learners have not paid this month" data-xz-toast-variant="warning">Warning</button>
+    <button class="xz-btn" type="button" data-xz-toast="Check your connection and try again" data-xz-toast-title="Could not save" data-xz-toast-variant="danger">Danger</button>
+    <button class="xz-btn" type="button" data-xz-toast="New attendance report is ready" data-xz-toast-variant="info">Info</button>
+    <button class="xz-btn xz-btn--primary" type="button" id="ov-toast-undo">With an action</button>
+  </div>
+
+  <pre class="doc-snippet" data-lang="text">
+    // Shortest form
+    Xsenze.toast('Changes saved');
+
+    // All options
+    const toast = Xsenze.toast({
+      title: 'Learner removed',
+      message: 'Kavya Reddy was removed from Batch B-14.',
+      variant: 'success',        // success | warning | danger | info, or leave out
+      duration: 8000,            // milliseconds. 0 keeps it until dismissed
+      action: { label: 'Undo', onClick: () => restoreLearner() },
+    });
+
+    toast.dismiss();             // close it early
+
+    // Modals and drawers
+    Xsenze.modal.open('#ov-modal');
+    Xsenze.modal.close('#ov-modal');
+    document.querySelector('#ov-confirm').addEventListener('close', (event) => {
+      if (event.target.returnValue === 'delete') deleteCourse();
+    });
+  </pre>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>dialog.xz-modal</code></td><td>Centred modal. Sizes: <code>--sm</code> 24rem, default 32rem, <code>--lg</code> 48rem. Parts: <code>__header</code>, <code>__title</code>, <code>__body</code>, <code>__footer</code>, <code>__close</code>.</td></tr>
+      <tr><td><code>dialog.xz-drawer</code></td><td>Slides in from the right. <code>--left</code> for the left. Same parts as the modal.</td></tr>
+      <tr><td><code>data-xz-open="#id"</code></td><td>On any button or link. Opens that dialog.</td></tr>
+      <tr><td><code>data-xz-close</code></td><td>Inside a dialog. Closes it. A value becomes the dialog's <code>returnValue</code>.</td></tr>
+      <tr><td><code>data-xz-static</code></td><td>On the dialog. Clicking the backdrop does not close it.</td></tr>
+      <tr><td><code>aria-labelledby</code></td><td>On the dialog, pointing at its title. Always set it.</td></tr>
+      <tr><td><code>data-xz-toast="Message"</code></td><td>Shows a toast on click. Options: <code>data-xz-toast-title</code>, <code>data-xz-toast-variant</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 19. MENU ================= -->
+<section class="doc-section" id="menu">
+  <h2>Dropdown menu</h2>
+  <p>Use a menu for a short list of actions on one item, such as row actions in a table. It is for actions, not for choosing a value: use a select for that.</p>
+  <p>Keyboard: Enter or the Down arrow opens the menu, arrows move between items, Escape closes it and returns focus to the button.</p>
+
+  <div class="doc-example">
+    <div class="xz-menu" data-xz-menu>
+      <button class="xz-btn" type="button">Actions<i data-xz-icon="chevron-down" data-size="sm"></i></button>
+      <ul class="xz-menu__list">
+        <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="pencil" data-size="sm"></i>Edit details</button></li>
+        <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="copy" data-size="sm"></i>Duplicate</button></li>
+        <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="download" data-size="sm"></i>Download invoice</button></li>
+        <li role="none"><button class="xz-menu__item" type="button" disabled><i data-xz-icon="share-2" data-size="sm"></i>Share (owner only)</button></li>
+        <li class="xz-menu__separator" role="separator"></li>
+        <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Delete</button></li>
+      </ul>
+    </div>
+
+    <div class="xz-menu xz-menu--end" data-xz-menu>
+      <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="Account menu"><span class="xz-avatar xz-avatar--sm xz-avatar--accent" aria-hidden="true">AK</span></button>
+      <ul class="xz-menu__list">
+        <li class="xz-menu__label" role="presentation">Signed in as ananya@example.com</li>
+        <li role="none"><a class="xz-menu__item" href="#menu"><i data-xz-icon="user" data-size="sm"></i>Profile</a></li>
+        <li role="none"><a class="xz-menu__item" href="#menu"><i data-xz-icon="settings" data-size="sm"></i>Settings</a></li>
+        <li class="xz-menu__separator" role="separator"></li>
+        <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="log-out" data-size="sm"></i>Sign out</button></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-menu</code></td><td>On the wrapper. The first <code>button</code> inside becomes the trigger.</td></tr>
+      <tr><td><code>xz-menu__list</code></td><td>The panel. Hidden until opened.</td></tr>
+      <tr><td><code>xz-menu__item</code></td><td>A <code>button</code> or <code>a</code>. <code>--danger</code> for destructive actions.</td></tr>
+      <tr><td><code>xz-menu__separator</code> <code>xz-menu__label</code></td><td>Divider line. Small heading.</td></tr>
+      <tr><td><code>xz-menu--end</code></td><td>Aligns the panel to the right edge of the trigger.</td></tr>
+      <tr><td><code>xz-menu--up</code></td><td>Opens upward. Added for you when there is no room below.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 20. TABLE ================= -->
+<section class="doc-section" id="table">
+  <h2>Table</h2>
+  <p>Use a table to compare rows of the same kind of data. Right-align numbers so digits line up, keep one line per cell where you can, and put row actions in the last column.</p>
+
+  <h3>Sorting, search, pagination and row actions</h3>
+  <p>Add <code class="xz-code">data-xz-table</code> and the script handles the rest. Sorting reads <code class="xz-code">data-value</code> when a cell has one, so "₹1,24,999" sorts as 124999 and "15 Nov 2026" sorts as a date.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-table-toolbar">
+      <div class="xz-input-group" style="max-width: 20rem">
+        <i data-xz-icon="search" data-size="sm" class="xz-input-group__icon"></i>
+        <input class="xz-input" id="tb-search" type="search" placeholder="Search learners" aria-label="Search learners">
+      </div>
+      <div class="xz-row">
+        <button class="xz-btn" type="button"><i data-xz-icon="download" data-size="sm"></i>Export CSV</button>
+        <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="plus" data-size="sm"></i>Add learner</button>
+      </div>
+    </div>
+    <div class="xz-table-wrap">
+      <table class="xz-table" data-xz-table data-xz-page-size="5" data-xz-pagination="#tb-pager" data-xz-search="#tb-search" data-xz-empty="#tb-empty">
+        <caption class="xz-sr-only">Learners, with city, fee status, amount paid and joining date</caption>
+        <thead>
+          <tr>
+            <th scope="col" data-xz-sort="text">Learner</th>
+            <th scope="col" data-xz-sort="text">City</th>
+            <th scope="col" data-xz-sort="text">Status</th>
+            <th scope="col" class="xz-table__num" data-xz-sort="number">Fee paid</th>
+            <th scope="col" data-xz-sort="date">Joined</th>
+            <th scope="col" class="xz-table__actions"><span class="xz-sr-only">Actions</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-value="Aarav Sharma"><span class="xz-table__primary">Aarav Sharma</span><span class="xz-table__secondary">aarav.sharma@example.com</span></td>
+            <td>Jaipur</td>
+            <td><span class="xz-badge xz-badge--success">Paid</span></td>
+            <td class="xz-table__num" data-value="24999">₹24,999</td>
+            <td data-value="2026-11-15">15 Nov 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Aarav Sharma"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Bhavna Patel"><span class="xz-table__primary">Bhavna Patel</span><span class="xz-table__secondary">bhavna.patel@example.com</span></td>
+            <td>Ahmedabad</td>
+            <td><span class="xz-badge xz-badge--warning">Due</span></td>
+            <td class="xz-table__num" data-value="12500">₹12,500</td>
+            <td data-value="2026-11-09">9 Nov 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Bhavna Patel"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Chitra Subramanian"><span class="xz-table__primary">Chitra Subramanian</span><span class="xz-table__secondary">chitra.s@example.com</span></td>
+            <td>Chennai</td>
+            <td><span class="xz-badge xz-badge--success">Paid</span></td>
+            <td class="xz-table__num" data-value="124999">₹1,24,999</td>
+            <td data-value="2026-10-28">28 Oct 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Chitra Subramanian"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Dev Malhotra"><span class="xz-table__primary">Dev Malhotra</span><span class="xz-table__secondary">dev.malhotra@example.com</span></td>
+            <td>Delhi</td>
+            <td><span class="xz-badge xz-badge--danger">Overdue</span></td>
+            <td class="xz-table__num" data-value="0">₹0</td>
+            <td data-value="2026-09-02">2 Sep 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Dev Malhotra"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Esha Banerjee"><span class="xz-table__primary">Esha Banerjee</span><span class="xz-table__secondary">esha.banerjee@example.com</span></td>
+            <td>Kolkata</td>
+            <td><span class="xz-badge xz-badge--success">Paid</span></td>
+            <td class="xz-table__num" data-value="49999">₹49,999</td>
+            <td data-value="2026-10-14">14 Oct 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Esha Banerjee"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Farhan Sheikh"><span class="xz-table__primary">Farhan Sheikh</span><span class="xz-table__secondary">farhan.sheikh@example.com</span></td>
+            <td>Mumbai</td>
+            <td><span class="xz-badge xz-badge--info">In review</span></td>
+            <td class="xz-table__num" data-value="18750">₹18,750</td>
+            <td data-value="2026-11-03">3 Nov 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Farhan Sheikh"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Gurpreet Kaur"><span class="xz-table__primary">Gurpreet Kaur</span><span class="xz-table__secondary">gurpreet.kaur@example.com</span></td>
+            <td>Chandigarh</td>
+            <td><span class="xz-badge xz-badge--success">Paid</span></td>
+            <td class="xz-table__num" data-value="24999">₹24,999</td>
+            <td data-value="2026-08-21">21 Aug 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Gurpreet Kaur"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Harish Gowda"><span class="xz-table__primary">Harish Gowda</span><span class="xz-table__secondary">harish.gowda@example.com</span></td>
+            <td>Bengaluru</td>
+            <td><span class="xz-badge xz-badge--warning">Due</span></td>
+            <td class="xz-table__num" data-value="8333">₹8,333</td>
+            <td data-value="2026-11-11">11 Nov 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Harish Gowda"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Ishita Joshi"><span class="xz-table__primary">Ishita Joshi</span><span class="xz-table__secondary">ishita.joshi@example.com</span></td>
+            <td>Pune</td>
+            <td><span class="xz-badge xz-badge--success">Paid</span></td>
+            <td class="xz-table__num" data-value="74999">₹74,999</td>
+            <td data-value="2026-07-30">30 Jul 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Ishita Joshi"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Jacob Thomas"><span class="xz-table__primary">Jacob Thomas</span><span class="xz-table__secondary">jacob.thomas@example.com</span></td>
+            <td>Kochi</td>
+            <td><span class="xz-badge">Draft</span></td>
+            <td class="xz-table__num" data-value="0">₹0</td>
+            <td data-value="2026-11-14">14 Nov 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Jacob Thomas"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Kavya Reddy"><span class="xz-table__primary">Kavya Reddy</span><span class="xz-table__secondary">kavya.reddy@example.com</span></td>
+            <td>Hyderabad</td>
+            <td><span class="xz-badge xz-badge--success">Paid</span></td>
+            <td class="xz-table__num" data-value="250000">₹2,50,000</td>
+            <td data-value="2026-06-18">18 Jun 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Kavya Reddy"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td data-value="Lakshmi Menon"><span class="xz-table__primary">Lakshmi Menon</span><span class="xz-table__secondary">lakshmi.menon@example.com</span></td>
+            <td>Coimbatore</td>
+            <td><span class="xz-badge xz-badge--danger">Overdue</span></td>
+            <td class="xz-table__num" data-value="6250">₹6,250</td>
+            <td data-value="2026-09-25">25 Sep 2026</td>
+            <td class="xz-table__actions">
+              <div class="xz-menu xz-menu--end" data-xz-menu>
+                <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Actions for Lakshmi Menon"><i data-xz-icon="ellipsis" data-size="sm"></i></button>
+                <ul class="xz-menu__list">
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="eye" data-size="sm"></i>View profile</button></li>
+                  <li role="none"><button class="xz-menu__item" type="button"><i data-xz-icon="mail" data-size="sm"></i>Send reminder</button></li>
+                  <li class="xz-menu__separator" role="separator"></li>
+                  <li role="none"><button class="xz-menu__item xz-menu__item--danger" type="button"><i data-xz-icon="trash-2" data-size="sm"></i>Remove learner</button></li>
+                </ul>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="xz-empty" id="tb-empty" hidden>
+      <div class="xz-empty__icon"><i data-xz-icon="search" data-size="lg"></i></div>
+      <h4 class="xz-empty__title">No learners match your search</h4>
+      <p class="xz-empty__text">Check the spelling, or search by city or fee status.</p>
+    </div>
+    <div class="xz-table-footer">
+      <div class="xz-grow" id="tb-pager"></div>
+    </div>
+  </div>
+
+  <h3>Compact and striped</h3>
+  <p>Compact suits dense admin screens. Stripes help the eye follow wide rows. The two combine.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-table-wrap">
+      <table class="xz-table xz-table--compact xz-table--striped">
+        <caption>Fee collection by course, FY 2026-27</caption>
+        <thead>
+          <tr>
+            <th scope="col">Course</th>
+            <th scope="col" class="xz-table__num">Learners</th>
+            <th scope="col" class="xz-table__num">Collected</th>
+            <th scope="col" class="xz-table__num">Pending</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row" class="xz-table__primary">Data Analytics</th><td class="xz-table__num">412</td><td class="xz-table__num">₹1,02,99,588</td><td class="xz-table__num">₹4,12,000</td></tr>
+          <tr><th scope="row" class="xz-table__primary">Spoken English</th><td class="xz-table__num">1,280</td><td class="xz-table__num">₹63,98,720</td><td class="xz-table__num">₹1,85,500</td></tr>
+          <tr><th scope="row" class="xz-table__primary">Tally with GST</th><td class="xz-table__num">596</td><td class="xz-table__num">₹44,69,404</td><td class="xz-table__num">₹96,250</td></tr>
+          <tr><th scope="row" class="xz-table__primary">Digital Marketing</th><td class="xz-table__num">338</td><td class="xz-table__num">₹50,69,662</td><td class="xz-table__num">₹2,40,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>Reference</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class, attribute or event</th><th>Where</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-table-wrap</code></td><td>Wrapper</td><td>Border and horizontal scroll on narrow screens.</td></tr>
+      <tr><td><code>xz-table</code></td><td><code>table</code></td><td>Base style. Modifiers: <code>--compact</code>, <code>--striped</code>, <code>--sticky</code> (sticky header).</td></tr>
+      <tr><td><code>data-xz-table</code></td><td><code>table</code></td><td>Turns on the script features below.</td></tr>
+      <tr><td><code>data-xz-sort="text"</code></td><td><code>th</code></td><td>Makes the column sortable. Types: <code>text</code>, <code>number</code>, <code>date</code>.</td></tr>
+      <tr><td><code>data-value</code></td><td><code>td</code></td><td>Raw value to sort by: a plain number, or an ISO date such as 2026-11-15.</td></tr>
+      <tr><td><code>data-xz-page-size="5"</code></td><td><code>table</code></td><td>Rows per page. Leave out to show all rows.</td></tr>
+      <tr><td><code>data-xz-pagination="#id"</code></td><td><code>table</code></td><td>Element that receives the page buttons and the "Showing 1 to 5 of 12" text.</td></tr>
+      <tr><td><code>data-xz-search="#id"</code></td><td><code>table</code></td><td>Input that filters rows as the person types.</td></tr>
+      <tr><td><code>data-xz-empty="#id"</code></td><td><code>table</code></td><td>Element shown in place of the table when nothing matches.</td></tr>
+      <tr><td><code>xz-table__num</code></td><td><code>th</code>, <code>td</code></td><td>Right-aligned, tabular figures.</td></tr>
+      <tr><td><code>xz-table__primary</code> <code>__secondary</code></td><td>Inside a cell</td><td>Main line and a smaller second line.</td></tr>
+      <tr><td><code>xz-table__actions</code></td><td>Last column</td><td>Narrow, right-aligned cell for a row menu.</td></tr>
+      <tr><td><code>xz-table-toolbar</code> <code>xz-table-footer</code></td><td>Before and after the wrapper</td><td>Bars that join the table's border.</td></tr>
+      <tr><td><code>aria-selected="true"</code></td><td><code>tr</code></td><td>Highlights a selected row.</td></tr>
+      <tr><td><code>xz:table</code></td><td>Event on <code>table</code></td><td>Fires after each update. <code>event.detail</code> has <code>total</code>, <code>page</code> and <code>pages</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= PHASE 2: RICH CARDS ================= -->
+<section class="doc-section" id="rich-cards">
+  <h2>Media, profile and pricing cards</h2>
+  <p>Variants of the card for things people browse and compare. They use the same parts as the basic card.</p>
+
+  <h3>Media card</h3>
+  <p>Put a picture or video in <code class="xz-code">xz-card__media</code>. It keeps a 16:9 shape so the page does not jump while the picture loads. Add <code class="xz-code">xz-card--horizontal</code> to place the picture on the left on wider screens.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 240px">
+      <article class="xz-card">
+        <div class="xz-card__media">
+          <img src="media/cover-analytics.svg" alt="" width="800" height="450" loading="lazy">
+          <span class="xz-badge xz-badge--highlight xz-card__media-badge">New batch</span>
+          <span class="xz-card__media-meta">24 lessons</span>
+        </div>
+        <div class="xz-card__body">
+          <p class="xz-card__eyebrow">Data</p>
+          <h4 class="xz-card__title">Data Analytics with Excel and Power BI</h4>
+          <div class="xz-card__meta"><span><i data-xz-icon="calendar" data-size="sm"></i> Starts 1 Dec 2026</span><span><i data-xz-icon="indian-rupee" data-size="sm"></i> 24,999</span></div>
+        </div>
+      </article>
+      <article class="xz-card">
+        <div class="xz-card__media">
+          <img src="media/cover-design.svg" alt="" width="800" height="450" loading="lazy">
+          <span class="xz-card__media-meta">18 lessons</span>
+        </div>
+        <div class="xz-card__body">
+          <p class="xz-card__eyebrow">Design</p>
+          <h4 class="xz-card__title">UX Design Foundations</h4>
+          <div class="xz-card__meta"><span><i data-xz-icon="calendar" data-size="sm"></i> Starts 8 Dec 2026</span><span><i data-xz-icon="indian-rupee" data-size="sm"></i> 18,500</span></div>
+        </div>
+      </article>
+    </div>
+    <article class="xz-card xz-card--horizontal" style="margin-top: var(--xz-space-4)">
+      <div class="xz-card__media"><img src="media/cover-code.svg" alt="" width="800" height="450" loading="lazy"></div>
+      <div class="xz-card__body">
+        <p class="xz-card__eyebrow">Development</p>
+        <h4 class="xz-card__title">Full Stack Web Development</h4>
+        <p class="xz-small xz-text-muted" style="margin-top: var(--xz-space-2)">Build and ship three projects with HTML, PHP and MySQL. Weekend batch with live classes.</p>
+        <div class="xz-card__meta"><span><i data-xz-icon="clock" data-size="sm"></i> 16 weeks</span><span><i data-xz-icon="users" data-size="sm"></i> 32 seats</span></div>
+      </div>
+    </article>
+  </div>
+
+  <h3>Profile card</h3>
+  <div class="doc-example">
+    <article class="xz-card xz-profile" style="width: 18rem">
+      <div class="xz-profile__cover"></div>
+      <span class="xz-avatar xz-avatar--xl xz-avatar--round xz-profile__avatar">AK</span>
+      <h4 class="xz-profile__name">Ananya Krishnan</h4>
+      <p class="xz-profile__role">Lead trainer, Data Analytics · Chennai</p>
+      <dl class="xz-profile__stats">
+        <div><dt>Batches</dt><dd>14</dd></div>
+        <div><dt>Learners</dt><dd>1,240</dd></div>
+        <div><dt>Rating</dt><dd>4.8</dd></div>
+      </dl>
+      <div class="xz-profile__actions">
+        <button class="xz-btn" type="button"><i data-xz-icon="mail" data-size="sm"></i>Message</button>
+        <button class="xz-btn xz-btn--primary" type="button">View profile</button>
+      </div>
+    </article>
+  </div>
+
+  <h3>Pricing</h3>
+  <p>Wrap the plans in <code class="xz-code">data-xz-pricing</code>. Any element with <code class="xz-code">data-monthly</code> and <code class="xz-code">data-yearly</code> swaps its text when the period changes. Mark one plan as featured, at most.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-pricing" data-xz-pricing>
+      <div class="xz-segmented" role="radiogroup" aria-label="Billing period">
+        <label><input type="radio" name="pr-period" value="monthly" checked><span>Monthly</span></label>
+        <label><input type="radio" name="pr-period" value="yearly"><span>Yearly <span class="xz-badge xz-badge--highlight">Save 20%</span></span></label>
+      </div>
+      <div class="xz-pricing__plans">
+        <article class="xz-card xz-price-card">
+          <h4 class="xz-price-card__name">Starter</h4>
+          <div class="xz-price-card__price"><span class="xz-price-card__amount">₹0</span><span class="xz-price-card__period">free for ever</span></div>
+          <p class="xz-price-card__desc">For a single trainer trying things out.</p>
+          <ul class="xz-price-card__features">
+            <li><i data-xz-icon="check" data-size="sm"></i>Up to 25 learners</li>
+            <li><i data-xz-icon="check" data-size="sm"></i>1 batch at a time</li>
+            <li class="is-off"><i data-xz-icon="x" data-size="sm"></i>Fee collection</li>
+          </ul>
+          <button class="xz-btn xz-btn--block" type="button">Start free</button>
+        </article>
+        <article class="xz-card xz-price-card xz-price-card--featured">
+          <span class="xz-badge xz-badge--highlight">Most popular</span>
+          <h4 class="xz-price-card__name">Institute</h4>
+          <div class="xz-price-card__price"><span class="xz-price-card__amount" data-monthly="₹2,499" data-yearly="₹1,999">₹2,499</span><span class="xz-price-card__period" data-monthly="per month" data-yearly="per month, billed yearly">per month</span></div>
+          <p class="xz-price-card__desc">For a training centre with several batches.</p>
+          <ul class="xz-price-card__features">
+            <li><i data-xz-icon="check" data-size="sm"></i>Up to 500 learners</li>
+            <li><i data-xz-icon="check" data-size="sm"></i>Unlimited batches</li>
+            <li><i data-xz-icon="check" data-size="sm"></i>UPI fee collection and GST invoices</li>
+          </ul>
+          <button class="xz-btn xz-btn--primary xz-btn--block" type="button">Choose Institute</button>
+        </article>
+        <article class="xz-card xz-price-card">
+          <h4 class="xz-price-card__name">Campus</h4>
+          <div class="xz-price-card__price"><span class="xz-price-card__amount" data-monthly="₹7,999" data-yearly="₹6,399">₹7,999</span><span class="xz-price-card__period" data-monthly="per month" data-yearly="per month, billed yearly">per month</span></div>
+          <p class="xz-price-card__desc">For colleges with many departments.</p>
+          <ul class="xz-price-card__features">
+            <li><i data-xz-icon="check" data-size="sm"></i>Unlimited learners</li>
+            <li><i data-xz-icon="check" data-size="sm"></i>Roles for each department</li>
+            <li><i data-xz-icon="check" data-size="sm"></i>Priority support in Hindi, Tamil and English</li>
+          </ul>
+          <button class="xz-btn xz-btn--block" type="button">Talk to sales</button>
+        </article>
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-card__media</code></td><td>16:9 picture area. Holds <code>__media-badge</code> (top left) and <code>__media-meta</code> (bottom right).</td></tr>
+      <tr><td><code>xz-card__eyebrow</code> <code>xz-card__meta</code></td><td>Small label above the title. Row of facts with icons under it.</td></tr>
+      <tr><td><code>xz-card--horizontal</code></td><td>Picture on the left from 640px.</td></tr>
+      <tr><td><code>xz-profile</code></td><td>Parts: <code>__cover</code>, <code>__avatar</code>, <code>__name</code>, <code>__role</code>, <code>__stats</code> (a <code>dl</code>), <code>__actions</code>.</td></tr>
+      <tr><td><code>xz-price-card</code></td><td>Parts: <code>__name</code>, <code>__price</code>, <code>__amount</code>, <code>__period</code>, <code>__desc</code>, <code>__features</code>. Add <code>is-off</code> to a feature the plan does not have.</td></tr>
+      <tr><td><code>xz-price-card--featured</code></td><td>Orange outline for the plan you recommend.</td></tr>
+      <tr><td><code>data-xz-pricing</code></td><td>Swaps <code>data-monthly</code> and <code>data-yearly</code> text. Fires <code>xz:period</code>.</td></tr>
+      <tr><td><code>xz-badge--highlight</code></td><td>Orange badge for "New" or "Most popular".</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= SEGMENTED CONTROL ================= -->
+<section class="doc-section" id="segmented">
+  <h2>Segmented control</h2>
+  <p>Two to five choices shown side by side, where one is always picked, such as a view or a time range. It is a group of radio buttons, so arrow keys move the choice and a form post sends the value. For switching panels of content, use tabs.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-segmented" role="radiogroup" aria-label="Time range">
+      <label><input type="radio" name="seg-range" value="7d"><span>7 days</span></label>
+      <label><input type="radio" name="seg-range" value="30d" checked><span>30 days</span></label>
+      <label><input type="radio" name="seg-range" value="qtr"><span>Quarter</span></label>
+      <label><input type="radio" name="seg-range" value="fy"><span>FY 2026-27</span></label>
+    </div>
+    <div class="xz-segmented xz-segmented--lg" role="radiogroup" aria-label="Layout">
+      <label><input type="radio" name="seg-view" value="grid" checked><span><i data-xz-icon="layout-grid" data-size="sm"></i>Grid</span></label>
+      <label><input type="radio" name="seg-view" value="list"><span><i data-xz-icon="list" data-size="sm"></i>List</span></label>
+      <label><input type="radio" name="seg-view" value="table" disabled><span><i data-xz-icon="table-2" data-size="sm"></i>Table</span></label>
+    </div>
+    <div class="xz-segmented xz-segmented--block" role="radiogroup" aria-label="Attendance">
+      <label><input type="radio" name="seg-att" value="present" checked><span>Present</span></label>
+      <label><input type="radio" name="seg-att" value="late"><span>Late</span></label>
+      <label><input type="radio" name="seg-att" value="absent"><span>Absent</span></label>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-segmented</code></td><td>Wrapper with <code>role="radiogroup"</code> and an <code>aria-label</code>. Each choice is <code>&lt;label&gt;&lt;input type="radio"&gt;&lt;span&gt;Text&lt;/span&gt;&lt;/label&gt;</code>.</td></tr>
+      <tr><td><code>xz-segmented--lg</code> <code>--block</code></td><td>Taller. Full width with equal parts.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= POPOVER ================= -->
+<section class="doc-section" id="popover">
+  <h2>Popover</h2>
+  <p>A small panel that opens from a button and holds a few controls or details. Unlike a tooltip it can hold links and fields; unlike a modal it does not block the page. It closes on Escape, a click outside, or when focus leaves it.</p>
+  <div class="doc-example">
+    <div class="xz-popover" data-xz-popover>
+      <button class="xz-btn" type="button"><i data-xz-icon="filter" data-size="sm"></i>Filter</button>
+      <div class="xz-popover__panel">
+        <h4 class="xz-popover__title">Filter learners</h4>
+        <div class="xz-stack" style="margin-top: var(--xz-space-3)">
+          <label class="xz-check"><input type="checkbox" checked> Fees paid</label>
+          <label class="xz-check"><input type="checkbox"> Fees pending</label>
+          <label class="xz-check"><input type="checkbox"> Fees overdue</label>
+        </div>
+        <div class="xz-popover__footer">
+          <button class="xz-btn xz-btn--sm" type="button" data-xz-popover-close>Cancel</button>
+          <button class="xz-btn xz-btn--primary xz-btn--sm" type="button" data-xz-popover-close data-xz-toast="Filter applied">Apply</button>
+        </div>
+      </div>
+    </div>
+    <div class="xz-popover" data-xz-popover="end">
+      <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="About GST"><i data-xz-icon="circle-help"></i></button>
+      <div class="xz-popover__panel">
+        <h4 class="xz-popover__title">GST on course fees</h4>
+        <p class="xz-text-muted">Course fees carry 18% GST. The invoice shows CGST and SGST for learners in your state, and IGST for learners outside it.</p>
+        <p style="margin-top: var(--xz-space-2)"><a class="xz-link" href="#popover">Read the GST guide</a></p>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-popover</code></td><td>On the wrapper. The first button opens the panel. Use the value <code>end</code> to line the panel up with the button's right edge.</td></tr>
+      <tr><td><code>xz-popover__panel</code></td><td>The panel. Gets <code>role="dialog"</code> and is named by <code>xz-popover__title</code>.</td></tr>
+      <tr><td><code>data-xz-popover-close</code></td><td>Closes the panel and returns focus to the button.</td></tr>
+      <tr><td><code>--xz-popover-width</code></td><td>Maximum width. Default 20rem.</td></tr>
+      <tr><td><code>xz:open</code> <code>xz:close</code></td><td>Events on the wrapper.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= NOTIFICATIONS ================= -->
+<section class="doc-section" id="notifications">
+  <h2>Notification centre</h2>
+  <p>A bell button with an unread count that opens a list of recent updates. Opening an update marks it read. The count is read out with the button's name, such as "Notifications, 2 unread".</p>
+  <div class="doc-example">
+    <div class="xz-popover" data-xz-popover="end" data-xz-notifications>
+      <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-label="Notifications"><i data-xz-icon="bell"></i></button>
+      <div class="xz-popover__panel xz-notifications">
+        <div class="xz-notifications__header">
+          <h4 class="xz-popover__title">Notifications</h4>
+          <button class="xz-btn xz-btn--link xz-btn--sm" type="button" data-xz-mark-all><i data-xz-icon="check-check" data-size="sm"></i>Mark all as read</button>
+        </div>
+        <ul class="xz-notifications__list">
+          <li class="xz-notification is-unread"><a class="xz-notification__link" href="#notifications"><span class="xz-avatar xz-avatar--sm xz-avatar--round">RD</span><span class="xz-notification__body"><span class="xz-notification__text"><strong>Rohan Deshmukh</strong> paid ₹24,999 for Data Analytics.</span><time class="xz-notification__time" datetime="2026-11-16T10:12">12 minutes ago</time></span></a></li>
+          <li class="xz-notification is-unread"><a class="xz-notification__link" href="#notifications"><span class="xz-avatar xz-avatar--sm xz-avatar--round">SQ</span><span class="xz-notification__body"><span class="xz-notification__text"><strong>Sana Qureshi</strong> submitted Assignment 3 for review.</span><time class="xz-notification__time" datetime="2026-11-16T09:40">45 minutes ago</time></span></a></li>
+          <li class="xz-notification"><a class="xz-notification__link" href="#notifications"><span class="xz-avatar xz-avatar--sm xz-avatar--round">MI</span><span class="xz-notification__body"><span class="xz-notification__text"><strong>Batch B-14</strong> starts tomorrow at 6:30 pm.</span><time class="xz-notification__time" datetime="2026-11-15T18:00">Yesterday</time></span></a></li>
+        </ul>
+        <p class="xz-notifications__empty" hidden>You are all caught up.</p>
+        <div class="xz-notifications__footer"><a class="xz-link" href="#notifications">See all notifications</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-notifications</code></td><td>Add to a popover wrapper. Counts <code>.xz-notification.is-unread</code> and shows the count on the button.</td></tr>
+      <tr><td><code>xz-notification</code></td><td>One update. Parts: <code>__link</code>, <code>__body</code>, <code>__text</code>, <code>__time</code>. Add <code>is-unread</code> when it is new.</td></tr>
+      <tr><td><code>data-xz-mark-all</code></td><td>Button that marks every update read.</td></tr>
+      <tr><td><code>xz-notifications__empty</code></td><td>Shown when the list has no items.</td></tr>
+      <tr><td><code>xz:read</code></td><td>Fires with <code>event.detail.items</code>, the updates just marked read. Save this on your server.</td></tr>
+      <tr><td><code>element.xzNotifications.sync()</code></td><td>Call after you add or remove updates from script.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= CONTEXT MENU ================= -->
+<section class="doc-section" id="context-menu">
+  <h2>Context menu</h2>
+  <p>Actions for one item, opened with a right click, a long press on touch screens, or the Menu key (Shift+F10) from the keyboard. Every action in it must also be reachable another way, such as a row's actions button, because many people never right click.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-card xz-context-target" data-xz-context-menu="#ctx-file" id="ctx-demo" aria-label="Fee receipt, November 2026. Right click or press Shift+F10 for actions.">
+      <div class="xz-card__body xz-row">
+        <i data-xz-icon="file-text"></i>
+        <div class="xz-grow"><strong>Fee receipt, November 2026.pdf</strong><p class="xz-small xz-text-muted">Right click, long press or press Shift+F10</p></div>
+      </div>
+    </div>
+    <ul class="xz-menu__list" id="ctx-file" hidden>
+      <li><button class="xz-menu__item" type="button" data-action="open"><i data-xz-icon="eye" data-size="sm"></i>Open<span class="xz-menu__shortcut">Enter</span></button></li>
+      <li><button class="xz-menu__item" type="button" data-action="download"><i data-xz-icon="download" data-size="sm"></i>Download</button></li>
+      <li><button class="xz-menu__item" type="button" data-action="share"><i data-xz-icon="share-2" data-size="sm"></i>Share with learner</button></li>
+      <li class="xz-menu__separator" role="separator"></li>
+      <li><button class="xz-menu__item xz-menu__item--danger" type="button" data-action="delete"><i data-xz-icon="trash-2" data-size="sm"></i>Delete<span class="xz-menu__shortcut">Del</span></button></li>
+    </ul>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-context-menu="#id"</code></td><td>On the item. Points to a <code>.xz-menu__list</code> that is hidden. Many items can share one list.</td></tr>
+      <tr><td><code>data-action</code></td><td>On each menu item. Sent in the event.</td></tr>
+      <tr><td><code>xz:action</code></td><td>Fires on the item with <code>event.detail.action</code>.</td></tr>
+      <tr><td><code>xz-menu__shortcut</code></td><td>Keyboard shortcut text on the right of an item.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= SEARCH ================= -->
+<section class="doc-section" id="search">
+  <h2>Search with suggestions</h2>
+  <p>A search field that suggests matches as people type, grouped by kind, and remembers the last five searches on this device. Pressing Enter without picking a suggestion runs a normal search, so the field still works as a plain form.</p>
+  <div class="doc-example" data-layout="stack">
+    <form class="xz-search" role="search" action="#search" data-xz-search data-xz-recent="docs-demo" data-xz-shortcut="/" id="search-demo">
+      <div class="xz-input-group">
+        <i data-xz-icon="search" data-size="sm" class="xz-input-group__icon"></i>
+        <input class="xz-input" type="search" name="q" placeholder="Search courses, learners and invoices" aria-label="Search">
+        <kbd class="xz-input-group__kbd">/</kbd>
+      </div>
+      <ul class="xz-search__source" hidden>
+        <li data-group="Courses" data-href="#search" data-meta="12 batches">Data Analytics</li>
+        <li data-group="Courses" data-href="#search" data-meta="8 batches">Data Science with Python</li>
+        <li data-group="Courses" data-href="#search" data-meta="5 batches">UX Design Foundations</li>
+        <li data-group="Courses" data-href="#search" data-meta="9 batches">Full Stack Web Development</li>
+        <li data-group="Learners" data-href="#search" data-meta="B-14">Ananya Iyer</li>
+        <li data-group="Learners" data-href="#search" data-meta="B-12">Rohan Deshmukh</li>
+        <li data-group="Learners" data-href="#search" data-meta="B-14" data-keywords="data">Meenakshi Sundaram</li>
+        <li data-group="Invoices" data-href="#search" data-meta="₹24,999">INV-2026-0412</li>
+        <li data-group="Invoices" data-href="#search" data-meta="₹18,500" data-keywords="design">INV-2026-0413</li>
+      </ul>
+    </form>
+  </div>
+  <p>For results from your server, add <code class="xz-code">data-xz-search-url="/api/search?q={q}"</code>. The kit waits until typing pauses, cancels older requests, and expects JSON like <code class="xz-code">[{ "label": "Data Analytics", "group": "Courses", "href": "/courses/12", "meta": "12 batches" }]</code>.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-search</code></td><td>On the form (or any wrapper) around a search field.</td></tr>
+      <tr><td><code>.xz-search__source &gt; li</code></td><td>Suggestions written in the page. <code>data-group</code>, <code>data-href</code>, <code>data-meta</code> and <code>data-keywords</code> are all optional.</td></tr>
+      <tr><td><code>data-xz-search-url</code></td><td>Also fetch suggestions from this address. <code>{q}</code> is replaced with the typed text.</td></tr>
+      <tr><td><code>data-xz-recent="name"</code></td><td>Remember recent searches on this device under this name. Shown when the field is empty.</td></tr>
+      <tr><td><code>data-xz-shortcut="/"</code></td><td>Pressing this key anywhere on the page moves focus to the field.</td></tr>
+      <tr><td><code>data-xz-max</code></td><td>Most suggestions to show. Default 8.</td></tr>
+      <tr><td><code>xz:select</code> <code>xz:search</code></td><td>Fire when a suggestion is picked or a search runs. Call <code>event.preventDefault()</code> to handle it yourself.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= MEGA MENU ================= -->
+<section class="doc-section" id="mega-menu">
+  <h2>Mega menu</h2>
+  <p>A navigation bar item that opens a wide panel of grouped links, for sites with many sections. It opens on click, not hover, so it works the same with a mouse, a keyboard and a touch screen. On phones, put the same links in the menu drawer instead. Shown from 768px.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <header class="xz-navbar xz-navbar--static">
+      <span class="xz-logo">Xsenze Academy</span>
+      <ul class="xz-navbar__nav">
+        <li>
+          <div class="xz-megamenu" data-xz-megamenu>
+            <button class="xz-navbar__link" type="button">Courses <i data-xz-icon="chevron-down" data-size="sm"></i></button>
+            <div class="xz-megamenu__panel">
+              <div class="xz-megamenu__inner">
+                <div>
+                  <p class="xz-megamenu__heading">Data</p>
+                  <ul class="xz-megamenu__links">
+                    <li><a class="xz-megamenu__link" href="#mega-menu"><i data-xz-icon="chart-column"></i><span><strong>Data Analytics</strong><span>Excel, SQL and Power BI</span></span></a></li>
+                    <li><a class="xz-megamenu__link" href="#mega-menu"><i data-xz-icon="code"></i><span><strong>Data Science</strong><span>Python and machine learning</span></span></a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="xz-megamenu__heading">Design and development</p>
+                  <ul class="xz-megamenu__links">
+                    <li><a class="xz-megamenu__link" href="#mega-menu"><i data-xz-icon="palette"></i><span><strong>UX Design</strong><span>Research to prototype</span></span></a></li>
+                    <li><a class="xz-megamenu__link" href="#mega-menu"><i data-xz-icon="terminal"></i><span><strong>Full Stack</strong><span>HTML, PHP and MySQL</span></span></a></li>
+                  </ul>
+                </div>
+                <div class="xz-megamenu__feature">
+                  <span class="xz-badge xz-badge--highlight">Starts 1 Dec</span>
+                  <p class="xz-h5" style="margin: var(--xz-space-3) 0 var(--xz-space-1)">Weekend batch B-15</p>
+                  <p class="xz-small xz-text-muted">Live classes on Saturday and Sunday mornings.</p>
+                  <a class="xz-link xz-link--standalone" href="#mega-menu" style="margin-top: var(--xz-space-3)">Reserve a seat</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a class="xz-navbar__link" href="#mega-menu">Trainers</a></li>
+        <li><a class="xz-navbar__link" href="#mega-menu">Fees</a></li>
+      </ul>
+    </header>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-megamenu</code></td><td>On the wrapper. The first button opens <code>xz-megamenu__panel</code> under the navbar, full width.</td></tr>
+      <tr><td><code>xz-megamenu__inner</code></td><td>Centres the columns to the page width.</td></tr>
+      <tr><td><code>__heading</code> <code>__links</code> <code>__link</code> <code>__feature</code></td><td>Column heading, link list, link with icon and description, and a highlighted box.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= BOTTOM SHEET ================= -->
+<section class="doc-section" id="bottom-sheet">
+  <h2>Bottom sheet</h2>
+  <p>A panel that slides up from the bottom of the screen. On phones it is easier to reach than a modal. Drag the handle down, press Escape, or tap outside to close it. On wide screens it sits in the middle at up to 40rem wide.</p>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" data-xz-open="#sheet-filters"><i data-xz-icon="sliders-horizontal" data-size="sm"></i>Filters</button>
+    <dialog class="xz-sheet" id="sheet-filters" aria-labelledby="sheet-filters-title">
+      <button class="xz-sheet__handle" type="button" aria-label="Close"></button>
+      <div class="xz-sheet__header">
+        <h3 class="xz-sheet__title" id="sheet-filters-title">Filter courses</h3>
+        <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-toast="Filters cleared">Clear all</button>
+      </div>
+      <div class="xz-sheet__body xz-stack">
+        <div class="xz-field">
+          <span class="xz-label" id="sheet-mode">Mode</span>
+          <div class="xz-segmented xz-segmented--block" role="radiogroup" aria-labelledby="sheet-mode">
+            <label><input type="radio" name="sheet-mode" value="any" checked><span>Any</span></label>
+            <label><input type="radio" name="sheet-mode" value="online"><span>Online</span></label>
+            <label><input type="radio" name="sheet-mode" value="campus"><span>Campus</span></label>
+          </div>
+        </div>
+        <fieldset class="xz-fieldset">
+          <legend class="xz-label">Timing</legend>
+          <label class="xz-check"><input type="checkbox" checked> Weekday evenings</label>
+          <label class="xz-check"><input type="checkbox"> Weekends</label>
+        </fieldset>
+      </div>
+      <div class="xz-sheet__footer">
+        <button class="xz-btn" type="button" data-xz-close>Cancel</button>
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-close data-xz-toast="Showing 6 courses">Show 6 courses</button>
+      </div>
+    </dialog>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>dialog.xz-sheet</code></td><td>Opened with <code>data-xz-open="#id"</code> or <code>Xsenze.sheet.open('#id')</code>. Parts: <code>__handle</code>, <code>__header</code>, <code>__title</code>, <code>__body</code>, <code>__footer</code>.</td></tr>
+      <tr><td><code>button.xz-sheet__handle</code></td><td>Drag down to close. As a button it also closes the sheet for keyboard and screen reader users.</td></tr>
+      <tr><td><code>--xz-sheet-width</code></td><td>Width on wide screens. Default 40rem.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= BOTTOM NAV ================= -->
+<section class="doc-section" id="bottom-nav">
+  <h2>Bottom navigation</h2>
+  <p>Three to five top-level places for a phone app, fixed to the bottom of the screen where thumbs reach. It hides from 768px, where the sidebar or navbar takes over. Add <code class="xz-code">xz-has-bottom-nav</code> to the body so content is not hidden under it.</p>
+  <div class="doc-example">
+    <div style="width: 22rem; max-width: 100%; border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-surface); overflow: hidden; background: var(--xz-bg)">
+      <div style="height: 8rem; padding: var(--xz-space-4)" class="xz-small xz-text-muted">Page content</div>
+      <nav class="xz-bottom-nav xz-bottom-nav--static" aria-label="Main">
+        <a class="xz-bottom-nav__item" href="#bottom-nav" aria-current="page"><i data-xz-icon="house"></i>Home</a>
+        <a class="xz-bottom-nav__item" href="#bottom-nav"><i data-xz-icon="book-open"></i>Courses</a>
+        <a class="xz-bottom-nav__item" href="#bottom-nav"><i data-xz-icon="calendar"></i>Schedule</a>
+        <a class="xz-bottom-nav__item" href="#bottom-nav"><i data-xz-icon="bell"></i>Alerts<span class="xz-notify-count">3</span><span class="xz-sr-only">, 3 new</span></a>
+        <a class="xz-bottom-nav__item" href="#bottom-nav"><i data-xz-icon="user"></i>Profile</a>
+      </nav>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-bottom-nav</code></td><td>Fixed bar. Each link is <code>xz-bottom-nav__item</code> with an icon and a short label. Mark the current place with <code>aria-current="page"</code>.</td></tr>
+      <tr><td><code>xz-bottom-nav--static</code></td><td>Not fixed and never hidden. For previews like this one.</td></tr>
+      <tr><td><code>xz-has-bottom-nav</code></td><td>On <code>body</code>. Leaves room at the bottom on phones.</td></tr>
+      <tr><td><code>xz-notify-count</code></td><td>Count badge. Repeat the count in hidden text for screen readers.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= WIZARD ================= -->
+<section class="doc-section" id="wizard">
+  <h2>Wizard</h2>
+  <p>A long form split into short steps. Next checks the fields on the current step before moving on, finished steps can be opened again from the step list, and Enter in a field goes to the next step instead of sending the form early. It is still one form, so the server receives every field in one post.</p>
+  <div class="doc-example" data-layout="block">
+    <form class="xz-wizard" data-xz-wizard id="wizard-demo" action="#wizard">
+      <ol class="xz-wizard__steps">
+        <li>Learner</li>
+        <li>Course</li>
+        <li>Payment</li>
+      </ol>
+      <fieldset class="xz-wizard__panel xz-form">
+        <legend class="xz-wizard__title">Learner details</legend>
+        <div class="xz-field">
+          <label class="xz-label" for="wz-name">Full name</label>
+          <input class="xz-input" id="wz-name" name="name" required autocomplete="name">
+        </div>
+        <div class="xz-field">
+          <label class="xz-label" for="wz-phone">Mobile number</label>
+          <div class="xz-input-group"><span class="xz-input-group__addon">+91</span><input class="xz-input" id="wz-phone" name="phone" type="tel" inputmode="numeric" pattern="[6-9][0-9]{9}" title="Enter a 10-digit mobile number" required autocomplete="tel-national"></div>
+        </div>
+      </fieldset>
+      <fieldset class="xz-wizard__panel xz-form">
+        <legend class="xz-wizard__title">Course and batch</legend>
+        <div class="xz-field">
+          <label class="xz-label" for="wz-course">Course</label>
+          <select class="xz-select" id="wz-course" name="course" required>
+            <option value="">Choose a course</option>
+            <option>Data Analytics</option>
+            <option>UX Design Foundations</option>
+            <option>Full Stack Web Development</option>
+          </select>
+        </div>
+        <div class="xz-field">
+          <span class="xz-label" id="wz-batch">Batch</span>
+          <div class="xz-segmented" role="radiogroup" aria-labelledby="wz-batch">
+            <label><input type="radio" name="batch" value="weekday" checked><span>Weekday evenings</span></label>
+            <label><input type="radio" name="batch" value="weekend"><span>Weekends</span></label>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset class="xz-wizard__panel xz-form">
+        <legend class="xz-wizard__title">Payment</legend>
+        <div class="xz-field">
+          <span class="xz-label" id="wz-plan">How will you pay?</span>
+          <div class="xz-segmented" role="radiogroup" aria-labelledby="wz-plan">
+            <label><input type="radio" name="plan" value="full" checked><span>Full fee</span></label>
+            <label><input type="radio" name="plan" value="3"><span>3 instalments</span></label>
+            <label><input type="radio" name="plan" value="6"><span>6 instalments</span></label>
+          </div>
+        </div>
+        <label class="xz-check"><input type="checkbox" name="terms" required> I agree to the fee and refund policy</label>
+      </fieldset>
+      <div class="xz-wizard__footer">
+        <span class="xz-wizard__count" aria-live="polite"></span>
+        <button class="xz-btn" type="button" data-xz-wizard-back><i data-xz-icon="arrow-left" data-size="sm"></i>Back</button>
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-wizard-next>Next<i data-xz-icon="arrow-right" data-size="sm"></i></button>
+        <button class="xz-btn xz-btn--primary" type="submit" data-xz-wizard-submit>Enrol learner</button>
+      </div>
+    </form>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-wizard</code></td><td>On the <code>form</code>. Do not also add <code>data-xz-validate</code>; the wizard checks each step itself.</td></tr>
+      <tr><td><code>xz-wizard__steps</code></td><td>An <code>ol</code> with one short label per step.</td></tr>
+      <tr><td><code>xz-wizard__panel</code></td><td>One per step, in order. A <code>fieldset</code> whose <code>legend</code> has <code>xz-wizard__title</code>.</td></tr>
+      <tr><td><code>data-xz-wizard-back</code> <code>-next</code> <code>-submit</code></td><td>The footer buttons. Each shows only when it applies.</td></tr>
+      <tr><td><code>xz-wizard__count</code></td><td>Shows "Step 2 of 3".</td></tr>
+      <tr><td><code>xz:step</code></td><td>Fires with <code>event.detail.step</code> and <code>from</code>, counted from 0.</td></tr>
+      <tr><td><code>form.xzWizard.go(n)</code></td><td>Move to a step from script.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= CAROUSEL ================= -->
+<section class="doc-section" id="carousel">
+  <h2>Carousel</h2>
+  <p>A row of cards that scrolls sideways, with arrows and dots. Swipe, the arrow keys and a trackpad work as normal scrolling. It never moves by itself, so nobody misses a slide while reading. Use it for optional browsing; never hide the only copy of important content in slide 4.</p>
+  <div class="doc-example" data-layout="block">
+    <section class="xz-carousel xz-carousel--3" data-xz-carousel aria-label="Upcoming batches">
+      <ul class="xz-carousel__track">
+        <li><article class="xz-card"><div class="xz-card__media"><img src="media/cover-analytics.svg" alt="" width="800" height="450" loading="lazy"></div><div class="xz-card__body"><h4 class="xz-card__title">Data Analytics, B-15</h4><p class="xz-small xz-text-muted">Starts 1 Dec · 12 seats left</p></div></article></li>
+        <li><article class="xz-card"><div class="xz-card__media"><img src="media/cover-design.svg" alt="" width="800" height="450" loading="lazy"></div><div class="xz-card__body"><h4 class="xz-card__title">UX Design, B-08</h4><p class="xz-small xz-text-muted">Starts 8 Dec · 6 seats left</p></div></article></li>
+        <li><article class="xz-card"><div class="xz-card__media"><img src="media/cover-code.svg" alt="" width="800" height="450" loading="lazy"></div><div class="xz-card__body"><h4 class="xz-card__title">Full Stack, B-21</h4><p class="xz-small xz-text-muted">Starts 15 Dec · 20 seats left</p></div></article></li>
+        <li><article class="xz-card"><div class="xz-card__media"><img src="media/cover-finance.svg" alt="" width="800" height="450" loading="lazy"></div><div class="xz-card__body"><h4 class="xz-card__title">Finance for Managers, B-03</h4><p class="xz-small xz-text-muted">Starts 5 Jan · 30 seats left</p></div></article></li>
+        <li><article class="xz-card"><div class="xz-card__media"><img src="media/cover-campus.svg" alt="" width="800" height="450" loading="lazy"></div><div class="xz-card__body"><h4 class="xz-card__title">Campus Placement Prep, B-11</h4><p class="xz-small xz-text-muted">Starts 12 Jan · 40 seats left</p></div></article></li>
+      </ul>
+    </section>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-carousel</code></td><td>On the wrapper, with an <code>aria-label</code>. The script adds the arrows and dots.</td></tr>
+      <tr><td><code>xz-carousel__track</code></td><td>The scrolling row. Each child is one slide.</td></tr>
+      <tr><td><code>xz-carousel--2</code> <code>--3</code></td><td>Slides in view: 1 on phones, 2 from 640px, 3 from 1024px. Or set <code>--xz-carousel-per-view</code>.</td></tr>
+      <tr><td><code>element.xzCarousel.to(n)</code></td><td>Scroll to a slide from script.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= LIGHTBOX ================= -->
+<section class="doc-section" id="lightbox">
+  <h2>Gallery and lightbox</h2>
+  <p>Thumbnails that open a full-screen viewer. Use the arrows, the Left and Right keys, or a swipe to move between pictures. Without the script, each thumbnail is a plain link to the full picture.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-gallery" data-xz-lightbox>
+      <a href="media/cover-campus.svg" data-caption="Main campus, Bengaluru"><img src="media/cover-campus.svg" alt="Campus building" loading="lazy"></a>
+      <a href="media/cover-analytics.svg" data-caption="Analytics lab with 40 seats"><img src="media/cover-analytics.svg" alt="Analytics lab" loading="lazy"></a>
+      <a href="media/cover-design.svg" data-caption="Design studio"><img src="media/cover-design.svg" alt="Design studio" loading="lazy"></a>
+      <a href="media/cover-code.svg" data-caption="Coding lab"><img src="media/cover-code.svg" alt="Coding lab" loading="lazy"></a>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-lightbox</code></td><td>On a wrapper of links. Each link's <code>href</code> is the full picture.</td></tr>
+      <tr><td><code>data-caption</code></td><td>Caption shown under the picture. The thumbnail's <code>alt</code> text is used for the full picture.</td></tr>
+      <tr><td><code>xz-gallery</code></td><td>Optional grid of 4:3 thumbnails.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= PLAYER ================= -->
+<section class="doc-section" id="player">
+  <h2>Video and audio player</h2>
+  <p>Kit controls over the browser's own player: play, time, seek, volume, speed, captions and full screen. Write a normal <code class="xz-code">video</code> or <code class="xz-code">audio</code> element with <code class="xz-code">controls</code>; the script swaps in the kit controls, and without it the browser's controls still work.</p>
+  <p>Keyboard, with focus anywhere in the player: Space or K plays and pauses, Left and Right jump 5 seconds, M mutes, F goes full screen.</p>
+  <h3>Video</h3>
+  <div class="doc-example" data-layout="block">
+    <div data-xz-player data-xz-title="Lesson 1, Reading a sales chart" data-xz-resume="docs-lesson-1" style="max-width: 40rem">
+      <video controls preload="metadata" playsinline>
+        <source src="media/sample-video.webm" type="video/webm">
+        <track kind="captions" src="media/sample-video.vtt" srclang="en" label="English">
+      </video>
+    </div>
+  </div>
+  <h3>Audio</h3>
+  <div class="doc-example" data-layout="block">
+    <div data-xz-player data-xz-title="Podcast, Episode 12" style="max-width: 32rem">
+      <div class="xz-player__meta">
+        <img class="xz-player__cover" src="media/cover-finance.svg" alt="">
+        <div><p class="xz-player__title">Episode 12: Budgeting for a new batch</p><p class="xz-player__subtitle">Xsenze Academy podcast · 12 seconds</p></div>
+      </div>
+      <audio controls preload="metadata" src="media/sample-audio.wav"></audio>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-player</code></td><td>On a wrapper around one <code>video</code> or <code>audio</code>.</td></tr>
+      <tr><td><code>data-xz-title</code></td><td>Names the player for screen readers.</td></tr>
+      <tr><td><code>data-xz-resume="key"</code></td><td>Remembers where the person stopped, on this device, and starts there next time.</td></tr>
+      <tr><td><code>track kind="captions"</code></td><td>Adds a CC button. Give every lesson video captions.</td></tr>
+      <tr><td><code>xz-player__meta</code></td><td>Audio only: cover, <code>__title</code> and <code>__subtitle</code> above the controls.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+<script>
+  // The indeterminate checkbox state can only be set from script.
+  document.getElementById('ch-indeterminate').indeterminate = true;
+  // Toast with an action, from the API.
+  document.getElementById('ov-toast-undo').addEventListener('click', () => {
+    Xsenze.toast({
+      title: 'Learner removed',
+      message: 'Kavya Reddy was removed from Batch B-14.',
+      variant: 'success',
+      duration: 8000,
+      action: { label: 'Undo', onClick: () => Xsenze.toast('Learner restored') },
+    });
+  });
+  // Phase 2 demos stay on this page and show what happened in a toast.
+  document.getElementById('ctx-demo').addEventListener('xz:action', (e) => Xsenze.toast({ message: 'Action: ' + e.detail.action }));
+  document.getElementById('search-demo').addEventListener('xz:select', (e) => { e.preventDefault(); Xsenze.toast({ message: 'Opened ' + e.detail.item.label }); });
+  document.getElementById('search-demo').addEventListener('xz:search', (e) => { e.preventDefault(); Xsenze.toast({ message: 'Searched for ' + e.detail.query }); });
+  document.getElementById('wizard-demo').addEventListener('submit', (e) => { e.preventDefault(); Xsenze.toast({ title: 'Learner enrolled', message: 'Welcome email sent.', variant: 'success' }); });
+  // The validation demo should not navigate when it passes.
+  document.getElementById('val-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    Xsenze.toast({ message: 'Account created', variant: 'success' });
+  });
+</script>
+</body>
+</html>

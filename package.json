@@ -1,0 +1,38 @@
+{
+  "name": "@sfj/ui-kit",
+  "version": "0.5.0",
+  "description": "Xsenze UI Kit: design tokens, CSS components and small behaviours for HTML, PHP and framework projects.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/xsenze.js",
+  "style": "dist/xsenze.css",
+  "files": [
+    "dist",
+    "!dist/fonts/Satoshi-Variable.woff2",
+    "!dist/fonts/Satoshi-FFL.txt",
+    "tokens",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": "./dist/xsenze.esm.js",
+    "./css": "./dist/xsenze.css",
+    "./satoshi.css": "./dist/xsenze-satoshi.css",
+    "./tokens.css": "./dist/tokens/tokens.css",
+    "./tokens.json": "./dist/tokens/tokens.json",
+    "./dist/*": "./dist/*"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/contrast.mjs",
+    "dev": "node scripts/serve.mjs",
+    "prepublishOnly": "npm run build && npm run check"
+  },
+  "devDependencies": {
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "esbuild": "^0.28.2",
+    "lucide-static": "^1.73.0"
+  }
+}

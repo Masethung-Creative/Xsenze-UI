@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Get started · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="get-started">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Get started</p>
+  <h1 class="xz-h1">Install the kit</h1>
+  <p class="xz-lead">Two files give you everything: one stylesheet and one script. There is no build step for HTML and PHP projects.</p>
+</header>
+
+<section class="doc-section" id="quick-start">
+  <h2>Quick start</h2>
+  <p>Build the kit once, copy the <code class="xz-code">dist</code> folder into your project, then link the two files.</p>
+  <h3>1. Build</h3>
+  <pre class="doc-snippet" data-lang="text">
+    cd xsenze-ui-kit
+    npm install
+    npm run build
+  </pre>
+  <h3>2. Copy</h3>
+  <p>Copy <code class="xz-code">dist/</code> to your project, for example to <code class="xz-code">assets/xsenze/</code>. Keep the folder together: the stylesheet loads its fonts from <code class="xz-code">fonts/</code> next to it.</p>
+  <h3>3. Link</h3>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <!doctype html>
+    <html lang="en" data-theme="light">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>My page</title>
+      <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css">
+      <link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css">
+      <script src="/assets/xsenze/xsenze.min.js" defer></script>
+    </head>
+    <body>
+      <main class="xz-container">
+        <h1 class="xz-h1">Namaste</h1>
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-toast="It works.">
+          <i data-xz-icon="check"></i> Try it
+        </button>
+      </main>
+    </body>
+    </html>
+  </textarea>
+  <p>That is the whole setup. Components start by themselves when the page loads.</p>
+  <h3>4. The heading font</h3>
+  <p>Headings, buttons and numbers use <strong>Satoshi</strong>. Its free licence lets you use it on any website, but not pass the font file on, so the npm package does not include it. Download Satoshi from Fontshare, then put <code class="xz-code">Satoshi-Variable.woff2</code> in the <code class="xz-code">fonts/</code> folder next to <code class="xz-code">xsenze-satoshi.css</code>.</p>
+  <p>Without the file, or without <code class="xz-code">xsenze-satoshi.css</code>, headings use Space Grotesk. Nothing breaks.</p>
+</section>
+
+<section class="doc-section" id="files">
+  <h2>What is in dist</h2>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>File</th><th>Use it for</th></tr></thead>
+    <tbody>
+      <tr><td><code>xsenze.min.css</code></td><td>Everything: body and code fonts, tokens, base styles and all components. Use this in production.</td></tr>
+      <tr><td><code>xsenze-satoshi.css</code></td><td>The heading font. Load it after the main stylesheet.</td></tr>
+      <tr><td><code>xsenze.css</code></td><td>The same, readable. Use it while debugging.</td></tr>
+      <tr><td><code>xsenze.min.js</code></td><td>Behaviours and icons for pages loaded with a script tag. Adds the global <code>Xsenze</code>.</td></tr>
+      <tr><td><code>xsenze.esm.js</code></td><td>The same as an ES module, for bundlers.</td></tr>
+      <tr><td><code>tokens/tokens.css</code></td><td>CSS variables only, with no component styles. For projects that only want the tokens.</td></tr>
+      <tr><td><code>tokens/tokens.json</code></td><td>Flat values for each theme. For scripts, emails and native apps.</td></tr>
+      <tr><td><code>tokens/tokens.dtcg.json</code></td><td>Tokens in the Design Tokens format. Import this into Figma variables.</td></tr>
+      <tr><td><code>icons/</code></td><td>Each icon as an SVG file, plus <code>sprite.svg</code>.</td></tr>
+      <tr><td><code>fonts/</code></td><td>Space Grotesk and JetBrains Mono, self-hosted, so no request leaves your server. Add Satoshi here yourself; see step 4.</td></tr>
+      <tr><td><code>brand/</code></td><td>Logo and mark.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="doc-section" id="php">
+  <h2>PHP projects</h2>
+  <p>Put the two tags in your shared header file and add a version to the address, so browsers fetch the new files after you update the kit.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <!-- partials/head.php -->
+    <?php $xz = '0.5.0'; ?>
+    <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css?v=<?= $xz ?>">
+    <link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css?v=<?= $xz ?>">
+    <script src="/assets/xsenze/xsenze.min.js?v=<?= $xz ?>" defer></script>
+  </textarea>
+  <p>Format money and dates on the server the same way the kit does in the browser:</p>
+  <pre class="doc-snippet" data-lang="text">
+    &lt;?php
+    // ₹12,34,567 with lakh and crore grouping. Needs the intl extension.
+    $fmt = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
+    echo '₹' . $fmt->format(1234567);
+
+    // 15 Nov 2026
+    echo date('j M Y', strtotime('2026-11-15'));
+  </pre>
+</section>
+
+<section class="doc-section" id="cdn">
+  <h2>CDN</h2>
+  <p>The <code class="xz-code">dist</code> folder is the CDN build. Upload it to any static host or your own CDN and link to it with the version in the path, so each release has a permanent address.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <link rel="stylesheet" href="https://cdn.example.com/xsenze/0.5.0/xsenze.min.css">
+    <link rel="stylesheet" href="https://cdn.example.com/xsenze/0.5.0/xsenze-satoshi.css">
+    <script src="https://cdn.example.com/xsenze/0.5.0/xsenze.min.js" defer></script>
+  </textarea>
+  <p>Replace <code class="xz-code">cdn.example.com</code> with your host. Serve the files with CORS enabled (<code class="xz-code">Access-Control-Allow-Origin: *</code>) so the fonts load from other domains.</p>
+  <div class="xz-alert xz-alert--info" role="note">
+    <i data-xz-icon="info"></i>
+    <div class="xz-alert__body">
+      <div class="xz-alert__title">Not on npm yet</div>
+      <div class="xz-alert__text">The package is named <code class="xz-code">@sfj/ui-kit</code> and is ready to publish, but publishing is part of Phase 2. Until then, use the dist folder.</div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="bundlers">
+  <h2>Bundlers and frameworks</h2>
+  <p>In a project with a bundler, install the kit from its folder and import it.</p>
+  <pre class="doc-snippet" data-lang="text">
+    npm install ../xsenze-ui-kit
+  </pre>
+  <pre class="doc-snippet" data-lang="text">
+    import '@sfj/ui-kit/css';
+    import Xsenze from '@sfj/ui-kit';
+
+    // After you add markup to the page later (a route change, an AJAX response):
+    Xsenze.init(document.querySelector('#new-content'));
+  </pre>
+</section>
+
+<section class="doc-section" id="tokens-only">
+  <h2>Tokens only</h2>
+  <p>To keep your own components but share the kit's values, load only the variables.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <link rel="stylesheet" href="/assets/xsenze/tokens/tokens.css">
+    <style>
+      .my-card {
+        padding: var(--xz-space-5);
+        background: var(--xz-surface);
+        border: 1px solid var(--xz-border);
+        color: var(--xz-text);
+      }
+    </style>
+  </textarea>
+  <p>To change a value, edit <code class="xz-code">tokens/tokens.json</code> and run <code class="xz-code">npm run build</code>. Then run <code class="xz-code">npm run check</code> to confirm the colours still meet AA contrast.</p>
+</section>
+
+<section class="doc-section" id="figma">
+  <h2>Figma library</h2>
+  <p>The Figma library uses the same token names as the code. To create or refresh its variables:</p>
+  <ol>
+    <li>Open the Xsenze UI Kit library file in Figma.</li>
+    <li>Run a variables import plugin that reads the Design Tokens format.</li>
+    <li>Choose <code class="xz-code">dist/tokens/tokens.dtcg.json</code>. The <strong>core</strong> group becomes the primitives collection. The <strong>theme</strong> group becomes one collection with a Light mode and a Dark mode.</li>
+    <li>Publish the library so other files receive the update.</li>
+  </ol>
+  <p>Name component properties in Figma after the class modifiers, for example a Button with <strong>variant</strong> (primary, default, solid, soft, ghost, link, danger) and <strong>size</strong> (sm, md, lg). Then a design reads the same as its markup.</p>
+</section>
+
+<section class="doc-section" id="themes">
+  <h2>Themes</h2>
+  <p>Light is the default. Set <code class="xz-code">data-theme</code> on the <code class="xz-code">html</code> element to choose a theme, or on any element to theme just that part of the page.</p>
+  <div class="doc-example" data-code="open">
+    <div data-theme="light" style="padding: 1rem; background: var(--xz-bg); color: var(--xz-text)">
+      <button class="xz-btn xz-btn--primary" type="button">Light</button>
+    </div>
+    <div data-theme="dark" style="padding: 1rem; background: var(--xz-bg); color: var(--xz-text)">
+      <button class="xz-btn xz-btn--primary" type="button">Dark</button>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Markup or call</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-theme="light"</code></td><td>Light theme.</td></tr>
+      <tr><td><code>data-theme="dark"</code></td><td>Dark theme.</td></tr>
+      <tr><td><code>data-theme="auto"</code></td><td>Follows the device setting when the page loads.</td></tr>
+      <tr><td><code>data-xz-theme-toggle</code></td><td>Put this on a button. A click switches the theme and remembers the choice in the browser.</td></tr>
+      <tr><td><code>Xsenze.theme.set('dark')</code></td><td>Sets and remembers a theme. Also <code>get()</code> and <code>toggle()</code>.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Round the corners</h3>
+  <p>Corners are 4px. Two tokens control the corner radius of every component, so a product that needs a square or a softer look can change it in one place.</p>
+  <pre class="doc-snippet" data-lang="text">
+    :root {
+      --xz-radius-control: var(--xz-radius-lg);  /* buttons, inputs, badges */
+      --xz-radius-surface: 12px;  /* cards, modals */
+    }
+  </pre>
+</section>
+
+<section class="doc-section" id="script">
+  <h2>Script reference</h2>
+  <p>Most behaviour needs only a data attribute. The script API covers the rest.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Call</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>Xsenze.init(root)</code></td><td>Starts components inside <code>root</code>. Call it after adding markup to the page.</td></tr>
+      <tr><td><code>Xsenze.toast(options)</code></td><td>Shows a toast. Options: <code>title</code>, <code>message</code>, <code>variant</code>, <code>duration</code>, <code>action</code>.</td></tr>
+      <tr><td><code>Xsenze.modal.open(target)</code></td><td>Opens a modal or drawer. <code>target</code> is a selector or an element. Also <code>close(target)</code>.</td></tr>
+      <tr><td><code>Xsenze.validate(form)</code></td><td>Checks a form, shows messages and returns <code>true</code> when it is valid.</td></tr>
+      <tr><td><code>Xsenze.icon(name, options)</code></td><td>Returns the SVG markup for an icon. Options: <code>size</code>, <code>label</code>.</td></tr>
+      <tr><td><code>Xsenze.format.inr(value)</code></td><td>Formats money and dates. See <a class="xz-link" href="patterns.html#formats">Indian formats</a>.</td></tr>
+      <tr><td><code>Xsenze.theme.set(name)</code></td><td>Switches the theme.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Events</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Event</th><th>Fires on</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz:tab</code></td><td>The tabs element, when a tab is chosen</td><td><code>index</code></td></tr>
+      <tr><td><code>xz:table</code></td><td>The table, after a sort, search or page change</td><td><code>total</code>, <code>page</code>, <code>pages</code></td></tr>
+      <tr><td><code>xz:theme</code></td><td>The document, when the theme changes</td><td><code>theme</code></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="doc-section" id="browsers">
+  <h2>Browser support</h2>
+  <p>The kit supports the last two versions of Chrome, Edge, Firefox and Safari, on desktop and mobile. It uses the native <code class="xz-code">dialog</code> element and the <code class="xz-code">:has()</code> selector, which need Chrome 105, Firefox 121 or Safari 15.4 and later.</p>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Templates · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="templates">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Templates</p>
+  <h1 class="xz-h1">Start from a working page</h1>
+  <p class="xz-lead">Each template is a single HTML file in the <code class="xz-code">templates</code> folder. Copy the file, fix the two paths at the top, and replace the sample content.</p>
+</header>
+
+<section class="doc-section" id="auth">
+  <h2>Sign in and account</h2>
+  <p>A two-panel layout: brand panel on the left, form on the right. On phones the brand panel is hidden and the logo moves above the form. Forms validate before they submit and show the kit's error messages.</p>
+  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 15rem">
+    <a class="xz-card xz-card--interactive" href="../templates/login.html">
+      <div class="xz-card__body xz-stack xz-gap-2"><i data-xz-icon="log-in" data-size="lg"></i><h3 class="xz-card__title">Login</h3><p class="xz-card__subtitle">Email, password with show and hide, remember me, and a single sign-on button.</p></div>
+    </a>
+    <a class="xz-card xz-card--interactive" href="../templates/signup.html">
+      <div class="xz-card__body xz-stack xz-gap-2"><i data-xz-icon="user" data-size="lg"></i><h3 class="xz-card__title">Signup</h3><p class="xz-card__subtitle">Name, email, +91 mobile number, password rules, role and terms.</p></div>
+    </a>
+    <a class="xz-card xz-card--interactive" href="../templates/forgot-password.html">
+      <div class="xz-card__body xz-stack xz-gap-2"><i data-xz-icon="key-round" data-size="lg"></i><h3 class="xz-card__title">Forgot password</h3><p class="xz-card__subtitle">One field, then a confirmation that does not reveal whether the account exists.</p></div>
+    </a>
+  </div>
+  <h3>Layout classes</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-auth</code></td><td>Full-height page. Two columns from 1024px.</td></tr>
+      <tr><td><code>xz-auth--single</code></td><td>One centred column at every width.</td></tr>
+      <tr><td><code>xz-auth__aside</code></td><td>Dark brand panel with <code>xz-auth__quote</code> and <code>xz-auth__meta</code>.</td></tr>
+      <tr><td><code>xz-auth__main</code>, <code>xz-auth__panel</code></td><td>Centres the form and limits it to 24rem.</td></tr>
+      <tr><td><code>xz-auth__header</code>, <code>xz-auth__title</code>, <code>xz-auth__text</code>, <code>xz-auth__footer</code></td><td>Heading, intro and the link below the form.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="doc-section" id="dashboard">
+  <h2>Dashboard</h2>
+  <p>The application shell: a sidebar that becomes a drawer below 1024px, a sticky top bar, a page header, KPI cards, a searchable table with sorting, pagination and row actions, and a side column for progress and activity.</p>
+  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 15rem">
+    <a class="xz-card xz-card--interactive" href="../templates/dashboard.html">
+      <div class="xz-card__body xz-stack xz-gap-2"><i data-xz-icon="layout-dashboard" data-size="lg"></i><h3 class="xz-card__title">Dashboard layout</h3><p class="xz-card__subtitle">Shell, KPIs, table, modal form and toast.</p></div>
+    </a>
+  </div>
+  <h3>Shell structure</h3>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <div class="xz-shell">
+      <aside class="xz-sidebar">…</aside>
+      <div class="xz-shell__main">
+        <header class="xz-navbar">
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-shell__toggle" type="button"
+                  data-xz-open="#nav-drawer" aria-label="Open menu">…</button>
+          …
+        </header>
+        <main class="xz-shell__content" id="main">…</main>
+        <footer class="xz-footer xz-footer--simple">…</footer>
+      </div>
+    </div>
+    <dialog class="xz-drawer xz-drawer--left xz-drawer--nav" id="nav-drawer" aria-label="Menu">
+      <div class="xz-sidebar">…</div>
+    </dialog>
+  </textarea>
+  <p>Set the sidebar width with <code class="xz-code">--xz-sidebar-width</code> on <code class="xz-code">xz-shell</code>. The button with <code class="xz-code">xz-shell__toggle</code> hides by itself once the sidebar is visible.</p>
+</section>
+
+<section class="doc-section" id="errors">
+  <h2>Error pages</h2>
+  <p>Both pages say what happened in plain words and give a way forward. The 500 page shows a reference the person can quote to support.</p>
+  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 15rem">
+    <a class="xz-card xz-card--interactive" href="../templates/404.html">
+      <div class="xz-card__body xz-stack xz-gap-2"><i data-xz-icon="compass" data-size="lg"></i><h3 class="xz-card__title">404: page not found</h3><p class="xz-card__subtitle">Go to the dashboard or go back.</p></div>
+    </a>
+    <a class="xz-card xz-card--interactive" href="../templates/500.html">
+      <div class="xz-card__body xz-stack xz-gap-2"><i data-xz-icon="server-crash" data-size="lg"></i><h3 class="xz-card__title">500: server error</h3><p class="xz-card__subtitle">Try again or contact support.</p></div>
+    </a>
+  </div>
+</section>
+
+<section class="doc-section" id="use">
+  <h2>Use a template</h2>
+  <ol>
+    <li>Copy the file from <code class="xz-code">templates/</code> into your project.</li>
+    <li>Change the two paths in the <code class="xz-code">head</code> to where your <code class="xz-code">dist</code> files live.</li>
+    <li>Set the form <code class="xz-code">action</code> and field <code class="xz-code">name</code> values to match your server.</li>
+    <li>Replace the sample text and data. In PHP, loop over your rows inside the table body.</li>
+  </ol>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <tbody>
+      <?php foreach ($enrolments as $row): ?>
+      <tr>
+        <td class="xz-table__primary"><?= htmlspecialchars($row['name']) ?></td>
+        <td class="xz-table__num" data-value="<?= (float) $row['fee'] ?>">₹<?= $inr->format($row['fee']) ?></td>
+        <td data-value="<?= $row['date'] ?>"><?= date('j M Y', strtotime($row['date'])) ?></td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </textarea>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+</body>
+</html>

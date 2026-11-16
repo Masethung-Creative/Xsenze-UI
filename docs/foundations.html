@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Foundations · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="data.generated.js" defer></script>
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="foundations">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Foundations</p>
+  <h1 class="xz-h1">The values everything is built from</h1>
+  <p class="xz-lead">Each value below is a token in <code class="xz-code">tokens/tokens.json</code> and a CSS variable with the <code class="xz-code">--xz-</code> prefix. This page reads the built tokens, so it always matches the code.</p>
+</header>
+
+<section class="doc-section" id="colour">
+  <h2>Colour</h2>
+  <p>The palette is black and white on pure grey neutrals, one orange for highlights, and four status colours. Use the <strong>theme tokens</strong> in your styles, not the raw palette, so your screen works in both themes.</p>
+
+  <h3>Brand</h3>
+  <p><code class="xz-code">brand-500</code> is the brand orange. It is the logo colour and the second accent: use it for small highlights and data, such as a featured tag or one series in a chart. Main actions are black in the light theme and white in the dark theme, not orange.</p>
+  <div class="doc-swatches" data-palette="brand"></div>
+
+  <h3>Neutrals</h3>
+  <div class="doc-swatches" data-palette="neutral"></div>
+
+  <h3>Status</h3>
+  <p>Green means success, amber means warning, rose means error or a destructive action, blue means information. Rose is used for errors because it stays clearly different from the brand orange.</p>
+  <div class="doc-swatches" data-palette="green"></div>
+  <div class="doc-swatches" data-palette="amber"></div>
+  <div class="doc-swatches" data-palette="rose"></div>
+  <div class="doc-swatches" data-palette="blue"></div>
+
+  <h3>Theme tokens</h3>
+  <p>These names describe a job, and each one has a light and a dark value. The swatches show the theme that is active now. Use the button in the top bar to switch.</p>
+  <h3>Surfaces</h3>
+  <div class="doc-swatches doc-swatches--wide" data-theme-tokens="bg surface surface-2 surface-3 inverse overlay"></div>
+  <h3>Text</h3>
+  <div class="doc-swatches doc-swatches--wide" data-theme-tokens="text text-muted text-subtle accent-text on-accent on-inverse"></div>
+  <h3>Borders</h3>
+  <div class="doc-swatches doc-swatches--wide" data-theme-tokens="border border-control border-strong focus"></div>
+  <h3>Interaction states</h3>
+  <p>The main fill shifts one step toward grey on hover and one more when pressed, and its label stays readable in every state. Disabled controls use the two disabled tokens and no brand colour.</p>
+  <div class="doc-swatches doc-swatches--wide" data-theme-tokens="accent accent-hover accent-active accent-strong accent-soft accent-border accent-2 accent-2-text accent-2-soft accent-2-border disabled-bg disabled-text"></div>
+  <h3>Status tokens</h3>
+  <p>Each status has a fill, a text colour for use on plain surfaces, a soft background and a border.</p>
+  <div class="doc-swatches doc-swatches--wide" data-theme-tokens="success success-text success-soft success-border warning warning-text warning-soft warning-border danger danger-text danger-soft danger-border info info-text info-soft info-border"></div>
+
+  <h3>Contrast</h3>
+  <p>Text pairs meet 4.5:1 and control outlines and focus rings meet 3:1 in both themes. <code class="xz-code">npm run check</code> tests every pair and fails if one drops below the limit.</p>
+  <div class="doc-dodont">
+    <div class="doc-do"><strong>Do</strong><ul><li>Pair <code class="xz-code">on-accent</code> with <code class="xz-code">accent</code>, and <code class="xz-code">on-accent-2</code> (dark) with the orange <code class="xz-code">accent-2</code>.</li><li>Use <code class="xz-code">accent-text</code> for links and <code class="xz-code">accent-2-text</code> for orange text.</li><li>Pair colour with an icon or a word for status.</li></ul></div>
+    <div class="doc-dont"><strong>Do not</strong><ul><li>Put white text on the brand orange. It fails AA.</li><li>Use the orange <code class="xz-code">accent-2</code> as a text colour on light surfaces.</li><li>Use colour alone to show an error.</li></ul></div>
+  </div>
+</section>
+
+<section class="doc-section" id="typography">
+  <h2>Typography</h2>
+  <p><strong>Satoshi</strong> is the primary font: headings, buttons, labels and numbers. <strong>Space Grotesk</strong> is the secondary font: body text and what people type into forms. <strong>JetBrains Mono</strong> is for code, keyboard keys and token names. All three are bundled with the kit. When a script is not covered, the stack falls back to Noto Sans and then to the system font.</p>
+  <div class="doc-example" data-layout="stack" data-code="off">
+    <p style="font-family: var(--xz-font-display); font-size: var(--xz-font-size-4xl); font-weight: 700; line-height: 1.1">Satoshi Aa ₹ 0123456789</p>
+    <p style="font-family: var(--xz-font-sans); font-size: var(--xz-font-size-2xl); font-weight: 500">Space Grotesk Aa ₹ 0123456789</p>
+    <p style="font-family: var(--xz-font-mono); font-size: var(--xz-font-size-2xl)">JetBrains Mono Aa ₹ 0123456789</p>
+  </div>
+  <h3>Type styles</h3>
+  <p>Use these classes. Each one sets size, weight, line height and letter spacing together.</p>
+  <div class="doc-scale" id="type-styles"></div>
+  <h3>Size scale</h3>
+  <div class="doc-scale" data-scale="font-size" data-kind="text"></div>
+  <h3>Weights and line heights</h3>
+  <div class="doc-table-wrap"><table class="doc-table" data-token-table="font-weight line-height letter-spacing"></table></div>
+  <h3>Indian languages</h3>
+  <p>Set the <code class="xz-code">lang</code> attribute on text in an Indian language. The kit then uses a taller line height and removes negative letter spacing, which keeps matras and conjuncts from touching.</p>
+  <div class="doc-example" data-layout="stack">
+    <p class="xz-h4" lang="hi">अपना पाठ्यक्रम शुरू करें</p>
+    <p class="xz-h4" lang="ta">உங்கள் பாடத்தைத் தொடங்குங்கள்</p>
+    <p class="xz-h4" lang="kn">ನಿಮ್ಮ ಕೋರ್ಸ್ ಪ್ರಾರಂಭಿಸಿ</p>
+  </div>
+</section>
+
+<section class="doc-section" id="spacing">
+  <h2>Spacing and layout</h2>
+  <p>Spacing uses a 4px base. Pick from the scale for every margin, padding and gap.</p>
+  <div class="doc-scale" data-scale="space" data-kind="bar"></div>
+
+  <h3>Breakpoints and containers</h3>
+  <p>Styles are written mobile first. A breakpoint applies from its width upwards.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Name</th><th>From</th><th>Container width</th><th>Typical device</th></tr></thead>
+    <tbody id="breakpoints"></tbody>
+  </table></div>
+
+  <h3>Grid</h3>
+  <p>The grid has 12 columns. A column is full width until you give it a span, and spans can change at each breakpoint: <code class="xz-code">xz-col-sm-6 xz-col-lg-3</code>. The gutter is 16px on phones and 24px from 768px.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid">
+      <div class="xz-col-12 xz-col-md-8"><div class="doc-box" style="width: 100%; height: 3rem">8</div></div>
+      <div class="xz-col-12 xz-col-md-4"><div class="doc-box" style="width: 100%; height: 3rem">4</div></div>
+      <div class="xz-col-6 xz-col-lg-3"><div class="doc-box" style="width: 100%; height: 3rem">3</div></div>
+      <div class="xz-col-6 xz-col-lg-3"><div class="doc-box" style="width: 100%; height: 3rem">3</div></div>
+      <div class="xz-col-6 xz-col-lg-3"><div class="doc-box" style="width: 100%; height: 3rem">3</div></div>
+      <div class="xz-col-6 xz-col-lg-3"><div class="doc-box" style="width: 100%; height: 3rem">3</div></div>
+    </div>
+  </div>
+  <p>For a row of equal cards that wraps by itself, use <code class="xz-code">xz-grid xz-grid--auto</code> and set the smallest card width with <code class="xz-code">--xz-grid-min</code>.</p>
+  <h3>Stack and row</h3>
+  <p><code class="xz-code">xz-stack</code> places items in a column and <code class="xz-code">xz-row</code> in a wrapping line. Set the gap with <code class="xz-code">xz-gap-1</code> to <code class="xz-code">xz-gap-8</code>.</p>
+</section>
+
+<section class="doc-section" id="shape">
+  <h2>Shape and depth</h2>
+  <h3>Radius</h3>
+  <p>Components use a 4px corner: buttons, inputs and badges through <code class="xz-code">radius-control</code>, cards and dialogs through <code class="xz-code">radius-surface</code>. The rest of the scale exists for avatars, chips and products that choose a different look.</p>
+  <div class="doc-example" data-code="off" id="radius-demo"></div>
+  <h3>Border width</h3>
+  <p>Borders are 1px. Use 2px for the active tab and 4px for the edge of an alert.</p>
+  <div class="doc-example" data-code="off" id="border-demo"></div>
+  <h3>Elevation</h3>
+  <p>The kit is flat. Borders separate surfaces, and shadows are kept for things that float above the page: menus, toasts, modals.</p>
+  <div class="doc-example" data-code="off">
+    <div class="doc-box" style="box-shadow: var(--xz-shadow-xs)">xs</div>
+    <div class="doc-box" style="box-shadow: var(--xz-shadow-sm)">sm</div>
+    <div class="doc-box" style="box-shadow: var(--xz-shadow-md)">md</div>
+    <div class="doc-box" style="box-shadow: var(--xz-shadow-lg)">lg</div>
+    <div class="doc-box" style="box-shadow: var(--xz-shadow-xl)">xl</div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Token</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><code>--xz-shadow-xs</code>, <code>--xz-shadow-sm</code></td><td>Raised cards</td></tr>
+      <tr><td><code>--xz-shadow-md</code></td><td>Dropdown menus, combobox lists</td></tr>
+      <tr><td><code>--xz-shadow-lg</code></td><td>Toasts</td></tr>
+      <tr><td><code>--xz-shadow-xl</code></td><td>Modals and drawers</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Layers</h3>
+  <p>Use these z-index tokens so overlays always stack in the same order.</p>
+  <div class="doc-table-wrap"><table class="doc-table" data-token-table="z"></table></div>
+  <h3>Opacity</h3>
+  <div class="doc-example" data-code="off" id="opacity-demo"></div>
+</section>
+
+<section class="doc-section" id="motion">
+  <h2>Motion</h2>
+  <p>Motion shows where something came from and that an action worked. Keep it short. Everything stops when a person has asked their device to reduce motion.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><code>--xz-duration-fast</code></td><td>120ms</td><td>Hover, press and focus changes</td></tr>
+      <tr><td><code>--xz-duration-base</code></td><td>200ms</td><td>Menus, tooltips, toggles</td></tr>
+      <tr><td><code>--xz-duration-slow</code></td><td>320ms</td><td>Modals, toasts, progress bars</td></tr>
+      <tr><td><code>--xz-duration-slower</code></td><td>480ms</td><td>Drawers and full-page changes</td></tr>
+      <tr><td><code>--xz-ease-out</code></td><td>Fast start, soft stop</td><td>Things entering the screen. The default.</td></tr>
+      <tr><td><code>--xz-ease-in</code></td><td>Soft start, fast end</td><td>Things leaving the screen</td></tr>
+      <tr><td><code>--xz-ease-in-out</code></td><td>Soft at both ends</td><td>Things that move from one place to another</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Entrance classes</h3>
+  <p>Add one of these classes when you show an element. Select a box to play it again.</p>
+  <div class="doc-example" id="motion-demo">
+    <button type="button" class="doc-box xz-fade-in" data-motion="xz-fade-in">fade-in</button>
+    <button type="button" class="doc-box xz-slide-up" data-motion="xz-slide-up">slide-up</button>
+    <button type="button" class="doc-box xz-scale-in" data-motion="xz-scale-in">scale-in</button>
+  </div>
+</section>
+
+<section class="doc-section" id="data-colours">
+  <h2>Data colours</h2>
+  <p>Eight colours for charts, one per series. Use them in order, so a chart with two series always uses the first two. Each one has a light and a dark value and reaches 3:1 against the surface.</p>
+  <div class="doc-swatches doc-swatches--wide" data-theme-tokens="viz-1 viz-2 viz-3 viz-4 viz-5 viz-6 viz-7 viz-8"></div>
+  <div class="doc-dodont">
+    <div class="doc-do"><strong>Do</strong><ul><li>Label each series in the chart or its legend, so colour is never the only clue.</li><li>Use one colour in lighter and darker steps when the data is a single scale, such as low to high.</li><li>Keep green and red for good and bad only when that is what the data means.</li></ul></div>
+    <div class="doc-dont"><strong>Do not</strong><ul><li>Use more than eight series in one chart. Group the small ones as "Other".</li><li>Use the status colours as series colours next to real statuses.</li></ul></div>
+  </div>
+</section>
+
+<section class="doc-section" id="effects">
+  <h2>Gradients, blur and aspect ratios</h2>
+  <h3>Gradients</h3>
+  <p>The kit is flat, so a gradient stands out. Use at most one per screen, for a hero band or a featured card.</p>
+  <div class="doc-example" data-code="off">
+    <div class="xz-gradient-brand" style="flex: 1 1 12rem; padding: var(--xz-space-6); border-radius: var(--xz-radius-surface)"><strong>gradient-brand</strong><br><span class="xz-small">Brand highlight</span></div>
+    <div class="xz-gradient-ink" style="flex: 1 1 12rem; padding: var(--xz-space-6); border-radius: var(--xz-radius-surface)"><strong>gradient-ink</strong><br><span class="xz-small">Dark promo surface</span></div>
+    <div class="xz-scrim" style="flex: 1 1 12rem; padding: var(--xz-space-6); border-radius: var(--xz-radius-surface); overflow: hidden; background: var(--xz-viz-2); color: #fafafa"><strong>gradient-scrim</strong><br><span class="xz-small">Behind text on a photo</span></div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>Token</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-gradient-brand</code></td><td><code>--xz-gradient-brand</code></td><td>Orange band. Text on it is dark.</td></tr>
+      <tr><td><code>xz-gradient-ink</code></td><td><code>--xz-gradient-ink</code></td><td>Near-black band. Text on it is light.</td></tr>
+      <tr><td><code>xz-scrim</code></td><td><code>--xz-gradient-scrim</code></td><td>Darkens the lower part of a photo so light text on it stays readable.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Blur</h3>
+  <p><code class="xz-code">xz-glass</code> gives a bar that floats over content a frosted background. Where the browser cannot blur, it falls back to a solid surface. Tokens: <code class="xz-code">--xz-blur-sm</code> 4px, <code class="xz-code">-md</code> 8px, <code class="xz-code">-lg</code> 16px, <code class="xz-code">-xl</code> 24px.</p>
+  <div class="doc-example" data-code="off">
+    <div style="position: relative; flex: 1 1 100%; height: 7rem; border-radius: var(--xz-radius-surface); overflow: hidden; background: repeating-linear-gradient(45deg, var(--xz-viz-1) 0 1.5rem, var(--xz-viz-2) 1.5rem 3rem, var(--xz-viz-3) 3rem 4.5rem)">
+      <div class="xz-glass" style="position: absolute; inset: var(--xz-space-4); display: flex; align-items: center; justify-content: center; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control)"><strong>xz-glass</strong></div>
+    </div>
+  </div>
+  <h3>Aspect ratios</h3>
+  <p>Give images and video a fixed shape so the page does not jump while they load.</p>
+  <div class="doc-example" data-code="off" id="aspect-demo"></div>
+</section>
+
+<section class="doc-section" id="imagery">
+  <h2>Illustration and imagery</h2>
+  <p>Pictures should help a person understand or decide. If a picture only fills space, leave it out.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Type</th><th>Use it for</th><th>Rules</th></tr></thead>
+    <tbody>
+      <tr><td>Photographs</td><td>Courses, trainers, places, real products</td><td>Real people and settings, natural light, no heavy filters. Crop to one of the aspect ratios above.</td></tr>
+      <tr><td>Illustrations</td><td>Empty states, onboarding, error pages</td><td>Line drawings in the text colour with at most one orange detail. Same 1.75px stroke as the icons.</td></tr>
+      <tr><td>Icons</td><td>Actions and labels</td><td>Use the kit's icon set. Do not use an icon as an illustration by enlarging it past 48px.</td></tr>
+      <tr><td>Avatars</td><td>People and organisations</td><td>A photo if there is one, initials if not. Never a stock face.</td></tr>
+      <tr><td>Screenshots</td><td>Help pages and release notes</td><td>Light theme, sample data only, no real names, phone numbers or amounts.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="doc-dodont">
+    <div class="doc-do"><strong>Do</strong><ul><li>Write alt text that says what the picture shows. Use empty alt text for decoration.</li><li>Put the scrim behind any text placed on a photo.</li><li>Set width, height or an aspect ratio class on every image.</li><li>Show people from the regions and age groups your product serves.</li></ul></div>
+    <div class="doc-dont"><strong>Do not</strong><ul><li>Put important text inside an image.</li><li>Mix illustration styles on one screen.</li><li>Use a photo as a background behind a form or a table.</li></ul></div>
+  </div>
+</section>
+
+<section class="doc-section" id="icons">
+  <h2>Icons</h2>
+  <p>Icons are line icons on a 24px grid with a 1.75px stroke and square ends. They take the colour of the text around them. Select an icon to copy its markup.</p>
+  <div class="doc-icons" id="icon-grid"></div>
+  <h3>Sizes</h3>
+  <div class="doc-example">
+    <i data-xz-icon="graduation-cap" data-size="xs"></i>
+    <i data-xz-icon="graduation-cap" data-size="sm"></i>
+    <i data-xz-icon="graduation-cap"></i>
+    <i data-xz-icon="graduation-cap" data-size="lg"></i>
+    <i data-xz-icon="graduation-cap" data-size="xl"></i>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Size</th><th>Pixels</th><th>Use</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-size="xs"</code></td><td>12</td><td>Inside badges</td></tr>
+      <tr><td><code>data-size="sm"</code></td><td>16</td><td>Inside small buttons, inputs and table cells</td></tr>
+      <tr><td>default</td><td>20</td><td>Buttons, navigation, alerts</td></tr>
+      <tr><td><code>data-size="lg"</code></td><td>24</td><td>Empty states, page headers</td></tr>
+      <tr><td><code>data-size="xl"</code></td><td>32</td><td>Feature tiles</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Accessibility</h3>
+  <p>An icon next to a text label is decoration and is hidden from screen readers. An icon that stands alone needs a name: put <code class="xz-code">aria-label</code> on its button.</p>
+  <div class="doc-example">
+    <button class="xz-btn" type="button"><i data-xz-icon="download"></i> Download report</button>
+    <button class="xz-btn xz-btn--icon" type="button" aria-label="Download report"><i data-xz-icon="download"></i></button>
+  </div>
+</section>
+
+<section class="doc-section" id="logo">
+  <h2>Logo</h2>
+  <p>The final logo is still to come. Until then the logo is the name alone, set in Satoshi bold. Use the markup below in headers, or the SVG files in <code class="xz-code">dist/brand/</code> everywhere else.</p>
+  <div class="doc-example">
+    <a class="xz-logo" href="#logo">Xsenze</a>
+    <a class="xz-logo xz-logo--lg" href="#logo">Xsenze</a>
+  </div>
+  <p>When the logo image is ready, put it before the name: <code class="xz-code">&lt;img class="xz-logo__mark" src="logo.svg" alt=""&gt;</code>. The class sizes it to the text.</p>
+  <div class="doc-dodont">
+    <div class="doc-do"><strong>Do</strong><ul><li>Keep clear space around the logo equal to half its height.</li><li>Place it on the page background or a plain surface.</li></ul></div>
+    <div class="doc-dont"><strong>Do not</strong><ul><li>Rotate, stretch or add a shadow.</li><li>Place it on a photo or a busy background.</li><li>Set the name in another font or weight.</li></ul></div>
+  </div>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const { tokens, icons } = window.XZ_DOCS;
+    const core = tokens.core;
+    const keys = (prefix) => Object.keys(core).filter((k) => k.startsWith(prefix + '-'));
+    const swatch = (name, css, value) => `<div class="doc-swatch"><div class="doc-swatch__chip" style="background:${css}"></div><div class="doc-swatch__name">${name}</div><div class="doc-swatch__value">${value}</div></div>`;
+
+    for (const el of document.querySelectorAll('[data-palette]')) {
+      el.innerHTML = keys(el.dataset.palette).map((k) => swatch(k, core[k], core[k])).join('');
+    }
+    // Theme swatches use the live variable, so they follow the theme switch.
+    const paintTheme = () => {
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      for (const el of document.querySelectorAll('[data-theme-tokens]')) {
+        el.innerHTML = el.dataset.themeTokens.split(' ').map((k) => swatch('--xz-' + k, `var(--xz-${k})`, tokens[theme][k])).join('');
+      }
+    };
+    paintTheme();
+    document.addEventListener('xz:theme', paintTheme);
+
+    const styles = [['xz-display', 'Display'], ['xz-h1', 'Heading 1'], ['xz-h2', 'Heading 2'], ['xz-h3', 'Heading 3'], ['xz-h4', 'Heading 4'], ['xz-h5', 'Heading 5'], ['xz-h6', 'Heading 6'], ['xz-lead', 'Lead paragraph'], ['xz-body', 'Body text'], ['xz-small', 'Small text'], ['xz-caption', 'Caption'], ['xz-overline', 'Overline label']];
+    document.getElementById('type-styles').innerHTML = styles.map(([c, t]) => `<div class="doc-scale__row"><code>.${c}</code><div class="${c} xz-truncate">${t}</div></div>`).join('');
+
+    for (const el of document.querySelectorAll('[data-scale]')) {
+      el.innerHTML = keys(el.dataset.scale).map((k) => {
+        const demo = el.dataset.kind === 'text' ? `<div class="xz-truncate" style="font-size:${core[k]};line-height:1.2">Learn, build, ship</div>` : `<div class="doc-bar" style="width:${core[k]}"></div>`;
+        return `<div class="doc-scale__row"><code>--xz-${k} · ${core[k]}</code>${demo}</div>`;
+      }).join('');
+    }
+    for (const el of document.querySelectorAll('[data-token-table]')) {
+      el.innerHTML = '<thead><tr><th>Token</th><th>Value</th></tr></thead><tbody>' + el.dataset.tokenTable.split(' ').flatMap(keys).map((k) => `<tr><td><code>--xz-${k}</code></td><td>${core[k]}</td></tr>`).join('') + '</tbody>';
+    }
+    const device = { sm: 'Large phones', md: 'Tablets', lg: 'Small laptops', xl: 'Desktops', '2xl': 'Wide screens' };
+    document.getElementById('breakpoints').innerHTML = keys('breakpoint').map((k) => { const n = k.replace('breakpoint-', ''); return `<tr><td><code>${n}</code></td><td>${core[k]}</td><td>${core['container-' + n]}</td><td>${device[n]}</td></tr>`; }).join('');
+
+    const fill = (id, html) => (document.querySelector(`#${id} .doc-example__preview`).innerHTML = html);
+    fill('radius-demo', ['none', 'sm', 'md', 'lg', 'full'].map((k) => `<div class="doc-box" style="border-radius:var(--xz-radius-${k})">${k}</div>`).join(''));
+    fill('border-demo', ['1', '2', '4'].map((k) => `<div class="doc-box" style="border:var(--xz-border-width-${k}) solid var(--xz-text)">${k}px</div>`).join(''));
+    fill('opacity-demo', keys('opacity').map((k) => `<div class="doc-box" style="border-color:var(--xz-border)"><span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:var(--xz-accent);color:var(--xz-on-accent);opacity:${core[k]}">${k.replace('opacity-', '')}</span></div>`).join(''));
+
+    fill('aspect-demo', ['square', 'photo', 'video', 'wide', 'portrait'].map((k) => `<div style="flex:0 0 7rem"><div class="xz-aspect-${k}" style="display:flex;align-items:center;justify-content:center;background:var(--xz-surface-2);border:1px solid var(--xz-border-control);border-radius:var(--xz-radius-control);font-family:var(--xz-font-mono);font-size:var(--xz-font-size-xs);color:var(--xz-text-muted)">${core['aspect-' + k].replace(/\s/g, '')}</div><code style="display:block;margin-top:var(--xz-space-1);font-family:var(--xz-font-mono);font-size:0.6875rem;color:var(--xz-text-muted)">xz-aspect-${k}</code></div>`).join(''));
+    document.getElementById('motion-demo').addEventListener('click', (e) => {
+      const box = e.target.closest('[data-motion]');
+      if (!box) return;
+      box.classList.remove(box.dataset.motion);
+      void box.offsetWidth; // restart the animation
+      box.classList.add(box.dataset.motion);
+    });
+
+    const grid = document.getElementById('icon-grid');
+    grid.innerHTML = icons.map((n) => `<button type="button" data-name="${n}">${Xsenze.icon(n, { size: 'lg' })}<span>${n}</span></button>`).join('');
+    grid.addEventListener('click', async (e) => {
+      const btn = e.target.closest('button');
+      if (!btn) return;
+      const markup = `<i data-xz-icon="${btn.dataset.name}"></i>`;
+      await navigator.clipboard.writeText(markup).catch(() => {});
+      Xsenze.toast({ title: 'Copied', message: markup, duration: 2500 });
+    });
+  });
+</script>
+</body>
+</html>
