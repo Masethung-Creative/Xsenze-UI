@@ -1,0 +1,33 @@
+/* Compare: options for one job, ranked, with the chosen one marked .is-pick and a result line.
+   Inside a sequence the rows arrive one by one and the pick lights up when it is done;
+   on its own, or without the script, it shows the finished comparison. */
+.xz-compare { display: flex; flex-direction: column; gap: var(--xz-space-3); }
+.xz-compare__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--xz-space-3); padding-bottom: var(--xz-space-3); border-bottom: 1px solid var(--xz-border); }
+.xz-compare__title { font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold); }
+.xz-compare__count { flex: none; color: var(--xz-text-subtle); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__list { margin: 0; padding: 0; list-style: none; }
+.xz-compare__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--xz-space-3);
+  padding: var(--xz-space-3) var(--xz-space-2);
+  border-radius: var(--xz-radius-control);
+  font-size: var(--xz-font-size-sm);
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out), transform var(--xz-duration-slow) var(--xz-ease-out), background-color var(--xz-duration-base) var(--xz-ease-out), box-shadow var(--xz-duration-base) var(--xz-ease-out);
+}
+.xz-compare__row + .xz-compare__row { border-top: 1px solid var(--xz-border); }
+.xz-compare__name { min-width: 0; font-weight: var(--xz-font-weight-medium); }
+.xz-compare__price { margin-left: var(--xz-space-2); color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__note { justify-self: end; color: var(--xz-text-subtle); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__note--warn { color: var(--xz-warning-text); }
+.xz-compare__row .xz-badge { transition: opacity var(--xz-duration-base) var(--xz-ease-out), transform var(--xz-duration-base) var(--xz-ease-out); }
+.xz-compare__result { display: flex; align-items: center; gap: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-success-soft); border: 1px solid var(--xz-success-border); border-radius: var(--xz-radius-control); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__result strong { color: var(--xz-success-text); }
+/* Finished state, the default: the pick stands out and the rest step back. */
+.xz-compare__row.is-pick { background: var(--xz-accent-2-soft); box-shadow: inset 0 0 0 1px var(--xz-accent-2); }
+.xz-compare__row:not(.is-pick) { opacity: 0.55; }
+/* While a sequence plays, rows arrive at full strength and the pick waits for the end. */
+.is-armed:not(.is-done) .xz-compare__row.is-in { opacity: 1; }
+.is-armed:not(.is-done) .xz-compare__row.is-pick { background: transparent; box-shadow: none; }
+.is-armed:not(.is-done) .xz-compare__row .xz-badge { opacity: 0; transform: scale(0.7); }

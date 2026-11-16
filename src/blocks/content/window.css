@@ -1,0 +1,20 @@
+/* Window: a framed panel with a title bar, for showing a product screen or a live demo. */
+.xz-window { display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); box-shadow: var(--xz-shadow-sm); }
+.xz-window--raised { box-shadow: var(--xz-shadow-lg); }
+.xz-window__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--xz-space-2);
+  min-height: 2.5rem;
+  padding: 0 var(--xz-space-4);
+  background: var(--xz-surface-2);
+  border-bottom: 1px solid var(--xz-border);
+  color: var(--xz-text-muted);
+  font-family: var(--xz-font-mono);
+  font-size: var(--xz-font-size-xs);
+}
+/* Three window dots, drawn with one element. */
+.xz-window__bar::before { content: ""; flex: none; width: 0.5rem; height: 0.5rem; margin-right: 2rem; border-radius: 50%; background: var(--xz-border); box-shadow: 0.875rem 0 0 var(--xz-border), 1.75rem 0 0 var(--xz-border); }
+.xz-window__bar strong { color: var(--xz-text); font-weight: var(--xz-font-weight-medium); }
+.xz-window__body { flex: 1; min-width: 0; padding: var(--xz-space-5); }
+.xz-window__status { padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface-2); border-top: 1px solid var(--xz-border); color: var(--xz-success-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); text-align: center; }

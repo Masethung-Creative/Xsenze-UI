@@ -1,0 +1,6 @@
+/* Sequence: the steps of a small demo appear one after another, then the group is marked done.
+   Without the script, or with motion off, everything shows in its finished state. */
+:where([data-xz-sequence].is-armed [data-xz-step]) {
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out), transform var(--xz-duration-slow) var(--xz-ease-out);
+}
+[data-xz-sequence].is-armed [data-xz-step]:not(.is-in) { opacity: 0; transform: translateY(var(--xz-space-2)); }

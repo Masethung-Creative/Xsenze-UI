@@ -58,7 +58,8 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 | Composites | Cards, stat cards, tabs, accordion, breadcrumbs, pagination, alerts, banners, lists, empty states |
 | Navigation and overlays | Navbar, sidebar, footer, app shell, modal, drawer, toast, dropdown menu |
 | Data | Table with sorting, search, pagination and row actions |
-| Templates | Login, signup, forgot password, dashboard, 404, 500 |
+| Blocks | Hero, band, feature row, window, tiles, checklist, command with copy, marquee, facts, flow diagram, compare, ledger, footer wordmark, overlay navbar, scroll progress, expanding tabs, and motion: reveal, rolling words, typewriter, scripted demos, border beam, dot field, layered stack, depth scroll, opening band, and one button that pauses it all |
+| Templates | Login, signup, forgot password, dashboard, 404, 500, landing page |
 | Helpers | Form validation with plain-language messages, Indian number, currency and date formats, theme switch |
 
 ## Output files
@@ -80,6 +81,7 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 tokens/tokens.json   Source of truth for every value
 src/css/             Component styles, one file per group
 src/js/              Behaviours (index.js) and formats (format.js)
+src/blocks/          Blocks for landing pages, one folder per kind (navigation, hero, content, forms, data-display, footer, motion)
 src/brand/           Logo files
 scripts/build.mjs    Builds dist/
 scripts/contrast.mjs Checks colour pairs against WCAG AA

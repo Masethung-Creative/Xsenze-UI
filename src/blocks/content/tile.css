@@ -1,0 +1,39 @@
+/* Tile: a small square with an icon or logo and a short label. As a link or button it lifts on hover;
+   aria-pressed="true" or .is-active marks the chosen one. .xz-tiles lays tiles out in a grid. */
+.xz-tiles { display: grid; grid-template-columns: repeat(var(--xz-tiles-cols, 2), minmax(0, 1fr)); gap: var(--xz-space-3); }
+@media (min-width: 640px) {
+  .xz-tiles--3 { --xz-tiles-cols: 3; }
+  .xz-tiles--4 { --xz-tiles-cols: 4; }
+}
+.xz-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xz-space-2);
+  min-height: 5.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-surface);
+  color: var(--xz-text);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-sm);
+  font-weight: var(--xz-font-weight-medium);
+  line-height: var(--xz-line-height-snug);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color var(--xz-duration-fast) var(--xz-ease-out), background-color var(--xz-duration-fast) var(--xz-ease-out), box-shadow var(--xz-duration-fast) var(--xz-ease-out), transform var(--xz-duration-fast) var(--xz-ease-out);
+}
+.xz-tile > .xz-icon, .xz-tile > img { width: var(--xz-icon-lg); height: var(--xz-icon-lg); object-fit: contain; }
+:is(a, button).xz-tile { cursor: pointer; }
+:is(a, button).xz-tile:hover { border-color: var(--xz-border-strong); box-shadow: 3px 3px 0 var(--xz-accent-2); transform: translate(-1.5px, -1.5px); }
+:is(a, button).xz-tile:active { box-shadow: none; transform: none; }
+/* The soft fill is see-through in the dark theme, so it sits on a solid surface: lines behind a tile never show. */
+.xz-tile.is-active, .xz-tile[aria-pressed="true"] { border-color: var(--xz-accent-2); background: linear-gradient(var(--xz-accent-2-soft), var(--xz-accent-2-soft)), var(--xz-surface); }
+.xz-tile:disabled, .xz-tile[aria-disabled="true"] { background: var(--xz-disabled-bg); border-color: var(--xz-border); color: var(--xz-disabled-text); box-shadow: none; transform: none; cursor: not-allowed; }
+/* More: a quiet dashed tile that says how many others there are. */
+.xz-tile--more { background: transparent; border-style: dashed; color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-regular); }
+.xz-tile--wide { grid-column: 1 / -1; min-height: 0; }

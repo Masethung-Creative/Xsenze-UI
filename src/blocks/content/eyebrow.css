@@ -1,0 +1,20 @@
+/* Eyebrow: a small framed line above a title, for a count, a status or a short link. */
+.xz-eyebrow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xz-space-1) var(--xz-space-2);
+  padding: var(--xz-space-1) var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-control);
+  color: var(--xz-text-muted);
+  font-family: var(--xz-font-mono);
+  font-size: var(--xz-font-size-xs);
+  letter-spacing: 0.02em;
+}
+.xz-eyebrow a { color: var(--xz-text); text-decoration: none; }
+.xz-eyebrow a:hover { color: var(--xz-accent-2-text); text-decoration: underline; text-underline-offset: 3px; }
+.xz-eyebrow__dot { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--xz-accent-2); }
+.xz-eyebrow__sep { color: var(--xz-text-subtle); }

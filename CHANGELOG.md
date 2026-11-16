@@ -4,6 +4,10 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+- Blocks for landing pages, in `src/blocks/` and inside the same two files: hero, band, eyebrow, feature row, window, tiles, checklist, command with copy button, marquee, facts, flow diagram, compare, ledger, footer brand and wordmark, overlay navbar that follows the band beneath it, scroll progress and expanding tabs. Motion: reveal, rolling words, typewriter, scripted demos, border beam, dot field, layered stack, depth scroll and an opening band. Everything stops for reduced motion and with the new motion button (`data-xz-motion-toggle`, `Xsenze.motion`), and reads fully without the script. New Blocks page in the docs and a landing page template
+- New token `--xz-duration-reveal` (640ms) for text and sections rising into place. New `Xsenze.copy(text)`
+- Docs site: the header has five links (Get started, Docs, Blocks, Templates, Create). Foundations, Components, Forms and Guidelines sit under Docs, with a side menu on those pages to move between them. The side menu is a tree: the current page opens to its sections, the section you are reading opens to its sub-headings, and the menu keeps it in view as you scroll
+- Footer: sets its own text colour, so a footer with its own `data-theme` reads correctly on any page
 - Create page: every option is now a row of picture tiles (grey stripes, colour dots, "Aa" in each font, corner shapes, icon weights), picked with one click or the arrow keys. Lock a setting so Shuffle keeps it, and undo or redo any change (Ctrl+Z, Ctrl+Y). Get code stays on screen on laptops, and on phones the options open from a bar at the bottom so the preview stays visible. The exported theme is unchanged
 - Satoshi's `@font-face` moves from `xsenze.css` to a new `xsenze-satoshi.css`, and the npm package no longer includes the Satoshi font file, because its licence does not allow passing it on. Add `xsenze-satoshi.css` after the main stylesheet and put your own `Satoshi-Variable.woff2` in `fonts/`. Without them, headings fall back to Space Grotesk
 - Removed the unused DIN font files from `dist/fonts/`. The package is now about 280 KB instead of 5.9 MB

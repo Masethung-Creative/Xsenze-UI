@@ -1,0 +1,6 @@
+/* Facts: a short row of plain facts, such as counts, licence and guarantees. Bold parts stand out.
+   .xz-facts--marker puts a small arrow before each fact; .xz-facts--center centres the row. */
+.xz-facts { display: flex; flex-wrap: wrap; gap: var(--xz-space-2) var(--xz-space-6); margin: 0; padding: 0; list-style: none; color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); line-height: var(--xz-line-height-normal); }
+.xz-facts :is(strong, b) { color: var(--xz-text); font-weight: var(--xz-font-weight-semibold); }
+.xz-facts--center { justify-content: center; text-align: center; }
+.xz-facts--marker > li::before { content: "›"; margin-right: var(--xz-space-2); color: var(--xz-accent-2-text); }

@@ -1,0 +1,25 @@
+/* Ledger: rows that set an old price against a new one. The old price is struck through with a drawn line
+   and the new one stands out. Inside a sequence the strikes draw one row after another once it is done. */
+.xz-ledger { margin: 0; padding: 0; list-style: none; }
+.xz-ledger__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--xz-space-4); padding: var(--xz-space-3) 0; font-size: var(--xz-font-size-sm); }
+.xz-ledger__row + .xz-ledger__row { border-top: 1px solid var(--xz-border); }
+.xz-ledger__label { display: flex; align-items: center; gap: var(--xz-space-2); min-width: 0; font-weight: var(--xz-font-weight-medium); }
+.xz-ledger__label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xz-ledger__value { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: var(--xz-space-1) var(--xz-space-3); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); text-align: end; }
+.xz-ledger__was { position: relative; color: var(--xz-text-subtle); text-decoration: none; transition: color var(--xz-duration-slow) var(--xz-ease-out); }
+.xz-ledger__was::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  right: -2px;
+  height: 1.5px;
+  background: var(--xz-accent-2);
+  transform-origin: left center;
+  transition: transform var(--xz-duration-slow) var(--xz-ease-out);
+  transition-delay: calc(var(--xz-i, 0) * 140ms);
+}
+.xz-ledger__now { color: var(--xz-success-text); font-weight: var(--xz-font-weight-semibold); transition: opacity var(--xz-duration-slow) var(--xz-ease-out), transform var(--xz-duration-slow) var(--xz-ease-out); transition-delay: calc(var(--xz-i, 0) * 140ms + 160ms); }
+.is-armed:not(.is-done) .xz-ledger__was { color: var(--xz-text); }
+.is-armed:not(.is-done) .xz-ledger__was::after { transform: scaleX(0); }
+.is-armed:not(.is-done) .xz-ledger__now { opacity: 0; transform: scale(0.85); }

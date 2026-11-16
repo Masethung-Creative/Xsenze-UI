@@ -1,0 +1,17 @@
+/* Checklist: short steps, each with an icon box, and a tick once .is-done. */
+.xz-checklist { display: flex; flex-direction: column; gap: var(--xz-space-2); margin: 0; padding: 0; list-style: none; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); color: var(--xz-text-muted); }
+.xz-checklist__item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--xz-space-3); }
+.xz-checklist__icon { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); }
+.xz-checklist__icon > .xz-icon { width: var(--xz-icon-xs); height: var(--xz-icon-xs); }
+.xz-checklist__item::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background: var(--xz-success-text);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='square'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='square'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--xz-duration-base) var(--xz-ease-out);
+}
+.xz-checklist__item.is-done { color: var(--xz-text); }
+.xz-checklist__item.is-done::after { opacity: 1; }

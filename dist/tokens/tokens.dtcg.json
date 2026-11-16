@@ -483,6 +483,10 @@
       "slower": {
         "$value": "480ms",
         "$description": "Large surfaces: drawers, full-page transitions."
+      },
+      "reveal": {
+        "$value": "640ms",
+        "$description": "Text and sections that rise into place as the page loads or scrolls."
       }
     },
     "ease": {

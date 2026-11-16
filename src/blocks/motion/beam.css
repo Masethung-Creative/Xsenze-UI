@@ -1,0 +1,26 @@
+/* Beam: a bright arc that travels around a box's border while it is hovered or focused.
+   Put .xz-beam on any box with a border radius. .xz-beam--always runs it all the time. */
+@property --xz-beam-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.xz-beam { position: relative; isolation: isolate; }
+.xz-beam::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--xz-beam-angle), transparent 0 60%, var(--xz-accent-2-border) 74%, var(--xz-accent-2) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out);
+  animation: xz-beam 3s linear infinite paused;
+}
+.xz-beam:is(:hover, :focus-within, .is-active)::before,
+.xz-beam--always::before { opacity: 1; animation-play-state: running; }
+@keyframes xz-beam { to { --xz-beam-angle: 360deg; } }
+/* With motion off, the border simply lights up. */
+[data-xz-motion="off"] .xz-beam::before { animation: none; background: var(--xz-accent-2); }
+@media (prefers-reduced-motion: reduce) { .xz-beam::before { animation: none; background: var(--xz-accent-2); } }

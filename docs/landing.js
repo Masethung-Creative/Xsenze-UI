@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $('lp-fact-icons').textContent = icons.length;
   $('lp-version').textContent = 'v' + version;
 
-  const names = { base: 'Base and layout', button: 'Buttons', forms: 'Forms', 'forms-advanced': 'Advanced form controls', display: 'Badges, avatars, loaders', composites: 'Cards, tabs, alerts', nav: 'Navigation', overlays: 'Overlays', table: 'Table', templates: 'Page templates' };
+  const names = { base: 'Base and layout', button: 'Buttons', forms: 'Forms', 'forms-advanced': 'Advanced form controls', display: 'Badges, avatars, loaders', composites: 'Cards, tabs, alerts', components: 'Menus, wizard, media', nav: 'Navigation', overlays: 'Overlays', table: 'Table', templates: 'Page templates', sections: 'Blocks' };
   $('lp-sizes').innerHTML =
     `<li><strong>xsenze.min.css</strong><strong>${kb(sizes.css.gzip)}</strong></li><li><strong>xsenze.min.js</strong><strong>${kb(sizes.js.gzip)}</strong></li>` +
     Object.entries(sizes.parts).map(([k, v]) => `<li><span>${names[k] || k}</span><span>${kb(v)}</span></li>`).join('');

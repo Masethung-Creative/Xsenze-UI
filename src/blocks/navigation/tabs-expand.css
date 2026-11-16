@@ -1,0 +1,17 @@
+/* Expanding tabs: tabs on small screens, every panel in a stack on wide ones.
+   Add data-xz-tabs-expand (or ="md" / "xl") to a [data-xz-tabs] block. Give each panel an .xz-tabs__heading:
+   it is hidden while the tabs name the panels and shows once the panels are stacked. */
+.xz-tabs__heading { display: none; }
+[data-xz-tabs-expand].is-expanded > .xz-tabs__list { display: none; }
+[data-xz-tabs-expand].is-expanded > .xz-tabs__panel { padding-block: 0; }
+[data-xz-tabs-expand].is-expanded > .xz-tabs__panel + .xz-tabs__panel { margin-top: var(--xz-space-10); }
+[data-xz-tabs-expand].is-expanded .xz-tabs__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--xz-space-4);
+  margin: 0 0 var(--xz-space-4);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-lg);
+  font-weight: var(--xz-font-weight-semibold);
+}
+[data-xz-tabs-expand].is-expanded .xz-tabs__heading::after { content: ""; flex: 1; height: 1px; background: var(--xz-border); }

@@ -1,0 +1,26 @@
+/* Rotator: one word in a sentence rolls to the next every few seconds.
+   Without the script, only the first word shows. The window always hugs the current word,
+   so a caret placed after it stays next to the text. */
+.xz-rotator { white-space: nowrap; color: var(--xz-rotator-color, var(--xz-accent-2-text)); }
+.xz-rotator:not(.is-ready) > .xz-rotator__item ~ .xz-rotator__item { display: none; }
+.xz-rotator__window {
+  display: inline-block;
+  height: 1.2em;
+  height: 1lh;
+  overflow: hidden;
+  vertical-align: bottom;
+  transition: width var(--xz-duration-slower) var(--xz-ease-in-out);
+}
+.xz-rotator__track { display: flex; flex-direction: column; align-items: flex-start; transition: transform var(--xz-duration-slower) var(--xz-ease-in-out); }
+.xz-rotator__track > .xz-rotator__item {
+  display: block;
+  flex: none;
+  height: 1.2em;
+  height: 1lh;
+  opacity: 0.2;
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out);
+}
+.xz-rotator__track > .is-current { opacity: 1; }
+.xz-rotator.is-jumping :is(.xz-rotator__window, .xz-rotator__track, .xz-rotator__item) { transition: none; }
+/* Plain: the word keeps the colour of the sentence. */
+.xz-rotator--plain { --xz-rotator-color: inherit; }

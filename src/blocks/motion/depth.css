@@ -1,0 +1,4 @@
+/* Depth: items in a long list tip back as they near the top or bottom of the screen and come flat in
+   the middle, so scrolling feels like turning a drum. Laptops and wider, with a mouse, and motion on. */
+[data-xz-depth].is-depth > *,
+[data-xz-depth].is-depth [data-xz-depth-item] { transform-origin: center; backface-visibility: hidden; }

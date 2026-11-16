@@ -4,16 +4,49 @@
   const page = document.body.dataset.page;
   const base = document.body.dataset.base || '';
   const version = (window.XZ_DOCS && window.XZ_DOCS.version) || '0.5.0';
-  const nav = [
-    ['get-started', 'Get started', 'getting-started.html'],
+  // The four reference pages share one "Docs" link in the header and a side menu inside the pages.
+  const docsPages = [
     ['foundations', 'Foundations', 'foundations.html'],
     ['components', 'Components', 'components.html'],
     ['forms', 'Forms', 'forms.html'],
     ['patterns', 'Guidelines', 'patterns.html'],
+  ];
+  const inDocs = docsPages.some(([key]) => key === page);
+  const nav = [
+    ['get-started', 'Get started', 'getting-started.html'],
+    ['docs', 'Docs', 'foundations.html', docsPages],
+    ['blocks', 'Blocks', 'blocks.html'],
     ['templates', 'Templates', 'templates.html'],
     ['create', 'Create', 'create.html'],
   ];
-  const link = ([key, label, href]) => `<li><a class="xz-navbar__link" href="${base}${href}"${key === page ? ' aria-current="page"' : ''}>${label}</a></li>`;
+  // This page's sections (h2) and their sub-headings (h3), for the side menu and the phone menu.
+  // Sub-headings without an id get one from the section and their text.
+  const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  const sections = [...document.querySelectorAll('.doc-section[id]')].map((el) => ({
+    el,
+    id: el.id,
+    title: (el.querySelector('h2')?.textContent || el.id).trim(),
+    subs: [...el.querySelectorAll(':scope > h3')].map((h) => {
+      if (!h.id) {
+        let id = `${el.id}--${slug(h.textContent)}`;
+        for (let n = 2; document.getElementById(id); n++) id = `${el.id}--${slug(h.textContent)}-${n}`;
+        h.id = id;
+      }
+      return { el: h, id: h.id, title: h.textContent.trim() };
+    }),
+  }));
+
+  const current = (key) => key === page || (key === 'docs' && inDocs);
+  const link = ([key, label, href]) => `<li><a class="xz-navbar__link" href="${base}${href}"${current(key) ? ' aria-current="page"' : ''}>${label}</a></li>`;
+  // In the phone menu the current page also lists its sections.
+  const drawerSections = () => sections.length ? `<ul class="xz-sidebar__nav doc-drawer__sections">${sections.map((s) => `<li><a class="xz-sidebar__link" href="#${s.id}">${s.title}</a></li>`).join('')}</ul>` : '';
+  const sideLink = ([key, label, href]) => `<li><a class="xz-sidebar__link" href="${base}${href}"${key === page ? ' aria-current="page"' : ''}>${label}</a>${key === page ? drawerSections() : ''}</li>`;
+  // Phone menu: the same order, with the Docs pages listed under their own heading.
+  const drawerNav = nav
+    .map(([key, label, href, children]) => children
+      ? `<li><div class="xz-sidebar__heading">${label}</div><ul class="xz-sidebar__nav">${children.map(sideLink).join('')}</ul></li>`
+      : sideLink([key, label, href]))
+    .join('');
 
   const header = document.querySelector('[data-doc-header]');
   if (header) {
@@ -33,10 +66,13 @@
         <div class="xz-sidebar">
           <div class="xz-sidebar__header xz-row xz-row--between"><span class="xz-logo">Xsenze</span>
           <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-close aria-label="Close menu"><i data-xz-icon="x"></i></button></div>
-          <ul class="xz-sidebar__nav xz-sidebar__section">${nav.map(([key, label, href]) => `<li><a class="xz-sidebar__link" href="${base}${href}"${key === page ? ' aria-current="page"' : ''}>${label}</a></li>`).join('')}</ul>
+          <ul class="xz-sidebar__nav xz-sidebar__section">${drawerNav}</ul>
         </div>
       </dialog>`,
     );
+    // A section link in the phone menu closes the menu, so the page shows where it went.
+    const drawer = document.getElementById('doc-nav');
+    drawer.addEventListener('click', (e) => { if (e.target.closest('a[href^="#"]')) drawer.close(); });
   }
 
   const footer = document.querySelector('[data-doc-footer]');
@@ -109,23 +145,83 @@
     });
   }
 
-  // ---- table of contents from the page's h2 headings ----
+  // ---- side menu: a tree ----
+  // Docs pages: the four page names, the current one opened to its sections. Other pages: their sections.
+  // Only the section you are reading opens to its sub-headings, so the menu stays short.
   const toc = document.querySelector('[data-doc-toc]');
-  const sections = [...document.querySelectorAll('.doc-section[id]')];
-  if (toc && sections.length) {
-    toc.setAttribute('aria-label', 'On this page');
-    toc.innerHTML = `<div class="doc-toc__title">On this page</div>` + sections.map((s) => `<a href="#${s.id}">${s.querySelector('h2').textContent}</a>`).join('');
-    const links = [...toc.querySelectorAll('a')];
-    const spy = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          links.forEach((a) => a.classList.toggle('is-active', a.hash === '#' + e.target.id));
-        }
-      },
-      { rootMargin: '-20% 0px -70% 0px' },
-    );
-    sections.forEach((s) => spy.observe(s));
+  if (toc && (inDocs || sections.length)) {
+    const tree = sections.length
+      ? `<ul class="doc-tree__list">${sections.map((s) => `<li class="doc-tree__item" data-id="${s.id}"><a class="doc-tree__link" href="#${s.id}">${s.title}</a>${s.subs.length
+        ? `<ul class="doc-tree__list doc-tree__list--sub" hidden>${s.subs.map((h) => `<li class="doc-tree__item"><a class="doc-tree__link" href="#${h.id}">${h.title}</a></li>`).join('')}</ul>`
+        : ''}</li>`).join('')}</ul>`
+      : '';
+    const label = inDocs ? 'Docs' : 'On this page';
+    toc.innerHTML = `<nav aria-label="${label}"><div class="doc-toc__title">${label}</div>${inDocs
+      ? `<ul class="doc-tree">${docsPages.map(([key, name, href]) => `<li><a class="doc-tree__group" href="${base}${href}"${key === page ? ' aria-current="page"' : ''}>${name}</a>${key === page ? tree : ''}</li>`).join('')}</ul>`
+      : tree}</nav>`;
   }
 
+  if (toc && sections.length) {
+    const items = new Map([...toc.querySelectorAll('[data-id]')].map((li) => [li.dataset.id, li]));
+    const links = [...toc.querySelectorAll('.doc-tree__link')];
+    // The reading line sits a quarter of the way down the screen; the last heading above it is the current one.
+    const passed = (el) => el.getBoundingClientRect().top <= innerHeight * 0.25;
+    const pick = (list) => {
+      let hit = list[0];
+      for (const x of list) {
+        if (passed(x.el)) hit = x;
+        else break;
+      }
+      return hit;
+    };
+    // The side menu scrolls on its own: keep the current item in view, unless the pointer is on the menu.
+    const follow = (a) => {
+      if (toc.matches(':hover')) return;
+      const box = toc.getBoundingClientRect();
+      const r = a.getBoundingClientRect();
+      if (r.top < box.top + 48 || r.bottom > box.bottom - 48) toc.scrollTop += r.top - box.top - box.height / 3;
+    };
+    let shown = '';
+    const update = () => {
+      if (!toc.offsetWidth) return; // hidden on narrow screens
+      const atEnd = scrollY >= document.documentElement.scrollHeight - innerHeight - 2;
+      const s = atEnd ? sections[sections.length - 1] : pick(sections);
+      const sub = s.subs.length && passed(s.subs[0].el) ? pick(s.subs) : null;
+      const key = `${s.id}|${sub ? sub.id : ''}`;
+      if (key === shown) return;
+      shown = key;
+      for (const [id, li] of items) {
+        const list = li.querySelector(':scope > ul');
+        if (list) list.hidden = id !== s.id;
+      }
+      links.forEach((a) => { a.classList.remove('is-active'); a.removeAttribute('aria-current'); });
+      const main = items.get(s.id).firstElementChild;
+      const deep = sub ? items.get(s.id).querySelector(`a[href="#${CSS.escape(sub.id)}"]`) : main;
+      main.classList.add('is-active');
+      deep.classList.add('is-active');
+      deep.setAttribute('aria-current', 'location');
+      follow(deep);
+    };
+    let queued = false;
+    const queue = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => { queued = false; update(); });
+    };
+    addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', queue);
+    update();
+  }
+
+  // Template pictures: scale each 1280px page to the width of its card.
+  const thumbs = document.querySelectorAll('.doc-thumb');
+  if (thumbs.length) {
+    const fitThumb = new ResizeObserver((entries) => {
+      for (const e of entries) e.target.style.setProperty('--doc-scale', e.contentRect.width / 1280);
+    });
+    thumbs.forEach((el) => fitThumb.observe(el));
+  }
+
+  // For pages that build code panels later, such as the section templates read from a template file.
+  window.XZ_DOC = { codeBlock, dedent };
 })();

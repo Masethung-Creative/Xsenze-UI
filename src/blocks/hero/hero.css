@@ -1,0 +1,31 @@
+/* Hero: the opening section. Centred by default; .xz-hero--split puts the media beside the text on wide screens.
+   Leaves room at the top for an overlay navbar. Put a .xz-dotfield inside for a moving background. */
+.xz-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: calc(3.5rem + clamp(var(--xz-space-12), 8vw, var(--xz-space-20))) 0 clamp(var(--xz-space-12), 6vw, var(--xz-space-16));
+}
+.xz-hero__inner { display: flex; flex-direction: column; align-items: center; gap: var(--xz-space-6); text-align: center; }
+.xz-hero__title {
+  max-width: 20ch;
+  font-family: var(--xz-font-display);
+  font-size: clamp(var(--xz-font-size-4xl), 6vw, var(--xz-font-size-6xl));
+  font-weight: var(--xz-font-weight-bold);
+  line-height: var(--xz-line-height-tight);
+  letter-spacing: var(--xz-letter-spacing-tight);
+  text-wrap: balance;
+}
+/* A second, quieter line inside the title, often holding a rotator. */
+.xz-hero__line { display: block; margin-top: 0.35em; font-size: 0.5em; font-weight: var(--xz-font-weight-medium); line-height: 1.2; letter-spacing: 0; color: var(--xz-text-muted); }
+.xz-hero__lead { max-width: 40rem; font-size: var(--xz-font-size-lg); line-height: var(--xz-line-height-relaxed); color: var(--xz-text-muted); }
+.xz-hero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--xz-space-3); }
+.xz-hero__media { position: relative; width: 100%; margin-top: var(--xz-space-6); }
+/* In the split layout, wrap the text parts in .xz-hero__copy. It does nothing in the centred layout. */
+.xz-hero__copy { display: contents; }
+@media (min-width: 1024px) {
+  .xz-hero--split .xz-hero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: var(--xz-space-12); text-align: start; }
+  .xz-hero--split .xz-hero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--xz-space-6); }
+  .xz-hero--split .xz-hero__actions { justify-content: flex-start; }
+  .xz-hero--split .xz-hero__media { margin-top: 0; }
+}

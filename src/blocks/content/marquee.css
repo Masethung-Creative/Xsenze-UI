@@ -1,0 +1,42 @@
+/* Marquee: a row of items that slides sideways without end, such as module names or customer names.
+   It stops while the pointer or focus is on it, while it is off screen and when motion is off.
+   Without the script, or with less motion, it is a still row that wraps. */
+.xz-marquee {
+  --xz-marquee-gap: var(--xz-space-3);
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.xz-marquee__track { display: flex; flex: none; gap: var(--xz-marquee-gap); min-width: max-content; margin: 0; padding: 0 var(--xz-marquee-gap) 0 0; list-style: none; }
+.xz-marquee.is-ready .xz-marquee__track { animation: xz-marquee var(--xz-marquee-duration, 40s) linear infinite; }
+.xz-marquee--reverse .xz-marquee__track { animation-direction: reverse; }
+.xz-marquee:is(:hover, :focus-within, .is-paused) .xz-marquee__track { animation-play-state: paused; }
+@keyframes xz-marquee { to { transform: translateX(-50%); } }
+[dir="rtl"] .xz-marquee__track { animation-direction: reverse; }
+.xz-marquee__item {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--xz-space-2);
+  padding: var(--xz-space-2) var(--xz-space-4) var(--xz-space-2) var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-control);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-sm);
+  font-weight: var(--xz-font-weight-medium);
+  white-space: nowrap;
+}
+.xz-marquee__item > .xz-icon { color: var(--xz-text-muted); }
+/* Plain: names only, no boxes, for a row of customer names. */
+.xz-marquee--plain { --xz-marquee-gap: var(--xz-space-12); }
+.xz-marquee--plain .xz-marquee__item { padding: 0; background: none; border: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-bold); letter-spacing: var(--xz-letter-spacing-tight); }
+.xz-marquees { display: flex; flex-direction: column; gap: var(--xz-space-3); }
+[data-xz-motion="off"] .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+[data-xz-motion="off"] .xz-marquee [data-xz-clone] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .xz-marquee.is-ready .xz-marquee__track,
+  .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+  .xz-marquee [data-xz-clone] { display: none; }
+}

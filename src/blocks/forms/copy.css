@@ -1,0 +1,7 @@
+/* Copy button: shows "Copied" with a tick for two seconds, without changing width.
+   The script stacks the button's own label and the confirmation in the same spot. */
+.xz-copy { display: inline-grid; place-items: center; }
+.xz-copy > * { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: var(--xz-space-2); transition: opacity var(--xz-duration-base) var(--xz-ease-out), transform var(--xz-duration-base) var(--xz-ease-out); }
+.xz-copy__done { opacity: 0; transform: translateY(45%); }
+.is-copied .xz-copy__idle { opacity: 0; transform: translateY(-45%); }
+.is-copied .xz-copy__done { opacity: 1; transform: none; }

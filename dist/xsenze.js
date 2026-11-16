@@ -133,7 +133,7 @@ var Xsenze = (() => {
   }
 
   // src/js/forms-advanced.js
-  var $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  var $$ = (sel, root2 = document) => Array.from(root2.querySelectorAll(sel));
   var ready = (el) => {
     if (el.dataset.xzReady) return true;
     el.dataset.xzReady = "1";
@@ -157,8 +157,8 @@ var Xsenze = (() => {
     addEventListener("resize", () => openPanel == null ? void 0 : openPanel.close());
     document.addEventListener("scroll", (e) => openPanel && !openPanel.el.contains(e.target) && openPanel.close(), true);
   }
-  function initSliders(root) {
-    for (const el of $$('input[type="range"].xz-slider', root)) {
+  function initSliders(root2) {
+    for (const el of $$('input[type="range"].xz-slider', root2)) {
       if (ready(el)) continue;
       const out = el.id ? document.querySelector(`output[for="${el.id}"]`) : null;
       const paint = () => {
@@ -171,8 +171,8 @@ var Xsenze = (() => {
       paint();
     }
   }
-  function initSteppers(root) {
-    for (const el of $$("[data-xz-stepper]", root)) {
+  function initSteppers(root2) {
+    for (const el of $$("[data-xz-stepper]", root2)) {
       if (ready(el)) continue;
       const input = el.querySelector("input");
       if (!input) continue;
@@ -196,8 +196,8 @@ var Xsenze = (() => {
       sync();
     }
   }
-  function initOtps(root) {
-    for (const el of $$("[data-xz-otp]", root)) {
+  function initOtps(root2) {
+    for (const el of $$("[data-xz-otp]", root2)) {
       if (ready(el)) continue;
       const cells = $$(".xz-otp__cell", el);
       const hidden = el.querySelector('input[type="hidden"]');
@@ -244,8 +244,8 @@ var Xsenze = (() => {
       });
     }
   }
-  function initTagInputs(root, icon3) {
-    for (const el of $$("[data-xz-tag-input]", root)) {
+  function initTagInputs(root2, icon3) {
+    for (const el of $$("[data-xz-tag-input]", root2)) {
       if (ready(el)) continue;
       const field = el.querySelector(".xz-tag-input__field");
       const hidden = el.querySelector('input[type="hidden"]');
@@ -255,9 +255,9 @@ var Xsenze = (() => {
         list = Object.assign(document.createElement("ul"), { className: "xz-tag-input__list" });
         el.prepend(list);
       }
-      const live = Object.assign(document.createElement("span"), { className: "xz-sr-only" });
-      live.setAttribute("aria-live", "polite");
-      el.append(live);
+      const live2 = Object.assign(document.createElement("span"), { className: "xz-sr-only" });
+      live2.setAttribute("aria-live", "polite");
+      el.append(live2);
       const max = Number(el.dataset.xzMax) || Infinity;
       let tags = ((hidden == null ? void 0 : hidden.value) || "").split(",").map((s) => s.trim()).filter(Boolean);
       const render = () => {
@@ -269,14 +269,14 @@ var Xsenze = (() => {
         for (const part of raw.split(",")) {
           const tag = part.trim();
           if (!tag) continue;
-          if (tags.some((t) => t.toLowerCase() === tag.toLowerCase())) live.textContent = `${tag} is already in the list`;
+          if (tags.some((t) => t.toLowerCase() === tag.toLowerCase())) live2.textContent = `${tag} is already in the list`;
           else if (tags.length >= max) {
-            live.textContent = `You can add up to ${max}`;
+            live2.textContent = `You can add up to ${max}`;
             el.classList.add("is-invalid");
             break;
           } else {
             tags.push(tag);
-            live.textContent = `${tag} added`;
+            live2.textContent = `${tag} added`;
           }
         }
         render();
@@ -288,7 +288,7 @@ var Xsenze = (() => {
           add(field.value);
           field.value = "";
         } else if (e.key === "Backspace" && !field.value && tags.length) {
-          live.textContent = `${tags.pop()} removed`;
+          live2.textContent = `${tags.pop()} removed`;
           render();
         }
       });
@@ -305,7 +305,7 @@ var Xsenze = (() => {
       el.addEventListener("click", (e) => {
         const remove = e.target.closest(".xz-chip__remove");
         if (remove) {
-          live.textContent = `${tags.splice(Number(remove.dataset.index), 1)[0]} removed`;
+          live2.textContent = `${tags.splice(Number(remove.dataset.index), 1)[0]} removed`;
           el.classList.remove("is-invalid");
           render();
         }
@@ -315,8 +315,8 @@ var Xsenze = (() => {
     }
   }
   var fileSize = (bytes) => bytes < 1024 * 1024 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-  function initDropzones(root, icon3) {
-    for (const el of $$("[data-xz-dropzone]", root)) {
+  function initDropzones(root2, icon3) {
+    for (const el of $$("[data-xz-dropzone]", root2)) {
       if (ready(el)) continue;
       const input = el.querySelector('input[type="file"]');
       if (!input) continue;
@@ -399,9 +399,9 @@ var Xsenze = (() => {
   var sameDay = (a, b) => a && b && a.getTime() === b.getTime();
   var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   var DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  function initDatepickers(root, icon3) {
+  function initDatepickers(root2, icon3) {
     var _a, _b;
-    for (const el of $$("[data-xz-datepicker]", root)) {
+    for (const el of $$("[data-xz-datepicker]", root2)) {
       if (ready(el)) continue;
       const range = el.dataset.xzDatepicker === "range";
       const input = el.querySelector('input:not([type="hidden"])');
@@ -413,11 +413,11 @@ var Xsenze = (() => {
       const weekStart = el.dataset.xzWeekStart === "0" ? 0 : 1;
       const now = /* @__PURE__ */ new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const clamp = (d) => min && d < min ? min : max && d > max ? max : d;
+      const clamp2 = (d) => min && d < min ? min : max && d > max ? max : d;
       const off = (d) => min && d < min || max && d > max;
       let start = fromIso((_a = hidden[0]) == null ? void 0 : _a.value);
       let end = range ? fromIso((_b = hidden[1]) == null ? void 0 : _b.value) : null;
-      let cursor = clamp(start || today);
+      let cursor = clamp2(start || today);
       const panel = document.createElement("div");
       panel.className = "xz-picker xz-calendar";
       panel.hidden = true;
@@ -481,7 +481,7 @@ var Xsenze = (() => {
       };
       const open = () => {
         openPanel == null ? void 0 : openPanel.close();
-        cursor = clamp(start || today);
+        cursor = clamp2(start || today);
         draw();
         panel.hidden = false;
         place(panel, input.closest(".xz-input-group") || input);
@@ -530,7 +530,7 @@ var Xsenze = (() => {
         const nav = e.target.closest("[data-nav]");
         if (day) choose(fromIso(day.dataset.date));
         else if (nav) {
-          cursor = clamp(new Date(cursor.getFullYear(), cursor.getMonth() + Number(nav.dataset.nav), 1));
+          cursor = clamp2(new Date(cursor.getFullYear(), cursor.getMonth() + Number(nav.dataset.nav), 1));
           draw();
           panel.querySelector(`[data-nav="${nav.dataset.nav}"]`).focus({ preventScroll: true });
         } else if (e.target.closest("[data-today]")) choose(today);
@@ -550,7 +550,7 @@ var Xsenze = (() => {
         const next = { ArrowLeft: addDays(cursor, -1), ArrowRight: addDays(cursor, 1), ArrowUp: addDays(cursor, -7), ArrowDown: addDays(cursor, 7), Home: addDays(cursor, -dow), End: addDays(cursor, 6 - dow), PageUp: new Date(cursor.getFullYear(), cursor.getMonth() - 1, cursor.getDate()), PageDown: new Date(cursor.getFullYear(), cursor.getMonth() + 1, cursor.getDate()) }[e.key];
         if (!next) return;
         e.preventDefault();
-        cursor = clamp(next);
+        cursor = clamp2(next);
         draw();
         focusCursor();
       });
@@ -578,9 +578,9 @@ var Xsenze = (() => {
     if (half === "a" && h === 12) h = 0;
     return h * 60 + min;
   }
-  function initTimepickers(root) {
+  function initTimepickers(root2) {
     var _a, _b;
-    for (const el of $$("[data-xz-timepicker]", root)) {
+    for (const el of $$("[data-xz-timepicker]", root2)) {
       if (ready(el)) continue;
       const input = el.querySelector('input:not([type="hidden"])');
       const trigger = el.querySelector("button");
@@ -723,8 +723,8 @@ var Xsenze = (() => {
     walk(tpl.content);
     return tpl.innerHTML.trim();
   }
-  function initEditors(root) {
-    for (const el of $$("[data-xz-editor]", root)) {
+  function initEditors(root2) {
+    for (const el of $$("[data-xz-editor]", root2)) {
       if (ready(el)) continue;
       const content = el.querySelector(".xz-editor__content");
       const field = el.querySelector("textarea");
@@ -779,20 +779,20 @@ var Xsenze = (() => {
       state();
     }
   }
-  function initAdvancedForms(root, { icon: icon3 }) {
+  function initAdvancedForms(root2, { icon: icon3 }) {
     bindGlobal();
-    initSliders(root);
-    initSteppers(root);
-    initOtps(root);
-    initTagInputs(root, icon3);
-    initDropzones(root, icon3);
-    initDatepickers(root, icon3);
-    initTimepickers(root);
-    initEditors(root);
+    initSliders(root2);
+    initSteppers(root2);
+    initOtps(root2);
+    initTagInputs(root2, icon3);
+    initDropzones(root2, icon3);
+    initDatepickers(root2, icon3);
+    initTimepickers(root2);
+    initEditors(root2);
   }
 
   // src/js/components.js
-  var $$2 = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  var $$2 = (sel, root2 = document) => Array.from(root2.querySelectorAll(sel));
   var ready2 = (el) => {
     if (el.dataset.xzReady) return true;
     el.dataset.xzReady = "1";
@@ -868,8 +868,8 @@ var Xsenze = (() => {
     wrapper.xzPopover = { open, close };
     return { open, close };
   }
-  function initPopovers(root) {
-    for (const pop of $$2("[data-xz-popover]", root)) {
+  function initPopovers(root2) {
+    for (const pop of $$2("[data-xz-popover]", root2)) {
       if (ready2(pop)) continue;
       const trigger = pop.querySelector(":scope > button, :scope > [data-xz-popover-trigger]");
       const panel = pop.querySelector(":scope > .xz-popover__panel");
@@ -887,8 +887,8 @@ var Xsenze = (() => {
       floating({ wrapper: pop, trigger, panel, focusPanel: true, position: () => place(panel, trigger, { align, gap: 6 }) });
     }
   }
-  function initNotifications(root) {
-    for (const box2 of $$2("[data-xz-notifications]", root)) {
+  function initNotifications(root2) {
+    for (const box2 of $$2("[data-xz-notifications]", root2)) {
       if (box2.dataset.xzNotifyReady) continue;
       box2.dataset.xzNotifyReady = "1";
       const trigger = box2.querySelector(":scope > button");
@@ -935,8 +935,8 @@ var Xsenze = (() => {
       sync();
     }
   }
-  function initMegaMenus(root) {
-    for (const menu of $$2("[data-xz-megamenu]", root)) {
+  function initMegaMenus(root2) {
+    for (const menu of $$2("[data-xz-megamenu]", root2)) {
       if (ready2(menu)) continue;
       const trigger = menu.querySelector(":scope > button");
       const panel = menu.querySelector(":scope > .xz-megamenu__panel");
@@ -966,8 +966,8 @@ var Xsenze = (() => {
       (_a = all[(next + all.length) % all.length]) == null ? void 0 : _a.focus();
     });
   }
-  function initContextMenus(root) {
-    for (const target of $$2("[data-xz-context-menu]", root)) {
+  function initContextMenus(root2) {
+    for (const target of $$2("[data-xz-context-menu]", root2)) {
       if (ready2(target)) continue;
       const list = document.querySelector(target.getAttribute("data-xz-context-menu"));
       if (!list) continue;
@@ -1044,21 +1044,21 @@ var Xsenze = (() => {
       return [];
     }
   }
-  function saveRecent(name, query) {
-    if (!name || !query) return;
+  function saveRecent(name, query2) {
+    if (!name || !query2) return;
     try {
-      const list = [query, ...readRecent(name).filter((q) => q.toLowerCase() !== query.toLowerCase())].slice(0, RECENT_MAX);
+      const list = [query2, ...readRecent(name).filter((q) => q.toLowerCase() !== query2.toLowerCase())].slice(0, RECENT_MAX);
       localStorage.setItem(recentKey(name), JSON.stringify(list));
     } catch {
     }
   }
-  function mark(label, query) {
-    const i = query ? label.toLowerCase().indexOf(query.toLowerCase()) : -1;
+  function mark(label, query2) {
+    const i = query2 ? label.toLowerCase().indexOf(query2.toLowerCase()) : -1;
     if (i < 0) return esc2(label);
-    return esc2(label.slice(0, i)) + "<mark>" + esc2(label.slice(i, i + query.length)) + "</mark>" + esc2(label.slice(i + query.length));
+    return esc2(label.slice(0, i)) + "<mark>" + esc2(label.slice(i, i + query2.length)) + "</mark>" + esc2(label.slice(i + query2.length));
   }
-  function initSearches(root) {
-    for (const box2 of $$2("[data-xz-search]", root)) {
+  function initSearches(root2) {
+    for (const box2 of $$2("[data-xz-search]", root2)) {
       if (ready2(box2)) continue;
       const input = box2.querySelector('input[type="search"], input[type="text"]');
       if (!input) continue;
@@ -1066,7 +1066,7 @@ var Xsenze = (() => {
       const recentName = box2.getAttribute("data-xz-recent");
       const url = box2.getAttribute("data-xz-search-url");
       const max = Number(box2.getAttribute("data-xz-max") || 8);
-      const source = $$2(".xz-search__source > li", box2).map((li) => ({ label: li.textContent.trim(), group: li.dataset.group || "", href: li.dataset.href || "", meta: li.dataset.meta || "", keywords: li.dataset.keywords || "" }));
+      const source2 = $$2(".xz-search__source > li", box2).map((li) => ({ label: li.textContent.trim(), group: li.dataset.group || "", href: li.dataset.href || "", meta: li.dataset.meta || "", keywords: li.dataset.keywords || "" }));
       const list = Object.assign(document.createElement("ul"), { className: "xz-search__list", id: nextId("search") });
       list.setAttribute("role", "listbox");
       list.setAttribute("aria-label", "Suggestions");
@@ -1102,7 +1102,7 @@ var Xsenze = (() => {
         active = -1;
         releaseFloating(list);
       };
-      const show = () => {
+      const show2 = () => {
         openFloating({ panel: list, trigger: group, close, follow: () => place(list, group) });
         list.hidden = false;
         input.setAttribute("aria-expanded", "true");
@@ -1110,7 +1110,7 @@ var Xsenze = (() => {
         place(list, group);
       };
       const row = (cls, html) => `<li role="presentation" class="${cls}">${html}</li>`;
-      const render = (items, query, note) => {
+      const render = (items, query2, note) => {
         options = items;
         let html = "";
         let last = null;
@@ -1120,21 +1120,21 @@ var Xsenze = (() => {
             if (o.group) html += row("xz-search__group", esc2(o.group));
           }
           const lead = o.kind === "recent" ? icon("history", { size: "sm" }) : o.kind === "query" ? icon("search", { size: "sm" }) : "";
-          html += `<li role="option" id="${list.id}-${i}" class="xz-search__option" data-index="${i}">${lead}<span class="xz-search__label">${o.kind === "query" ? `Search for \u201C${esc2(query)}\u201D` : mark(o.label, query)}</span>${o.meta ? `<span class="xz-search__meta">${esc2(o.meta)}</span>` : ""}</li>`;
+          html += `<li role="option" id="${list.id}-${i}" class="xz-search__option" data-index="${i}">${lead}<span class="xz-search__label">${o.kind === "query" ? `Search for \u201C${esc2(query2)}\u201D` : mark(o.label, query2)}</span>${o.meta ? `<span class="xz-search__meta">${esc2(o.meta)}</span>` : ""}</li>`;
         });
         if (note) html += row("xz-search__note", esc2(note));
         list.innerHTML = html;
         active = -1;
         if (!html) return close();
-        show();
+        show2();
         const n = items.filter((o) => o.kind !== "query").length;
-        status.textContent = query ? n ? `${n} suggestion${n === 1 ? "" : "s"}` : "No suggestions" : "";
+        status.textContent = query2 ? n ? `${n} suggestion${n === 1 ? "" : "s"}` : "No suggestions" : "";
       };
       const local = (q) => {
         const needle = q.toLowerCase();
-        return source.filter((o) => (o.label + " " + o.meta + " " + o.keywords).toLowerCase().includes(needle)).slice(0, max);
+        return source2.filter((o) => (o.label + " " + o.meta + " " + o.keywords).toLowerCase().includes(needle)).slice(0, max);
       };
-      const update = () => {
+      const update2 = () => {
         const q = input.value.trim();
         clearTimeout(timer);
         pending == null ? void 0 : pending.abort();
@@ -1158,13 +1158,13 @@ var Xsenze = (() => {
           }
         }, 200);
       };
-      const submit = (query) => {
-        input.value = query;
-        saveRecent(recentName, query);
+      const submit = (query2) => {
+        input.value = query2;
+        saveRecent(recentName, query2);
         close();
         const form = box2.tagName === "FORM" ? box2 : null;
         if (form) form.requestSubmit ? form.requestSubmit() : form.submit();
-        else fire2(box2, "xz:search", { query }, true);
+        else fire2(box2, "xz:search", { query: query2 }, true);
       };
       const choose = (o) => {
         if (!o) return;
@@ -1175,13 +1175,13 @@ var Xsenze = (() => {
         if (o.href) location.href = o.href;
         else submit(o.label);
       };
-      input.addEventListener("input", update);
-      input.addEventListener("focus", () => !input.value.trim() && update());
+      input.addEventListener("input", update2);
+      input.addEventListener("focus", () => !input.value.trim() && update2());
       input.addEventListener("keydown", (e) => {
         const count = options.length;
         if (e.key === "ArrowDown" || e.key === "ArrowUp") {
           e.preventDefault();
-          if (list.hidden) return update();
+          if (list.hidden) return update2();
           if (!count) return;
           setActive(e.key === "ArrowDown" ? (active + 1) % count : (active - 1 + count) % count);
         } else if (e.key === "Enter") {
@@ -1211,10 +1211,10 @@ var Xsenze = (() => {
       input.addEventListener("blur", () => setTimeout(() => document.activeElement !== input && close(), 0));
       if (box2.tagName === "FORM") {
         box2.addEventListener("submit", (e) => {
-          const query = input.value.trim();
-          saveRecent(recentName, query);
+          const query2 = input.value.trim();
+          saveRecent(recentName, query2);
           close();
-          if (!fire2(box2, "xz:search", { query }, true)) e.preventDefault();
+          if (!fire2(box2, "xz:search", { query: query2 }, true)) e.preventDefault();
         });
       }
       const key = box2.getAttribute("data-xz-shortcut");
@@ -1229,8 +1229,8 @@ var Xsenze = (() => {
       }
     }
   }
-  function initSheets(root) {
-    for (const sheet of $$2("dialog.xz-sheet", root)) {
+  function initSheets(root2) {
+    for (const sheet of $$2("dialog.xz-sheet", root2)) {
       if (ready2(sheet)) continue;
       const grip = sheet.querySelector(".xz-sheet__handle");
       const zones = [grip, sheet.querySelector(".xz-sheet__header")].filter(Boolean);
@@ -1284,8 +1284,8 @@ var Xsenze = (() => {
       if (grip && grip.tagName === "BUTTON") grip.addEventListener("click", () => dragged ? dragged = false : sheet.close());
     }
   }
-  function initWizards(root) {
-    for (const form of $$2("[data-xz-wizard]", root)) {
+  function initWizards(root2) {
+    for (const form of $$2("[data-xz-wizard]", root2)) {
       if (ready2(form)) continue;
       const panels = $$2(".xz-wizard__panel", form);
       const stepItems = $$2(".xz-wizard__steps > li", form);
@@ -1310,7 +1310,7 @@ var Xsenze = (() => {
         if (bad[0]) (bad[0].hidden ? panel.querySelector('[role="combobox"]') || bad[0] : bad[0]).focus();
         return !bad.length;
       };
-      const show = (i, focus = true) => {
+      const show2 = (i, focus = true) => {
         const from = at;
         at = i;
         furthest = Math.max(furthest, i);
@@ -1341,9 +1341,9 @@ var Xsenze = (() => {
       const go = (i) => {
         if (i === at || i < 0 || i >= panels.length) return;
         if (i > at) {
-          for (let n = at; n < i; n++) if (!check(panels[n])) return show(n, false);
+          for (let n = at; n < i; n++) if (!check(panels[n])) return show2(n, false);
         }
-        show(i);
+        show2(i);
       };
       back == null ? void 0 : back.addEventListener("click", () => go(at - 1));
       next == null ? void 0 : next.addEventListener("click", () => go(at + 1));
@@ -1361,7 +1361,7 @@ var Xsenze = (() => {
           if (!fields(panels[n]).every((f) => f.checkValidity())) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            show(n, false);
+            show2(n, false);
             check(panels[n]);
             return;
           }
@@ -1370,11 +1370,11 @@ var Xsenze = (() => {
       form.xzWizard = { go, get step() {
         return at;
       } };
-      show(0, false);
+      show2(0, false);
     }
   }
-  function initCarousels(root) {
-    for (const car of $$2("[data-xz-carousel]", root)) {
+  function initCarousels(root2) {
+    for (const car of $$2("[data-xz-carousel]", root2)) {
       if (ready2(car)) continue;
       const track = car.querySelector(".xz-carousel__track");
       if (!track) continue;
@@ -1437,7 +1437,7 @@ var Xsenze = (() => {
     const next = dlg.querySelector(".xz-lightbox__nav--next");
     let items = [];
     let at = 0;
-    const show = (i) => {
+    const show2 = (i) => {
       at = (i + items.length) % items.length;
       const it = items[at];
       img.src = it.href;
@@ -1447,11 +1447,11 @@ var Xsenze = (() => {
       count.textContent = `${at + 1} of ${items.length}`;
       prev.hidden = next.hidden = items.length < 2;
     };
-    prev.addEventListener("click", () => show(at - 1));
-    next.addEventListener("click", () => show(at + 1));
+    prev.addEventListener("click", () => show2(at - 1));
+    next.addEventListener("click", () => show2(at + 1));
     dlg.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowLeft") show(at - 1);
-      if (e.key === "ArrowRight") show(at + 1);
+      if (e.key === "ArrowLeft") show2(at - 1);
+      if (e.key === "ArrowRight") show2(at + 1);
     });
     dlg.addEventListener("click", (e) => {
       if (e.target === dlg || e.target.classList.contains("xz-lightbox__figure")) dlg.close();
@@ -1462,7 +1462,7 @@ var Xsenze = (() => {
       if (sx === null) return;
       const dx = e.clientX - sx;
       sx = null;
-      if (Math.abs(dx) > 50) show(at + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 50) show2(at + (dx < 0 ? 1 : -1));
     });
     let opener = null;
     dlg.addEventListener("close", () => {
@@ -1473,15 +1473,15 @@ var Xsenze = (() => {
       open(list, i, from) {
         items = list;
         opener = from || null;
-        show(i);
+        show2(i);
         dlg.showModal();
         next.hidden ? dlg.querySelector("[data-xz-close]").focus() : next.focus();
       }
     };
     return box;
   }
-  function initLightboxes(root) {
-    for (const gallery of $$2("[data-xz-lightbox]", root)) {
+  function initLightboxes(root2) {
+    for (const gallery of $$2("[data-xz-lightbox]", root2)) {
       if (ready2(gallery)) continue;
       gallery.addEventListener("click", (e) => {
         const a = e.target.closest("a[href]");
@@ -1511,8 +1511,8 @@ var Xsenze = (() => {
     return [m && `${m} minute${m === 1 ? "" : "s"}`, `${sec} second${sec === 1 ? "" : "s"}`].filter(Boolean).join(" ");
   };
   var SPEEDS = [1, 1.25, 1.5, 2, 0.75];
-  function initPlayers(root) {
-    for (const player of $$2("[data-xz-player]", root)) {
+  function initPlayers(root2) {
+    for (const player of $$2("[data-xz-player]", root2)) {
       if (ready2(player)) continue;
       const media = player.querySelector("video, audio");
       if (!media) continue;
@@ -1684,8 +1684,8 @@ var Xsenze = (() => {
       syncVolume();
     }
   }
-  function initPricing(root) {
-    for (const box2 of $$2("[data-xz-pricing]", root)) {
+  function initPricing(root2) {
+    for (const box2 of $$2("[data-xz-pricing]", root2)) {
       if (ready2(box2)) continue;
       const apply = (value) => {
         for (const el of $$2(`[data-${value}]`, box2)) el.textContent = el.getAttribute(`data-${value}`);
@@ -1698,26 +1698,852 @@ var Xsenze = (() => {
       if (checked) apply(checked.value);
     }
   }
-  function initComponents(root, helpers = {}) {
+  function initComponents(root2, helpers = {}) {
     if (helpers.icon) icon = helpers.icon;
     if (helpers.validateField) validateField = helpers.validateField;
     bindGlobal2();
-    initPopovers(root);
-    initNotifications(root);
-    initMegaMenus(root);
-    initContextMenus(root);
-    initSearches(root);
-    initSheets(root);
-    initWizards(root);
-    initCarousels(root);
-    initLightboxes(root);
-    initPlayers(root);
-    initPricing(root);
+    initPopovers(root2);
+    initNotifications(root2);
+    initMegaMenus(root2);
+    initContextMenus(root2);
+    initSearches(root2);
+    initSheets(root2);
+    initWizards(root2);
+    initCarousels(root2);
+    initLightboxes(root2);
+    initPlayers(root2);
+    initPricing(root2);
+  }
+
+  // src/blocks/shared.js
+  var $$3 = (sel, root2 = document) => Array.from(root2.querySelectorAll(sel));
+  var ready3 = (el, key) => {
+    const k = `xz${key}Ready`;
+    if (el.dataset[k]) return true;
+    el.dataset[k] = "1";
+    return false;
+  };
+  var fire3 = (el, type, detail) => el.dispatchEvent(new CustomEvent(type, { bubbles: true, detail }));
+  var clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+  var query = (q) => typeof matchMedia === "function" ? matchMedia(q) : { matches: false, addEventListener() {
+  } };
+  var reducedQuery = query("(prefers-reduced-motion: reduce)");
+  var fineQuery = query("(pointer: fine)");
+  var motionOn = () => !reducedQuery.matches && document.documentElement.getAttribute("data-xz-motion") !== "off";
+  var finePointer = () => fineQuery.matches;
+  var motionListeners = /* @__PURE__ */ new Set();
+  var onMotion = (cb) => motionListeners.add(cb);
+  var notifyMotion = () => {
+    const on = motionOn();
+    motionListeners.forEach((cb) => cb(on));
+  };
+  reducedQuery.addEventListener("change", notifyMotion);
+  function watch(el, cb, options = {}) {
+    if (typeof IntersectionObserver !== "function") {
+      cb(true);
+      return null;
+    }
+    const io2 = new IntersectionObserver((entries) => entries.forEach((e) => cb(e.isIntersecting, e)), options);
+    io2.observe(el);
+    return io2;
+  }
+  function perFrame(fn) {
+    let frame = 0;
+    return () => {
+      if (!frame) frame = requestAnimationFrame(() => (frame = 0, fn()));
+    };
+  }
+  function srText(text) {
+    return Object.assign(document.createElement("span"), { className: "xz-sr-only", textContent: text });
+  }
+  function caret() {
+    const c = document.createElement("span");
+    c.className = "xz-caret";
+    c.setAttribute("aria-hidden", "true");
+    return c;
+  }
+
+  // src/blocks/motion/motion.js
+  var KEY = "xz-motion";
+  var root = () => document.documentElement;
+  var iconFn = () => "";
+  var motion = {
+    /** True while animations may run. False when paused here or when the system asks for less motion. */
+    enabled: () => motionOn(),
+    set(on, { persist = true } = {}) {
+      root().setAttribute("data-xz-motion", on ? "on" : "off");
+      if (persist) {
+        try {
+          localStorage.setItem(KEY, on ? "on" : "off");
+        } catch {
+        }
+      }
+      syncMotionButtons();
+      notifyMotion();
+      document.dispatchEvent(new CustomEvent("xz:motion", { detail: { on: motionOn() } }));
+    },
+    toggle() {
+      motion.set(root().getAttribute("data-xz-motion") === "off");
+    },
+    restore() {
+      let saved = null;
+      try {
+        saved = localStorage.getItem(KEY);
+      } catch {
+      }
+      if (saved === "off") root().setAttribute("data-xz-motion", "off");
+    }
+  };
+  function syncMotionButtons() {
+    const off = root().getAttribute("data-xz-motion") === "off";
+    for (const btn of $$3("[data-xz-motion-toggle]")) {
+      btn.classList.add("xz-motion-toggle");
+      btn.setAttribute("aria-pressed", String(off));
+      if (!btn.hasAttribute("aria-label") && !btn.textContent.trim()) btn.setAttribute("aria-label", "Pause animations");
+      const old = btn.querySelector("svg.xz-icon, [data-xz-icon]");
+      if (old) old.outerHTML = iconFn(off ? "play" : "pause", { size: old.getAttribute("data-size") || (old.classList.contains("xz-icon--sm") ? "sm" : void 0) });
+    }
+  }
+  function initMotion(root2, { icon: icon3 }) {
+    iconFn = icon3;
+    syncMotionButtons();
+  }
+
+  // src/blocks/motion/reveal.js
+  var io = null;
+  var waiting = /* @__PURE__ */ new Set();
+  function show(el) {
+    waiting.delete(el);
+    io == null ? void 0 : io.unobserve(el);
+    el.classList.remove("is-pending");
+    if (!motionOn()) return fire3(el, "xz:reveal");
+    el.classList.add("is-revealing");
+    el.addEventListener(
+      "animationend",
+      () => {
+        el.classList.remove("is-revealing");
+        fire3(el, "xz:reveal");
+      },
+      { once: true }
+    );
+  }
+  function initReveal(root2) {
+    for (const group of $$3("[data-xz-stagger]", root2)) {
+      const step = group.getAttribute("data-xz-stagger");
+      $$3("[data-xz-reveal]", group).filter((el) => el.closest("[data-xz-stagger]") === group).forEach((el, i) => {
+        if (!el.style.getPropertyValue("--xz-i")) el.style.setProperty("--xz-i", String(i));
+        if (step) el.style.setProperty("--xz-stagger", `${parseInt(step, 10) || 80}ms`);
+      });
+    }
+    const items = $$3("[data-xz-reveal]", root2).filter((el) => el.getAttribute("data-xz-reveal") !== "load" && !ready3(el, "Reveal"));
+    if (!items.length || !motionOn() || typeof IntersectionObserver !== "function") return;
+    io || (io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && show(e.target)),
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+    ));
+    for (const el of items) {
+      el.classList.add("is-pending");
+      waiting.add(el);
+      io.observe(el);
+    }
+  }
+  onMotion((on) => {
+    if (!on) [...waiting].forEach(show);
+  });
+
+  // src/blocks/motion/rotator.js
+  var listFormat = (words) => {
+    try {
+      return new Intl.ListFormat(document.documentElement.lang || "en", { type: "disjunction" }).format(words);
+    } catch {
+      return words.join(", ");
+    }
+  };
+  function initRotators(root2) {
+    var _a;
+    for (const rot of $$3("[data-xz-rotator]", root2)) {
+      if (ready3(rot, "Rotator")) continue;
+      const items = $$3(":scope > .xz-rotator__item", rot);
+      if (items.length < 2) continue;
+      const words = items.map((el) => el.textContent.trim());
+      const win = document.createElement("span");
+      win.className = "xz-rotator__window";
+      win.setAttribute("aria-hidden", "true");
+      const track = document.createElement("span");
+      track.className = "xz-rotator__track";
+      const loop = items[0].cloneNode(true);
+      track.append(...items, loop);
+      win.append(track);
+      rot.prepend(srText(listFormat(words)), win);
+      if (rot.hasAttribute("data-caret") && !rot.querySelector(".xz-caret")) rot.append(caret());
+      rot.classList.add("is-ready");
+      const all = [...items, loop];
+      const interval = Math.max(1200, parseInt(rot.getAttribute("data-interval"), 10) || 2600);
+      let index = 0;
+      let timer = 0;
+      let visible = true;
+      let hover = false;
+      let paused = false;
+      const place2 = (instant) => {
+        const el = all[index];
+        if (instant) rot.classList.add("is-jumping");
+        all.forEach((item, i) => item.classList.toggle("is-current", i === index || index === words.length && i === 0));
+        win.style.width = el.offsetWidth ? `${el.offsetWidth}px` : "";
+        track.style.transform = `translateY(${-el.offsetTop}px)`;
+        if (instant) {
+          void track.offsetWidth;
+          rot.classList.remove("is-jumping");
+        }
+      };
+      const settle = () => {
+        if (index !== words.length) return;
+        index = 0;
+        place2(true);
+      };
+      track.addEventListener("transitionend", (e) => e.target === track && e.propertyName === "transform" && settle());
+      const show2 = (i) => {
+        settle();
+        index = Math.min(i, words.length);
+        place2(false);
+        const n = index % words.length;
+        fire3(rot, "xz:rotate", { index: n, word: words[n] });
+      };
+      const next = () => {
+        settle();
+        show2(index + 1);
+      };
+      const stop = () => {
+        clearInterval(timer);
+        timer = 0;
+      };
+      const start = () => {
+        stop();
+        if (motionOn() && visible && !hover && !paused && !document.hidden) timer = setInterval(next, interval);
+      };
+      rot.addEventListener("pointerenter", () => (hover = true, stop()));
+      rot.addEventListener("pointerleave", () => (hover = false, start()));
+      document.addEventListener("visibilitychange", start);
+      watch(rot, (v) => {
+        visible = v;
+        if (v) place2(true);
+        start();
+      });
+      onMotion((on) => {
+        if (on) return start();
+        stop();
+        index = 0;
+        place2(true);
+      });
+      const refit = perFrame(() => place2(true));
+      addEventListener("resize", refit);
+      (_a = document.fonts) == null ? void 0 : _a.ready.then(refit);
+      place2(true);
+      rot.xzRotator = {
+        next,
+        go: (i) => show2((i % words.length + words.length) % words.length),
+        pause: () => (paused = true, stop()),
+        play: () => (paused = false, start())
+      };
+    }
+  }
+
+  // src/blocks/motion/typewriter.js
+  function textNodes(el) {
+    const out = [];
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) out.push(walker.currentNode);
+    return out;
+  }
+  function initTypewriters(root2) {
+    for (const el of $$3("[data-xz-typewriter]", root2)) {
+      if (ready3(el, "Type") || !motionOn()) continue;
+      const speed = Math.max(10, parseInt(el.getAttribute("data-speed"), 10) || 40);
+      const keepCaret = el.getAttribute("data-caret") === "keep";
+      const visual = document.createElement("span");
+      visual.setAttribute("aria-hidden", "true");
+      visual.append(...el.childNodes);
+      el.append(srText(visual.textContent.replace(/\s+/g, " ").trim()), visual);
+      const nodes = textNodes(visual);
+      const texts = nodes.map((n) => n.data);
+      nodes.forEach((n) => n.data = "");
+      const cursor = caret();
+      visual.append(cursor);
+      let timer = 0;
+      let started = false;
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        started = true;
+        clearTimeout(timer);
+        nodes.forEach((n, i) => n.data = texts[i]);
+        if (!keepCaret) cursor.remove();
+        el.classList.add("is-typed");
+        fire3(el, "xz:typed");
+      };
+      const play = () => {
+        if (started) return;
+        started = true;
+        if (!motionOn()) return finish();
+        let n = 0;
+        let c = 0;
+        const tick = () => {
+          while (n < nodes.length && c >= texts[n].length) {
+            n += 1;
+            c = 0;
+          }
+          if (n >= nodes.length) return finish();
+          c += 1;
+          nodes[n].data = texts[n].slice(0, c);
+          timer = setTimeout(tick, speed);
+        };
+        timer = setTimeout(tick, 200);
+      };
+      if (el.getAttribute("data-xz-typewriter") === "load") play();
+      else {
+        let io2 = null;
+        io2 = watch(el, (v) => v && (io2 == null ? void 0 : io2.disconnect(), play()), { threshold: 0.5 });
+      }
+      onMotion((on) => !on && finish());
+      el.xzTypewriter = { play, finish };
+    }
+  }
+
+  // src/blocks/motion/sequence.js
+  function initSequences(root2) {
+    for (const seq of $$3("[data-xz-sequence]", root2)) {
+      if (ready3(seq, "Sequence")) continue;
+      const steps = $$3("[data-xz-step]", seq).filter((s) => s.closest("[data-xz-sequence]") === seq);
+      steps.forEach((s, i) => s.style.setProperty("--xz-i", String(i)));
+      const gap = parseInt(seq.getAttribute("data-xz-sequence"), 10) || 160;
+      const hold = seq.hasAttribute("data-xz-loop") ? parseInt(seq.getAttribute("data-xz-loop"), 10) || 4e3 : 0;
+      let timers = [];
+      let visible = false;
+      let played = false;
+      const clear = () => {
+        timers.forEach(clearTimeout);
+        timers = [];
+      };
+      const later = (fn, ms) => timers.push(setTimeout(fn, ms));
+      const finish = () => {
+        clear();
+        seq.classList.remove("is-armed");
+        steps.forEach((s) => s.classList.add("is-in"));
+        seq.classList.add("is-done");
+      };
+      const arm = () => {
+        clear();
+        seq.classList.remove("is-done");
+        steps.forEach((s) => s.classList.remove("is-in"));
+        seq.classList.add("is-armed");
+      };
+      const play = () => {
+        if (!motionOn()) return finish();
+        arm();
+        played = true;
+        let t = 240;
+        steps.forEach((s, i) => {
+          t += parseInt(s.getAttribute("data-xz-step"), 10) || 0;
+          later(() => {
+            s.classList.add("is-in");
+            fire3(seq, "xz:sequence", { index: i, done: false });
+          }, t);
+          t += gap;
+        });
+        later(() => {
+          seq.classList.add("is-done");
+          fire3(seq, "xz:sequence", { index: steps.length - 1, done: true });
+          if (hold) later(() => visible && play(), hold);
+        }, t + 200);
+      };
+      if (motionOn()) arm();
+      else finish();
+      watch(
+        seq,
+        (v) => {
+          visible = v;
+          if (v && (!played || hold) && !timers.length) play();
+          if (!v && hold && motionOn()) arm();
+        },
+        { threshold: 0.35 }
+      );
+      onMotion((on) => on ? visible && play() : finish());
+      seq.xzSequence = { play, finish };
+    }
+  }
+
+  // src/blocks/motion/dotfield.js
+  function initDotfields(root2) {
+    for (const field of $$3(".xz-dotfield", root2)) {
+      if (ready3(field, "Dots")) continue;
+      field.setAttribute("aria-hidden", "true");
+      const host = field.parentElement;
+      if (!host) continue;
+      let frame = 0;
+      let x = 0;
+      let y = 0;
+      const paint = () => {
+        frame = 0;
+        field.style.setProperty("--xz-x", `${x}px`);
+        field.style.setProperty("--xz-y", `${y}px`);
+      };
+      host.addEventListener("pointermove", (e) => {
+        if (e.pointerType === "touch" || !finePointer() || !motionOn()) return;
+        const r = field.getBoundingClientRect();
+        x = e.clientX - r.left;
+        y = e.clientY - r.top;
+        field.classList.add("is-lit");
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+      host.addEventListener("pointerleave", () => field.classList.remove("is-lit"));
+    }
+  }
+
+  // src/blocks/motion/layers.js
+  function initLayers(root2) {
+    for (const box2 of $$3("[data-xz-layers]", root2)) {
+      if (ready3(box2, "Layers")) continue;
+      const count = clamp(parseInt(box2.getAttribute("data-xz-layers"), 10) || 5, 2, 12);
+      const face = box2.querySelector(".xz-layers__face");
+      const stack = document.createElement("div");
+      stack.className = "xz-layers__stack";
+      for (let i = 0; i < count; i++) {
+        const plate = document.createElement("span");
+        plate.className = "xz-layers__plate";
+        plate.style.setProperty("--i", String(i));
+        stack.append(plate);
+      }
+      if (face) stack.lastElementChild.append(face);
+      box2.append(stack);
+      box2.style.setProperty("--xz-layers-count", String(count));
+      if (box2.hasAttribute("aria-label")) box2.setAttribute("role", "img");
+      else box2.setAttribute("aria-hidden", "true");
+      const area = box2.closest("[data-xz-tilt-area]") || box2.closest("section") || box2;
+      let frame = 0;
+      let tx = 0;
+      let ty = 0;
+      const paint = () => {
+        frame = 0;
+        stack.style.setProperty("--xz-tilt-x", `${tx}deg`);
+        stack.style.setProperty("--xz-tilt-y", `${ty}deg`);
+      };
+      area.addEventListener("pointermove", (e) => {
+        if (e.pointerType === "touch" || !finePointer() || !motionOn()) return;
+        const r = box2.getBoundingClientRect();
+        tx = clamp((e.clientY - (r.top + r.height / 2)) / innerHeight * 2, -1, 1) * -8;
+        ty = clamp((e.clientX - (r.left + r.width / 2)) / innerWidth * 2, -1, 1) * 10;
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+      area.addEventListener("pointerleave", () => {
+        tx = 0;
+        ty = 0;
+        if (!frame) frame = requestAnimationFrame(paint);
+      });
+    }
+  }
+
+  // src/blocks/motion/depth.js
+  function initDepth(root2) {
+    var _a;
+    for (const box2 of $$3("[data-xz-depth]", root2)) {
+      if (ready3(box2, "Depth")) continue;
+      const media = matchMedia("(min-width: 1024px) and (pointer: fine)");
+      const strength = clamp(parseFloat(box2.getAttribute("data-xz-depth")) || 1, 0.2, 2);
+      const items = () => {
+        const marked = $$3("[data-xz-depth-item]", box2);
+        return marked.length ? marked : Array.from(box2.children);
+      };
+      let list = [];
+      let active = false;
+      const clear = () => items().forEach((el) => {
+        el.style.transform = "";
+        el.style.opacity = "";
+      });
+      const measure = () => {
+        clear();
+        list = items().map((el) => {
+          const r = el.getBoundingClientRect();
+          return { el, mid: r.top + scrollY + r.height / 2 };
+        });
+      };
+      const update2 = () => {
+        if (!active) return;
+        const half = innerHeight / 2;
+        for (const item of list) {
+          const d = (item.mid - scrollY - half) / half;
+          if (Math.abs(d) > 1.4) continue;
+          const bend = clamp((Math.abs(d) - 0.55) / 0.45) * strength;
+          item.el.style.transform = bend ? `perspective(900px) rotateX(${(-Math.sign(d) * bend * 36).toFixed(2)}deg) translateZ(${(-bend * bend * 80).toFixed(1)}px)` : "";
+          item.el.style.opacity = bend ? String(1 - Math.min(bend, 1) * 0.6) : "";
+        }
+      };
+      const sync = () => {
+        active = media.matches && motionOn();
+        box2.classList.toggle("is-depth", active);
+        if (!active) return clear();
+        measure();
+        update2();
+      };
+      const onScroll = perFrame(update2);
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", perFrame(sync));
+      media.addEventListener("change", sync);
+      onMotion(sync);
+      (_a = document.fonts) == null ? void 0 : _a.ready.then(sync);
+      addEventListener("load", sync, { once: true });
+      if (typeof ResizeObserver === "function") new ResizeObserver(perFrame(sync)).observe(document.body);
+      sync();
+    }
+  }
+
+  // src/blocks/motion/curtain.js
+  function initCurtains(root2) {
+    for (const band of $$3("[data-xz-curtain]", root2)) {
+      if (ready3(band, "Curtain")) continue;
+      const update2 = () => {
+        if (!motionOn()) return band.style.setProperty("--xz-curtain", "1");
+        const top = band.getBoundingClientRect().top;
+        const t = clamp((innerHeight - top) / (innerHeight * 0.6));
+        band.style.setProperty("--xz-curtain", (1 - (1 - t) * (1 - t)).toFixed(3));
+      };
+      const onScroll = perFrame(update2);
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+      onMotion(update2);
+      update2();
+    }
+  }
+
+  // src/blocks/navigation/navbar.js
+  function initNavbars(root2) {
+    for (const nav of $$3("[data-xz-navbar]", root2)) {
+      if (ready3(nav, "Navbar")) continue;
+      const adapt = nav.getAttribute("data-xz-navbar") === "adapt";
+      const update2 = () => {
+        nav.classList.toggle("is-scrolled", scrollY > 8);
+        if (!adapt) return;
+        const y = nav.getBoundingClientRect().bottom + 1;
+        const under = document.elementsFromPoint(innerWidth / 2, Math.min(y, innerHeight - 1)).find((el) => !nav.contains(el));
+        const band = under == null ? void 0 : under.closest("[data-theme]:not(html)");
+        if (band) nav.setAttribute("data-theme", band.getAttribute("data-theme"));
+        else nav.removeAttribute("data-theme");
+      };
+      const onScroll = perFrame(update2);
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+      document.addEventListener("xz:theme", onScroll);
+      update2();
+    }
+  }
+
+  // src/blocks/navigation/scroll-progress.js
+  var bars = /* @__PURE__ */ new Set();
+  var update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const p = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    bars.forEach((bar) => bar.style.setProperty("--xz-progress", p.toFixed(4)));
+  };
+  var bound2 = false;
+  function initScrollProgress(root2) {
+    for (const bar of $$3("[data-xz-scroll-progress]", root2)) {
+      if (ready3(bar, "Progress")) continue;
+      bar.classList.add("xz-scroll-progress");
+      bar.setAttribute("aria-hidden", "true");
+      bars.add(bar);
+    }
+    if (bars.size && !bound2) {
+      bound2 = true;
+      const onScroll = perFrame(update);
+      addEventListener("scroll", onScroll, { passive: true });
+      addEventListener("resize", onScroll);
+    }
+    update();
+  }
+
+  // src/blocks/navigation/tabs-expand.js
+  var widths = { md: 768, lg: 1024, xl: 1280 };
+  function initTabsExpand(root2) {
+    for (const tabs of $$3("[data-xz-tabs][data-xz-tabs-expand]", root2)) {
+      if (ready3(tabs, "Expand")) continue;
+      const at = widths[tabs.getAttribute("data-xz-tabs-expand")] || widths.lg;
+      const media = matchMedia(`(min-width: ${at}px)`);
+      const tabEls = $$3(":scope > .xz-tabs__list .xz-tabs__tab", tabs);
+      const panels = $$3(":scope > .xz-tabs__panel", tabs);
+      const sync = () => {
+        const wide = media.matches;
+        tabs.classList.toggle("is-expanded", wide);
+        const selected = Math.max(0, tabEls.findIndex((t) => t.getAttribute("aria-selected") === "true"));
+        panels.forEach((p, i) => {
+          if (wide) {
+            p.hidden = false;
+            p.removeAttribute("role");
+            p.removeAttribute("tabindex");
+            p.removeAttribute("aria-labelledby");
+          } else {
+            p.setAttribute("role", "tabpanel");
+            p.tabIndex = 0;
+            if (tabEls[i]) p.setAttribute("aria-labelledby", tabEls[i].id);
+            p.hidden = i !== selected;
+          }
+        });
+      };
+      media.addEventListener("change", sync);
+      sync();
+    }
+  }
+
+  // src/blocks/content/marquee.js
+  function initMarquees(root2) {
+    var _a;
+    for (const box2 of $$3(".xz-marquee", root2)) {
+      if (ready3(box2, "Marquee")) continue;
+      const track = box2.querySelector(".xz-marquee__track");
+      if (!track || !track.children.length) continue;
+      for (const item of Array.from(track.children)) {
+        const copy2 = item.cloneNode(true);
+        copy2.setAttribute("aria-hidden", "true");
+        copy2.setAttribute("data-xz-clone", "");
+        for (const el of copy2.querySelectorAll("a, button, input, select, textarea, [tabindex]")) el.tabIndex = -1;
+        track.append(copy2);
+      }
+      const speed = Math.max(5, parseFloat(box2.getAttribute("data-speed")) || 40);
+      const size = () => box2.style.setProperty("--xz-marquee-duration", `${(track.scrollWidth / 2 / speed).toFixed(1)}s`);
+      size();
+      addEventListener("resize", perFrame(size));
+      (_a = document.fonts) == null ? void 0 : _a.ready.then(size);
+      box2.classList.add("is-ready");
+      let held = false;
+      let visible = true;
+      const sync = () => box2.classList.toggle("is-paused", held || !visible);
+      watch(box2, (v) => (visible = v, sync()));
+      box2.xzMarquee = { pause: () => (held = true, sync()), play: () => (held = false, sync()) };
+    }
+  }
+
+  // src/blocks/forms/copy.js
+  var live = null;
+  function announce(message) {
+    if (!live) {
+      live = Object.assign(document.createElement("div"), { className: "xz-sr-only" });
+      live.setAttribute("role", "status");
+      document.body.append(live);
+    }
+    live.textContent = "";
+    setTimeout(() => live.textContent = message, 30);
+  }
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      const area = Object.assign(document.createElement("textarea"), { value: text });
+      area.setAttribute("readonly", "");
+      area.style.cssText = "position:fixed;top:0;left:0;opacity:0";
+      document.body.append(area);
+      area.select();
+      let ok = false;
+      try {
+        ok = document.execCommand("copy");
+      } catch {
+      }
+      area.remove();
+      return ok;
+    }
+  }
+  function source(btn) {
+    var _a;
+    const literal = btn.getAttribute("data-xz-copy");
+    if (literal) return { text: literal };
+    const target = btn.hasAttribute("data-xz-copy-target") ? document.querySelector(btn.getAttribute("data-xz-copy-target")) : (_a = btn.closest(".xz-command")) == null ? void 0 : _a.querySelector(".xz-command__text");
+    if (!target) return { text: "" };
+    return { text: "value" in target && typeof target.value === "string" ? target.value : target.textContent.trim(), target };
+  }
+  function initCopy(root2, { icon: icon3 }) {
+    for (const btn of $$3("[data-xz-copy]", root2)) {
+      if (ready3(btn, "Copy")) continue;
+      const wrap = Object.assign(document.createElement("span"), { className: "xz-copy" });
+      const idle = Object.assign(document.createElement("span"), { className: "xz-copy__idle" });
+      const done = Object.assign(document.createElement("span"), { className: "xz-copy__done" });
+      done.setAttribute("aria-hidden", "true");
+      idle.append(...btn.childNodes);
+      const iconOnly = btn.classList.contains("xz-btn--icon");
+      done.innerHTML = icon3("check", { size: "sm" }) + (iconOnly ? "" : "<span>Copied</span>");
+      wrap.append(idle, done);
+      btn.append(wrap);
+      let timer = 0;
+      btn.addEventListener("click", async () => {
+        const { text, target } = source(btn);
+        if (!text) return;
+        const ok = await copy(text);
+        clearTimeout(timer);
+        if (ok) {
+          btn.classList.add("is-copied");
+          announce("Copied");
+          timer = setTimeout(() => btn.classList.remove("is-copied"), 2e3);
+        } else {
+          announce("Could not copy. Select the text and press Ctrl+C.");
+          if (target) getSelection().selectAllChildren(target);
+        }
+        fire3(btn, "xz:copy", { text, ok });
+      });
+    }
+  }
+
+  // src/blocks/data-display/flow.js
+  var NS = "http://www.w3.org/2000/svg";
+  function initFlows(root2) {
+    var _a;
+    for (const flow of $$3("[data-xz-flow]", root2)) {
+      if (ready3(flow, "Flow")) continue;
+      const source2 = flow.querySelector(".xz-flow__source");
+      const hub = flow.querySelector(".xz-flow__hub");
+      const targets = $$3("[data-xz-flow-target]", flow);
+      if (!source2 || !hub || !targets.length) continue;
+      const svg = document.createElementNS(NS, "svg");
+      svg.setAttribute("class", "xz-flow__lines");
+      svg.setAttribute("aria-hidden", "true");
+      svg.setAttribute("focusable", "false");
+      flow.prepend(svg);
+      const anchor = (part) => part.querySelector("[data-xz-flow-anchor]") || part;
+      const wideQuery = matchMedia("(min-width: 1024px)");
+      const auto = flow.getAttribute("data-xz-flow") === "auto";
+      let routes = [];
+      let active = -1;
+      let holding = false;
+      let visible = true;
+      let timer = 0;
+      const path = (d, cls) => {
+        const p = document.createElementNS(NS, "path");
+        p.setAttribute("d", d);
+        p.setAttribute("class", cls);
+        p.setAttribute("pathLength", "100");
+        svg.append(p);
+        return p;
+      };
+      const paint = () => {
+        var _a2;
+        for (const p of svg.querySelectorAll(".xz-flow__line")) {
+          p.classList.toggle("is-active", active >= 0 && (p.dataset.route === "in" || Number(p.dataset.route) === active));
+        }
+        (_a2 = svg.querySelector(".xz-flow__pulse")) == null ? void 0 : _a2.remove();
+        if (active >= 0 && routes[active]) path(routes[active].full, "xz-flow__pulse");
+        targets.forEach((t, i) => {
+          t.classList.toggle("is-active", i === active);
+          if (t.tagName === "BUTTON") t.setAttribute("aria-pressed", String(i === active));
+        });
+      };
+      const draw = () => {
+        const box2 = flow.getBoundingClientRect();
+        if (!box2.width) return;
+        const wide = wideQuery.matches;
+        const rel = (el) => {
+          const r = el.getBoundingClientRect();
+          return { l: r.left - box2.left, t: r.top - box2.top, w: r.width, h: r.height };
+        };
+        const curve = (p, q) => wide ? `C${(p.x + q.x) / 2},${p.y} ${(p.x + q.x) / 2},${q.y} ${q.x},${q.y}` : `C${p.x},${(p.y + q.y) / 2} ${q.x},${(p.y + q.y) / 2} ${q.x},${q.y}`;
+        let start2;
+        let mid;
+        let inEnd;
+        let outStart;
+        if (wide) {
+          const s = rel(anchor(source2));
+          const h = rel(anchor(hub));
+          start2 = { x: s.l + s.w, y: s.t + s.h / 2 };
+          mid = { x: h.l + h.w / 2, y: h.t + h.h / 2 };
+          inEnd = mid;
+          outStart = mid;
+        } else {
+          const s = rel(source2);
+          const h = rel(hub);
+          const x = h.l + h.w / 2;
+          start2 = { x, y: s.t + s.h };
+          inEnd = { x, y: h.t };
+          outStart = { x, y: h.t + h.h };
+        }
+        routes = targets.map((t) => {
+          const r = wide ? rel(t) : rel(targets[0].closest(".xz-flow__targets") || t);
+          const end = wide ? { x: r.l, y: r.t + r.h / 2 } : { x: outStart.x, y: r.t };
+          const through = wide ? "" : ` M${outStart.x},${outStart.y}`;
+          return { out: `M${outStart.x},${outStart.y} ${curve(outStart, end)}`, full: `M${start2.x},${start2.y} ${curve(start2, inEnd)}${through} ${curve(outStart, end)}` };
+        });
+        svg.setAttribute("viewBox", `0 0 ${box2.width} ${box2.height}`);
+        svg.replaceChildren();
+        path(`M${start2.x},${start2.y} ${curve(start2, inEnd)}`, "xz-flow__line").dataset.route = "in";
+        routes.forEach((r, i) => path(r.out, "xz-flow__line").dataset.route = String(i));
+        paint();
+      };
+      const select = (i) => {
+        if (i === active) return;
+        active = i;
+        paint();
+        if (i >= 0) fire3(flow, "xz:route", { index: i, target: targets[i] });
+      };
+      const stop = () => {
+        clearInterval(timer);
+        timer = 0;
+      };
+      const start = () => {
+        stop();
+        if (auto && visible && !holding && motionOn()) timer = setInterval(() => select((active + 1) % targets.length), 2400);
+      };
+      targets.forEach((t, i) => {
+        t.addEventListener("pointerenter", () => (holding = true, stop(), select(i)));
+        t.addEventListener("focus", () => (holding = true, stop(), select(i)));
+        t.addEventListener("pointerleave", () => {
+          if (t.contains(document.activeElement)) return;
+          holding = false;
+          if (!auto) select(-1);
+          start();
+        });
+        t.addEventListener("blur", () => {
+          holding = false;
+          if (!auto) select(-1);
+          start();
+        });
+      });
+      const redraw = perFrame(draw);
+      if (typeof ResizeObserver === "function") new ResizeObserver(redraw).observe(flow);
+      addEventListener("resize", redraw);
+      (_a = document.fonts) == null ? void 0 : _a.ready.then(redraw);
+      watch(flow, (v) => (visible = v, start()));
+      onMotion(start);
+      draw();
+      flow.xzFlow = { redraw: draw, select };
+    }
+  }
+
+  // src/blocks/index.js
+  var bound3 = false;
+  function initBlocks(root2, { icon: icon3 }) {
+    if (!bound3) {
+      bound3 = true;
+      motion.restore();
+      document.addEventListener("click", (e) => {
+        var _a, _b;
+        if ((_b = (_a = e.target).closest) == null ? void 0 : _b.call(_a, "[data-xz-motion-toggle]")) motion.toggle();
+      });
+    }
+    initMotion(root2, { icon: icon3 });
+    initNavbars(root2);
+    initScrollProgress(root2);
+    initTabsExpand(root2);
+    initMarquees(root2);
+    initCopy(root2, { icon: icon3 });
+    initLayers(root2);
+    initFlows(root2);
+    initRotators(root2);
+    initTypewriters(root2);
+    initSequences(root2);
+    initDotfields(root2);
+    initDepth(root2);
+    initCurtains(root2);
+    initReveal(root2);
+    syncMotionButtons();
   }
 
   // src/js/index.js
-  var $ = (sel, root = document) => root.querySelector(sel);
-  var $$3 = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  var $ = (sel, root2 = document) => root2.querySelector(sel);
+  var $$4 = (sel, root2 = document) => Array.from(root2.querySelectorAll(sel));
   var uid3 = 0;
   var id = (prefix) => `xz-${prefix}-${++uid3}`;
   function icon2(name, { size, label } = {}) {
@@ -1727,8 +2553,8 @@ var Xsenze = (() => {
     const a11y = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"';
     return `<svg class="${cls}" viewBox="0 0 24 24" ${a11y} focusable="false">${body}</svg>`;
   }
-  function initIcons(root) {
-    for (const el of $$3("[data-xz-icon]", root)) {
+  function initIcons(root2) {
+    for (const el of $$4("[data-xz-icon]", root2)) {
       const name = el.getAttribute("data-xz-icon");
       const html = icon2(name, { size: el.getAttribute("data-size"), label: el.getAttribute("aria-label") });
       if (!html) {
@@ -1758,7 +2584,7 @@ var Xsenze = (() => {
     /** Toggle buttons show a sun in the dark theme and a moon in the light theme. */
     sync() {
       const dark = theme.get() === "dark";
-      for (const btn of $$3("[data-xz-theme-toggle]")) {
+      for (const btn of $$4("[data-xz-theme-toggle]")) {
         btn.setAttribute("aria-pressed", String(dark));
         const old = $("svg.xz-icon, [data-xz-icon]", btn);
         if (old) old.outerHTML = icon2(dark ? "sun" : "moon");
@@ -1835,13 +2661,13 @@ var Xsenze = (() => {
     el.addEventListener("focusout", resume);
     return { el, dismiss };
   }
-  function initTabs(root) {
-    for (const tabs of $$3("[data-xz-tabs]", root)) {
+  function initTabs(root2) {
+    for (const tabs of $$4("[data-xz-tabs]", root2)) {
       if (tabs.xzReady) continue;
       tabs.xzReady = true;
       const list = $(".xz-tabs__list", tabs);
-      const tabEls = $$3(".xz-tabs__tab", list);
-      const panels = $$3(":scope > .xz-tabs__panel", tabs);
+      const tabEls = $$4(".xz-tabs__tab", list);
+      const panels = $$4(":scope > .xz-tabs__panel", tabs);
       list.setAttribute("role", "tablist");
       const select = (tab, focus) => {
         tabEls.forEach((t, i) => {
@@ -1879,15 +2705,15 @@ var Xsenze = (() => {
     }
   }
   function closeMenus(except) {
-    for (const m of $$3("[data-xz-menu].is-open")) {
+    for (const m of $$4("[data-xz-menu].is-open")) {
       if (m === except) continue;
       m.classList.remove("is-open");
       $(".xz-menu__list", m).hidden = true;
       m.xzTrigger.setAttribute("aria-expanded", "false");
     }
   }
-  function initMenus(root) {
-    for (const menu of $$3("[data-xz-menu]", root)) {
+  function initMenus(root2) {
+    for (const menu of $$4("[data-xz-menu]", root2)) {
       if (menu.xzReady) continue;
       menu.xzReady = true;
       const list = $(".xz-menu__list", menu);
@@ -1899,7 +2725,7 @@ var Xsenze = (() => {
       trigger.setAttribute("aria-haspopup", "menu");
       trigger.setAttribute("aria-expanded", "false");
       trigger.setAttribute("aria-controls", list.id);
-      const items = () => $$3(".xz-menu__item:not(:disabled)", list);
+      const items = () => $$4(".xz-menu__item:not(:disabled)", list);
       items().forEach((i) => {
         i.setAttribute("role", "menuitem");
         if (i.parentElement.tagName === "LI") i.parentElement.setAttribute("role", "none");
@@ -1979,15 +2805,15 @@ var Xsenze = (() => {
     tip.remove();
     tip = null;
   }
-  function initComboboxes(root) {
+  function initComboboxes(root2) {
     var _a, _b;
-    for (const box2 of $$3("[data-xz-combobox]", root)) {
+    for (const box2 of $$4("[data-xz-combobox]", root2)) {
       if (box2.xzReady) continue;
       const select = $("select", box2);
       if (!select) continue;
       box2.xzReady = true;
       box2.classList.add("xz-combobox");
-      const options = $$3("option", select).filter((o) => o.value !== "").map((o) => ({ value: o.value, label: o.textContent.trim() }));
+      const options = $$4("option", select).filter((o) => o.value !== "").map((o) => ({ value: o.value, label: o.textContent.trim() }));
       const placeholder = ((_a = $('option[value=""]', select)) == null ? void 0 : _a.textContent.trim()) || box2.getAttribute("data-placeholder") || "Search";
       const input = document.createElement("input");
       const list = document.createElement("ul");
@@ -2015,8 +2841,8 @@ var Xsenze = (() => {
       box2.append(input, list);
       let active = -1;
       let shown = [];
-      const render = (query) => {
-        const q = query.trim().toLowerCase();
+      const render = (query2) => {
+        const q = query2.trim().toLowerCase();
         shown = q ? options.filter((o) => o.label.toLowerCase().includes(q)) : options;
         list.innerHTML = "";
         if (!shown.length) {
@@ -2039,14 +2865,14 @@ var Xsenze = (() => {
       const setActive = (i) => {
         var _a2;
         active = i;
-        $$3(".xz-combobox__option", list).forEach((li, n) => li.classList.toggle("is-active", n === i));
+        $$4(".xz-combobox__option", list).forEach((li, n) => li.classList.toggle("is-active", n === i));
         if (i >= 0) {
           input.setAttribute("aria-activedescendant", `${list.id}-${i}`);
           (_a2 = list.children[i]) == null ? void 0 : _a2.scrollIntoView({ block: "nearest" });
         } else input.removeAttribute("aria-activedescendant");
       };
-      const open = (query = "") => {
-        render(query);
+      const open = (query2 = "") => {
+        render(query2);
         list.hidden = false;
         input.setAttribute("aria-expanded", "true");
       };
@@ -2087,8 +2913,8 @@ var Xsenze = (() => {
       });
     }
   }
-  function initTables(root) {
-    for (const table of $$3("table[data-xz-table]", root)) {
+  function initTables(root2) {
+    for (const table of $$4("table[data-xz-table]", root2)) {
       if (table.xzReady) continue;
       table.xzReady = true;
       const tbody = table.tBodies[0];
@@ -2121,10 +2947,10 @@ var Xsenze = (() => {
           state.page = 1;
           heads.forEach((h) => h.hasAttribute("aria-sort") && h.setAttribute("aria-sort", "none"));
           th.setAttribute("aria-sort", state.dir === 1 ? "ascending" : "descending");
-          update();
+          update2();
         });
       });
-      const update = () => {
+      const update2 = () => {
         var _a;
         let list = state.query ? rows.filter((r) => r.textContent.toLowerCase().includes(state.query)) : rows.slice();
         if (state.sort >= 0) {
@@ -2142,17 +2968,17 @@ var Xsenze = (() => {
         tbody.replaceChildren(...visible);
         if (empty) empty.hidden = total > 0;
         (_a = table.closest(".xz-table-wrap")) == null ? void 0 : _a.toggleAttribute("hidden", Boolean(empty) && total === 0);
-        if (pager) renderPager(pager, { page: state.page, pages, total, from, count: visible.length, go: (p) => (state.page = p, update()) });
+        if (pager) renderPager(pager, { page: state.page, pages, total, from, count: visible.length, go: (p) => (state.page = p, update2()) });
         table.dispatchEvent(new CustomEvent("xz:table", { bubbles: true, detail: { total, page: state.page, pages } }));
       };
       if (search) {
         search.addEventListener("input", () => {
           state.query = search.value.trim().toLowerCase();
           state.page = 1;
-          update();
+          update2();
         });
       }
-      update();
+      update2();
     }
   }
   function renderPager(el, { page, pages, total, from, count, go }) {
@@ -2245,8 +3071,8 @@ var Xsenze = (() => {
     }
     return invalid.length === 0;
   }
-  function initForms(root) {
-    for (const form of $$3("form[data-xz-validate]", root)) {
+  function initForms(root2) {
+    for (const form of $$4("form[data-xz-validate]", root2)) {
       if (form.xzReady) continue;
       form.xzReady = true;
       form.noValidate = true;
@@ -2267,9 +3093,9 @@ var Xsenze = (() => {
       });
     }
   }
-  function initFormats(root) {
+  function initFormats(root2) {
     var _a;
-    for (const el of $$3("[data-xz-format]", root)) {
+    for (const el of $$4("[data-xz-format]", root2)) {
       const kind = el.getAttribute("data-xz-format");
       const value = (_a = el.getAttribute("data-value")) != null ? _a : el.textContent;
       const fn = { inr, "inr-compact": inrCompact, number, compact, date, "date-short": dateShort, "date-time": dateTime, relative, percent }[kind];
@@ -2298,11 +3124,11 @@ var Xsenze = (() => {
       if (pw) {
         const input = (_c = pw.closest(".xz-input-group")) == null ? void 0 : _c.querySelector("input");
         if (input) {
-          const show = input.type === "password";
-          input.type = show ? "text" : "password";
-          pw.setAttribute("aria-pressed", String(show));
-          pw.setAttribute("aria-label", show ? "Hide password" : "Show password");
-          pw.innerHTML = icon2(show ? "eye-off" : "eye", { size: "sm" });
+          const show2 = input.type === "password";
+          input.type = show2 ? "text" : "password";
+          pw.setAttribute("aria-pressed", String(show2));
+          pw.setAttribute("aria-label", show2 ? "Hide password" : "Show password");
+          pw.innerHTML = icon2(show2 ? "eye-off" : "eye", { size: "sm" });
         }
       }
       const toaster = t.closest("[data-xz-toast]");
@@ -2333,21 +3159,22 @@ var Xsenze = (() => {
     document.addEventListener("scroll", hideTip, true);
   }
   var listening = false;
-  function init(root = document) {
+  function init(root2 = document) {
     if (!listening) {
       listening = true;
       theme.restore();
       listen();
     }
-    initIcons(root);
-    initTabs(root);
-    initMenus(root);
-    initComboboxes(root);
-    initTables(root);
-    initForms(root);
-    initFormats(root);
-    initAdvancedForms(root, { icon: icon2 });
-    initComponents(root, { icon: icon2, validateField: validateField2 });
+    initIcons(root2);
+    initTabs(root2);
+    initMenus(root2);
+    initComboboxes(root2);
+    initTables(root2);
+    initForms(root2);
+    initFormats(root2);
+    initAdvancedForms(root2, { icon: icon2 });
+    initComponents(root2, { icon: icon2, validateField: validateField2 });
+    initBlocks(root2, { icon: icon2 });
     theme.sync();
   }
   if (typeof document !== "undefined") {
@@ -2366,7 +3193,9 @@ var Xsenze = (() => {
     toast,
     validate,
     format: format_exports,
-    sanitize
+    sanitize,
+    motion,
+    copy
   };
   var index_default = Xsenze;
   return __toCommonJS(index_exports);

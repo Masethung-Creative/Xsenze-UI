@@ -1,0 +1,14 @@
+/* Flow: shows how one thing reaches many through a hub: a source on the left, a hub in the middle
+   and targets on the right, joined by lines. Pointing at or focusing a target lights its route.
+   On small screens the three parts stack and the lines run downwards. */
+.xz-flow { position: relative; display: grid; gap: var(--xz-space-10); align-items: center; text-align: start; }
+@media (min-width: 1024px) { .xz-flow { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--xz-space-12); } }
+.xz-flow__source, .xz-flow__hub, .xz-flow__targets { position: relative; z-index: 1; min-width: 0; }
+.xz-flow__hub { display: grid; place-items: center; }
+.xz-flow__lines { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.xz-flow__line { fill: none; stroke: var(--xz-border); stroke-width: 1; vector-effect: non-scaling-stroke; transition: stroke var(--xz-duration-base) var(--xz-ease-out); }
+.xz-flow__line.is-active { stroke: var(--xz-accent-2); stroke-width: 1.5; }
+.xz-flow__pulse { fill: none; stroke: var(--xz-accent-2); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 3 97; vector-effect: non-scaling-stroke; animation: xz-flow-pulse 2.2s linear infinite; }
+@keyframes xz-flow-pulse { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+[data-xz-motion="off"] .xz-flow__pulse { display: none; }
+@media (prefers-reduced-motion: reduce) { .xz-flow__pulse { display: none; } }

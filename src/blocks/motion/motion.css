@@ -1,0 +1,10 @@
+/* Shared motion parts. The page's motion button sets data-xz-motion="off" on <html>;
+   every looping animation below stops then, as it does when the system asks for less motion. */
+
+/* Caret: a blinking text cursor, used by the rotator and the typewriter. */
+.xz-caret { display: inline-block; flex: none; width: 0.07em; min-width: 2px; height: 0.86em; margin-left: 0.08em; vertical-align: -0.06em; background: var(--xz-accent-2); animation: xz-caret 1.1s steps(1) infinite; }
+@keyframes xz-caret { 50% { opacity: 0; } }
+[data-xz-motion="off"] .xz-caret { animation: none; }
+
+/* Motion button: a pause button that shows play while motion is off. */
+.xz-motion-toggle[aria-pressed="true"] { color: var(--xz-accent-2-text); }

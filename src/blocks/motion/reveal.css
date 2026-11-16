@@ -1,0 +1,18 @@
+/* Reveal: content rises into place, from soft to sharp.
+   data-xz-reveal="load" plays as the page loads and needs no script, so it never hides content.
+   data-xz-reveal plays when the element scrolls into view; the script hides it only while it waits off screen.
+   --xz-i (set inline, or by data-xz-stagger on a parent) delays each item by one stagger step. */
+@keyframes xz-reveal {
+  from { opacity: 0; filter: blur(var(--xz-blur-md)); transform: translateY(var(--xz-space-6)); }
+}
+[data-xz-reveal="load"],
+[data-xz-reveal].is-revealing {
+  animation: xz-reveal var(--xz-duration-reveal) var(--xz-ease-out) backwards;
+  animation-delay: calc(var(--xz-reveal-delay, 0ms) + var(--xz-i, 0) * var(--xz-stagger, 80ms));
+}
+[data-xz-reveal].is-pending { opacity: 0; }
+[data-xz-motion="off"] [data-xz-reveal] { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-xz-reveal] { animation: none !important; }
+  [data-xz-reveal].is-pending { opacity: 1; }
+}

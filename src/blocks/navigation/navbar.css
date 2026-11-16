@@ -1,0 +1,19 @@
+/* Overlay navbar: floats over the first section, transparent at the top of the page.
+   Once the page scrolls it gets a frosted background, so links never sit on top of text.
+   With data-xz-navbar="adapt" it also takes the theme of the band underneath it (a dark band makes it dark). */
+.xz-navbar--overlay {
+  position: fixed;
+  inset: 0 0 auto;
+  background: transparent;
+  border-bottom-color: transparent;
+  color: var(--xz-text);
+  transition: background-color var(--xz-duration-base) var(--xz-ease-out), border-color var(--xz-duration-base) var(--xz-ease-out), color var(--xz-duration-base) var(--xz-ease-out);
+}
+.xz-navbar--overlay.is-scrolled { background: var(--xz-bg); border-bottom-color: var(--xz-border); }
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .xz-navbar--overlay.is-scrolled {
+    background: color-mix(in srgb, var(--xz-bg) 78%, transparent);
+    -webkit-backdrop-filter: blur(var(--xz-blur-lg));
+    backdrop-filter: blur(var(--xz-blur-lg));
+  }
+}

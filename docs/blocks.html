@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Blocks · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
+<link rel="stylesheet" href="docs.css">
+<script src="docs.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body class="doc" data-page="blocks">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Blocks</p>
+  <h1 class="xz-h1">Blocks for landing pages</h1>
+  <p class="xz-lead">The parts that make a product page: a hero with a rolling word, a flow diagram, logo rows, live demos and a closing band. Each part is a normal Xsenze component, ready to drop into a page section by section.</p>
+  <p class="xz-row xz-gap-2" style="margin-top: var(--xz-space-5)">
+    <a class="xz-btn xz-btn--primary" href="../templates/landing.html">Open the landing page template</a>
+    <a class="xz-btn" href="#sections">Jump to the section templates</a>
+  </p>
+</header>
+
+<!-- ================= GRAPH ================= -->
+<section class="doc-section" id="graph">
+  <h2>Component graph</h2>
+  <p>Every block belongs to one kind and works on any page. They use the same classes, tokens and data attributes as the rest of the kit, so there is nothing extra to load: <code class="xz-code">xsenze.css</code> and <code class="xz-code">xsenze.js</code> already contain them.</p>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Component</th><th>Variants</th><th>States</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="3">Navigation</td><td><a href="#navbar">Overlay navbar</a></td><td><code>--overlay</code>, <code>adapt</code></td><td>top, scrolled, takes a band's theme</td></tr>
+      <tr><td><a href="#progress">Scroll progress</a></td><td>one</td><td>0 to 100%</td></tr>
+      <tr><td><a href="#tabs-expand">Expanding tabs</a></td><td>expands at <code>md</code>, <code>lg</code>, <code>xl</code></td><td>tabs, stacked</td></tr>
+      <tr><td>Hero</td><td><a href="#hero-block">Hero</a></td><td>centred, <code>--split</code></td><td>loading in</td></tr>
+      <tr><td rowspan="9">Content</td><td><a href="#band">Band</a></td><td><code>--muted</code>, <code>--tight</code>, <code>--ruled</code>, any <code>data-theme</code></td><td>opening (with Curtain)</td></tr>
+      <tr><td><a href="#eyebrow">Eyebrow</a></td><td>with dot, links, separators</td><td>link hover, focus</td></tr>
+      <tr><td><a href="#feature">Feature row</a></td><td><code>--flip</code></td><td>revealing</td></tr>
+      <tr><td><a href="#window">Window</a></td><td><code>--raised</code></td><td>with or without status</td></tr>
+      <tr><td><a href="#tile">Tile</a></td><td><code>--more</code>, <code>--wide</code>; grid of 2, 3 or 4</td><td>hover, focus, pressed, active, disabled</td></tr>
+      <tr><td><a href="#checklist">Checklist</a></td><td>one</td><td>waiting, done</td></tr>
+      <tr><td><a href="#command">Command</a></td><td><code>--sm</code>, <code>--lg</code>, <code>--wrap</code>, dark</td><td>copied, failed</td></tr>
+      <tr><td><a href="#marquee">Marquee</a></td><td><code>--plain</code>, <code>--reverse</code></td><td>moving, paused, still</td></tr>
+      <tr><td><a href="#facts">Facts</a></td><td><code>--marker</code>, <code>--center</code></td><td>none</td></tr>
+      <tr><td>Forms</td><td><a href="#copy">Copy button</a></td><td>text, target, inside a command</td><td>idle, copied, failed</td></tr>
+      <tr><td rowspan="3">Data display</td><td><a href="#flow">Flow</a></td><td>pointer only, <code>auto</code></td><td>idle, route lit</td></tr>
+      <tr><td><a href="#compare">Compare</a></td><td>still, played</td><td>arriving, done, pick</td></tr>
+      <tr><td><a href="#ledger">Ledger</a></td><td>still, played</td><td>before, struck</td></tr>
+      <tr><td>Footer</td><td><a href="#footer-block">Footer brand and wordmark</a></td><td>light, dark</td><td>none</td></tr>
+      <tr><td rowspan="10">Motion</td><td><a href="#motion-button">Motion button</a></td><td>icon, text</td><td>on, off</td></tr>
+      <tr><td><a href="#reveal">Reveal</a></td><td>on load, on scroll, staggered</td><td>waiting, revealing, shown</td></tr>
+      <tr><td><a href="#rotator">Rotator</a></td><td>coloured, <code>--plain</code>, with caret</td><td>rolling, paused</td></tr>
+      <tr><td><a href="#typewriter">Typewriter</a></td><td>on load, on scroll</td><td>typing, typed</td></tr>
+      <tr><td><a href="#sequence">Sequence</a></td><td>once, looping</td><td>armed, step in, done</td></tr>
+      <tr><td><a href="#beam">Beam</a></td><td>on hover, <code>--always</code></td><td>off, travelling, still</td></tr>
+      <tr><td><a href="#dotfield">Dot field</a></td><td><code>--even</code>, <code>--fine</code></td><td>drifting, lit by the pointer</td></tr>
+      <tr><td><a href="#layers">Layers</a></td><td>2 to 12 plates</td><td>wave, tilted</td></tr>
+      <tr><td><a href="#depth">Depth</a></td><td>strength 0.2 to 2</td><td>flat, tipped</td></tr>
+      <tr><td><a href="#curtain">Curtain</a></td><td>one</td><td>closed to open</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What uses what</h3>
+  <ul>
+    <li><strong>Hero</strong> holds an Eyebrow, a title with a Rotator and its caret, buttons, a Flow and a Command with Copy and Beam, over a Dot field. Its parts come in with Reveal.</li>
+    <li><strong>Flow</strong> joins a card with an avatar and a Checklist (the source), Layers and a small Command (the hub), and Tiles (the targets).</li>
+    <li><strong>Feature row</strong> holds Facts, and a visual such as a Window with Compare or Ledger played by a Sequence, or a card of Marquees.</li>
+    <li><strong>Band</strong> wraps every section; Curtain opens it, and <code>data-theme</code> gives it its own theme.</li>
+    <li><strong>Overlay navbar</strong> carries the Motion button and the theme button, and reads the theme of the Band beneath it.</li>
+  </ul>
+</section>
+
+<!-- ================= NAVIGATION ================= -->
+<section class="doc-section" id="navigation">
+  <h2>Navigation</h2>
+
+  <h3 id="navbar">Overlay navbar</h3>
+  <p>Floats over the first section, transparent at the top of the page. As soon as the page scrolls it gets a frosted background, so links never sit on top of text. With <code class="xz-code">adapt</code> it also takes the theme of the band underneath, so it turns dark over a dark band. See it on the <a class="xz-link" href="../templates/landing.html">landing page template</a>.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <div data-xz-scroll-progress></div>
+    <header class="xz-navbar xz-navbar--overlay" data-xz-navbar="adapt">
+      <a class="xz-logo" href="/">Xsenze</a>
+      <nav aria-label="Main">
+        <ul class="xz-navbar__nav">
+          <li><a class="xz-navbar__link" href="#modules">Modules</a></li>
+          <li><a class="xz-navbar__link" href="#pricing">Pricing</a></li>
+        </ul>
+      </nav>
+      <span class="xz-navbar__spacer"></span>
+      <div class="xz-navbar__actions">
+        <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-motion-toggle aria-label="Pause animations"><i data-xz-icon="pause"></i></button>
+        <a class="xz-btn xz-btn--primary" href="/signup">Start free</a>
+      </div>
+    </header>
+  </textarea>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Slots</td><td><code>xz-logo</code> <code>xz-navbar__nav</code> <code>xz-navbar__spacer</code> <code>xz-navbar__actions</code></td><td>The same parts as the standard navbar.</td></tr>
+      <tr><td>Option</td><td><code>xz-navbar--overlay</code></td><td>Fixed to the top, transparent until the page scrolls.</td></tr>
+      <tr><td>Option</td><td><code>data-xz-navbar</code></td><td>Adds <code>is-scrolled</code> after 8px of scrolling. <code>="adapt"</code> also copies <code>data-theme</code> from the band below the bar.</td></tr>
+      <tr><td>States</td><td><code>is-scrolled</code>, <code>data-theme</code></td><td>Frosted background; theme of the band underneath.</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>Motion:</strong> background, border and colour change over <code>--xz-duration-base</code> with <code>--xz-ease-out</code>.</li>
+    <li><strong>Accessibility:</strong> keep links in <code>&lt;nav aria-label="Main"&gt;</code>. The first section needs at least 3.5rem of top padding so the bar does not cover it; the hero already has it.</li>
+  </ul>
+
+  <h3 id="progress">Scroll progress</h3>
+  <p>A thin bar in the brand colour across the top of the screen that fills as the page is read. Use one per page.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden><div data-xz-scroll-progress></div></textarea>
+  <ul>
+    <li><strong>Options:</strong> none. The script adds <code>xz-scroll-progress</code> and sets <code>--xz-progress</code> from 0 to 1.</li>
+    <li><strong>Accessibility:</strong> decorative, so it is hidden from screen readers.</li>
+  </ul>
+
+  <h3 id="tabs-expand">Expanding tabs</h3>
+  <p>Tabs on small screens, every panel in a stack on wide ones, so a long catalogue never hides most of itself on a laptop. Add a heading to each panel; it shows only once the panels are stacked.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-tabs" data-xz-tabs data-xz-tabs-expand="lg">
+      <div class="xz-tabs__list" aria-label="Module groups">
+        <button class="xz-tabs__tab" aria-selected="true">Academics</button>
+        <button class="xz-tabs__tab">Finance</button>
+      </div>
+      <div class="xz-tabs__panel">
+        <h3 class="xz-tabs__heading">Academics</h3>
+        <p>Courses, timetable, exams and report cards.</p>
+      </div>
+      <div class="xz-tabs__panel">
+        <h3 class="xz-tabs__heading">Finance</h3>
+        <p>Fees, payroll, receipts and scholarships.</p>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Option</td><td><code>data-xz-tabs-expand</code></td><td>On a <code>data-xz-tabs</code> block. <code>="md"</code>, <code>"lg"</code> (default) or <code>"xl"</code> sets the width where the panels stack.</td></tr>
+      <tr><td>Slot</td><td><code>xz-tabs__heading</code></td><td>Heading inside each panel, shown only when stacked.</td></tr>
+      <tr><td>State</td><td><code>is-expanded</code></td><td>Tab list hidden, every panel shown.</td></tr>
+    </tbody>
+  </table></div>
+  <ul><li><strong>Accessibility:</strong> when stacked, the tab roles come off so screen readers meet plain sections with headings; on small screens the tab roles and keyboard keys come back.</li></ul>
+</section>
+
+<!-- ================= HERO ================= -->
+<section class="doc-section" id="hero-block">
+  <h2>Hero</h2>
+  <p>The opening section. Centred by default; <code class="xz-code">xz-hero--split</code> puts the media beside the text on wide screens. It leaves room at the top for an overlay navbar and keeps a moving background behind everything.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <section class="xz-hero" aria-labelledby="demo-hero-title">
+      <div class="xz-dotfield"></div>
+      <div class="xz-container xz-hero__inner">
+        <p class="xz-eyebrow"><span class="xz-eyebrow__dot"></span>New: fee reminders on WhatsApp</p>
+        <h2 class="xz-hero__title" id="demo-hero-title">One screen for your campus
+          <span class="xz-hero__line">Run <span class="xz-rotator" data-xz-rotator data-caret><span class="xz-rotator__item">fees</span><span class="xz-rotator__item">admissions</span><span class="xz-rotator__item">exams</span></span> from one place</span>
+        </h2>
+        <p class="xz-hero__lead">Priced per student, set up in a week.</p>
+        <div class="xz-hero__actions">
+          <a class="xz-btn xz-btn--primary xz-btn--lg" href="#hero-block">Start free</a>
+          <a class="xz-btn xz-btn--lg" href="#hero-block">Book a demo</a>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Slots</td><td><code>xz-hero__inner</code></td><td>The column of content. Add <code>xz-container</code> to it for the page width.</td></tr>
+      <tr><td>Slots</td><td><code>xz-hero__title</code> <code>xz-hero__line</code></td><td>The headline, and a quieter second line inside it, often holding a rotator.</td></tr>
+      <tr><td>Slots</td><td><code>xz-hero__lead</code> <code>xz-hero__actions</code> <code>xz-hero__media</code></td><td>Supporting sentence, buttons, and a wide area for a diagram, screenshot or demo.</td></tr>
+      <tr><td>Variant</td><td><code>xz-hero--split</code> + <code>xz-hero__copy</code></td><td>Text in <code>__copy</code> on the left and media on the right, from 1024px.</td></tr>
+      <tr><td>Background</td><td><code>xz-dotfield</code></td><td>Optional moving dots behind the hero. Put it first inside the section.</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>Motion:</strong> give each part <code>data-xz-reveal="load"</code> and <code>style="--xz-i: 0"</code>, 1, 2… They rise in 80ms apart as the page opens, with no script needed and nothing hidden if the script fails.</li>
+    <li><strong>Accessibility:</strong> one <code>h1</code> per page, labelled section, buttons that say what happens.</li>
+  </ul>
+</section>
+
+<!-- ================= CONTENT ================= -->
+<section class="doc-section" id="content">
+  <h2>Content</h2>
+
+  <h3 id="band">Band</h3>
+  <p>A full-width page section with even spacing above and below. Put <code class="xz-code">data-theme="dark"</code> on a band to make just that part of the page dark.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <section class="xz-band xz-band--tight" data-theme="light" aria-labelledby="demo-band-title">
+      <div class="xz-container">
+        <header class="xz-band__header">
+          <p class="xz-overline">Why Xsenze</p>
+          <h2 class="xz-band__title" id="demo-band-title">Less software to buy. <em>More time to teach.</em></h2>
+          <p class="xz-band__lead">Every module is priced per use, so nothing sits idle.</p>
+          <div class="xz-band__actions"><a class="xz-btn xz-btn--primary" href="#band">Start free</a></div>
+        </header>
+      </div>
+    </section>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Variants</td><td><code>xz-band--muted</code> <code>--tight</code> <code>--ruled</code></td><td>Grey ground; less spacing; a hairline on top.</td></tr>
+      <tr><td>Option</td><td><code>data-theme="dark"</code> or <code>"light"</code></td><td>Its own theme and background, whatever the page uses.</td></tr>
+      <tr><td>Slots</td><td><code>xz-band__header</code> (<code>--start</code>) <code>__title</code> <code>__lead</code> <code>__actions</code></td><td>The title block above a section's content. <code>em</code> inside the title is set in the brand colour.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="eyebrow">Eyebrow</h3>
+  <p>A small framed line above a title, for a count, a status or a short link.</p>
+  <div class="doc-example">
+    <p class="xz-eyebrow"><span class="xz-eyebrow__dot"></span><a href="#eyebrow">40 modules</a><span class="xz-eyebrow__sep">·</span>1,200 institutes<span class="xz-eyebrow__sep">·</span><a href="#eyebrow">from ₹0</a></p>
+  </div>
+  <p>Parts: <code class="xz-code">xz-eyebrow__dot</code> (a brand-colour dot), <code class="xz-code">xz-eyebrow__sep</code> (a quiet separator), and links. Links show focus and an underline on hover.</p>
+
+  <h3 id="feature">Feature row</h3>
+  <p>Text on one side and a visual on the other. Rows stack on small screens; <code class="xz-code">xz-feature--flip</code> swaps the sides so a run of rows can alternate.</p>
+  <div class="doc-example" data-layout="block">
+    <article class="xz-feature" data-xz-stagger="160">
+      <div class="xz-feature__text" data-xz-reveal>
+        <span class="xz-feature__index">01</span>
+        <h3 class="xz-feature__title">One login for <em>every module.</em></h3>
+        <p class="xz-feature__body">Teachers, parents and the accounts team sign in once. <strong>No separate passwords.</strong></p>
+        <ul class="xz-facts xz-facts--marker"><li>one sign-in, 40 modules</li><li>remove access in one place</li></ul>
+      </div>
+      <div class="xz-feature__visual" data-xz-reveal>
+        <div class="xz-window">
+          <div class="xz-window__bar">people · <strong>access</strong></div>
+          <div class="xz-window__body"><p class="xz-small">Priya can open Fees, Attendance and Exams.</p></div>
+        </div>
+      </div>
+    </article>
+  </div>
+  <p>Parts: <code class="xz-code">__text</code>, <code class="xz-code">__index</code>, <code class="xz-code">__title</code> (with an <code class="xz-code">em</code> highlight), <code class="xz-code">__body</code>, <code class="xz-code">__visual</code>, and Facts. Add <code class="xz-code">data-xz-stagger</code> on the row and <code class="xz-code">data-xz-reveal</code> on its two halves for the entrance.</p>
+
+  <h3 id="window">Window</h3>
+  <p>A framed panel with a title bar, for showing a screen or a live demo.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-window">
+      <div class="xz-window__bar">billing · <strong>this term</strong></div>
+      <div class="xz-window__body"><p class="xz-small">Any content goes here: a table, a demo, a form.</p></div>
+      <div class="xz-window__status">✓ saved 2 minutes ago</div>
+    </div>
+  </div>
+  <p>Parts: <code class="xz-code">__bar</code> (three dots are drawn for you; <code class="xz-code">strong</code> marks the current view), <code class="xz-code">__body</code>, and an optional <code class="xz-code">__status</code> line. <code class="xz-code">xz-window--raised</code> adds a deeper shadow.</p>
+
+  <h3 id="tile">Tile</h3>
+  <p>A small square with an icon and a short label. As a link or button it lifts on hover and shows focus; <code class="xz-code">aria-pressed="true"</code> or <code class="xz-code">is-active</code> marks the chosen one.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-tiles xz-tiles--4">
+      <a class="xz-tile" href="#tile"><i data-xz-icon="wallet"></i>Fees</a>
+      <button class="xz-tile" type="button" aria-pressed="true"><i data-xz-icon="calendar"></i>Attendance</button>
+      <button class="xz-tile" type="button" disabled><i data-xz-icon="file-text"></i>Exams</button>
+      <span class="xz-tile xz-tile--more">+34 more</span>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Layout</td><td><code>xz-tiles</code> <code>--3</code> <code>--4</code></td><td>Grid of 2 columns, 3 or 4 from 640px. Or set <code>--xz-tiles-cols</code>.</td></tr>
+      <tr><td>Variants</td><td><code>xz-tile--more</code> <code>--wide</code></td><td>Dashed tile for "and more"; a tile across the whole row.</td></tr>
+      <tr><td>States</td><td>hover, focus, <code>aria-pressed</code>, <code>is-active</code>, <code>disabled</code></td><td>Lift with a brand-colour edge; focus ring; brand fill; greyed out.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="checklist">Checklist</h3>
+  <p>Short steps with an icon box, and a tick once a step is done.</p>
+  <div class="doc-example" data-layout="block">
+    <ol class="xz-checklist" aria-label="Today's work">
+      <li class="xz-checklist__item is-done"><span class="xz-checklist__icon"><i data-xz-icon="wallet"></i></span>collect term fees</li>
+      <li class="xz-checklist__item is-done"><span class="xz-checklist__icon"><i data-xz-icon="mail"></i></span>remind late payers</li>
+      <li class="xz-checklist__item"><span class="xz-checklist__icon"><i data-xz-icon="receipt"></i></span>match bank credits</li>
+    </ol>
+  </div>
+  <p>Mark finished steps with <code class="xz-code">is-done</code>. Put the list inside a <a class="xz-link" href="#sequence">Sequence</a> to have the steps arrive one by one.</p>
+
+  <h3 id="command">Command</h3>
+  <p>One line of text to copy, such as an invite link, a code or a command, with a prompt sign, an optional status and a copy button. <code class="xz-code">data-theme="dark"</code> on it gives a terminal look on a light page.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-command xz-beam">
+      <span class="xz-command__prompt"><i data-xz-icon="link" data-size="sm"></i></span>
+      <span class="xz-command__text">https://campus.example.com/join/7F3K-92QD</span>
+      <button class="xz-btn xz-btn--primary xz-btn--sm" type="button" data-xz-copy aria-label="Copy invite link"><i data-xz-icon="copy" data-size="sm"></i>Copy</button>
+    </div>
+    <div class="xz-command xz-command--sm"><span class="xz-command__prompt">→</span><span class="xz-command__text">fees.collect · term 2</span><span class="xz-command__status">✓ synced</span></div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Slots</td><td><code>__prompt</code> <code>__text</code> <code>__status</code></td><td>Sign or icon, the text (scrolls sideways if long; <code>b</code> inside is highlighted), and a status.</td></tr>
+      <tr><td>Variants</td><td><code>xz-command--sm</code> <code>--lg</code> <code>--wrap</code></td><td>Chip size without a button; large; wraps long text on phones.</td></tr>
+      <tr><td>Combine</td><td><code>xz-beam</code>, <code>data-xz-copy</code></td><td>Travelling light on hover or focus; copy button.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="marquee">Marquee</h3>
+  <p>A row that slides sideways without end, for module names or customer names. It stops while the pointer or focus is on it, while it is off screen, and when motion is off; then it becomes a still row that wraps.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-marquees">
+      <div class="xz-marquee" data-speed="30">
+        <ul class="xz-marquee__track" aria-label="Modules">
+          <li class="xz-marquee__item"><i data-xz-icon="wallet" data-size="sm"></i>Fees</li>
+          <li class="xz-marquee__item"><i data-xz-icon="calendar" data-size="sm"></i>Attendance</li>
+          <li class="xz-marquee__item"><i data-xz-icon="book-open" data-size="sm"></i>Courses</li>
+          <li class="xz-marquee__item"><i data-xz-icon="file-text" data-size="sm"></i>Exams</li>
+          <li class="xz-marquee__item"><i data-xz-icon="indian-rupee" data-size="sm"></i>Payroll</li>
+        </ul>
+      </div>
+      <div class="xz-marquee xz-marquee--plain xz-marquee--reverse" data-speed="24">
+        <ul class="xz-marquee__track" aria-label="Customers">
+          <li class="xz-marquee__item">Sunrise Public School</li>
+          <li class="xz-marquee__item">Kaveri Engineering College</li>
+          <li class="xz-marquee__item">Deccan Skills Academy</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Slots</td><td><code>xz-marquee__track</code> (a list with <code>aria-label</code>) and <code>__item</code></td><td>The items, written once. The script repeats them so the row can loop; the copies are hidden from screen readers and the tab order.</td></tr>
+      <tr><td>Options</td><td><code>data-speed</code>, <code>--reverse</code>, <code>--plain</code>, <code>--xz-marquee-gap</code></td><td>Pixels per second (default 40); the other way; names without boxes; space between items.</td></tr>
+      <tr><td>Group</td><td><code>xz-marquees</code></td><td>Stacks several rows.</td></tr>
+      <tr><td>API</td><td><code>el.xzMarquee.pause()</code> <code>.play()</code></td><td>Stop and start one row.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="facts">Facts</h3>
+  <p>A short row of plain facts. Bold parts stand out.</p>
+  <div class="doc-example" data-layout="stack">
+    <ul class="xz-facts"><li><b>4.8 / 5</b> from 900 reviews</li><li><b>Your data</b> stays in India</li><li>cancel any time</li></ul>
+    <ul class="xz-facts xz-facts--marker"><li>priced per message</li><li>delivery speed measured daily</li></ul>
+  </div>
+  <p><code class="xz-code">xz-facts--marker</code> puts a small arrow before each fact; <code class="xz-code">xz-facts--center</code> centres the row.</p>
+</section>
+
+<!-- ================= FORMS ================= -->
+<section class="doc-section" id="forms">
+  <h2>Forms</h2>
+
+  <h3 id="copy">Copy button</h3>
+  <p>Copies text and shows "Copied" with a tick for two seconds, without changing width. Screen readers hear "Copied" from a status message, and the button keeps its name.</p>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" data-xz-copy="NEFT-REF-2026-1182"><i data-xz-icon="copy" data-size="sm"></i>Copy reference</button>
+    <input class="xz-input" id="demo-copy-field" value="UPI: sunrise@bank" aria-label="UPI ID" readonly style="max-width: 14rem">
+    <button class="xz-btn xz-btn--icon" type="button" data-xz-copy data-xz-copy-target="#demo-copy-field" aria-label="Copy UPI ID"><i data-xz-icon="copy"></i></button>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Source</td><td><code>data-xz-copy="text"</code></td><td>Copies this exact text.</td></tr>
+      <tr><td>Source</td><td><code>data-xz-copy-target="#id"</code></td><td>Copies that field's value or that element's text.</td></tr>
+      <tr><td>Source</td><td>inside <code>xz-command</code></td><td>Copies the command's text.</td></tr>
+      <tr><td>States</td><td><code>is-copied</code>; failure</td><td>Shows the tick; when copying is blocked, it selects the text and says to press Ctrl+C.</td></tr>
+      <tr><td>Event</td><td><code>xz:copy</code></td><td><code>detail: { text, ok }</code>.</td></tr>
+      <tr><td>API</td><td><code>Xsenze.copy(text)</code></td><td>Copy from your own script. Resolves to true when it worked.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= DATA DISPLAY ================= -->
+<section class="doc-section" id="data-display">
+  <h2>Data display</h2>
+
+  <h3 id="flow">Flow</h3>
+  <p>Shows how one thing reaches many through a hub: a source on the left, a hub in the middle and targets on the right, joined by lines. Pointing at or focusing a target lights its route. On small screens the parts stack and one line runs down between them.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-flow" data-xz-flow>
+      <div class="xz-flow__source">
+        <div class="xz-card" data-xz-flow-anchor><div class="xz-card__body xz-row xz-row--nowrap xz-gap-3"><span class="xz-avatar" aria-hidden="true"><i data-xz-icon="user" data-size="sm"></i></span><span class="xz-stack xz-gap-1"><strong class="xz-card__title">Class teacher</strong><span class="xz-mono xz-caption">role: 8-B</span></span></div></div>
+      </div>
+      <div class="xz-flow__hub">
+        <div class="xz-layers" data-xz-layers="4" data-xz-flow-anchor style="--xz-layers-size: 7rem"><div class="xz-layers__face"><i data-xz-icon="component" data-size="lg"></i></div></div>
+      </div>
+      <div class="xz-flow__targets">
+        <div class="xz-tiles">
+          <a class="xz-tile" href="#flow" data-xz-flow-target><i data-xz-icon="calendar"></i>Attendance</a>
+          <a class="xz-tile" href="#flow" data-xz-flow-target><i data-xz-icon="file-text"></i>Marks</a>
+          <a class="xz-tile" href="#flow" data-xz-flow-target><i data-xz-icon="mail"></i>Parents</a>
+          <a class="xz-tile" href="#flow" data-xz-flow-target><i data-xz-icon="chart-column"></i>Reports</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Slots</td><td><code>xz-flow__source</code> <code>__hub</code> <code>__targets</code></td><td>The three columns. Anything can go in them.</td></tr>
+      <tr><td>Slots</td><td><code>data-xz-flow-target</code></td><td>Each target. Use links or buttons so keyboards can reach them; buttons get <code>aria-pressed</code>.</td></tr>
+      <tr><td>Option</td><td><code>data-xz-flow-anchor</code></td><td>The exact element the lines join, such as the card inside the source column.</td></tr>
+      <tr><td>Option</td><td><code>data-xz-flow="auto"</code></td><td>Also walks through the routes by itself every 2.4 seconds while nobody is pointing.</td></tr>
+      <tr><td>State</td><td><code>is-active</code></td><td>The lit target; its lines turn brand colour and a light runs along the route.</td></tr>
+      <tr><td>Event</td><td><code>xz:route</code></td><td><code>detail: { index, target }</code>.</td></tr>
+      <tr><td>API</td><td><code>el.xzFlow.redraw()</code> <code>.select(i)</code></td><td>Draw again after changing the content; light a route (<code>-1</code> for none).</td></tr>
+    </tbody>
+  </table></div>
+  <ul><li><strong>Accessibility:</strong> the lines are decoration and hidden from screen readers, so the targets' own labels must make sense without them.</li></ul>
+
+  <h3 id="compare">Compare</h3>
+  <p>Options for one job, ranked, with the chosen one marked and a result line. On its own it shows the finished comparison. Inside a <a class="xz-link" href="#sequence">Sequence</a> the rows arrive one by one and the pick lights up at the end.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-window" data-xz-sequence="220" data-xz-loop="5000">
+      <div class="xz-window__bar">messages · <strong>compare channels</strong></div>
+      <div class="xz-window__body">
+        <div class="xz-compare">
+          <div class="xz-compare__head" data-xz-step><span class="xz-compare__title">Fee reminder · 2,400 parents</span><span class="xz-compare__count">3 channels</span></div>
+          <ol class="xz-compare__list">
+            <li class="xz-compare__row is-pick" data-xz-step><span class="xz-avatar xz-avatar--sm" aria-hidden="true"><i data-xz-icon="message-square" data-size="sm"></i></span><span><span class="xz-compare__name">WhatsApp</span><span class="xz-compare__price">₹0.11 a message</span></span><span class="xz-badge xz-badge--highlight">Best</span></li>
+            <li class="xz-compare__row" data-xz-step><span class="xz-avatar xz-avatar--sm" aria-hidden="true"><i data-xz-icon="smartphone" data-size="sm"></i></span><span><span class="xz-compare__name">SMS</span><span class="xz-compare__price">₹0.18 a message</span></span><span class="xz-compare__note">delivered in 2 min</span></li>
+            <li class="xz-compare__row" data-xz-step><span class="xz-avatar xz-avatar--sm" aria-hidden="true"><i data-xz-icon="phone" data-size="sm"></i></span><span><span class="xz-compare__name">Voice call</span><span class="xz-compare__price">₹0.90 a call</span></span><span class="xz-compare__note xz-compare__note--warn">costs most</span></li>
+          </ol>
+          <p class="xz-compare__result" data-xz-step><i data-xz-icon="check" data-size="sm"></i>2,400 sent · <strong>₹264 by WhatsApp</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p>Parts: <code class="xz-code">__head</code>, <code class="xz-code">__title</code>, <code class="xz-code">__count</code>, <code class="xz-code">__list</code> (an <code class="xz-code">ol</code>), <code class="xz-code">__row</code> (<code class="xz-code">is-pick</code> on the winner), <code class="xz-code">__name</code>, <code class="xz-code">__price</code>, <code class="xz-code">__note</code> (<code class="xz-code">--warn</code>), <code class="xz-code">__result</code>. The pick is never shown by colour alone: it carries a "Best" badge.</p>
+
+  <h3 id="ledger">Ledger</h3>
+  <p>Rows that set an old price against a new one. The old price is struck through with a drawn line; inside a Sequence the strikes draw one row after another.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-window" data-xz-sequence="180" data-xz-loop="5000">
+      <div class="xz-window__bar">billing · <strong>this term</strong></div>
+      <div class="xz-window__body">
+        <ul class="xz-ledger">
+          <li class="xz-ledger__row" data-xz-step><span class="xz-ledger__label"><i data-xz-icon="calendar" data-size="sm"></i><span>Attendance app</span></span><span class="xz-ledger__value"><s class="xz-ledger__was"><span class="xz-sr-only">was </span>₹1,20,000 a year</s><strong class="xz-ledger__now"><span class="xz-sr-only">now </span>₹9 a student</strong></span></li>
+          <li class="xz-ledger__row" data-xz-step><span class="xz-ledger__label"><i data-xz-icon="file-text" data-size="sm"></i><span>Exam engine</span></span><span class="xz-ledger__value"><s class="xz-ledger__was"><span class="xz-sr-only">was </span>₹80,000 a year</s><strong class="xz-ledger__now"><span class="xz-sr-only">now </span>₹4 a paper</strong></span></li>
+        </ul>
+      </div>
+      <div class="xz-window__status" data-xz-step>✓ paid per use</div>
+    </div>
+  </div>
+  <p>Parts: <code class="xz-code">__row</code>, <code class="xz-code">__label</code>, <code class="xz-code">__value</code>, <code class="xz-code">__was</code> on an <code class="xz-code">s</code> element and <code class="xz-code">__now</code> on a <code class="xz-code">strong</code>. Screen readers do not announce strikethrough, so add hidden "was" and "now" words as above.</p>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<section class="doc-section" id="footer-block">
+  <h2>Footer brand and wordmark</h2>
+  <p>Adds a brand column and a large, faint wordmark along the bottom edge of the standard footer. <code class="xz-code">data-theme="dark"</code> gives a dark footer on a light page.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <footer class="xz-footer xz-footer--wordmark" data-theme="dark">
+      <div class="xz-container">
+        <div class="xz-footer__grid">
+          <div class="xz-footer__brand"><a class="xz-logo" href="#footer-block">Xsenze</a><span>Run your campus from one screen.</span></div>
+          <nav aria-labelledby="demo-foot-product"><h3 class="xz-footer__heading" id="demo-foot-product">Product</h3><ul class="xz-footer__links"><li><a href="#footer-block">Modules</a></li><li><a href="#footer-block">Pricing</a></li></ul></nav>
+        </div>
+        <div class="xz-footer__bottom"><span>© 2026 Xsenze</span><span>Prices include GST.</span></div>
+      </div>
+      <div class="xz-footer__wordmark" aria-hidden="true">xsenze</div>
+    </footer>
+  </div>
+  <p>The wordmark is decoration: keep <code class="xz-code">aria-hidden="true"</code> on it. The footer now sets its own text colour, so a themed footer reads correctly on any page.</p>
+</section>
+
+<!-- ================= MOTION ================= -->
+<section class="doc-section" id="motion">
+  <h2>Motion</h2>
+  <p>Every moving part here follows three rules: it stops when the system asks for less motion, it stops when the page's motion button is off, and the content is complete without it.</p>
+
+  <h3 id="motion-button">Motion button</h3>
+  <p>One button pauses every animation on the page: rolling words, logo rows, demos and backgrounds. The choice is kept for the next visit. Put it in the navbar of any page that moves on its own for more than five seconds.</p>
+  <div class="doc-example">
+    <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-motion-toggle aria-label="Pause animations" data-xz-tooltip="Pause animations"><i data-xz-icon="pause"></i></button>
+    <button class="xz-btn" type="button" data-xz-motion-toggle><i data-xz-icon="pause" data-size="sm"></i>Pause animations</button>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Option</td><td><code>data-xz-motion-toggle</code></td><td>On any button. Its name stays "Pause animations" and <code>aria-pressed</code> says whether animations are paused; the icon swaps to play.</td></tr>
+      <tr><td>State</td><td><code>html[data-xz-motion="off"]</code></td><td>Set while paused. Use it in your own CSS to stop your own animations.</td></tr>
+      <tr><td>Event</td><td><code>xz:motion</code></td><td>On <code>document</code>, <code>detail: { on }</code>.</td></tr>
+      <tr><td>API</td><td><code>Xsenze.motion.enabled()</code> <code>.set(on)</code> <code>.toggle()</code></td><td>Read or change it from a script. <code>enabled()</code> is also false when the system asks for less motion.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="reveal">Reveal</h3>
+  <p>Content rises into place, from soft to sharp. <code class="xz-code">data-xz-reveal="load"</code> plays as the page opens and needs no script. Plain <code class="xz-code">data-xz-reveal</code> waits until the element scrolls into view.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 10rem" data-xz-stagger="120">
+      <div class="xz-stat" data-xz-reveal><div class="xz-stat__label">Institutes</div><div class="xz-stat__value">1,200+</div></div>
+      <div class="xz-stat" data-xz-reveal><div class="xz-stat__label">Fees</div><div class="xz-stat__value">₹48 Cr</div></div>
+      <div class="xz-stat" data-xz-reveal><div class="xz-stat__label">Uptime</div><div class="xz-stat__value">99.95%</div></div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Option</td><td><code>data-xz-reveal</code>, <code>="load"</code></td><td>Reveal on scroll, or as the page opens. Use <code>load</code> for anything visible when the page opens.</td></tr>
+      <tr><td>Option</td><td><code>data-xz-stagger="120"</code></td><td>On a parent: its reveals follow each other this many milliseconds apart (default 80).</td></tr>
+      <tr><td>Option</td><td><code>--xz-i</code>, <code>--xz-reveal-delay</code></td><td>Position in a stagger (set it inline for <code>load</code>); extra delay.</td></tr>
+      <tr><td>States</td><td><code>is-pending</code> → <code>is-revealing</code></td><td>Waiting off screen; playing.</td></tr>
+      <tr><td>Event</td><td><code>xz:reveal</code></td><td>When the element has arrived.</td></tr>
+    </tbody>
+  </table></div>
+  <ul><li><strong>Motion:</strong> <code>--xz-duration-reveal</code> (640ms) with <code>--xz-ease-out</code>, from transparent, <code>--xz-blur-md</code> and <code>--xz-space-6</code> lower.</li></ul>
+
+  <h3 id="rotator">Rotator</h3>
+  <p>One word in a sentence rolls to the next every few seconds, and the space around it widens or narrows to fit, so a caret after it always sits next to the text.</p>
+  <div class="doc-example">
+    <p class="xz-h3">Run <span class="xz-rotator" data-xz-rotator data-caret data-interval="2200"><span class="xz-rotator__item">fee collection</span><span class="xz-rotator__item">admissions</span><span class="xz-rotator__item">attendance</span></span> from one place</p>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Slot</td><td><code>xz-rotator__item</code></td><td>One per word or phrase. Without the script only the first shows.</td></tr>
+      <tr><td>Options</td><td><code>data-interval</code>, <code>data-caret</code></td><td>Milliseconds per word (default 2600, at least 1200); adds a blinking caret.</td></tr>
+      <tr><td>Variants</td><td><code>xz-rotator--plain</code>, <code>--xz-rotator-color</code></td><td>Keep the sentence colour; or choose a colour. Default is the brand text colour.</td></tr>
+      <tr><td>Event</td><td><code>xz:rotate</code></td><td><code>detail: { index, word }</code>, to change other content with the word.</td></tr>
+      <tr><td>API</td><td><code>el.xzRotator.next()</code> <code>.go(i)</code> <code>.pause()</code> <code>.play()</code></td><td>Control it from a script.</td></tr>
+    </tbody>
+  </table></div>
+  <ul>
+    <li><strong>Motion:</strong> rolls and resizes over <code>--xz-duration-slower</code> with <code>--xz-ease-in-out</code>. After the last word it rolls on to the first, never backwards through the list.</li>
+    <li><strong>Accessibility:</strong> screen readers hear the whole list once as text ("fee collection, admissions, or attendance") instead of a word that keeps changing. It pauses under the pointer, off screen, in a hidden tab, and when motion is off.</li>
+  </ul>
+
+  <h3 id="typewriter">Typewriter</h3>
+  <p>Text that types itself out once, as it scrolls into view. The full text stays in the markup for search engines and for when the script does not run.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-command xz-command--lg" data-theme="dark"><span class="xz-command__prompt">=</span><span class="xz-command__text" data-xz-typewriter>plan price <b>+ ₹0 setup</b> = your bill</span></div>
+  </div>
+  <p>Options: <code class="xz-code">data-xz-typewriter="load"</code> types as the page opens; <code class="xz-code">data-speed</code> sets milliseconds per letter (default 40); <code class="xz-code">data-caret="keep"</code> leaves the caret blinking. Bold and other inline tags inside are kept. Event <code class="xz-code">xz:typed</code>; API <code class="xz-code">el.xzTypewriter.play()</code> and <code class="xz-code">.finish()</code>. Screen readers read a hidden copy of the full text.</p>
+
+  <h3 id="sequence">Sequence</h3>
+  <p>Plays a small scripted demo when a third of it is on screen: each step arrives in turn, then the group is marked done. Components such as Compare, Ledger and Checklist style those states.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Option</td><td><code>data-xz-sequence="160"</code></td><td>Milliseconds between steps.</td></tr>
+      <tr><td>Option</td><td><code>data-xz-loop="4000"</code></td><td>Play again after this pause, while it stays on screen. Off screen it stops and starts from the top when it comes back.</td></tr>
+      <tr><td>Slot</td><td><code>data-xz-step</code>, <code>="300"</code></td><td>Each step, in order; a number waits that much longer before the step.</td></tr>
+      <tr><td>States</td><td><code>is-armed</code>, <code>is-in</code>, <code>is-done</code></td><td>Steps hidden and waiting; a step has arrived; the demo finished.</td></tr>
+      <tr><td>Event</td><td><code>xz:sequence</code></td><td><code>detail: { index, done }</code>.</td></tr>
+      <tr><td>API</td><td><code>el.xzSequence.play()</code> <code>.finish()</code></td><td>Replay it, or jump to the end.</td></tr>
+    </tbody>
+  </table></div>
+  <ul><li><strong>Motion:</strong> steps rise over <code>--xz-duration-slow</code> with <code>--xz-ease-out</code>. Without the script, or with motion off, the finished demo shows at once.</li></ul>
+
+  <h3 id="beam">Beam</h3>
+  <p>A bright arc that travels around a box's border while it is hovered or focused. It draws attention to the one place to act.</p>
+  <div class="doc-example">
+    <a class="xz-btn xz-btn--lg xz-beam" href="#beam">Hover or focus me</a>
+    <div class="xz-command xz-beam xz-beam--always"><span class="xz-command__prompt">$</span><span class="xz-command__text">always on</span></div>
+  </div>
+  <p>Add <code class="xz-code">xz-beam</code> to any box with a border radius. <code class="xz-code">xz-beam--always</code> or <code class="xz-code">is-active</code> keeps it running. One turn takes 3 seconds; with motion off the border simply lights up in the brand colour.</p>
+
+  <h3 id="dotfield">Dot field</h3>
+  <p>A fine grid of dots that drifts slowly behind a section, stays quiet behind the headline, and lights up in the brand colour around the pointer.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <div class="xz-band xz-band--tight"><div class="xz-dotfield"></div><div class="xz-container"><p class="xz-h3 xz-text-center">Move the pointer over this area</p></div></div>
+  </div>
+  <p>Put it as the first child of a section with <code class="xz-code">position: relative</code> and <code class="xz-code">isolation: isolate</code> (bands and the hero have both). Tune it with <code class="xz-code">--xz-dot-gap</code> (16px), <code class="xz-code">--xz-dot-size</code> (1px) and <code class="xz-code">--xz-dotfield-quiet</code> (how far down the quiet area sits, 30%). <code class="xz-code">--even</code> drops the quiet area; <code class="xz-code">--fine</code> packs the dots closer. It is hidden from screen readers and ignores touch.</p>
+
+  <h3 id="layers">Layers</h3>
+  <p>A stack of plates seen from above at an angle. A wave of light rises through the stack, plate by plate, and the stack leans towards the pointer. Use it as the hub of a Flow or as a hero picture.</p>
+  <div class="doc-example">
+    <div class="xz-layers" data-xz-layers="5" aria-label="Five layers joined into one"><div class="xz-layers__face"><i data-xz-icon="component" data-size="xl"></i></div></div>
+  </div>
+  <p>Options: <code class="xz-code">data-xz-layers="5"</code> plates (2 to 12), <code class="xz-code">--xz-layers-size</code> (10rem), <code class="xz-code">--xz-layers-gap</code> (0.85rem), and content in <code class="xz-code">xz-layers__face</code> on the top plate. The nearest <code class="xz-code">data-xz-tilt-area</code>, or else the section, tracks the pointer. With an <code class="xz-code">aria-label</code> it is announced as a picture; without one it is hidden as decoration.</p>
+
+  <h3 id="depth">Depth</h3>
+  <p>Items in a long list tip back as they near the top or bottom of the screen and come flat in the middle, so scrolling feels like turning a drum. Normal scrolling is never taken over. It runs on laptops and wider, with a mouse, while motion is on; see it in the module catalogue of the <a class="xz-link" href="../templates/landing.html#modules">landing page template</a>.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <div class="xz-grid xz-grid--auto" data-xz-depth>
+      <div class="xz-card">…</div>
+      <div class="xz-card">…</div>
+    </div>
+  </textarea>
+  <p><code class="xz-code">data-xz-depth="1"</code> sets the strength (0.2 to 2). Items are the direct children, or the elements marked <code class="xz-code">data-xz-depth-item</code>.</p>
+
+  <h3 id="curtain">Curtain</h3>
+  <p>A band that opens out as it scrolls in: it starts as an inset panel with round corners, widens to full width, and its content rises a little more slowly than the page. Best on the last, dark band before the footer.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <section class="xz-band" data-theme="dark" data-xz-curtain>
+      <div class="xz-container">…</div>
+    </section>
+  </textarea>
+  <p>The script sets <code class="xz-code">--xz-curtain</code> from 0 (arriving) to 1 (open). Without it, or with motion off, the band is simply open.</p>
+</section>
+
+<!-- ================= SECTION TEMPLATES ================= -->
+<section class="doc-section" id="sections">
+  <h2>Section templates</h2>
+  <p>Each template below is one section of the <a class="xz-link" href="../templates/landing.html">landing page template</a>. The code is read from that file, so it is always the same as the live page. Paste the sections in this order, or use the ones you need.</p>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Section</th><th>Built from</th><th>On phones</th><th>Motion</th></tr></thead>
+    <tbody>
+      <tr><td>Navigation</td><td>Overlay navbar, Scroll progress, Motion button, theme button, buttons</td><td>Links fold away; actions stay</td><td>Frosted background on scroll; takes the band's theme</td></tr>
+      <tr><td>Hero</td><td>Hero, Dot field, Eyebrow, Rotator, buttons, Flow (card, avatar, Checklist, Layers, Command, Tiles), Command with Copy and Beam</td><td>Flow stacks; one line runs down the middle</td><td>Reveal on load; rolling word; flow routes walk by themselves</td></tr>
+      <tr><td>Social proof</td><td>Band, Marquee (plain), Stat, Reveal</td><td>Stats in two columns</td><td>Names slide; stats rise in turn</td></tr>
+      <tr><td>Showcase</td><td>Band (muted), Eyebrow, Expanding tabs, Card, Avatar, Badge, Depth</td><td>Tabs, one group at a time</td><td>Cards tip near the screen edges (wide screens)</td></tr>
+      <tr><td>Features</td><td>Band, Feature row, Facts, Card with Command and Marquees, Window with Compare or Ledger, Sequence, Reveal</td><td>Text above, visual below</td><td>Rows rise in; demos play when a third is on screen</td></tr>
+      <tr><td>Proof</td><td>Band, Command (dark), Typewriter, Facts</td><td>Text wraps</td><td>Types once</td></tr>
+      <tr><td>Call to action</td><td>Band (dark), Curtain, Dot field, buttons, Facts</td><td>Full width</td><td>Opens out while scrolling in</td></tr>
+      <tr><td>Footer</td><td>Footer, Footer brand and wordmark, theme</td><td>Columns wrap</td><td>None</td></tr>
+    </tbody>
+  </table></div>
+  <p class="xz-caption" data-section-note hidden>The code panels below need the docs site running through <code class="xz-code">npm run dev</code>. You can also open <code class="xz-code">templates/landing.html</code> and copy each section between its <code class="xz-code">section:</code> comments.</p>
+
+  <h3>Navigation</h3><div data-section-code="navigation"></div>
+  <h3>Hero</h3><div data-section-code="hero"></div>
+  <h3>Social proof</h3><div data-section-code="social-proof"></div>
+  <h3>Showcase</h3><div data-section-code="showcase"></div>
+  <h3>Features</h3><div data-section-code="features"></div>
+  <h3>Proof</h3><div data-section-code="proof"></div>
+  <h3>Call to action</h3><div data-section-code="cta"></div>
+  <h3>Footer</h3><div data-section-code="footer"></div>
+</section>
+
+<!-- ================= TOKENS ================= -->
+<section class="doc-section" id="tokens">
+  <h2>Token additions</h2>
+  <p>The blocks use the existing colours, type, spacing, radius, shadows and motion. One token was added.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Token</th><th>Value</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><code>--xz-duration-reveal</code></td><td>640ms</td><td>Whole blocks of text rising into place need longer than the 480ms used for drawers, or they read as a jolt. It continues the existing steps: 120, 200, 320, 480, 640.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Component settings are custom properties on the component, not tokens, so changing one never changes the rest of the kit:</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Property</th><th>Default</th><th>On</th></tr></thead>
+    <tbody>
+      <tr><td><code>--xz-i</code>, <code>--xz-stagger</code>, <code>--xz-reveal-delay</code></td><td>0, 80ms, 0ms</td><td>Reveal</td></tr>
+      <tr><td><code>--xz-rotator-color</code></td><td><code>--xz-accent-2-text</code></td><td>Rotator</td></tr>
+      <tr><td><code>--xz-marquee-gap</code></td><td><code>--xz-space-3</code></td><td>Marquee</td></tr>
+      <tr><td><code>--xz-tiles-cols</code></td><td>2</td><td>Tiles</td></tr>
+      <tr><td><code>--xz-dot-gap</code>, <code>--xz-dot-size</code>, <code>--xz-dotfield-quiet</code></td><td>16px, 1px, 30%</td><td>Dot field</td></tr>
+      <tr><td><code>--xz-layers-size</code>, <code>--xz-layers-gap</code></td><td>10rem, 0.85rem</td><td>Layers</td></tr>
+      <tr><td><code>--xz-curtain</code>, <code>--xz-progress</code></td><td>set by the script</td><td>Curtain, Scroll progress</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= INTEGRATION ================= -->
+<section class="doc-section" id="integration">
+  <h2>Integration</h2>
+  <ul>
+    <li><strong>Files:</strong> nothing new to load. The blocks are inside <code>xsenze.min.css</code> and <code>xsenze.min.js</code>; together they add about 4.6 KB of CSS and 5.6 KB of JavaScript, gzipped.</li>
+    <li><strong>Start:</strong> everything starts from the markup when the page loads. After adding markup later, call <code>Xsenze.init(element)</code>.</li>
+    <li><strong>Page set-up:</strong> one <code>data-xz-scroll-progress</code> bar and one Motion button per page. Pages with an overlay navbar need the hero (or 3.5rem of padding) first.</li>
+    <li><strong>Themes:</strong> any section can take <code>data-theme="dark"</code> or <code>"light"</code>. The overlay navbar with <code>adapt</code> follows the band underneath.</li>
+    <li><strong>Source:</strong> the blocks live in <code>src/blocks/</code>, one folder per kind: <code>navigation</code>, <code>hero</code>, <code>content</code>, <code>forms</code>, <code>data-display</code>, <code>footer</code> and <code>motion</code>.</li>
+  </ul>
+
+  <h3>Paste a section</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Section</th><th>Where it goes</th><th>Fill in</th></tr></thead>
+    <tbody>
+      <tr><td>Navigation</td><td>First thing in <code>body</code>, after the skip link</td><td>Logo, links, the main action</td></tr>
+      <tr><td>Hero</td><td>First thing in <code>main</code></td><td>Eyebrow facts, title and rolling words, lead, two actions, the flow's source, hub and targets, the link to share</td></tr>
+      <tr><td>Social proof</td><td>After the hero</td><td>Customer names, four numbers</td></tr>
+      <tr><td>Showcase</td><td>Anywhere in <code>main</code></td><td>Groups as tabs, a heading per panel, one card per item</td></tr>
+      <tr><td>Features</td><td>Anywhere in <code>main</code></td><td>Up to three rows; flip every second one</td></tr>
+      <tr><td>Proof</td><td>Before the call to action</td><td>One short claim and the line to type</td></tr>
+      <tr><td>Call to action</td><td>Last thing in <code>main</code></td><td>Title, lead, two actions, three facts</td></tr>
+      <tr><td>Footer</td><td>After <code>main</code></td><td>Columns of links, the wordmark</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Not included, on purpose</h3>
+  <ul>
+    <li><strong>Real 3D models.</strong> The kit has no dependencies and no 3D engine, so Layers draws a stack of plates in CSS instead. For a true 3D object, add your own renderer inside <code>xz-flow__hub</code>.</li>
+    <li><strong>Particle effects drawn on the graphics card.</strong> Dot field gives a similar moving texture with CSS, at a fraction of the cost, and works everywhere.</li>
+    <li><strong>Smoothed scrolling.</strong> Taking over the mouse wheel makes pages feel slow and fights screen readers and keyboards, so scrolling stays native. Depth and Curtain follow it.</li>
+    <li><strong>A display typeface just for headlines.</strong> Headings use the kit's display font, so a page stays consistent with the rest of the product.</li>
+    <li><strong>Many-coloured highlights.</strong> Beam, routes and progress use the brand orange only, as everywhere else in the kit.</li>
+    <li><strong>Holding the page blank until an animation is ready.</strong> Hero parts reveal with CSS as the page opens, so the headline is visible at once, even if the script fails.</li>
+  </ul>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+
+<script>
+// Section templates: read each section from the landing page template, so the code always matches it.
+// Each one is shown live in its own frame, because the navbar and progress bar are fixed to the screen
+// and would sit on top of this page. Wide screens draw the section at 1280px and scale it to fit.
+document.addEventListener('DOMContentLoaded', async () => {
+  const slots = document.querySelectorAll('[data-section-code]');
+  const root = document.documentElement;
+  const frames = [];
+  let html;
+  try {
+    const res = await fetch('../templates/landing.html');
+    if (!res.ok) throw new Error(res.status);
+    html = await res.text();
+  } catch {
+    document.querySelector('[data-section-note]').hidden = false;
+    return;
+  }
+  const head = (html.match(/<head>([\s\S]*?)<\/head>/) || [, ''])[1];
+  // Inside the frame: links do nothing (it is a preview), and the frame reports its height.
+  const inner = `<script>
+document.addEventListener('click', (e) => { if (e.target.closest('a[href]')) e.preventDefault(); });
+const send = () => parent.postMessage({ xzFrameHeight: Math.ceil(document.documentElement.getBoundingClientRect().height) }, '*');
+new ResizeObserver(send).observe(document.documentElement);
+<\/script>`;
+  const page = (name, body) => `<!doctype html><html lang="en" data-theme="${root.dataset.theme || 'light'}"><head>${head}<style>body { min-height: ${name === 'navigation' ? '4.5rem' : '0'}; }</style></head><body>${body}${inner}</body></html>`;
+
+  const fit = (f) => {
+    const w = f.box.clientWidth;
+    const view = w >= 768 ? 1280 : w; // phones see the phone layout at full size
+    const scale = w / view;
+    f.frame.style.width = `${view}px`;
+    f.frame.style.height = `${f.height}px`;
+    f.frame.style.transform = scale === 1 ? '' : `scale(${scale})`;
+    f.box.style.height = `${Math.ceil(f.height * scale)}px`;
+  };
+  addEventListener('message', (e) => {
+    const f = frames.find((x) => x.frame.contentWindow === e.source);
+    if (!f || typeof e.data?.xzFrameHeight !== 'number') return;
+    f.height = Math.max(e.data.xzFrameHeight, 1);
+    fit(f);
+  });
+  const resize = new ResizeObserver((entries) => entries.forEach((en) => { const f = frames.find((x) => x.box === en.target); if (f) fit(f); }));
+  // Load each frame when it comes near the screen.
+  const near = new IntersectionObserver((entries) => {
+    for (const en of entries) {
+      if (!en.isIntersecting) continue;
+      const f = frames.find((x) => x.box === en.target);
+      f.frame.srcdoc = page(f.name, f.body);
+      near.unobserve(en.target);
+    }
+  }, { rootMargin: '800px 0px' });
+
+  for (const slot of slots) {
+    const name = slot.getAttribute('data-section-code');
+    const match = html.match(new RegExp(`<!-- section:${name} -->\\r?\\n([\\s\\S]*?)\\r?\\n<!-- /section:${name} -->`));
+    if (!match) continue;
+    const title = slot.previousElementSibling?.textContent || name;
+    const example = Object.assign(document.createElement('div'), { className: 'doc-example' });
+    const box = Object.assign(document.createElement('div'), { className: 'doc-frame' });
+    const frame = Object.assign(document.createElement('iframe'), { title: `${title} section, live preview` });
+    box.append(frame);
+    const details = Object.assign(document.createElement('details'), { className: 'doc-example__code' });
+    details.append(document.createElement('summary'), window.XZ_DOC.codeBlock(window.XZ_DOC.dedent(match[1])));
+    example.append(box, details);
+    slot.append(example);
+    const f = { name, body: match[1], box, frame, height: 240 };
+    frames.push(f);
+    fit(f);
+    resize.observe(box);
+    near.observe(box);
+  }
+  const link = Object.assign(document.createElement('p'), { innerHTML: `<a class="xz-link" href="../templates/landing.html">Open the whole landing page</a>` });
+  slots[slots.length - 1]?.after(link);
+
+  // The previews follow this page's light or dark theme.
+  new MutationObserver(() => {
+    for (const f of frames) {
+      const d = f.frame.contentDocument?.documentElement;
+      if (d) d.dataset.theme = root.dataset.theme;
+    }
+  }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+/* Layers: a stack of plates seen from above at an angle. A wave of light rises through the stack,
+   one plate after another, and the stack leans towards the pointer.
+   Size it with --xz-layers-size and --xz-layers-gap. Content in .xz-layers__face sits on the top plate. */
+.xz-layers {
+  --xz-layers-size: 10rem;
+  --xz-layers-gap: 0.85rem;
+  --xz-tilt-x: 0deg;
+  --xz-tilt-y: 0deg;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(var(--xz-layers-size) * 1.9);
+  perspective: 1200px;
+}
+.xz-layers::after {
+  content: "";
+  position: absolute;
+  bottom: 14%;
+  width: calc(var(--xz-layers-size) * 1.15);
+  height: calc(var(--xz-layers-size) * 0.32);
+  border-radius: 50%;
+  background: var(--xz-shadow-color);
+  filter: blur(18px);
+  z-index: -1;
+}
+.xz-layers__stack {
+  position: relative;
+  width: var(--xz-layers-size);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(56deg + var(--xz-tilt-x))) rotateZ(calc(-40deg + var(--xz-tilt-y))) translateZ(calc(var(--xz-layers-count, 5) * var(--xz-layers-gap) * -0.5));
+  transition: transform var(--xz-duration-slower) var(--xz-ease-out);
+}
+.xz-layers__plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-lg);
+  background: color-mix(in srgb, var(--xz-surface) 84%, transparent);
+  box-shadow: 0 1px 0 var(--xz-border);
+  transform: translateZ(calc(var(--i, 0) * var(--xz-layers-gap)));
+  animation: xz-layers-wave 2.8s var(--xz-ease-in-out) infinite;
+  animation-delay: calc(var(--i, 0) * 0.16s);
+}
+.xz-layers__plate:last-child { background: var(--xz-surface); border-color: var(--xz-border-strong); }
+@keyframes xz-layers-wave {
+  0%, 46%, 100% { transform: translateZ(calc(var(--i, 0) * var(--xz-layers-gap))); border-color: var(--xz-border); box-shadow: 0 1px 0 var(--xz-border); }
+  20% { transform: translateZ(calc((var(--i, 0) + 0.7) * var(--xz-layers-gap))); border-color: var(--xz-accent-2); box-shadow: 0 0 1.5rem var(--xz-accent-2-soft), inset 0 0 0 1px var(--xz-accent-2-border); }
+}
+.xz-layers__face { display: grid; place-items: center; gap: var(--xz-space-1); font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-bold); color: var(--xz-text); text-align: center; }
+[data-xz-motion="off"] .xz-layers__plate { animation: none; }
+[data-xz-motion="off"] .xz-layers__stack { --xz-tilt-x: 0deg !important; --xz-tilt-y: 0deg !important; }
+@media (prefers-reduced-motion: reduce) { .xz-layers__plate { animation: none; } }

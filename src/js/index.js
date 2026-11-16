@@ -5,6 +5,7 @@ import icons from './icons.generated.js';
 import * as format from './format.js';
 import { initAdvancedForms, sanitize } from './forms-advanced.js';
 import { initComponents } from './components.js';
+import { initBlocks, motion, copy } from '../blocks/index.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -657,6 +658,7 @@ function init(root = document) {
   initFormats(root);
   initAdvancedForms(root, { icon });
   initComponents(root, { icon, validateField });
+  initBlocks(root, { icon });
   theme.sync();
 }
 
@@ -678,6 +680,8 @@ const Xsenze = {
   validate,
   format,
   sanitize,
+  motion,
+  copy,
 };
 
 export default Xsenze;

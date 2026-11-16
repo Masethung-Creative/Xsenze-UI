@@ -1,0 +1,24 @@
+/* Band: a full-width page section with even vertical rhythm.
+   data-theme="dark" (or "light") on a band gives that part of the page its own theme and background. */
+.xz-band { position: relative; isolation: isolate; padding-block: clamp(var(--xz-space-16), 9vw, var(--xz-space-24)); }
+.xz-band[data-theme] { background: var(--xz-bg); color: var(--xz-text); }
+.xz-band--muted { background: var(--xz-surface-2); }
+.xz-band--tight { padding-block: clamp(var(--xz-space-10), 6vw, var(--xz-space-16)); }
+.xz-band--ruled { border-top: 1px solid var(--xz-border); }
+
+/* Band header: eyebrow, title and lead above the band's content. */
+.xz-band__header { display: flex; flex-direction: column; align-items: center; gap: var(--xz-space-3); max-width: 46rem; margin: 0 auto clamp(var(--xz-space-8), 5vw, var(--xz-space-12)); text-align: center; }
+.xz-band__header--start { align-items: flex-start; margin-inline: 0; text-align: start; }
+.xz-band__title {
+  font-family: var(--xz-font-display);
+  font-size: clamp(var(--xz-font-size-3xl), 4vw, var(--xz-font-size-5xl));
+  font-weight: var(--xz-font-weight-bold);
+  line-height: var(--xz-line-height-tight);
+  letter-spacing: var(--xz-letter-spacing-tight);
+  text-wrap: balance;
+}
+.xz-band__title em { font-style: normal; color: var(--xz-accent-2-text); }
+.xz-band__lead { max-width: 40rem; font-size: var(--xz-font-size-lg); line-height: var(--xz-line-height-relaxed); color: var(--xz-text-muted); }
+.xz-band__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-3); margin-top: var(--xz-space-3); }
+.xz-band__header--start .xz-band__actions { justify-content: flex-start; }
+.xz-band__header > :is(.xz-command, .xz-facts) { margin-top: var(--xz-space-3); }

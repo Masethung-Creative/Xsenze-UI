@@ -1,0 +1,8 @@
+/* Curtain: a band that opens out as it scrolls in. It starts as an inset panel with round corners,
+   widens to full bleed, and its content rises a little more slowly than the page.
+   The script sets --xz-curtain from 0 (just arriving) to 1 (open). Without it the band is simply open. */
+[data-xz-curtain] {
+  --xz-curtain: 1;
+  clip-path: inset(0 calc((1 - var(--xz-curtain)) * 4%) round calc((1 - var(--xz-curtain)) * var(--xz-space-12)) calc((1 - var(--xz-curtain)) * var(--xz-space-12)) 0 0);
+}
+[data-xz-curtain] > :not(.xz-dotfield) { transform: translateY(calc((1 - var(--xz-curtain)) * var(--xz-space-16))); }

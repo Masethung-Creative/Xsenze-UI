@@ -1,0 +1,27 @@
+/* Command: one line of text to copy, such as a command, an invite link or a code, with a prompt
+   sign, an optional status and a copy button. data-theme="dark" on it gives a terminal look on a light page. */
+.xz-command {
+  display: flex;
+  align-items: center;
+  gap: var(--xz-space-3);
+  min-width: 0;
+  min-height: var(--xz-control-lg);
+  padding: var(--xz-space-1) var(--xz-space-1) var(--xz-space-1) var(--xz-space-4);
+  background: var(--xz-surface-2);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-control);
+  color: var(--xz-text);
+  font-family: var(--xz-font-mono);
+  font-size: var(--xz-font-size-sm);
+  text-align: start;
+}
+.xz-command__prompt { flex: none; color: var(--xz-text-subtle); user-select: none; }
+.xz-command__text { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.xz-command__text::-webkit-scrollbar { display: none; }
+.xz-command__text :is(b, strong) { color: var(--xz-success-text); font-weight: var(--xz-font-weight-semibold); }
+.xz-command__status { flex: none; color: var(--xz-success-text); }
+.xz-command > .xz-btn { flex: none; }
+/* Small: a chip-sized line without a button, for showing a call inside a diagram. */
+.xz-command--sm { min-height: 0; gap: var(--xz-space-2); padding: var(--xz-space-1) var(--xz-space-3); font-size: var(--xz-font-size-xs); }
+.xz-command--lg { min-height: 3.5rem; padding-left: var(--xz-space-5); font-size: var(--xz-font-size-md); }
+@media (max-width: 479.98px) { .xz-command--wrap .xz-command__text { overflow-wrap: anywhere; white-space: normal; } }

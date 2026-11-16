@@ -1,0 +1,42 @@
+/* Dot field: a fine grid of dots that drifts slowly behind a section, stays quiet behind the headline,
+   and lights up in the brand colour around the pointer. Place it as the first child of a positioned section.
+   Tune it with --xz-dot-gap, --xz-dot-size and --xz-dotfield-quiet (where the quiet area sits). */
+.xz-dotfield {
+  --xz-dot-gap: 16px;
+  --xz-dot-size: 1px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--xz-text);
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% var(--xz-dotfield-quiet, 30%), rgba(0, 0, 0, 0.18) 0%, #000 55%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% var(--xz-dotfield-quiet, 30%), rgba(0, 0, 0, 0.18) 0%, #000 55%, #000 70%, transparent 100%);
+}
+.xz-dotfield::before,
+.xz-dotfield::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--xz-dot-gap) * -2);
+  background-image: radial-gradient(circle, currentColor var(--xz-dot-size), transparent calc(var(--xz-dot-size) + 0.6px));
+  background-size: var(--xz-dot-gap) var(--xz-dot-gap);
+}
+.xz-dotfield::before,
+.xz-dotfield::after { animation: xz-dotfield-drift 18s linear infinite; }
+.xz-dotfield::before { opacity: 0.2; }
+/* The lit layer drifts with the base layer, so its dots sit exactly on top. */
+.xz-dotfield::after {
+  --xz-spot: radial-gradient(10rem circle at calc(var(--xz-x, -400px) + var(--xz-dot-gap) * 2) calc(var(--xz-y, -400px) + var(--xz-dot-gap) * 2), #000, transparent);
+  color: var(--xz-accent-2);
+  opacity: 0;
+  -webkit-mask-image: var(--xz-spot);
+  mask-image: var(--xz-spot);
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out);
+}
+.xz-dotfield.is-lit::after { opacity: 0.9; }
+@keyframes xz-dotfield-drift { to { transform: translate(var(--xz-dot-gap), var(--xz-dot-gap)); } }
+/* Even: no quiet area, for sections without a headline over the dots. */
+.xz-dotfield--even { -webkit-mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent); }
+.xz-dotfield--fine { --xz-dot-gap: 12px; }
+[data-xz-motion="off"] .xz-dotfield::before,
+[data-xz-motion="off"] .xz-dotfield::after { animation: none; }

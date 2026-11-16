@@ -164,6 +164,7 @@
   --xz-duration-base: 200ms;
   --xz-duration-slow: 320ms;
   --xz-duration-slower: 480ms;
+  --xz-duration-reveal: 640ms;
   --xz-ease-out: cubic-bezier(0.25, 1, 0.5, 1);
   --xz-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --xz-ease-in: cubic-bezier(0.5, 0, 0.75, 0);
@@ -1499,7 +1500,7 @@ span.xz-chip { cursor: default; }
 @media (pointer: coarse) { .xz-sidebar__link, .xz-navbar__link { min-height: var(--xz-control-touch); } }
 
 /* ---- footer ---- */
-.xz-footer { padding: var(--xz-space-10) var(--xz-gutter) var(--xz-space-6); background: var(--xz-surface); border-top: 1px solid var(--xz-border); font-size: var(--xz-font-size-sm); }
+.xz-footer { padding: var(--xz-space-10) var(--xz-gutter) var(--xz-space-6); background: var(--xz-surface); border-top: 1px solid var(--xz-border); color: var(--xz-text); font-size: var(--xz-font-size-sm); }
 .xz-footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: var(--xz-space-8); }
 .xz-footer__heading { margin-bottom: var(--xz-space-3); font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); font-size: var(--xz-font-size-xs); text-transform: uppercase; color: var(--xz-text-subtle); }
 .xz-footer__links { display: flex; flex-direction: column; gap: var(--xz-space-2); margin: 0; padding: 0; list-style: none; }
@@ -1649,3 +1650,651 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
   .xz-shell { display: block; }
   body { background: #fff; color: #000; }
 }
+
+/* ---- blocks/motion/beam ---- */
+/* Beam: a bright arc that travels around a box's border while it is hovered or focused.
+   Put .xz-beam on any box with a border radius. .xz-beam--always runs it all the time. */
+@property --xz-beam-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.xz-beam { position: relative; isolation: isolate; }
+.xz-beam::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--xz-beam-angle), transparent 0 60%, var(--xz-accent-2-border) 74%, var(--xz-accent-2) 90%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out);
+  animation: xz-beam 3s linear infinite paused;
+}
+.xz-beam:is(:hover, :focus-within, .is-active)::before,
+.xz-beam--always::before { opacity: 1; animation-play-state: running; }
+@keyframes xz-beam { to { --xz-beam-angle: 360deg; } }
+/* With motion off, the border simply lights up. */
+[data-xz-motion="off"] .xz-beam::before { animation: none; background: var(--xz-accent-2); }
+@media (prefers-reduced-motion: reduce) { .xz-beam::before { animation: none; background: var(--xz-accent-2); } }
+
+/* ---- blocks/motion/curtain ---- */
+/* Curtain: a band that opens out as it scrolls in. It starts as an inset panel with round corners,
+   widens to full bleed, and its content rises a little more slowly than the page.
+   The script sets --xz-curtain from 0 (just arriving) to 1 (open). Without it the band is simply open. */
+[data-xz-curtain] {
+  --xz-curtain: 1;
+  clip-path: inset(0 calc((1 - var(--xz-curtain)) * 4%) round calc((1 - var(--xz-curtain)) * var(--xz-space-12)) calc((1 - var(--xz-curtain)) * var(--xz-space-12)) 0 0);
+}
+[data-xz-curtain] > :not(.xz-dotfield) { transform: translateY(calc((1 - var(--xz-curtain)) * var(--xz-space-16))); }
+
+/* ---- blocks/motion/depth ---- */
+/* Depth: items in a long list tip back as they near the top or bottom of the screen and come flat in
+   the middle, so scrolling feels like turning a drum. Laptops and wider, with a mouse, and motion on. */
+[data-xz-depth].is-depth > *,
+[data-xz-depth].is-depth [data-xz-depth-item] { transform-origin: center; backface-visibility: hidden; }
+
+/* ---- blocks/motion/dotfield ---- */
+/* Dot field: a fine grid of dots that drifts slowly behind a section, stays quiet behind the headline,
+   and lights up in the brand colour around the pointer. Place it as the first child of a positioned section.
+   Tune it with --xz-dot-gap, --xz-dot-size and --xz-dotfield-quiet (where the quiet area sits). */
+.xz-dotfield {
+  --xz-dot-gap: 16px;
+  --xz-dot-size: 1px;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--xz-text);
+  -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% var(--xz-dotfield-quiet, 30%), rgba(0, 0, 0, 0.18) 0%, #000 55%, #000 70%, transparent 100%);
+  mask-image: radial-gradient(ellipse 70% 55% at 50% var(--xz-dotfield-quiet, 30%), rgba(0, 0, 0, 0.18) 0%, #000 55%, #000 70%, transparent 100%);
+}
+.xz-dotfield::before,
+.xz-dotfield::after {
+  content: "";
+  position: absolute;
+  inset: calc(var(--xz-dot-gap) * -2);
+  background-image: radial-gradient(circle, currentColor var(--xz-dot-size), transparent calc(var(--xz-dot-size) + 0.6px));
+  background-size: var(--xz-dot-gap) var(--xz-dot-gap);
+}
+.xz-dotfield::before,
+.xz-dotfield::after { animation: xz-dotfield-drift 18s linear infinite; }
+.xz-dotfield::before { opacity: 0.2; }
+/* The lit layer drifts with the base layer, so its dots sit exactly on top. */
+.xz-dotfield::after {
+  --xz-spot: radial-gradient(10rem circle at calc(var(--xz-x, -400px) + var(--xz-dot-gap) * 2) calc(var(--xz-y, -400px) + var(--xz-dot-gap) * 2), #000, transparent);
+  color: var(--xz-accent-2);
+  opacity: 0;
+  -webkit-mask-image: var(--xz-spot);
+  mask-image: var(--xz-spot);
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out);
+}
+.xz-dotfield.is-lit::after { opacity: 0.9; }
+@keyframes xz-dotfield-drift { to { transform: translate(var(--xz-dot-gap), var(--xz-dot-gap)); } }
+/* Even: no quiet area, for sections without a headline over the dots. */
+.xz-dotfield--even { -webkit-mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent); mask-image: linear-gradient(transparent, #000 15%, #000 85%, transparent); }
+.xz-dotfield--fine { --xz-dot-gap: 12px; }
+[data-xz-motion="off"] .xz-dotfield::before,
+[data-xz-motion="off"] .xz-dotfield::after { animation: none; }
+
+/* ---- blocks/motion/layers ---- */
+/* Layers: a stack of plates seen from above at an angle. A wave of light rises through the stack,
+   one plate after another, and the stack leans towards the pointer.
+   Size it with --xz-layers-size and --xz-layers-gap. Content in .xz-layers__face sits on the top plate. */
+.xz-layers {
+  --xz-layers-size: 10rem;
+  --xz-layers-gap: 0.85rem;
+  --xz-tilt-x: 0deg;
+  --xz-tilt-y: 0deg;
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: calc(var(--xz-layers-size) * 1.9);
+  perspective: 1200px;
+}
+.xz-layers::after {
+  content: "";
+  position: absolute;
+  bottom: 14%;
+  width: calc(var(--xz-layers-size) * 1.15);
+  height: calc(var(--xz-layers-size) * 0.32);
+  border-radius: 50%;
+  background: var(--xz-shadow-color);
+  filter: blur(18px);
+  z-index: -1;
+}
+.xz-layers__stack {
+  position: relative;
+  width: var(--xz-layers-size);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(56deg + var(--xz-tilt-x))) rotateZ(calc(-40deg + var(--xz-tilt-y))) translateZ(calc(var(--xz-layers-count, 5) * var(--xz-layers-gap) * -0.5));
+  transition: transform var(--xz-duration-slower) var(--xz-ease-out);
+}
+.xz-layers__plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-lg);
+  background: color-mix(in srgb, var(--xz-surface) 84%, transparent);
+  box-shadow: 0 1px 0 var(--xz-border);
+  transform: translateZ(calc(var(--i, 0) * var(--xz-layers-gap)));
+  animation: xz-layers-wave 2.8s var(--xz-ease-in-out) infinite;
+  animation-delay: calc(var(--i, 0) * 0.16s);
+}
+.xz-layers__plate:last-child { background: var(--xz-surface); border-color: var(--xz-border-strong); }
+@keyframes xz-layers-wave {
+  0%, 46%, 100% { transform: translateZ(calc(var(--i, 0) * var(--xz-layers-gap))); border-color: var(--xz-border); box-shadow: 0 1px 0 var(--xz-border); }
+  20% { transform: translateZ(calc((var(--i, 0) + 0.7) * var(--xz-layers-gap))); border-color: var(--xz-accent-2); box-shadow: 0 0 1.5rem var(--xz-accent-2-soft), inset 0 0 0 1px var(--xz-accent-2-border); }
+}
+.xz-layers__face { display: grid; place-items: center; gap: var(--xz-space-1); font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-bold); color: var(--xz-text); text-align: center; }
+[data-xz-motion="off"] .xz-layers__plate { animation: none; }
+[data-xz-motion="off"] .xz-layers__stack { --xz-tilt-x: 0deg !important; --xz-tilt-y: 0deg !important; }
+@media (prefers-reduced-motion: reduce) { .xz-layers__plate { animation: none; } }
+
+/* ---- blocks/motion/motion ---- */
+/* Shared motion parts. The page's motion button sets data-xz-motion="off" on <html>;
+   every looping animation below stops then, as it does when the system asks for less motion. */
+
+/* Caret: a blinking text cursor, used by the rotator and the typewriter. */
+.xz-caret { display: inline-block; flex: none; width: 0.07em; min-width: 2px; height: 0.86em; margin-left: 0.08em; vertical-align: -0.06em; background: var(--xz-accent-2); animation: xz-caret 1.1s steps(1) infinite; }
+@keyframes xz-caret { 50% { opacity: 0; } }
+[data-xz-motion="off"] .xz-caret { animation: none; }
+
+/* Motion button: a pause button that shows play while motion is off. */
+.xz-motion-toggle[aria-pressed="true"] { color: var(--xz-accent-2-text); }
+
+/* ---- blocks/motion/reveal ---- */
+/* Reveal: content rises into place, from soft to sharp.
+   data-xz-reveal="load" plays as the page loads and needs no script, so it never hides content.
+   data-xz-reveal plays when the element scrolls into view; the script hides it only while it waits off screen.
+   --xz-i (set inline, or by data-xz-stagger on a parent) delays each item by one stagger step. */
+@keyframes xz-reveal {
+  from { opacity: 0; filter: blur(var(--xz-blur-md)); transform: translateY(var(--xz-space-6)); }
+}
+[data-xz-reveal="load"],
+[data-xz-reveal].is-revealing {
+  animation: xz-reveal var(--xz-duration-reveal) var(--xz-ease-out) backwards;
+  animation-delay: calc(var(--xz-reveal-delay, 0ms) + var(--xz-i, 0) * var(--xz-stagger, 80ms));
+}
+[data-xz-reveal].is-pending { opacity: 0; }
+[data-xz-motion="off"] [data-xz-reveal] { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  [data-xz-reveal] { animation: none !important; }
+  [data-xz-reveal].is-pending { opacity: 1; }
+}
+
+/* ---- blocks/motion/rotator ---- */
+/* Rotator: one word in a sentence rolls to the next every few seconds.
+   Without the script, only the first word shows. The window always hugs the current word,
+   so a caret placed after it stays next to the text. */
+.xz-rotator { white-space: nowrap; color: var(--xz-rotator-color, var(--xz-accent-2-text)); }
+.xz-rotator:not(.is-ready) > .xz-rotator__item ~ .xz-rotator__item { display: none; }
+.xz-rotator__window {
+  display: inline-block;
+  height: 1.2em;
+  height: 1lh;
+  overflow: hidden;
+  vertical-align: bottom;
+  transition: width var(--xz-duration-slower) var(--xz-ease-in-out);
+}
+.xz-rotator__track { display: flex; flex-direction: column; align-items: flex-start; transition: transform var(--xz-duration-slower) var(--xz-ease-in-out); }
+.xz-rotator__track > .xz-rotator__item {
+  display: block;
+  flex: none;
+  height: 1.2em;
+  height: 1lh;
+  opacity: 0.2;
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out);
+}
+.xz-rotator__track > .is-current { opacity: 1; }
+.xz-rotator.is-jumping :is(.xz-rotator__window, .xz-rotator__track, .xz-rotator__item) { transition: none; }
+/* Plain: the word keeps the colour of the sentence. */
+.xz-rotator--plain { --xz-rotator-color: inherit; }
+
+/* ---- blocks/motion/sequence ---- */
+/* Sequence: the steps of a small demo appear one after another, then the group is marked done.
+   Without the script, or with motion off, everything shows in its finished state. */
+:where([data-xz-sequence].is-armed [data-xz-step]) {
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out), transform var(--xz-duration-slow) var(--xz-ease-out);
+}
+[data-xz-sequence].is-armed [data-xz-step]:not(.is-in) { opacity: 0; transform: translateY(var(--xz-space-2)); }
+
+/* ---- blocks/navigation/navbar ---- */
+/* Overlay navbar: floats over the first section, transparent at the top of the page.
+   Once the page scrolls it gets a frosted background, so links never sit on top of text.
+   With data-xz-navbar="adapt" it also takes the theme of the band underneath it (a dark band makes it dark). */
+.xz-navbar--overlay {
+  position: fixed;
+  inset: 0 0 auto;
+  background: transparent;
+  border-bottom-color: transparent;
+  color: var(--xz-text);
+  transition: background-color var(--xz-duration-base) var(--xz-ease-out), border-color var(--xz-duration-base) var(--xz-ease-out), color var(--xz-duration-base) var(--xz-ease-out);
+}
+.xz-navbar--overlay.is-scrolled { background: var(--xz-bg); border-bottom-color: var(--xz-border); }
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .xz-navbar--overlay.is-scrolled {
+    background: color-mix(in srgb, var(--xz-bg) 78%, transparent);
+    -webkit-backdrop-filter: blur(var(--xz-blur-lg));
+    backdrop-filter: blur(var(--xz-blur-lg));
+  }
+}
+
+/* ---- blocks/navigation/scroll-progress ---- */
+/* Scroll progress: a thin bar across the top of the screen that fills as the page is read. */
+.xz-scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: calc(var(--xz-z-sticky) + 1);
+  height: 2px;
+  background: var(--xz-accent-2);
+  transform: scaleX(var(--xz-progress, 0));
+  transform-origin: left center;
+  pointer-events: none;
+}
+[dir="rtl"] .xz-scroll-progress { transform-origin: right center; }
+
+/* ---- blocks/navigation/tabs-expand ---- */
+/* Expanding tabs: tabs on small screens, every panel in a stack on wide ones.
+   Add data-xz-tabs-expand (or ="md" / "xl") to a [data-xz-tabs] block. Give each panel an .xz-tabs__heading:
+   it is hidden while the tabs name the panels and shows once the panels are stacked. */
+.xz-tabs__heading { display: none; }
+[data-xz-tabs-expand].is-expanded > .xz-tabs__list { display: none; }
+[data-xz-tabs-expand].is-expanded > .xz-tabs__panel { padding-block: 0; }
+[data-xz-tabs-expand].is-expanded > .xz-tabs__panel + .xz-tabs__panel { margin-top: var(--xz-space-10); }
+[data-xz-tabs-expand].is-expanded .xz-tabs__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--xz-space-4);
+  margin: 0 0 var(--xz-space-4);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-lg);
+  font-weight: var(--xz-font-weight-semibold);
+}
+[data-xz-tabs-expand].is-expanded .xz-tabs__heading::after { content: ""; flex: 1; height: 1px; background: var(--xz-border); }
+
+/* ---- blocks/hero/hero ---- */
+/* Hero: the opening section. Centred by default; .xz-hero--split puts the media beside the text on wide screens.
+   Leaves room at the top for an overlay navbar. Put a .xz-dotfield inside for a moving background. */
+.xz-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding: calc(3.5rem + clamp(var(--xz-space-12), 8vw, var(--xz-space-20))) 0 clamp(var(--xz-space-12), 6vw, var(--xz-space-16));
+}
+.xz-hero__inner { display: flex; flex-direction: column; align-items: center; gap: var(--xz-space-6); text-align: center; }
+.xz-hero__title {
+  max-width: 20ch;
+  font-family: var(--xz-font-display);
+  font-size: clamp(var(--xz-font-size-4xl), 6vw, var(--xz-font-size-6xl));
+  font-weight: var(--xz-font-weight-bold);
+  line-height: var(--xz-line-height-tight);
+  letter-spacing: var(--xz-letter-spacing-tight);
+  text-wrap: balance;
+}
+/* A second, quieter line inside the title, often holding a rotator. */
+.xz-hero__line { display: block; margin-top: 0.35em; font-size: 0.5em; font-weight: var(--xz-font-weight-medium); line-height: 1.2; letter-spacing: 0; color: var(--xz-text-muted); }
+.xz-hero__lead { max-width: 40rem; font-size: var(--xz-font-size-lg); line-height: var(--xz-line-height-relaxed); color: var(--xz-text-muted); }
+.xz-hero__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--xz-space-3); }
+.xz-hero__media { position: relative; width: 100%; margin-top: var(--xz-space-6); }
+/* In the split layout, wrap the text parts in .xz-hero__copy. It does nothing in the centred layout. */
+.xz-hero__copy { display: contents; }
+@media (min-width: 1024px) {
+  .xz-hero--split .xz-hero__inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: var(--xz-space-12); text-align: start; }
+  .xz-hero--split .xz-hero__copy { display: flex; flex-direction: column; align-items: flex-start; gap: var(--xz-space-6); }
+  .xz-hero--split .xz-hero__actions { justify-content: flex-start; }
+  .xz-hero--split .xz-hero__media { margin-top: 0; }
+}
+
+/* ---- blocks/content/band ---- */
+/* Band: a full-width page section with even vertical rhythm.
+   data-theme="dark" (or "light") on a band gives that part of the page its own theme and background. */
+.xz-band { position: relative; isolation: isolate; padding-block: clamp(var(--xz-space-16), 9vw, var(--xz-space-24)); }
+.xz-band[data-theme] { background: var(--xz-bg); color: var(--xz-text); }
+.xz-band--muted { background: var(--xz-surface-2); }
+.xz-band--tight { padding-block: clamp(var(--xz-space-10), 6vw, var(--xz-space-16)); }
+.xz-band--ruled { border-top: 1px solid var(--xz-border); }
+
+/* Band header: eyebrow, title and lead above the band's content. */
+.xz-band__header { display: flex; flex-direction: column; align-items: center; gap: var(--xz-space-3); max-width: 46rem; margin: 0 auto clamp(var(--xz-space-8), 5vw, var(--xz-space-12)); text-align: center; }
+.xz-band__header--start { align-items: flex-start; margin-inline: 0; text-align: start; }
+.xz-band__title {
+  font-family: var(--xz-font-display);
+  font-size: clamp(var(--xz-font-size-3xl), 4vw, var(--xz-font-size-5xl));
+  font-weight: var(--xz-font-weight-bold);
+  line-height: var(--xz-line-height-tight);
+  letter-spacing: var(--xz-letter-spacing-tight);
+  text-wrap: balance;
+}
+.xz-band__title em { font-style: normal; color: var(--xz-accent-2-text); }
+.xz-band__lead { max-width: 40rem; font-size: var(--xz-font-size-lg); line-height: var(--xz-line-height-relaxed); color: var(--xz-text-muted); }
+.xz-band__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-3); margin-top: var(--xz-space-3); }
+.xz-band__header--start .xz-band__actions { justify-content: flex-start; }
+.xz-band__header > :is(.xz-command, .xz-facts) { margin-top: var(--xz-space-3); }
+
+/* ---- blocks/content/checklist ---- */
+/* Checklist: short steps, each with an icon box, and a tick once .is-done. */
+.xz-checklist { display: flex; flex-direction: column; gap: var(--xz-space-2); margin: 0; padding: 0; list-style: none; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); color: var(--xz-text-muted); }
+.xz-checklist__item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--xz-space-3); }
+.xz-checklist__icon { display: grid; place-items: center; width: 1.5rem; height: 1.5rem; background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); }
+.xz-checklist__icon > .xz-icon { width: var(--xz-icon-xs); height: var(--xz-icon-xs); }
+.xz-checklist__item::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background: var(--xz-success-text);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='square'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='square'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0;
+  transition: opacity var(--xz-duration-base) var(--xz-ease-out);
+}
+.xz-checklist__item.is-done { color: var(--xz-text); }
+.xz-checklist__item.is-done::after { opacity: 1; }
+
+/* ---- blocks/content/command ---- */
+/* Command: one line of text to copy, such as a command, an invite link or a code, with a prompt
+   sign, an optional status and a copy button. data-theme="dark" on it gives a terminal look on a light page. */
+.xz-command {
+  display: flex;
+  align-items: center;
+  gap: var(--xz-space-3);
+  min-width: 0;
+  min-height: var(--xz-control-lg);
+  padding: var(--xz-space-1) var(--xz-space-1) var(--xz-space-1) var(--xz-space-4);
+  background: var(--xz-surface-2);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-control);
+  color: var(--xz-text);
+  font-family: var(--xz-font-mono);
+  font-size: var(--xz-font-size-sm);
+  text-align: start;
+}
+.xz-command__prompt { flex: none; color: var(--xz-text-subtle); user-select: none; }
+.xz-command__text { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.xz-command__text::-webkit-scrollbar { display: none; }
+.xz-command__text :is(b, strong) { color: var(--xz-success-text); font-weight: var(--xz-font-weight-semibold); }
+.xz-command__status { flex: none; color: var(--xz-success-text); }
+.xz-command > .xz-btn { flex: none; }
+/* Small: a chip-sized line without a button, for showing a call inside a diagram. */
+.xz-command--sm { min-height: 0; gap: var(--xz-space-2); padding: var(--xz-space-1) var(--xz-space-3); font-size: var(--xz-font-size-xs); }
+.xz-command--lg { min-height: 3.5rem; padding-left: var(--xz-space-5); font-size: var(--xz-font-size-md); }
+@media (max-width: 479.98px) { .xz-command--wrap .xz-command__text { overflow-wrap: anywhere; white-space: normal; } }
+
+/* ---- blocks/content/eyebrow ---- */
+/* Eyebrow: a small framed line above a title, for a count, a status or a short link. */
+.xz-eyebrow {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xz-space-1) var(--xz-space-2);
+  padding: var(--xz-space-1) var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-control);
+  color: var(--xz-text-muted);
+  font-family: var(--xz-font-mono);
+  font-size: var(--xz-font-size-xs);
+  letter-spacing: 0.02em;
+}
+.xz-eyebrow a { color: var(--xz-text); text-decoration: none; }
+.xz-eyebrow a:hover { color: var(--xz-accent-2-text); text-decoration: underline; text-underline-offset: 3px; }
+.xz-eyebrow__dot { width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--xz-accent-2); }
+.xz-eyebrow__sep { color: var(--xz-text-subtle); }
+
+/* ---- blocks/content/facts ---- */
+/* Facts: a short row of plain facts, such as counts, licence and guarantees. Bold parts stand out.
+   .xz-facts--marker puts a small arrow before each fact; .xz-facts--center centres the row. */
+.xz-facts { display: flex; flex-wrap: wrap; gap: var(--xz-space-2) var(--xz-space-6); margin: 0; padding: 0; list-style: none; color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); line-height: var(--xz-line-height-normal); }
+.xz-facts :is(strong, b) { color: var(--xz-text); font-weight: var(--xz-font-weight-semibold); }
+.xz-facts--center { justify-content: center; text-align: center; }
+.xz-facts--marker > li::before { content: "›"; margin-right: var(--xz-space-2); color: var(--xz-accent-2-text); }
+
+/* ---- blocks/content/feature ---- */
+/* Feature row: text on one side, a visual on the other. Rows stack on small screens;
+   .xz-feature--flip swaps the sides on wide screens so a run of rows can alternate. */
+.xz-feature { display: grid; gap: var(--xz-space-10); align-items: center; padding-block: clamp(var(--xz-space-12), 6vw, var(--xz-space-20)); }
+.xz-feature + .xz-feature { border-top: 1px solid var(--xz-border); }
+.xz-feature__text { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.xz-feature__visual { min-width: 0; }
+.xz-feature__index { font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); letter-spacing: var(--xz-letter-spacing-wide); color: var(--xz-text-subtle); }
+.xz-feature__title {
+  margin-top: var(--xz-space-3);
+  font-family: var(--xz-font-display);
+  font-size: clamp(var(--xz-font-size-2xl), 3vw, var(--xz-font-size-4xl));
+  font-weight: var(--xz-font-weight-bold);
+  line-height: var(--xz-line-height-tight);
+  letter-spacing: var(--xz-letter-spacing-tight);
+  text-wrap: balance;
+}
+.xz-feature__title em { font-style: normal; color: var(--xz-accent-2-text); }
+.xz-feature__body { max-width: 34rem; margin-top: var(--xz-space-4); line-height: var(--xz-line-height-relaxed); color: var(--xz-text-muted); }
+.xz-feature__body strong { color: var(--xz-text); font-weight: var(--xz-font-weight-semibold); }
+.xz-feature__text > .xz-facts { margin-top: var(--xz-space-6); }
+@media (min-width: 1024px) {
+  .xz-feature { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--xz-space-16); }
+  .xz-feature--flip { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  .xz-feature--flip > .xz-feature__text { order: 2; }
+}
+
+/* ---- blocks/content/marquee ---- */
+/* Marquee: a row of items that slides sideways without end, such as module names or customer names.
+   It stops while the pointer or focus is on it, while it is off screen and when motion is off.
+   Without the script, or with less motion, it is a still row that wraps. */
+.xz-marquee {
+  --xz-marquee-gap: var(--xz-space-3);
+  display: flex;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.xz-marquee__track { display: flex; flex: none; gap: var(--xz-marquee-gap); min-width: max-content; margin: 0; padding: 0 var(--xz-marquee-gap) 0 0; list-style: none; }
+.xz-marquee.is-ready .xz-marquee__track { animation: xz-marquee var(--xz-marquee-duration, 40s) linear infinite; }
+.xz-marquee--reverse .xz-marquee__track { animation-direction: reverse; }
+.xz-marquee:is(:hover, :focus-within, .is-paused) .xz-marquee__track { animation-play-state: paused; }
+@keyframes xz-marquee { to { transform: translateX(-50%); } }
+[dir="rtl"] .xz-marquee__track { animation-direction: reverse; }
+.xz-marquee__item {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--xz-space-2);
+  padding: var(--xz-space-2) var(--xz-space-4) var(--xz-space-2) var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-control);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-sm);
+  font-weight: var(--xz-font-weight-medium);
+  white-space: nowrap;
+}
+.xz-marquee__item > .xz-icon { color: var(--xz-text-muted); }
+/* Plain: names only, no boxes, for a row of customer names. */
+.xz-marquee--plain { --xz-marquee-gap: var(--xz-space-12); }
+.xz-marquee--plain .xz-marquee__item { padding: 0; background: none; border: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-bold); letter-spacing: var(--xz-letter-spacing-tight); }
+.xz-marquees { display: flex; flex-direction: column; gap: var(--xz-space-3); }
+[data-xz-motion="off"] .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+[data-xz-motion="off"] .xz-marquee [data-xz-clone] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .xz-marquee.is-ready .xz-marquee__track,
+  .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+  .xz-marquee [data-xz-clone] { display: none; }
+}
+
+/* ---- blocks/content/tile ---- */
+/* Tile: a small square with an icon or logo and a short label. As a link or button it lifts on hover;
+   aria-pressed="true" or .is-active marks the chosen one. .xz-tiles lays tiles out in a grid. */
+.xz-tiles { display: grid; grid-template-columns: repeat(var(--xz-tiles-cols, 2), minmax(0, 1fr)); gap: var(--xz-space-3); }
+@media (min-width: 640px) {
+  .xz-tiles--3 { --xz-tiles-cols: 3; }
+  .xz-tiles--4 { --xz-tiles-cols: 4; }
+}
+.xz-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xz-space-2);
+  min-height: 5.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-surface);
+  color: var(--xz-text);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-sm);
+  font-weight: var(--xz-font-weight-medium);
+  line-height: var(--xz-line-height-snug);
+  text-align: center;
+  text-decoration: none;
+  transition: border-color var(--xz-duration-fast) var(--xz-ease-out), background-color var(--xz-duration-fast) var(--xz-ease-out), box-shadow var(--xz-duration-fast) var(--xz-ease-out), transform var(--xz-duration-fast) var(--xz-ease-out);
+}
+.xz-tile > .xz-icon, .xz-tile > img { width: var(--xz-icon-lg); height: var(--xz-icon-lg); object-fit: contain; }
+:is(a, button).xz-tile { cursor: pointer; }
+:is(a, button).xz-tile:hover { border-color: var(--xz-border-strong); box-shadow: 3px 3px 0 var(--xz-accent-2); transform: translate(-1.5px, -1.5px); }
+:is(a, button).xz-tile:active { box-shadow: none; transform: none; }
+/* The soft fill is see-through in the dark theme, so it sits on a solid surface: lines behind a tile never show. */
+.xz-tile.is-active, .xz-tile[aria-pressed="true"] { border-color: var(--xz-accent-2); background: linear-gradient(var(--xz-accent-2-soft), var(--xz-accent-2-soft)), var(--xz-surface); }
+.xz-tile:disabled, .xz-tile[aria-disabled="true"] { background: var(--xz-disabled-bg); border-color: var(--xz-border); color: var(--xz-disabled-text); box-shadow: none; transform: none; cursor: not-allowed; }
+/* More: a quiet dashed tile that says how many others there are. */
+.xz-tile--more { background: transparent; border-style: dashed; color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-regular); }
+.xz-tile--wide { grid-column: 1 / -1; min-height: 0; }
+
+/* ---- blocks/content/window ---- */
+/* Window: a framed panel with a title bar, for showing a product screen or a live demo. */
+.xz-window { display: flex; flex-direction: column; min-width: 0; overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); box-shadow: var(--xz-shadow-sm); }
+.xz-window--raised { box-shadow: var(--xz-shadow-lg); }
+.xz-window__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--xz-space-2);
+  min-height: 2.5rem;
+  padding: 0 var(--xz-space-4);
+  background: var(--xz-surface-2);
+  border-bottom: 1px solid var(--xz-border);
+  color: var(--xz-text-muted);
+  font-family: var(--xz-font-mono);
+  font-size: var(--xz-font-size-xs);
+}
+/* Three window dots, drawn with one element. */
+.xz-window__bar::before { content: ""; flex: none; width: 0.5rem; height: 0.5rem; margin-right: 2rem; border-radius: 50%; background: var(--xz-border); box-shadow: 0.875rem 0 0 var(--xz-border), 1.75rem 0 0 var(--xz-border); }
+.xz-window__bar strong { color: var(--xz-text); font-weight: var(--xz-font-weight-medium); }
+.xz-window__body { flex: 1; min-width: 0; padding: var(--xz-space-5); }
+.xz-window__status { padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface-2); border-top: 1px solid var(--xz-border); color: var(--xz-success-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); text-align: center; }
+
+/* ---- blocks/forms/copy ---- */
+/* Copy button: shows "Copied" with a tick for two seconds, without changing width.
+   The script stacks the button's own label and the confirmation in the same spot. */
+.xz-copy { display: inline-grid; place-items: center; }
+.xz-copy > * { grid-area: 1 / 1; display: inline-flex; align-items: center; gap: var(--xz-space-2); transition: opacity var(--xz-duration-base) var(--xz-ease-out), transform var(--xz-duration-base) var(--xz-ease-out); }
+.xz-copy__done { opacity: 0; transform: translateY(45%); }
+.is-copied .xz-copy__idle { opacity: 0; transform: translateY(-45%); }
+.is-copied .xz-copy__done { opacity: 1; transform: none; }
+
+/* ---- blocks/data-display/compare ---- */
+/* Compare: options for one job, ranked, with the chosen one marked .is-pick and a result line.
+   Inside a sequence the rows arrive one by one and the pick lights up when it is done;
+   on its own, or without the script, it shows the finished comparison. */
+.xz-compare { display: flex; flex-direction: column; gap: var(--xz-space-3); }
+.xz-compare__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--xz-space-3); padding-bottom: var(--xz-space-3); border-bottom: 1px solid var(--xz-border); }
+.xz-compare__title { font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold); }
+.xz-compare__count { flex: none; color: var(--xz-text-subtle); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__list { margin: 0; padding: 0; list-style: none; }
+.xz-compare__row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--xz-space-3);
+  padding: var(--xz-space-3) var(--xz-space-2);
+  border-radius: var(--xz-radius-control);
+  font-size: var(--xz-font-size-sm);
+  transition: opacity var(--xz-duration-slow) var(--xz-ease-out), transform var(--xz-duration-slow) var(--xz-ease-out), background-color var(--xz-duration-base) var(--xz-ease-out), box-shadow var(--xz-duration-base) var(--xz-ease-out);
+}
+.xz-compare__row + .xz-compare__row { border-top: 1px solid var(--xz-border); }
+.xz-compare__name { min-width: 0; font-weight: var(--xz-font-weight-medium); }
+.xz-compare__price { margin-left: var(--xz-space-2); color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__note { justify-self: end; color: var(--xz-text-subtle); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__note--warn { color: var(--xz-warning-text); }
+.xz-compare__row .xz-badge { transition: opacity var(--xz-duration-base) var(--xz-ease-out), transform var(--xz-duration-base) var(--xz-ease-out); }
+.xz-compare__result { display: flex; align-items: center; gap: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-success-soft); border: 1px solid var(--xz-success-border); border-radius: var(--xz-radius-control); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); }
+.xz-compare__result strong { color: var(--xz-success-text); }
+/* Finished state, the default: the pick stands out and the rest step back. */
+.xz-compare__row.is-pick { background: var(--xz-accent-2-soft); box-shadow: inset 0 0 0 1px var(--xz-accent-2); }
+.xz-compare__row:not(.is-pick) { opacity: 0.55; }
+/* While a sequence plays, rows arrive at full strength and the pick waits for the end. */
+.is-armed:not(.is-done) .xz-compare__row.is-in { opacity: 1; }
+.is-armed:not(.is-done) .xz-compare__row.is-pick { background: transparent; box-shadow: none; }
+.is-armed:not(.is-done) .xz-compare__row .xz-badge { opacity: 0; transform: scale(0.7); }
+
+/* ---- blocks/data-display/flow ---- */
+/* Flow: shows how one thing reaches many through a hub: a source on the left, a hub in the middle
+   and targets on the right, joined by lines. Pointing at or focusing a target lights its route.
+   On small screens the three parts stack and the lines run downwards. */
+.xz-flow { position: relative; display: grid; gap: var(--xz-space-10); align-items: center; text-align: start; }
+@media (min-width: 1024px) { .xz-flow { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--xz-space-12); } }
+.xz-flow__source, .xz-flow__hub, .xz-flow__targets { position: relative; z-index: 1; min-width: 0; }
+.xz-flow__hub { display: grid; place-items: center; }
+.xz-flow__lines { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.xz-flow__line { fill: none; stroke: var(--xz-border); stroke-width: 1; vector-effect: non-scaling-stroke; transition: stroke var(--xz-duration-base) var(--xz-ease-out); }
+.xz-flow__line.is-active { stroke: var(--xz-accent-2); stroke-width: 1.5; }
+.xz-flow__pulse { fill: none; stroke: var(--xz-accent-2); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 3 97; vector-effect: non-scaling-stroke; animation: xz-flow-pulse 2.2s linear infinite; }
+@keyframes xz-flow-pulse { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+[data-xz-motion="off"] .xz-flow__pulse { display: none; }
+@media (prefers-reduced-motion: reduce) { .xz-flow__pulse { display: none; } }
+
+/* ---- blocks/data-display/ledger ---- */
+/* Ledger: rows that set an old price against a new one. The old price is struck through with a drawn line
+   and the new one stands out. Inside a sequence the strikes draw one row after another once it is done. */
+.xz-ledger { margin: 0; padding: 0; list-style: none; }
+.xz-ledger__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--xz-space-4); padding: var(--xz-space-3) 0; font-size: var(--xz-font-size-sm); }
+.xz-ledger__row + .xz-ledger__row { border-top: 1px solid var(--xz-border); }
+.xz-ledger__label { display: flex; align-items: center; gap: var(--xz-space-2); min-width: 0; font-weight: var(--xz-font-weight-medium); }
+.xz-ledger__label > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xz-ledger__value { display: inline-flex; flex-wrap: wrap; align-items: baseline; justify-content: flex-end; gap: var(--xz-space-1) var(--xz-space-3); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); text-align: end; }
+.xz-ledger__was { position: relative; color: var(--xz-text-subtle); text-decoration: none; transition: color var(--xz-duration-slow) var(--xz-ease-out); }
+.xz-ledger__was::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -2px;
+  right: -2px;
+  height: 1.5px;
+  background: var(--xz-accent-2);
+  transform-origin: left center;
+  transition: transform var(--xz-duration-slow) var(--xz-ease-out);
+  transition-delay: calc(var(--xz-i, 0) * 140ms);
+}
+.xz-ledger__now { color: var(--xz-success-text); font-weight: var(--xz-font-weight-semibold); transition: opacity var(--xz-duration-slow) var(--xz-ease-out), transform var(--xz-duration-slow) var(--xz-ease-out); transition-delay: calc(var(--xz-i, 0) * 140ms + 160ms); }
+.is-armed:not(.is-done) .xz-ledger__was { color: var(--xz-text); }
+.is-armed:not(.is-done) .xz-ledger__was::after { transform: scaleX(0); }
+.is-armed:not(.is-done) .xz-ledger__now { opacity: 0; transform: scale(0.85); }
+
+/* ---- blocks/footer/footer ---- */
+/* Footer additions: a brand column and a large, faint wordmark along the bottom edge.
+   data-theme="dark" on the footer gives a dark footer on a light page. */
+.xz-footer > .xz-container { padding-inline: 0; }
+.xz-footer__brand { display: flex; flex-direction: column; align-items: flex-start; gap: var(--xz-space-2); color: var(--xz-text-muted); }
+.xz-footer--wordmark { position: relative; overflow: hidden; padding-bottom: clamp(5rem, 15vw, 12rem); }
+.xz-footer__wordmark {
+  position: absolute;
+  bottom: -0.18em;
+  left: 50%;
+  font-family: var(--xz-font-display);
+  font-size: clamp(6rem, 21vw, 18rem);
+  font-weight: var(--xz-font-weight-bold);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--xz-text) 7%, transparent);
+  transform: translateX(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+.xz-footer--wordmark > :not(.xz-footer__wordmark) { position: relative; z-index: 1; }

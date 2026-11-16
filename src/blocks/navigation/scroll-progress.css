@@ -1,0 +1,12 @@
+/* Scroll progress: a thin bar across the top of the screen that fills as the page is read. */
+.xz-scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: calc(var(--xz-z-sticky) + 1);
+  height: 2px;
+  background: var(--xz-accent-2);
+  transform: scaleX(var(--xz-progress, 0));
+  transform-origin: left center;
+  pointer-events: none;
+}
+[dir="rtl"] .xz-scroll-progress { transform-origin: right center; }
