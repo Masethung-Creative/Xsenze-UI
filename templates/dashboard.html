@@ -13,17 +13,28 @@
 
 <div class="xz-shell">
 
-  <!-- Sidebar. Shown from 1024px up. A copy lives in the drawer at the end of the page for smaller screens. -->
-  <aside class="xz-sidebar">
+  <!-- Sidebar. Shown from 1024px up. A copy lives in the drawer at the end of the page for smaller screens.
+       The button in its header folds it to a rail of icons; data-xz-sidebar keeps that choice on this device. -->
+  <aside class="xz-sidebar" data-xz-sidebar="dashboard">
     <div class="xz-sidebar__header">
       <a class="xz-logo" href="./dashboard.html">Xsenze</a>
+      <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-sidebar__toggle" type="button" data-xz-sidebar-toggle aria-label="Collapse the menu" data-xz-tooltip="Collapse the menu" data-xz-tooltip-place="end"><i data-xz-icon="panel-left" data-size="sm"></i></button>
     </div>
     <nav aria-label="Main">
       <div class="xz-sidebar__section">
         <div class="xz-sidebar__heading" id="nav-overview">Overview</div>
         <ul class="xz-sidebar__nav" aria-labelledby="nav-overview">
           <li><a class="xz-sidebar__link" href="./dashboard.html" aria-current="page"><i data-xz-icon="layout-dashboard"></i> Dashboard</a></li>
-          <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="book-open"></i> Courses</a></li>
+          <li>
+            <details class="xz-sidebar__group">
+              <summary class="xz-sidebar__link"><i data-xz-icon="book-open"></i> Courses</summary>
+              <ul class="xz-sidebar__sub">
+                <li><a class="xz-sidebar__link" href="#">All courses</a></li>
+                <li><a class="xz-sidebar__link" href="#">Data analytics</a></li>
+                <li><a class="xz-sidebar__link" href="#">Full stack web</a></li>
+              </ul>
+            </details>
+          </li>
           <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="users"></i> Learners <span class="xz-badge xz-badge--count">48</span></a></li>
           <li><a class="xz-sidebar__link" href="#"><i data-xz-icon="graduation-cap"></i> Batches</a></li>
         </ul>

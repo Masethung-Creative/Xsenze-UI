@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Enter the code · Xsenze</title>
+<link rel="stylesheet" href="../dist/xsenze.min.css">
+<script src="../dist/xsenze.min.js" defer></script>
+</head>
+<body>
+<!-- One-time code: after sign-in with a phone number, or as a second step. The form sends when the last digit is in. -->
+<div class="xz-auth xz-auth--single">
+  <main class="xz-auth__main">
+    <div class="xz-auth__panel xz-stack xz-gap-8">
+      <a class="xz-logo" href="./login.html">Xsenze</a>
+
+      <div>
+        <header class="xz-auth__header">
+          <h1 class="xz-auth__title">Enter the code</h1>
+          <p class="xz-auth__text">We sent a 6-digit code by SMS to <strong>+91 98765 43210</strong>. It works for 10 minutes.</p>
+        </header>
+
+        <form class="xz-form" id="verify-form" action="#" method="post">
+          <div class="xz-field">
+            <span class="xz-label" id="verify-label">Code</span>
+            <div class="xz-otp" data-xz-otp role="group" aria-labelledby="verify-label" aria-describedby="verify-error">
+              <input class="xz-input xz-input--lg xz-otp__cell" type="text" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1">
+              <input class="xz-input xz-input--lg xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 2">
+              <input class="xz-input xz-input--lg xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 3">
+              <input class="xz-input xz-input--lg xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 4">
+              <input class="xz-input xz-input--lg xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 5">
+              <input class="xz-input xz-input--lg xz-otp__cell" type="text" inputmode="numeric" aria-label="Digit 6">
+              <input type="hidden" name="otp">
+            </div>
+            <p class="xz-error" id="verify-error" hidden><i data-xz-icon="circle-alert" data-size="sm"></i><span>That code does not match. Check the SMS and try again.</span></p>
+          </div>
+          <button class="xz-btn xz-btn--primary xz-btn--lg xz-btn--block" type="submit">Verify</button>
+          <p class="xz-help" aria-live="polite">Did not get it? <button class="xz-btn xz-btn--link" type="button" id="verify-resend" disabled><span>Send again in <span id="verify-wait">0:30</span></span></button></p>
+        </form>
+
+        <!-- Shown in place of the form once the code is right. -->
+        <div class="xz-alert xz-alert--success" id="verify-done" role="status" tabindex="-1" hidden>
+          <i data-xz-icon="circle-check"></i>
+          <div class="xz-alert__body">
+            <p class="xz-alert__title">Your number is verified</p>
+            <p class="xz-alert__text">Taking you to your dashboard…</p>
+          </div>
+        </div>
+      </div>
+
+      <p><a class="xz-link xz-link--standalone" href="./login.html"><i data-xz-icon="arrow-left" data-size="sm"></i> Use another number</a></p>
+    </div>
+  </main>
+</div>
+
+<script>
+  // A demo: the code 123456 is right. Replace with a request to your server.
+  document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('verify-form');
+    var otp = form.querySelector('[data-xz-otp]');
+    var error = document.getElementById('verify-error');
+    var resend = document.getElementById('verify-resend');
+    var wait = document.getElementById('verify-wait');
+    var check = function () {
+      var value = form.otp.value;
+      var cells = otp.querySelectorAll('.xz-otp__cell');
+      if (value === '123456') {
+        form.hidden = true;
+        document.getElementById('verify-done').hidden = false;
+        document.getElementById('verify-done').focus();
+        return;
+      }
+      // A wrong code: say so, empty the boxes and start again from the first one.
+      error.hidden = false;
+      cells.forEach(function (c) { c.value = ''; c.setAttribute('aria-invalid', 'true'); });
+      form.otp.value = '';
+      cells[0].focus();
+    };
+    otp.addEventListener('xz:otp-complete', function () { form.requestSubmit ? form.requestSubmit() : check(); });
+    // Typing or pasting a new code clears the message.
+    var fresh = function () {
+      if (error.hidden) return;
+      error.hidden = true;
+      otp.querySelectorAll('[aria-invalid]').forEach(function (c) { c.removeAttribute('aria-invalid'); });
+    };
+    otp.addEventListener('keydown', fresh);
+    otp.addEventListener('paste', fresh);
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      check();
+    });
+    // "Send again" opens after 30 seconds.
+    var left = 30;
+    var tick = setInterval(function () {
+      left -= 1;
+      wait.textContent = '0:' + String(left).padStart(2, '0');
+      if (left > 0) return;
+      clearInterval(tick);
+      resend.disabled = false;
+      resend.textContent = 'Send the code again';
+    }, 1000);
+    resend.addEventListener('click', function () {
+      resend.disabled = true;
+      Xsenze.toast({ message: 'A new code is on its way.' });
+    });
+  });
+</script>
+</body>
+</html>
