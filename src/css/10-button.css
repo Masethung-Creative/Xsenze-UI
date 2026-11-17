@@ -72,8 +72,19 @@
   animation: xz-spin 0.7s linear infinite;
 }
 
+/* Toggle button: stays pressed until pressed again, such as Mute or Pin. Give it aria-pressed and data-xz-toggle. */
+.xz-btn[data-xz-toggle][aria-pressed="true"] { --_bg: var(--xz-inverse); --_fg: var(--xz-on-inverse); --_bd: var(--xz-inverse); --_bg-hover: var(--xz-inverse); --_bg-active: var(--xz-inverse); }
+.xz-btn--ghost[data-xz-toggle][aria-pressed="true"] { --_bg: var(--xz-surface-3); --_fg: var(--xz-text); --_bd: transparent; --_bg-hover: var(--xz-surface-3); }
+
+/* Button group: joined buttons. Inner corners are square; --vertical stacks them. */
 .xz-btn-group { display: inline-flex; }
-.xz-btn-group > .xz-btn + .xz-btn { margin-left: -1px; }
+.xz-btn-group > .xz-btn + .xz-btn { margin-inline-start: -1px; }
+.xz-btn-group:not(.xz-btn-group--vertical) > .xz-btn:not(:first-child) { border-start-start-radius: 0; border-end-start-radius: 0; }
+.xz-btn-group:not(.xz-btn-group--vertical) > .xz-btn:not(:last-child) { border-start-end-radius: 0; border-end-end-radius: 0; }
+.xz-btn-group--vertical { flex-direction: column; }
+.xz-btn-group--vertical > .xz-btn + .xz-btn { margin: -1px 0 0; }
+.xz-btn-group--vertical > .xz-btn:not(:first-child) { border-start-start-radius: 0; border-start-end-radius: 0; }
+.xz-btn-group--vertical > .xz-btn:not(:last-child) { border-end-start-radius: 0; border-end-end-radius: 0; }
 .xz-btn-group > .xz-btn:hover, .xz-btn-group > .xz-btn:focus-visible, .xz-btn-group > .xz-btn[aria-pressed="true"] { z-index: 1; }
 .xz-btn-group > .xz-btn[aria-pressed="true"] { background: var(--xz-inverse); color: var(--xz-on-inverse); border-color: var(--xz-inverse); }
 

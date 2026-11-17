@@ -1,14 +1,5 @@
-/* Rail: the sidebar as a column of icons, for tool screens that need the room. Each link keeps its words for
-   screen readers; give it a tooltip with data-xz-tooltip so sighted people can read the name too. */
-.xz-sidebar--rail { --xz-sidebar-width: 4rem; width: var(--xz-sidebar-width); align-items: stretch; }
-.xz-sidebar--rail .xz-sidebar__header { justify-content: center; padding: 0; }
-.xz-sidebar--rail .xz-sidebar__heading { height: 1px; margin: var(--xz-space-2) var(--xz-space-3); padding: 0; overflow: hidden; background: var(--xz-border); color: transparent; }
-.xz-sidebar--rail .xz-sidebar__link { justify-content: center; gap: 0; padding: 0; font-size: 0; }
-.xz-sidebar--rail .xz-sidebar__link .xz-icon { width: 1.25rem; height: 1.25rem; }
-.xz-sidebar--rail .xz-sidebar__link .xz-badge { position: absolute; top: 4px; inset-inline-end: 6px; margin: 0; font-size: 0.625rem; }
-.xz-sidebar--rail .xz-sidebar__link { position: relative; }
-.xz-sidebar--rail .xz-sidebar__footer { display: flex; justify-content: center; padding: var(--xz-space-3) 0; }
-.xz-shell:has(> .xz-sidebar--rail) { --xz-sidebar-width: 4rem; }
+/* The rail itself (xz-sidebar--rail) is part of the main stylesheet since 0.10.0, with the button that folds
+   any sidebar into it. The tools pack adds lit rows. */
 
 /* A lit row: a coloured edge and tint for a live state, such as a class on air. */
 .xz-sidebar__link[data-tone] { box-shadow: inset 3px 0 0 var(--_tone); background: linear-gradient(to right, var(--_tone-soft), transparent 80%); }

@@ -1,0 +1,11 @@
+/* Scroll area: a box with its own thin scrollbar, for long lists inside cards, menus and side panels.
+   Name it with aria-label; the script makes it reachable with Tab when it scrolls. --x scrolls sideways,
+   --fade softens the edges that have more to scroll to. --xz-scroll-height sets the height. */
+.xz-scroll { max-height: var(--xz-scroll-height, 16rem); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--xz-border-control) transparent; }
+.xz-scroll:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-scroll--x { max-height: none; overflow-x: auto; overflow-y: hidden; }
+.xz-scroll--fade { --_s: 0px; --_e: 0px; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); mask-image: linear-gradient(to bottom, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); }
+.xz-scroll--fade.xz-scroll--x { -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); mask-image: linear-gradient(to right, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); }
+[dir="rtl"] .xz-scroll--fade.xz-scroll--x { -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); mask-image: linear-gradient(to left, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); }
+.xz-scroll--fade.has-before { --_s: 2rem; }
+.xz-scroll--fade.has-after { --_e: 2rem; }

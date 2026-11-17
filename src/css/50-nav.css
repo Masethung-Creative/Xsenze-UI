@@ -24,7 +24,7 @@
 /* Put .xz-shell__toggle on the button that opens the navigation drawer. It hides when the sidebar shows. */
 @media (min-width: 1024px) {
   .xz-shell__toggle { display: none !important; }
-  .xz-shell { grid-template-columns: var(--xz-sidebar-width, 16rem) minmax(0, 1fr); }
+  .xz-shell { grid-template-columns: var(--xz-sidebar-width, 16rem) minmax(0, 1fr); transition: grid-template-columns var(--xz-duration-slow) var(--xz-ease-out); }
   .xz-shell > .xz-sidebar { position: sticky; top: 0; height: 100vh; height: 100dvh; }
 }
 
@@ -44,6 +44,31 @@
 .xz-sidebar__link .xz-badge { margin-left: auto; }
 .xz-sidebar__footer { margin-top: auto; padding: var(--xz-space-4); border-top: 1px solid var(--xz-border); }
 @media (pointer: coarse) { .xz-sidebar__link, .xz-navbar__link { min-height: var(--xz-control-touch); } }
+/* The button that folds the sidebar (data-xz-sidebar-toggle) sits at the end of the header. */
+.xz-sidebar__header { gap: var(--xz-space-2); }
+.xz-sidebar__toggle { margin-inline-start: auto; }
+/* Groups: a link that opens a list of sub-pages, on the native details element. */
+.xz-sidebar__group > summary { list-style: none; cursor: pointer; }
+.xz-sidebar__group > summary::-webkit-details-marker { display: none; }
+.xz-sidebar__group > summary::after { margin-inline-start: auto; }
+.xz-sidebar__sub { margin: 0 0 var(--xz-space-1); margin-inline-start: calc(var(--xz-space-4) + 0.55rem); padding: 0; padding-inline-start: var(--xz-space-2); border-inline-start: 1px solid var(--xz-border); list-style: none; }
+.xz-sidebar__sub .xz-sidebar__link { min-height: 2.25rem; padding-inline: var(--xz-space-3); border-radius: var(--xz-radius-control); }
+
+/* Rail: the sidebar as a column of icons. Each link keeps its words for screen readers, and the toggle's script
+   shows them as tooltips. Groups close up; opening one widens the sidebar again. */
+.xz-sidebar { transition: width var(--xz-duration-slow) var(--xz-ease-out); }
+.xz-sidebar--rail { --xz-sidebar-width: 4rem; width: var(--xz-sidebar-width); align-items: stretch; overflow-x: hidden; }
+.xz-sidebar--rail .xz-sidebar__header { justify-content: center; padding: 0; }
+.xz-sidebar--rail .xz-sidebar__header:has(> .xz-sidebar__toggle) > :not(.xz-sidebar__toggle) { display: none; }
+.xz-sidebar--rail .xz-sidebar__toggle { margin: 0; }
+.xz-sidebar--rail .xz-sidebar__heading { height: 1px; margin: var(--xz-space-2) var(--xz-space-3); padding: 0; overflow: hidden; background: var(--xz-border); color: transparent; }
+.xz-sidebar--rail .xz-sidebar__link { position: relative; justify-content: center; gap: 0; padding: 0; font-size: 0; }
+.xz-sidebar--rail .xz-sidebar__link .xz-icon { width: 1.25rem; height: 1.25rem; }
+.xz-sidebar--rail .xz-sidebar__link .xz-badge { position: absolute; top: 4px; inset-inline-end: 6px; margin: 0; font-size: 0.625rem; }
+.xz-sidebar--rail .xz-sidebar__group > summary::after, .xz-sidebar--rail .xz-sidebar__sub { display: none; }
+.xz-sidebar--rail .xz-sidebar__footer { display: flex; justify-content: center; padding: var(--xz-space-3) 0; }
+.xz-sidebar--rail .xz-sidebar__footer .xz-grow { display: none; }
+.xz-shell:has(> .xz-sidebar--rail) { --xz-sidebar-width: 4rem; }
 
 /* ---- footer ---- */
 .xz-footer { padding: var(--xz-space-10) var(--xz-gutter) var(--xz-space-6); background: var(--xz-surface); border-top: 1px solid var(--xz-border); color: var(--xz-text); font-size: var(--xz-font-size-sm); }

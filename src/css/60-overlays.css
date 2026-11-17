@@ -17,6 +17,12 @@
 .xz-modal__body, .xz-drawer__body { flex: 1; padding: var(--xz-space-5); overflow-y: auto; font-size: var(--xz-font-size-sm); }
 .xz-modal__footer, .xz-drawer__footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--xz-space-3); padding: var(--xz-space-4) var(--xz-space-5); border-top: 1px solid var(--xz-border); }
 .xz-modal__close, .xz-drawer__close { flex: none; margin: -6px -6px 0 0; }
+/* Alert dialog: asks before a step that is hard to undo. role="alertdialog" and data-xz-static, so only an answer
+   closes it; Escape answers Cancel. Xsenze.confirm() builds one. */
+.xz-modal--alert .xz-modal__body { display: grid; gap: var(--xz-space-2); padding-block: var(--xz-space-6) var(--xz-space-4); }
+.xz-modal--alert .xz-modal__body > p { margin: 0; color: var(--xz-text-muted); }
+.xz-modal--alert .xz-modal__footer { padding-top: 0; border-top: 0; }
+.xz-modal__icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-bottom: var(--xz-space-2); border-radius: 50%; background: var(--xz-danger-soft); color: var(--xz-danger-text); }
 
 .xz-drawer { width: min(100vw, var(--xz-drawer-width, 24rem)); height: 100dvh; max-width: none; max-height: none; margin: 0 0 0 auto; border-width: 0 0 0 1px; }
 .xz-drawer[open] { display: flex; flex-direction: column; animation: xz-slide-in-right var(--xz-duration-slow) var(--xz-ease-out); }

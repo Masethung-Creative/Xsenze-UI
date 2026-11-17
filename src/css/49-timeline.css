@@ -23,3 +23,22 @@
 .xz-timeline--compact { --_size: 1.25rem; }
 .xz-timeline--compact .xz-timeline__item { padding-block-end: var(--xz-space-3); }
 .xz-timeline--compact .xz-timeline__marker .xz-icon { width: 0.75rem; height: 0.75rem; }
+
+/* Steps: what a job or an assistant did, step by step, each with its state (done, is-running, is-waiting, failed).
+   Make the body a details element, with the title as its summary, so people can open a step to see its detail. */
+.xz-timeline--steps { --_size: 1.5rem; }
+.xz-timeline--steps .xz-timeline__item { padding-block-end: var(--xz-space-3); }
+.xz-timeline--steps .xz-timeline__marker .xz-icon { width: 0.875rem; height: 0.875rem; }
+.xz-timeline--steps .xz-timeline__marker .xz-spinner { width: 0.875rem; height: 0.875rem; border-width: 2px; }
+summary.xz-timeline__title { display: flex; align-items: center; gap: var(--xz-space-2); list-style: none; cursor: pointer; }
+summary.xz-timeline__title::-webkit-details-marker { display: none; }
+summary.xz-timeline__title::after { content: ""; flex: none; width: 0.35rem; height: 0.35rem; margin-block-start: -0.15rem; border: solid var(--xz-text-muted); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); transition: transform var(--xz-duration-fast) var(--xz-ease-out); }
+details[open] > summary.xz-timeline__title::after { margin-block-start: 0.15rem; transform: rotate(-135deg); }
+summary.xz-timeline__title .xz-timeline__time { order: 1; float: none; margin-inline-start: auto; }
+summary.xz-timeline__title::after { order: 2; }
+.xz-timeline__detail { margin-block-start: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border-radius: var(--xz-radius-control); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-timeline__detail > :first-child { margin-block-start: 0; }
+.xz-timeline__detail > :last-child { margin-block-end: 0; }
+.xz-timeline__item.is-running { --_c: var(--xz-accent-2-text); }
+.xz-timeline__item.is-waiting { --_c: var(--xz-text-subtle); }
+.xz-timeline__item.is-waiting .xz-timeline__title { color: var(--xz-text-muted); font-weight: var(--xz-font-weight-medium); }

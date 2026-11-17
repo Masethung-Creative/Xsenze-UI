@@ -6,6 +6,16 @@
 .xz-error { display: flex; align-items: flex-start; gap: var(--xz-space-1); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-medium); color: var(--xz-danger-text); }
 .xz-error .xz-icon { margin-top: 0.15em; }
 .xz-success-text { font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-medium); color: var(--xz-success-text); }
+/* Side by side: the label and its help on one side, the control on the other, as on settings pages.
+   Narrow screens stack them. A switch, checkbox or button sits at the end of the row. */
+.xz-field__text { display: grid; gap: var(--xz-space-1); min-width: 0; }
+.xz-field--row { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: var(--xz-space-2); }
+@media (min-width: 640px) {
+  .xz-field--row { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); column-gap: var(--xz-space-6); }
+  .xz-field--row:has(> .xz-textarea) { align-items: start; }
+  .xz-field--row > :is(.xz-error, .xz-help) { grid-column: 2; }
+  .xz-field--row > :is(.xz-toggle, .xz-check, .xz-btn) { justify-self: end; }
+}
 
 .xz-input, .xz-textarea, .xz-select {
   display: block;
@@ -73,8 +83,31 @@
 .xz-input-group__addon:last-child { border-left: 0; border-radius: 0 var(--xz-radius-control) var(--xz-radius-control) 0; }
 .xz-input-group > .xz-input:has(+ .xz-input-group__addon) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .xz-input-group__kbd { position: absolute; top: 50%; right: var(--xz-space-2); transform: translateY(-50%); pointer-events: none; }
+/* Box style: the group draws the border, so words, icons, buttons and a bar can sit inside the box with the field. */
+.xz-input-group--box { align-items: center; background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); transition: border-color var(--xz-duration-fast) var(--xz-ease-out), box-shadow var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-input-group--box:hover { border-color: var(--xz-text); }
+.xz-input-group--box:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-input-group--box:has([aria-invalid="true"]) { border-color: var(--xz-danger); box-shadow: 0 0 0 1px var(--xz-danger); }
+.xz-input-group--box:has(:disabled) { background: var(--xz-disabled-bg); border-color: var(--xz-disabled-bg); color: var(--xz-disabled-text); }
+.xz-input-group--box > :is(.xz-input, .xz-textarea), .xz-input-group--box > :is(.xz-input, .xz-textarea):is(:hover, :focus, :read-only, [aria-invalid="true"]) { background: transparent; border: 0; box-shadow: none; }
+.xz-input-group--box:has(> [readonly]) { background: var(--xz-surface-2); }
+.xz-input-group--box > .xz-input { min-height: calc(var(--xz-control-md) - 2px); }
+@media (pointer: coarse) { .xz-input-group--box > .xz-input { min-height: calc(var(--xz-control-touch) - 2px); } }
+.xz-input-group--box > .xz-btn { flex: none; margin-inline-end: 3px; }
+.xz-input-group__text { flex: none; padding-inline: var(--xz-space-3); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); white-space: nowrap; }
+.xz-input-group__text + .xz-input, .xz-input-group__text + svg + .xz-input { padding-inline-start: 0; }
+.xz-input-group--box > .xz-input:has(+ .xz-input-group__text) { padding-inline-end: 0; }
+.xz-input-group--box > .xz-icon { flex: none; margin-inline-start: var(--xz-space-3); color: var(--xz-text-muted); }
+.xz-input-group--box > .xz-icon + .xz-input { padding-inline-start: var(--xz-space-2); }
+/* A text area with a bar under it for tools, a count and the send button. */
+.xz-input-group--area { flex-direction: column; align-items: stretch; }
+.xz-input-group--area > .xz-textarea { resize: none; }
+.xz-input-group__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); padding: var(--xz-space-2); border-top: 1px solid var(--xz-border); }
+.xz-input-group__bar > :last-child { margin-inline-start: auto; }
 
 .xz-kbd { border-radius: var(--xz-radius-control); display: inline-flex; align-items: center; min-height: 1.5rem; padding: 0 var(--xz-space-1); background: var(--xz-surface-2); border: 1px solid var(--xz-border); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
+/* Keys pressed together: <span class="xz-kbd-group"><kbd class="xz-kbd">Ctrl</kbd>+<kbd class="xz-kbd">K</kbd></span> */
+.xz-kbd-group { display: inline-flex; align-items: center; gap: 2px; color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); white-space: nowrap; }
 
 /* ---- checkbox, radio, toggle ---- */
 .xz-check, .xz-radio, .xz-toggle {
@@ -123,6 +156,19 @@
 .xz-check input:disabled, .xz-radio input:disabled, .xz-toggle input:disabled { background-color: var(--xz-disabled-bg); border-color: var(--xz-disabled-bg); cursor: not-allowed; }
 .xz-check:has(input:disabled), .xz-radio:has(input:disabled), .xz-toggle:has(input:disabled) { color: var(--xz-disabled-text); cursor: not-allowed; }
 .xz-check__hint { display: block; color: var(--xz-text-muted); }
+
+/* Choice cards: a radio or checkbox with a title and a line of detail, in a box people can click anywhere.
+   <label class="xz-radio xz-choice-card"> <input type="radio"> <span class="xz-choice-card__body">…</span> </label> */
+.xz-choice-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--xz-space-3); }
+.xz-choice-card { display: flex; padding: var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-surface); transition: border-color var(--xz-duration-fast) var(--xz-ease-out), background var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-choice-card:hover { border-color: var(--xz-text); }
+.xz-choice-card:has(input:checked) { background: var(--xz-accent-soft); border-color: var(--xz-accent); box-shadow: inset 0 0 0 1px var(--xz-accent); }
+.xz-choice-card:has(input:focus-visible) { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-choice-card:has(input:disabled) { background: var(--xz-disabled-bg); border-color: var(--xz-disabled-bg); box-shadow: none; }
+.xz-choice-card__body { display: grid; flex: 1; gap: 2px; min-width: 0; }
+.xz-choice-card__title { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-2); font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold); }
+.xz-choice-card__text { color: var(--xz-text-muted); }
+.xz-choice-card:has(input:disabled) .xz-choice-card__text { color: inherit; }
 
 .xz-fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .xz-fieldset > legend { padding: 0; margin-bottom: var(--xz-space-3); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }

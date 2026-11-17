@@ -1,0 +1,24 @@
+/* Collapsible: one section that shows and hides, such as "Show 4 more lessons". Built on the native details
+   element, so it works without the script and find-in-page opens it. __more and __less swap the trigger's words. */
+.xz-collapsible { min-width: 0; }
+.xz-collapsible__trigger { display: inline-flex; align-items: center; gap: var(--xz-space-2); min-height: var(--xz-control-sm); margin-inline-start: calc(var(--xz-space-2) * -1); padding: 0 var(--xz-space-2); border-radius: var(--xz-radius-control); color: var(--xz-text); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); list-style: none; cursor: pointer; }
+.xz-collapsible__trigger::-webkit-details-marker { display: none; }
+.xz-collapsible__trigger:hover { background: var(--xz-surface-2); }
+/* A chevron that turns when the section opens */
+.xz-collapsible__trigger::after, .xz-sidebar__group > summary::after { content: ""; flex: none; width: 0.4rem; height: 0.4rem; margin-block-start: -0.2rem; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); transition: transform var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-collapsible[open] > .xz-collapsible__trigger::after, .xz-sidebar__group[open] > summary::after { margin-block-start: 0.2rem; transform: rotate(-135deg); }
+.xz-collapsible:not([open]) .xz-collapsible__less, .xz-collapsible[open] .xz-collapsible__more { display: none; }
+.xz-collapsible__content { padding-block-start: var(--xz-space-2); }
+/* --box: the section in a frame, with the trigger as its full-width header */
+.xz-collapsible--box { background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-collapsible--box > .xz-collapsible__trigger { display: flex; justify-content: space-between; width: 100%; min-height: var(--xz-control-lg); margin: 0; padding: 0 var(--xz-space-4); }
+.xz-collapsible--box > .xz-collapsible__content { padding: 0 var(--xz-space-4) var(--xz-space-4); }
+
+/* Opening and closing ease the height in browsers that can animate it; the others open at once. */
+@supports (interpolate-size: allow-keywords) {
+  :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group) { interpolate-size: allow-keywords; }
+  :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)::details-content { height: 0; overflow: clip; transition: height var(--xz-duration-base) var(--xz-ease-out), content-visibility var(--xz-duration-base) allow-discrete; }
+  :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)[open]::details-content { height: auto; }
+  [data-xz-motion="off"] :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)::details-content { transition: none; }
+  @media (prefers-reduced-motion: reduce) { :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)::details-content { transition: none; } }
+}

@@ -132,6 +132,13 @@ span.xz-chip { cursor: default; }
 .xz-tooltip.is-open { opacity: 1; }
 
 /* ---- spinner ---- */
+/* Shimmer: a light that sweeps along a line of text while work goes on, such as "Checking the timetable…".
+   It stands still with less motion, and plain text shows in high-contrast mode. */
+.xz-shimmer { background: linear-gradient(90deg, var(--xz-text-muted) 40%, var(--xz-text) 50%, var(--xz-text-muted) 60%) 0 0 / 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: xz-shimmer-text 2.4s linear infinite; }
+@keyframes xz-shimmer-text { from { background-position: 100% 0; } to { background-position: 0 0; } }
+[data-xz-motion="off"] .xz-shimmer { animation: none; }
+@media (forced-colors: active) { .xz-shimmer { background: none; color: CanvasText; } }
+
 .xz-spinner { display: inline-block; flex: none; width: 1.25rem; height: 1.25rem; border: 2px solid var(--xz-surface-3); border-top-color: var(--xz-accent); border-radius: 50%; animation: xz-spin 0.7s linear infinite; }
 .xz-spinner--sm { width: 1rem; height: 1rem; }
 .xz-spinner--lg { width: 2rem; height: 2rem; border-width: 3px; }

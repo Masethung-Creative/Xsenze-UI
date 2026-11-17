@@ -11,6 +11,7 @@ import { initSparklines } from './sparkline.js';
 import { initCalendars } from './calendar.js';
 import { initHovercards } from './hovercard.js';
 import { initTrees } from './tree.js';
+import { initLayout, confirm } from './layout.js';
 import { place, placeAt } from './place.js';
 import { fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready } from './shared.js';
 import { initBlocks, motion, copy } from '../blocks/index.js';
@@ -279,7 +280,12 @@ function showTip(el) {
   let top = place === 'bottom' ? r.bottom + 8 : r.top - t.height - 8;
   if (top < 4) top = r.bottom + 8;
   if (top + t.height > innerHeight - 4) top = r.top - t.height - 8;
-  const left = Math.min(Math.max(4, r.left + r.width / 2 - t.width / 2), innerWidth - t.width - 4);
+  let left = Math.min(Math.max(4, r.left + r.width / 2 - t.width / 2), innerWidth - t.width - 4);
+  // "end": beside the element, on the side text runs towards, as for the icons of a collapsed sidebar.
+  if (place === 'end') {
+    top = r.top + r.height / 2 - t.height / 2;
+    left = isRtl(el) ? r.left - t.width - 8 : r.right + 8;
+  }
   tip.style.top = `${top}px`;
   tip.style.left = `${left}px`;
   requestAnimationFrame(() => tip?.classList.add('is-open'));
@@ -533,9 +539,9 @@ function listen() {
     }
     const toaster = t.closest('[data-xz-toast]');
     if (toaster) toast({ message: toaster.getAttribute('data-xz-toast'), title: toaster.getAttribute('data-xz-toast-title') || undefined, variant: toaster.getAttribute('data-xz-toast-variant') || undefined });
-    const pressed = t.closest('button.xz-chip[aria-pressed], .xz-btn-group[data-xz-toggle] > .xz-btn');
+    const pressed = t.closest('button.xz-chip[aria-pressed], button.xz-btn[data-xz-toggle][aria-pressed], .xz-btn-group[data-xz-toggle] > .xz-btn');
     if (pressed && !pressed.disabled) {
-      if (pressed.matches('.xz-chip')) pressed.setAttribute('aria-pressed', String(pressed.getAttribute('aria-pressed') !== 'true'));
+      if (pressed.matches('.xz-chip, [data-xz-toggle]')) pressed.setAttribute('aria-pressed', String(pressed.getAttribute('aria-pressed') !== 'true'));
       else for (const b of pressed.parentElement.children) b.setAttribute('aria-pressed', String(b === pressed));
       fire(pressed, 'xz:press', { pressed: pressed.getAttribute('aria-pressed') === 'true' });
     }
@@ -591,6 +597,7 @@ function init(root = document) {
   initCalendars(root, { icon });
   initHovercards(root);
   initTrees(root, { icon });
+  initLayout(root, { icon });
   initBlocks(root, { icon });
   for (const p of plugins) p.init?.(root, helpers);
   started = true;
@@ -611,6 +618,7 @@ const Xsenze = {
   modal: { open: openDialog, close: closeDialog },
   drawer: { open: openDialog, close: closeDialog },
   sheet: { open: openDialog, close: closeDialog },
+  confirm,
   toast,
   validate,
   format,

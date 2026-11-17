@@ -281,14 +281,19 @@ function initDropzones(root, icon) {
 // ---------- dates ----------
 // The helpers live in dates.js, shared with the calendar month view.
 
+// data-xz-datepicker: one date; "range": a start and an end; "multiple": any number of dates, kept as a comma list.
+// data-xz-inline draws the calendar in the page, always open, with or without a text box.
 function initDatepickers(root, icon) {
   for (const el of $$('[data-xz-datepicker]', root)) {
     if (ready(el)) continue;
     const range = el.dataset.xzDatepicker === 'range';
+    const many = el.dataset.xzDatepicker === 'multiple';
+    const inline = el.hasAttribute('data-xz-inline');
     const input = el.querySelector('input:not([type="hidden"])');
     const trigger = el.querySelector('button');
     const hidden = $$('input[type="hidden"]', el);
-    if (!input) continue;
+    if (!input && !inline) continue;
+    const picks = new Set(many ? (hidden[0]?.value || '').split(',').map((s) => s.trim()).filter((s) => fromIso(s)) : []);
     const min = fromIso(el.dataset.xzMin);
     const max = fromIso(el.dataset.xzMax);
     const weekStart = el.dataset.xzWeekStart === '0' ? 0 : 1;
@@ -302,19 +307,28 @@ function initDatepickers(root, icon) {
 
     const panel = document.createElement('div');
     panel.className = 'xz-picker xz-calendar';
-    panel.hidden = true;
-    panel.setAttribute('role', 'dialog');
-    panel.setAttribute('aria-label', range ? 'Choose dates' : 'Choose a date');
+    panel.hidden = !inline;
+    panel.setAttribute('role', inline ? 'group' : 'dialog');
+    panel.setAttribute('aria-label', range || many ? 'Choose dates' : 'Choose a date');
+    el.classList.toggle('xz-datepicker--inline', inline);
     el.append(panel);
-    input.setAttribute('autocomplete', 'off');
+    input?.setAttribute('autocomplete', 'off');
+    // Several dates are picked on the calendar; the box shows how many.
+    if (many && input) input.readOnly = true;
     trigger?.setAttribute('aria-haspopup', 'dialog');
     trigger?.setAttribute('aria-expanded', 'false');
 
     const write = () => {
-      input.value = start ? showDate(start) + (range && end ? ` – ${showDate(end)}` : '') : '';
+      if (many) {
+        const list = [...picks].sort();
+        if (hidden[0]) hidden[0].value = list.join(',');
+        if (input) input.value = list.length === 1 ? showDate(fromIso(list[0])) : list.length ? `${list.length} dates` : '';
+        return fire(el, 'xz:date', { dates: list });
+      }
+      if (input) input.value = start ? showDate(start) + (range && end ? ` – ${showDate(end)}` : '') : '';
       if (hidden[0]) hidden[0].value = start ? toIso(start) : '';
       if (range && hidden[1]) hidden[1].value = end ? toIso(end) : '';
-      input.removeAttribute('aria-invalid');
+      input?.removeAttribute('aria-invalid');
       fire(el, 'xz:date', { start: start ? toIso(start) : '', end: end ? toIso(end) : '' });
     };
     const draw = () => {
@@ -326,14 +340,14 @@ function initDatepickers(root, icon) {
         rows += '<tr>';
         for (let i = 0; i < 7; i++) {
           const d = addDays(first, w * 7 + i - lead);
-          const selected = sameDay(d, start) || sameDay(d, end);
+          const selected = many ? picks.has(toIso(d)) : sameDay(d, start) || sameDay(d, end);
           const cls = ['xz-calendar__day', d.getMonth() !== cursor.getMonth() && 'is-outside', sameDay(d, today) && 'is-today', range && start && end && d > start && d < end && 'is-in-range'].filter(Boolean).join(' ');
           rows += `<td role="gridcell"><button type="button" class="${cls}" data-date="${toIso(d)}" tabindex="${sameDay(d, cursor) ? 0 : -1}" aria-label="${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}, ${DAYS[d.getDay()]}"${selected ? ' aria-selected="true"' : ''}${off(d) ? ' disabled' : ''}>${d.getDate()}</button></td>`;
         }
         rows += '</tr>';
       }
       const heads = Array.from({ length: 7 }, (_, i) => DAYS[(i + weekStart) % 7]).map((n) => `<th scope="col"><abbr title="${n}" style="text-decoration:none">${n.slice(0, 2)}</abbr></th>`).join('');
-      const hint = range ? (start && !end ? 'Now pick the end date' : 'Pick the start date') : '';
+      const hint = range ? (start && !end ? 'Now pick the end date' : 'Pick the start date') : many ? (picks.size ? `${picks.size} chosen` : 'Pick one or more dates') : '';
       panel.innerHTML = `
         <div class="xz-calendar__header">
           <button type="button" class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" data-nav="-1" aria-label="Previous month">${icon('chevron-left', { size: 'sm' })}</button>
@@ -351,7 +365,7 @@ function initDatepickers(root, icon) {
     const api = {
       el,
       close(focus) {
-        if (panel.hidden) return;
+        if (inline || panel.hidden) return;
         panel.hidden = true;
         trigger?.setAttribute('aria-expanded', 'false');
         if (openPanel === api) openPanel = null;
@@ -368,31 +382,42 @@ function initDatepickers(root, icon) {
       openPanel = api;
       focusCursor();
     };
+    // The inline calendar stays open: it draws the choice and keeps focus on the day.
+    const stay = () => {
+      draw();
+      focusCursor();
+    };
     const choose = (d) => {
       if (off(d)) return;
+      cursor = d;
+      if (many) {
+        const k = toIso(d);
+        if (!picks.delete(k)) picks.add(k);
+        write();
+        return stay();
+      }
       if (!range) {
         start = d;
         write();
-        return api.close(true);
+        return inline ? stay() : api.close(true);
       }
       if (!start || end) [start, end] = [d, null];
       else if (d < start) start = d;
       else end = d;
-      cursor = d;
       write();
-      if (end) return api.close(true);
-      draw();
-      focusCursor();
+      if (end && !inline) return api.close(true);
+      stay();
     };
 
     trigger?.addEventListener('click', () => (panel.hidden ? open() : api.close(true)));
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown') {
+    input?.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' && !inline) {
         e.preventDefault();
         open();
       }
     });
-    input.addEventListener('change', () => {
+    input?.addEventListener('change', () => {
+      if (many) return;
       const text = input.value.trim();
       if (!text) {
         [start, end] = [null, null];
@@ -416,12 +441,14 @@ function initDatepickers(root, icon) {
       } else if (e.target.closest('[data-today]')) choose(today);
       else if (e.target.closest('[data-clear]')) {
         [start, end] = [null, null];
+        picks.clear();
         write();
-        api.close(true);
+        if (inline) draw();
+        else api.close(true);
       }
     });
     panel.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !inline) {
         e.stopPropagation();
         return api.close(true);
       }
@@ -435,7 +462,8 @@ function initDatepickers(root, icon) {
       focusCursor();
     });
     el.addEventListener('focusout', () => setTimeout(() => !el.contains(document.activeElement) && api.close(), 0));
-    if (start) write();
+    if (inline) draw();
+    if (start || picks.size) write();
   }
 }
 

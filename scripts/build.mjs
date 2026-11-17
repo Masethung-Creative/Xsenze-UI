@@ -184,7 +184,10 @@ const docsInfo = await buildDocs();
 // 0.7.0: calendar, hover card, tree view and 10 icons join the core (about 45.2 KB); chat and quiz go in the optional apps file.
 // 0.8.0: 11 icons and one helper for optional parts join the core (limit 47 KB); the tools pack is its own pair of
 // files, about 9 KB of CSS and 19 KB of script, most of it the colour maths and the maths reader and keypad.
-const budget = { 'dist/xsenze.min.css': 31, 'dist/xsenze.min.js': 47, 'dist/xsenze-charts.min.js': 10, 'dist/xsenze-apps.min.js': 6, 'dist/xsenze-tools.min.css': 10, 'dist/xsenze-tools.min.js': 20 };
+// 0.10.0: scroll areas, the sidebar that folds to a rail, the confirm dialog, toggle buttons and the inline calendar
+// join the core (limit 48 KB); radar and radial charts, step lines, 100% stacks and gradient areas (charts 12 KB);
+// chat notes, reactions, folding, earlier messages and jumping to a message (apps 7 KB).
+const budget = { 'dist/xsenze.min.css': 31, 'dist/xsenze.min.js': 48, 'dist/xsenze-charts.min.js': 12, 'dist/xsenze-apps.min.js': 7, 'dist/xsenze-tools.min.css': 10, 'dist/xsenze-tools.min.js': 20 };
 const kb = (p) => (fs.statSync(r(p)).size / 1024).toFixed(1).padStart(6) + ' KB  ' + p + (budget[p] ? `  (${(size(p).gzip / 1024).toFixed(1)} KB gzipped, limit ${budget[p]} KB)` : '');
 console.log(['dist/xsenze.min.css', 'dist/xsenze.min.js', 'dist/xsenze-charts.min.js', 'dist/xsenze-apps.min.js', 'dist/xsenze-tools.min.css', 'dist/xsenze-tools.min.js', 'dist/tokens/tokens.css', 'dist/tokens/tokens.json'].map(kb).join('\n'));
 console.log(`${core.length} core tokens, ${themeVars('light').length} theme tokens x 2 themes, ${iconNames.length} icons, ${docsInfo.items} docs search entries`);
