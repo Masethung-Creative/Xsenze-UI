@@ -1,6 +1,6 @@
 {
-  "name": "@sfj/ui-kit",
-  "version": "0.8.0",
+  "name": "xsenze-ui",
+  "version": "0.8.1",
   "description": "Xsenze UI Kit: design tokens, CSS components and small behaviours for HTML, PHP and framework projects.",
   "license": "MIT",
   "homepage": "https://xsenze-ui.vercel.app/",

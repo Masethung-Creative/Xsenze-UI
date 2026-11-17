@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit charts v0.8.0 | MIT */
+/*! Xsenze UI Kit charts v0.8.1 | MIT */
 
 // src/js/format.js
 var LOCALE = "en-IN";

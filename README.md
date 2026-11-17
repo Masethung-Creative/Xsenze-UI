@@ -9,7 +9,7 @@ Design tokens, CSS components and small behaviours for Xsenze products. It works
 - WCAG 2.2 AA contrast, tested by a script on every build
 - Indian formats: ₹, lakh and crore grouping, day-first dates
 
-Version 0.8.0 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, the high-priority additions (a command palette, charts, a stronger data table, long-text styles, CDN links and docs search), components for learning platforms (a calendar month view, hover card, timeline, tree view, chat and quiz), and a tools pack for settings pages, editors, print set-ups, colour and maths. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
+Version 0.8.1 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, the high-priority additions (a command palette, charts, a stronger data table, long-text styles, CDN links and docs search), components for learning platforms (a calendar month view, hover card, timeline, tree view, chat and quiz), and a tools pack for settings pages, editors, print set-ups, colour and maths. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
 
 Documentation: <https://xsenze-ui.vercel.app/docs/>
 
@@ -23,8 +23,8 @@ Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.8.0/dist/xsenze.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.8.0/dist/xsenze.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.8.1/dist/xsenze.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.8.1/dist/xsenze.min.js" defer></script>
 </head>
 <body>
   <main class="xz-container">
@@ -38,20 +38,20 @@ Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight 
 
 On pages with charts, add `xsenze-charts.min.js` from the same address after the main script. On pages with a chat or a quiz, add `xsenze-apps.min.js` the same way. On pages with tools (panels, split views, colour and maths), add `xsenze-tools.min.css` after the main stylesheet and `xsenze-tools.min.js` after the main script.
 
-With npm, install the release from GitHub; the import name stays `@sfj/ui-kit`:
+With npm, install the release from GitHub; the import name is `xsenze-ui`:
 
 ```bash
-npm install github:Masethung-Creative/Xsenze-UI#v0.8.0
+npm install github:Masethung-Creative/Xsenze-UI#v0.8.1
 ```
 
 The optional parts are added with `Xsenze.use()`:
 
 ```js
-import Xsenze from '@sfj/ui-kit';
-import charts from '@sfj/ui-kit/charts';
-import apps from '@sfj/ui-kit/apps';
-import tools from '@sfj/ui-kit/tools';
-import '@sfj/ui-kit/tools.css';
+import Xsenze from 'xsenze-ui';
+import charts from 'xsenze-ui/charts';
+import apps from 'xsenze-ui/apps';
+import tools from 'xsenze-ui/tools';
+import 'xsenze-ui/tools.css';
 Xsenze.use(charts);
 Xsenze.use(apps);
 Xsenze.use(tools);
@@ -89,9 +89,9 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 | `dist/xsenze.min.css` | Fonts, tokens and all components, including chart styles |
 | `dist/xsenze.min.js` | Behaviours and icons, global `Xsenze` |
 | `dist/xsenze.esm.js` | ES module build |
-| `dist/xsenze-charts.min.js` | Charts, optional. `dist/xsenze-charts.esm.js` for bundlers (`import charts from '@sfj/ui-kit/charts'`) |
-| `dist/xsenze-apps.min.js` | Chat and quiz, optional. `dist/xsenze-apps.esm.js` for bundlers (`import apps from '@sfj/ui-kit/apps'`) |
-| `dist/xsenze-tools.min.css`, `dist/xsenze-tools.min.js` | The tools pack, optional. `dist/xsenze-tools.css` and `dist/xsenze-tools.esm.js` for bundlers (`@sfj/ui-kit/tools.css`, `import tools from '@sfj/ui-kit/tools'`) |
+| `dist/xsenze-charts.min.js` | Charts, optional. `dist/xsenze-charts.esm.js` for bundlers (`import charts from 'xsenze-ui/charts'`) |
+| `dist/xsenze-apps.min.js` | Chat and quiz, optional. `dist/xsenze-apps.esm.js` for bundlers (`import apps from 'xsenze-ui/apps'`) |
+| `dist/xsenze-tools.min.css`, `dist/xsenze-tools.min.js` | The tools pack, optional. `dist/xsenze-tools.css` and `dist/xsenze-tools.esm.js` for bundlers (`xsenze-ui/tools.css`, `import tools from 'xsenze-ui/tools'`) |
 | `dist/xsenze-satoshi.css` | Optional: switches headings to Satoshi, for projects with their own copy of the font |
 | `dist/tokens/tokens.css` | CSS variables only |
 | `dist/tokens/tokens.json` | Flat values for each theme |

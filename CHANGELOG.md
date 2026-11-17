@@ -4,11 +4,15 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+## 0.8.1 (17 Nov 2026)
+
+- The npm package is now called `xsenze-ui`, after the kit and its repository. Imports are `xsenze-ui`, `xsenze-ui/css`, `xsenze-ui/charts`, `xsenze-ui/apps`, `xsenze-ui/tools` and `xsenze-ui/tools.css`. The files, class names and CDN addresses do not change
+
 ## 0.8.0 (17 Nov 2026)
 
 A tools pack for settings pages, editors, print set-ups, colour and maths, and a docs page that lists every part with its integration steps.
 
-- New optional pair of files, `xsenze-tools.min.css` and `xsenze-tools.min.js` (`@sfj/ui-kit/tools.css` and `@sfj/ui-kit/tools`). Load them after the main files, on the pages that use them. Every part draws on the kit's tokens, so themes change the tools too
+- New optional pair of files, `xsenze-tools.min.css` and `xsenze-tools.min.js` (`xsenze-ui/tools.css` and `xsenze-ui/tools`). Load them after the main files, on the pages that use them. Every part draws on the kit's tokens, so themes change the tools too
 - Panel (`xz-panel`): rows with hairlines between them, a title bar, group labels, cells side by side, stages, empty rows and action strips. With it: option cells (`xz-segmented--cells`), a fader (`xz-slider--fader`), a number field with a unit (`xz-numfield`, `--big`), status dots (`xz-status`), copyable value lines (`xz-valueline`) and a compact file field (`data-xz-filefield`). CSS only, apart from the file name
 - Split view (`data-xz-split`): two panes with a handle to drag or move with the arrow keys; Enter folds the first pane away. Sizes are remembered by name, rows work too, and phones stack the panes. Event `xz:resize`; `element.xzSplit`
 - Menu bar (`data-xz-menubar`): File, Edit and View menus with tick items, dot items, submenus and key labels (`data-xz-shortcut`), and the keys of the WAI-ARIA menu bar. Event `xz:action`
@@ -34,7 +38,7 @@ A new docs home page built from the kit's own blocks, and six components for sch
 - Hover card (`data-xz-hovercard`): a preview that opens when the pointer rests on a link or the link gets keyboard focus, and stays open while the pointer is on it. One `template` can serve every row of a table. It never opens on touch screens, where a tap follows the link
 - Timeline (`ol.xz-timeline`): events with a marker, a title, a line of detail and actions, coloured markers, day headings and a compact size. CSS only
 - Tree view (`ul[data-xz-tree]`): nested lists that open and close with the keys people know from file managers, plus type-ahead and `*` to open a whole level. The way to the current page opens by itself, and open folders are remembered. Events `xz:toggle` and `xz:select`; `element.xzTree`
-- New optional file `xsenze-apps.min.js` (`@sfj/ui-kit/apps`), added with `Xsenze.use()` like the charts file:
+- New optional file `xsenze-apps.min.js` (`xsenze-ui/apps`), added with `Xsenze.use()` like the charts file:
   - Chat and AI pieces (`[data-xz-chat]`, `form[data-xz-prompt]`): message bubbles with avatar, time, sources, and copy, retry and feedback buttons; typing dots; replies written as they arrive (`xzChat.stream()`); "Jump to latest"; suggestion chips. The prompt box grows as you type and sends on Enter, while Shift+Enter adds a line. Enter never sends while an input method is still building a word, as when typing Hindi or Tamil. Send turns into Stop while a reply is being written, and attachments use the file upload. Screen readers hear each finished reply once. Without the script the prompt posts as a plain form. Events `xz:send`, `xz:stop`, `xz:retry` and `xz:feedback`
   - Quiz and questionnaire (`form[data-xz-quiz]`): one question at a time, with a count, progress, Flag for review, a review grid and a check before submitting with questions left. Practice mode scores in the browser and shows why each answer is right. Exam mode sends the answers to your server, so the right answers are never in the page. Survey mode has no right answers. A countdown that a reload does not reset, with warnings at 5 minutes and 1 minute, and answers saved as people go. Events `xz:quiz`, `xz:step` and `xz:timeup`
 - The date picker and the calendar share one set of date helpers (`src/js/dates.js`). File upload gains `element.xzDropzone.clear()`

@@ -44,7 +44,7 @@ Goal: cover complex workflows, plus LMS, ERP and CRM needs.
 - Domain: course card, lesson player, quiz (**done in 0.7.0**), progress dashboards, attendance grid, leaderboard, certificates (**certificate maker template in 0.8.0**), approval workflow, role-based views, CSV import and export, invoices and receipts
 - Templates: onboarding, settings (**done in 0.8.0**) and profile, list and detail, multi-step forms, search results, inbox
 - Responsive: mobile behaviour for every component, swipe actions, action sheets, pull-to-refresh
-- Installation: **done (0.6.0)** CDN and npm install from GitHub release tags; still to do: publish `@sfj/ui-kit` to the npm registry, Tailwind and SCSS token exports, theme provider, component playground
+- Installation: **done (0.6.0)** CDN and npm install from GitHub release tags; still to do: publish `xsenze-ui` to the npm registry, Tailwind and SCSS token exports, theme provider, component playground
 
 ## Phase 3: Scale, localisation and governance
 

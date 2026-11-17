@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit tools v0.8.0 | MIT */
+/*! Xsenze UI Kit tools v0.8.1 | MIT */
 var XsenzeTools = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;

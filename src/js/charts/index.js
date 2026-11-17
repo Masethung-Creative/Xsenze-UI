@@ -1,7 +1,7 @@
 // Charts drawn in SVG from a table in the page, or from data passed in JavaScript.
 // The table stays in the page for screen readers and as a "Show table" view, so the numbers are never only in a picture.
 // Browser: load dist/xsenze-charts.min.js after dist/xsenze.min.js.
-// Bundlers: import Xsenze from '@sfj/ui-kit'; import charts from '@sfj/ui-kit/charts'; Xsenze.use(charts);
+// Bundlers: import Xsenze from 'xsenze-ui'; import charts from 'xsenze-ui/charts'; Xsenze.use(charts);
 import { scaleOf, formatter, parseValue } from './scale.js';
 import { $$, fire, nextId, esc, motionOn, onMotion, watch, perFrame, dirKey } from '../shared.js';
 

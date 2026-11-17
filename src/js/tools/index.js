@@ -1,7 +1,7 @@
 // Optional tools pack: panels, split views, a menu bar, a dual list, readouts and timers, paper and
 // before-and-after views, colour parts and maths parts. CSS: dist/xsenze-tools.css.
 // Browser: load dist/xsenze-tools.min.js after dist/xsenze.min.js.
-// Bundlers: import Xsenze from '@sfj/ui-kit'; import tools from '@sfj/ui-kit/tools'; Xsenze.use(tools);
+// Bundlers: import Xsenze from 'xsenze-ui'; import tools from 'xsenze-ui/tools'; Xsenze.use(tools);
 import { initSplits } from './split.js';
 import { initMenubars } from './menubar.js';
 import { initDuallists } from './duallist.js';

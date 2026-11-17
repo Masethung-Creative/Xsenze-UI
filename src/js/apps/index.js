@@ -1,6 +1,6 @@
 // Optional app pieces: chat and AI message parts, and quizzes.
 // Browser: load dist/xsenze-apps.min.js after dist/xsenze.min.js.
-// Bundlers: import Xsenze from '@sfj/ui-kit'; import apps from '@sfj/ui-kit/apps'; Xsenze.use(apps);
+// Bundlers: import Xsenze from 'xsenze-ui'; import apps from 'xsenze-ui/apps'; Xsenze.use(apps);
 import { initChats } from './chat.js';
 import { initQuizzes } from './quiz.js';
 

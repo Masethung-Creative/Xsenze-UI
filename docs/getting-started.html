@@ -78,25 +78,25 @@
   </textarea>
   <p>The fonts come with the stylesheet: headings in Plus Jakarta Sans, body text in Space Grotesk and code in JetBrains Mono. Nothing else to add.</p>
   <h3 id="npm">npm</h3>
-  <p>Install the kit straight from its GitHub release. The package name stays <code class="xz-code">@sfj/ui-kit</code> in your imports.</p>
+  <p>Install the kit straight from its GitHub release. Your imports use the package name <code class="xz-code">xsenze-ui</code>.</p>
   <pre class="doc-snippet" data-lang="text">
     npm install __XZ_NPM__
   </pre>
   <pre class="doc-snippet" data-lang="text">
-    import '@sfj/ui-kit/css';
-    import Xsenze from '@sfj/ui-kit';
+    import 'xsenze-ui/css';
+    import Xsenze from 'xsenze-ui';
 
     // Charts, only where you need them:
-    import charts from '@sfj/ui-kit/charts';
+    import charts from 'xsenze-ui/charts';
     Xsenze.use(charts);
 
     // Chat and quiz, only where you need them:
-    import apps from '@sfj/ui-kit/apps';
+    import apps from 'xsenze-ui/apps';
     Xsenze.use(apps);
 
     // Tools (panels, split views, colour and maths), only where you need them:
-    import '@sfj/ui-kit/tools.css';
-    import tools from '@sfj/ui-kit/tools';
+    import 'xsenze-ui/tools.css';
+    import tools from 'xsenze-ui/tools';
     Xsenze.use(tools);
 
     // After you add markup to the page later (a route change, an AJAX response):
@@ -178,12 +178,12 @@
     'use client';
     import { useEffect } from 'react';
     import { usePathname } from 'next/navigation';
-    import '@sfj/ui-kit/css';
+    import 'xsenze-ui/css';
 
     export default function XsenzeKit() {
       const pathname = usePathname();
       useEffect(() => {
-        import('@sfj/ui-kit').then(({ default: Xsenze }) => Xsenze.init());
+        import('xsenze-ui').then(({ default: Xsenze }) => Xsenze.init());
       }, [pathname]);
       return null;
     }
@@ -192,8 +192,8 @@
   <pre class="doc-snippet" data-lang="text">
     // main.js
     import { createApp, nextTick } from 'vue';
-    import '@sfj/ui-kit/css';
-    import Xsenze from '@sfj/ui-kit';
+    import 'xsenze-ui/css';
+    import Xsenze from 'xsenze-ui';
     import App from './App.vue';
     import router from './router';
 

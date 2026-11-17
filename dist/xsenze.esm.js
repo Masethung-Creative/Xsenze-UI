@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit v0.8.0 | MIT */
+/*! Xsenze UI Kit v0.8.1 | MIT */
 var __defProp = Object.defineProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -4463,7 +4463,7 @@ if (typeof document !== "undefined") {
   else init();
 }
 var Xsenze = {
-  version: "0.8.0",
+  version: "0.8.1",
   init,
   icon: icon3,
   icons: Object.keys(icons_generated_default),

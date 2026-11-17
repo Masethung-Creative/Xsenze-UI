@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit tools v0.8.0 | MIT */
+/*! Xsenze UI Kit tools v0.8.1 | MIT */
 
 // src/js/shared.js
 var $ = (sel, root = document) => root.querySelector(sel);
