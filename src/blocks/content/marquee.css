@@ -33,10 +33,15 @@
 .xz-marquee--plain { --xz-marquee-gap: var(--xz-space-12); }
 .xz-marquee--plain .xz-marquee__item { padding: 0; background: none; border: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-bold); letter-spacing: var(--xz-letter-spacing-tight); }
 .xz-marquees { display: flex; flex-direction: column; gap: var(--xz-space-3); }
-[data-xz-motion="off"] .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+/* Still (before the script, with motion off, or with less motion): centred rows that wrap,
+   closer together, and without the fading edges, so no name is half hidden. */
+.xz-marquee:not(.is-ready), [data-xz-motion="off"] .xz-marquee { -webkit-mask-image: none; mask-image: none; }
+.xz-marquee:not(.is-ready) .xz-marquee__track,
+[data-xz-motion="off"] .xz-marquee .xz-marquee__track { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; row-gap: var(--xz-space-3); min-width: 0; padding: 0; }
 [data-xz-motion="off"] .xz-marquee [data-xz-clone] { display: none; }
 @media (prefers-reduced-motion: reduce) {
+  .xz-marquee { -webkit-mask-image: none; mask-image: none; }
   .xz-marquee.is-ready .xz-marquee__track,
-  .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+  .xz-marquee .xz-marquee__track { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; row-gap: var(--xz-space-3); min-width: 0; padding: 0; }
   .xz-marquee [data-xz-clone] { display: none; }
 }
