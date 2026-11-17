@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit v0.8.1 | MIT */
+/*! Xsenze UI Kit v0.9.0 | MIT */
 @font-face {
   font-family: "Plus Jakarta Sans Variable";
   font-style: normal;
@@ -1469,6 +1469,14 @@ span.xz-chip { cursor: default; }
 .is-done > .xz-wizard__step-btn .xz-wizard__marker::after { content: ""; position: absolute; inset: 0; background: var(--xz-accent-strong); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 1rem no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 1rem no-repeat; }
 .is-done > .xz-wizard__step-btn:hover .xz-wizard__label { text-decoration: underline; }
 .xz-wizard__panel { min-width: 0; margin: 0; padding: 0; border: 0; }
+/* Once the script runs, every step takes the room of the tallest one, so moving between steps does not move the page.
+   The steps list, the panels and the footer are the wizard's direct children. */
+.xz-wizard[data-xz-ready] { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "steps" "panel" "footer"; }
+.xz-wizard[data-xz-ready] > .xz-wizard__steps { grid-area: steps; }
+.xz-wizard[data-xz-ready] > .xz-wizard__panel { grid-area: panel; }
+.xz-wizard[data-xz-ready] > .xz-wizard__footer { grid-area: footer; }
+.xz-wizard[data-xz-ready] > .xz-wizard__panel[hidden] { display: block !important; visibility: hidden; }
+.xz-wizard[data-xz-ready] > .xz-wizard__panel.xz-form[hidden] { display: flex !important; }
 .xz-wizard__title { margin-bottom: var(--xz-space-1); padding: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-semibold); }
 .xz-wizard__title:focus { outline: none; }
 .xz-wizard__footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-3); padding-top: var(--xz-space-5); border-top: 1px solid var(--xz-border); }
@@ -1939,7 +1947,8 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-calendar-view__nav { display: flex; align-items: center; gap: var(--xz-space-1); }
 .xz-calendar-view__grid { width: 100%; table-layout: fixed; border-collapse: collapse; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
 .xz-calendar-view__grid th { padding: var(--xz-space-2); border-bottom: 1px solid var(--xz-border); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-align: start; text-transform: uppercase; }
-.xz-calendar-view__grid td { height: 6.5rem; padding: var(--xz-space-1); vertical-align: top; border: 1px solid var(--xz-border); }
+/* Tall enough for the date, three events and "+n more", so every month has the same height. */
+.xz-calendar-view__grid td { height: 7.75rem; padding: var(--xz-space-1); vertical-align: top; border: 1px solid var(--xz-border); }
 .xz-calendar-view__grid td.is-outside { background: var(--xz-surface-2); }
 .xz-calendar-view__grid td.is-outside .xz-calendar-view__num { color: var(--xz-text-subtle); }
 .xz-calendar-view__grid td[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--xz-accent); }
@@ -1956,6 +1965,8 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-calendar-view__time { flex: none; color: var(--xz-text-muted); font-variant-numeric: tabular-nums; }
 .xz-calendar-view__empty { margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
 .xz-calendar-view__day[hidden] { display: none; }
+/* Room for a few events, so picking another day does not move the page. */
+.xz-calendar-view__day { min-height: 11rem; }
 /* Phones: the agenda instead of the grid. */
 .xz-calendar-view__agenda { display: none; }
 @media (max-width: 639px) {

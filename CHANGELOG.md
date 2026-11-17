@@ -4,6 +4,22 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+## 0.9.0 (18 Nov 2026)
+
+Every part of the docs has a live preview with its own light and dark switch, parts are listed by family, and parts that used to change size now hold still.
+
+- Docs previews: every example has a light and dark switch at the end of its "Show code" row, so a part can be seen in either theme without changing the page. Wide parts, such as tables, panels, cards, navigation and charts, also get Desktop, Tablet and Phone, which draw the example in a frame of that width so the kit's small-screen layouts show. The live previews on Blocks and Templates get the same switch, and the area around a frame takes the chosen theme too
+- Docs alignment: small parts sit centred, wide parts fill the width, and fields keep a readable width
+- Families: Components, Forms and Tools are grouped into families, such as Actions, Inputs, Choices, Messages and loading, Navigation, Menus and Overlays, and each family shows in the side menu. Galleries show every kind of a part together with where it is documented: every loader (spinner, progress bar, moving bar, progress ring, skeleton, typing dots and pixel loader), every input, choice, badge, card, alert, navigation, menu and overlay, and every slider, stepper and way to add a file. Short notes point to related parts on other pages
+- Blocks: live previews for Sequence, Depth and Curtain, and the landing page template in a preview for the overlay navbar and scroll progress
+- Calendar month view: every month shows six weeks, each day has room for three events and "+n more", and the chosen day's box is always there, with a hint until a day is picked. Moving between months or days no longer moves the page
+- Date picker: always shows six weeks, so it keeps its size from month to month
+- Wizard: once the script runs, every step takes the room of the tallest step, so the buttons stay in place
+- Dual list (tools): both lists keep one height (`--xz-duallist-height`, now 13.75rem) and scroll inside it, and the summary stays on one line
+- Paper (tools): the stage keeps one size (`--xz-paper-stage`, 21rem) and the page is fitted inside it, changing shape smoothly when the size or orientation changes. `--xz-paper-scale` draws the page smaller, for a zoom control, and `element.xzPaper` has `fit()` and `update()`. These replace `--xz-paper-width` and `--xz-paper-width-landscape`
+- Maths answer box (tools): the preview has room for a fraction, so it no longer grows as you type one
+- Certificate maker template: the canvas keeps its size, and the zoom choices are Fit, 75% and 50%
+
 ## 0.8.1 (17 Nov 2026)
 
 - The npm package is now called `xsenze-ui`, after the kit and its repository. Imports are `xsenze-ui`, `xsenze-ui/css`, `xsenze-ui/charts`, `xsenze-ui/apps`, `xsenze-ui/tools` and `xsenze-ui/tools.css`. The files, class names and CDN addresses do not change

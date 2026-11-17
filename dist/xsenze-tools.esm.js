@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit tools v0.8.1 | MIT */
+/*! Xsenze UI Kit tools v0.9.0 | MIT */
 
 // src/js/shared.js
 var $ = (sel, root = document) => root.querySelector(sel);
@@ -819,7 +819,27 @@ function initPapers(root) {
     const sizes = radios.filter((r) => mmOf(r));
     const turns = radios.filter((r) => /^(portrait|landscape)$/i.test(r.value));
     const measure = $(".xz-measure", el);
+    const stage = $(".xz-paper__stage", el);
+    const box = measure && $(".xz-measure__box", measure);
     const out = (name) => $$(`[data-xz-paper-out="${name}"]`, el);
+    let page = null;
+    const fit = () => {
+      if (!stage || !box || !page) return;
+      const cs = getComputedStyle(stage);
+      const x = $(".xz-measure__x", measure);
+      const y = $(".xz-measure__y", measure);
+      const sideW = y ? y.getBoundingClientRect().width + parseFloat(getComputedStyle(y).marginInlineEnd || 0) : 0;
+      const sideH = x ? x.getBoundingClientRect().height + parseFloat(getComputedStyle(x).marginBlockEnd || 0) : 0;
+      const roomW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - sideW;
+      const roomH = stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - sideH;
+      if (roomW <= 0 || roomH <= 0) return;
+      const scale = Math.min(1, Math.max(0.1, parseFloat(cs.getPropertyValue("--xz-paper-scale")) || 1));
+      const [w, h2] = page;
+      const bw = Math.min(roomW, roomH * (w / h2)) * scale;
+      box.style.setProperty("--xz-paper-w", `${Math.round(bw)}px`);
+      box.style.setProperty("--xz-paper-h", `${Math.round(bw * (h2 / w))}px`);
+      if (!stage.classList.contains("is-ready")) requestAnimationFrame(() => requestAnimationFrame(() => stage.classList.add("is-ready")));
+    };
     const update = (emit) => {
       var _a;
       const size = sizes.find((r) => r.checked) || sizes[0];
@@ -827,6 +847,7 @@ function initPapers(root) {
       let [w, h2] = mmOf(size);
       const landscape = (((_a = turns.find((r) => r.checked)) == null ? void 0 : _a.value) || "").toLowerCase() === "landscape";
       if (landscape !== w > h2) [w, h2] = [h2, w];
+      page = [w, h2];
       el.dataset.orientation = landscape ? "landscape" : "portrait";
       if (measure) {
         measure.style.setProperty("--xz-ratio", `${w} / ${h2}`);
@@ -838,6 +859,7 @@ function initPapers(root) {
           span.textContent = `${fmt(h2)} mm`;
         }
       }
+      fit();
       out("width").forEach((o) => o.textContent = `${fmt(w)} mm`);
       out("height").forEach((o) => o.textContent = `${fmt(h2)} mm`);
       out("pixels").forEach((o) => o.textContent = `${px(w)} \xD7 ${px(h2)} px`);
@@ -848,6 +870,8 @@ function initPapers(root) {
       var _a, _b;
       return ((_b = (_a = e.target).matches) == null ? void 0 : _b.call(_a, 'input[type="radio"]')) && update(true);
     });
+    if (stage && typeof ResizeObserver === "function") new ResizeObserver(fit).observe(stage);
+    el.xzPaper = { fit, update: () => update(true) };
     update(false);
   }
 }

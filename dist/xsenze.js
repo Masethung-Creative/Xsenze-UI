@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit v0.8.1 | MIT */
+/*! Xsenze UI Kit v0.9.0 | MIT */
 var Xsenze = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -165,9 +165,7 @@ var Xsenze = (() => {
     const first = new Date(year, month, 1);
     const lead = (first.getDay() - weekStart + 7) % 7;
     const start = addDays(first, -lead);
-    const last = new Date(year, month + 1, 0);
-    const total = Math.ceil((lead + last.getDate()) / 7) * 7;
-    return Array.from({ length: total }, (_, i) => addDays(start, i));
+    return Array.from({ length: 42 }, (_, i) => addDays(start, i));
   }
 
   // src/js/forms-advanced.js
@@ -464,10 +462,8 @@ var Xsenze = (() => {
       const draw = () => {
         const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
         const lead = (first.getDay() - weekStart + 7) % 7;
-        const daysInMonth = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0).getDate();
-        const weeks = Math.ceil((lead + daysInMonth) / 7);
         let rows = "";
-        for (let w = 0; w < weeks; w++) {
+        for (let w = 0; w < 6; w++) {
           rows += "<tr>";
           for (let i = 0; i < 7; i++) {
             const d = addDays(first, w * 7 + i - lead);
@@ -2842,9 +2838,9 @@ var Xsenze = (() => {
     };
     const showDay = () => {
       const d = state.selected;
-      if (!d) return dayBox.hidden = true;
-      const list = on(toIso(d));
       dayBox.hidden = false;
+      if (!d) return dayBox.innerHTML = '<p class="xz-calendar-view__empty">Pick a day to see its events.</p>';
+      const list = on(toIso(d));
       dayBox.innerHTML = `<h4 class="xz-calendar-view__agenda-day">${DAYS[d.getDay()]}, ${d.getDate()} ${MONTHS[d.getMonth()]}</h4>${list.length ? `<ul class="xz-calendar-view__list">${list.map(eventHtml).join("")}</ul>` : '<p class="xz-calendar-view__empty">No events on this day.</p>'}`;
     };
     const load = async () => {
@@ -4482,7 +4478,7 @@ var Xsenze = (() => {
     else init();
   }
   var Xsenze = {
-    version: "0.8.1",
+    version: "0.9.0",
     init,
     icon: icon3,
     icons: Object.keys(icons_generated_default),

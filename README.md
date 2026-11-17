@@ -9,7 +9,7 @@ Design tokens, CSS components and small behaviours for Xsenze products. It works
 - WCAG 2.2 AA contrast, tested by a script on every build
 - Indian formats: ₹, lakh and crore grouping, day-first dates
 
-Version 0.8.1 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, the high-priority additions (a command palette, charts, a stronger data table, long-text styles, CDN links and docs search), components for learning platforms (a calendar month view, hover card, timeline, tree view, chat and quiz), and a tools pack for settings pages, editors, print set-ups, colour and maths. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
+Version 0.9.0 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, the high-priority additions (a command palette, charts, a stronger data table, long-text styles, CDN links and docs search), components for learning platforms (a calendar month view, hover card, timeline, tree view, chat and quiz), a tools pack for settings pages, editors, print set-ups, colour and maths, and docs with a live preview for every part, in light and dark, grouped by family. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
 
 Documentation: <https://xsenze-ui.vercel.app/docs/>
 
@@ -23,8 +23,8 @@ Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.8.1/dist/xsenze.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.8.1/dist/xsenze.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.9.0/dist/xsenze.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.9.0/dist/xsenze.min.js" defer></script>
 </head>
 <body>
   <main class="xz-container">
@@ -41,7 +41,7 @@ On pages with charts, add `xsenze-charts.min.js` from the same address after the
 With npm, install the release from GitHub; the import name is `xsenze-ui`:
 
 ```bash
-npm install github:Masethung-Creative/Xsenze-UI#v0.8.1
+npm install github:Masethung-Creative/Xsenze-UI#v0.9.0
 ```
 
 The optional parts are added with `Xsenze.use()`:

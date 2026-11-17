@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit charts v0.8.1 | MIT */
+/*! Xsenze UI Kit charts v0.9.0 | MIT */
 var XsenzeCharts = (() => {
   var __defProp = Object.defineProperty;
   var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
