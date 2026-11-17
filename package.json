@@ -3,7 +3,7 @@
   "version": "0.6.0",
   "description": "Xsenze UI Kit: design tokens, CSS components and small behaviours for HTML, PHP and framework projects.",
   "license": "MIT",
-  "homepage": "https://masethung-creative.github.io/Xsenze-UI/",
+  "homepage": "https://xsenze-ui.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Masethung-Creative/Xsenze-UI.git"

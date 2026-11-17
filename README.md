@@ -11,7 +11,7 @@ Design tokens, CSS components and small behaviours for Xsenze products. It works
 
 Version 0.6.0 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, and the high-priority additions: a command palette, charts, a stronger data table, long-text styles, CDN links and docs search. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
 
-Documentation: <https://masethung-creative.github.io/Xsenze-UI/docs/>
+Documentation: <https://xsenze-ui.vercel.app/docs/>
 
 ## Quick start
 

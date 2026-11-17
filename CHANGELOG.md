@@ -4,6 +4,8 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+- The docs are published at <https://xsenze-ui.vercel.app/docs/>. `vercel.json` and `npm run site` publish a `site` folder with the docs, the kit files and the templates, without the Satoshi font file
+
 ## 0.6.0 (17 Nov 2026)
 
 High-priority work: install links, search, live previews, charts, a stronger data table and long-text styles, plus the blocks for landing pages.
