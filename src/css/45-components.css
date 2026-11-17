@@ -67,6 +67,15 @@
 .xz-popover__title { margin-bottom: var(--xz-space-1); font-family: var(--xz-font-display); font-size: var(--xz-font-size-md); font-weight: var(--xz-font-weight-semibold); }
 .xz-popover__footer { display: flex; justify-content: flex-end; gap: var(--xz-space-2); margin-top: var(--xz-space-4); }
 
+/* ---- hover card ---- */
+.xz-hovercard { position: relative; display: inline; }
+.xz-hovercard__panel { --xz-popover-width: 18rem; display: grid; gap: var(--xz-space-2); }
+/* The card is extra detail, so it stays out of the way until the script is ready. */
+[data-xz-hovercard]:not([data-xz-hovercard-ready]) > .xz-hovercard__panel { display: none; }
+.xz-hovercard__head { display: flex; align-items: center; gap: var(--xz-space-3); }
+.xz-hovercard__title { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-md); font-weight: var(--xz-font-weight-semibold); }
+.xz-hovercard__meta { margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+
 /* ---- notification centre ---- */
 .xz-notify-count { position: absolute; top: 2px; right: 2px; min-width: 1.125rem; height: 1.125rem; padding: 0 4px; background: var(--xz-accent-2); color: var(--xz-on-accent-2); border-radius: 9999px; box-shadow: 0 0 0 2px var(--xz-bg); font-family: var(--xz-font-display); font-size: 0.6875rem; font-weight: var(--xz-font-weight-bold); line-height: 1.125rem; text-align: center; }
 .xz-notifications { --xz-popover-width: 24rem; width: min(calc(100vw - 1rem), 24rem); padding: 0; }

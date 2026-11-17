@@ -11,4 +11,5 @@ languages table-2 square-check toggle-left message-square paperclip save printer
 receipt clipboard-list file-warning server-crash compass
 bold italic underline list list-ordered undo-2 redo-2 heading cloud-upload calendar-range play pause
 volume-2 volume-x maximize minimize history check-check bell-dot images crown smartphone lock-open shuffle
-command list-filter columns-3 chart-line chart-pie monitor tablet rotate-cw quote`.split(/\s+/).filter(Boolean);
+command list-filter columns-3 chart-line chart-pie monitor tablet rotate-cw quote
+bot send thumbs-up thumbs-down flag timer list-checks folder-open file square`.split(/\s+/).filter(Boolean);

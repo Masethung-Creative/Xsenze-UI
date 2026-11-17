@@ -8,6 +8,9 @@ import { initComponents } from './components.js';
 import { initTables } from './table.js';
 import { initCommands, command } from './command.js';
 import { initSparklines } from './sparkline.js';
+import { initCalendars } from './calendar.js';
+import { initHovercards } from './hovercard.js';
+import { initTrees } from './tree.js';
 import { place, placeAt } from './place.js';
 import { fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready } from './shared.js';
 import { initBlocks, motion, copy } from '../blocks/index.js';
@@ -557,7 +560,7 @@ function listen() {
 // `api` becomes Xsenze[name]; `init` runs now and on every later Xsenze.init(root).
 const plugins = [];
 let started = false;
-const helpers = { icon, format, place, placeAt, fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready };
+const helpers = { icon, format, place, placeAt, fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready, sanitize, copy, toast, openDialog, closeDialog };
 function use(plugin) {
   if (!plugin || plugins.includes(plugin)) return Xsenze;
   plugins.push(plugin);
@@ -584,6 +587,9 @@ function init(root = document) {
   initAdvancedForms(root, { icon });
   initComponents(root, { icon, validateField });
   initCommands(root, { icon, openDialog, closeDialog });
+  initCalendars(root, { icon });
+  initHovercards(root);
+  initTrees(root, { icon });
   initBlocks(root, { icon });
   for (const p of plugins) p.init?.(root, helpers);
   started = true;

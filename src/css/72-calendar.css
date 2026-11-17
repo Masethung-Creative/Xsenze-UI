@@ -1,0 +1,33 @@
+/* Calendar month view. Without the script the events list reads as an agenda.
+   With it: a month grid on wider screens and an agenda on phones, plus the chosen day's events. */
+.xz-calendar-view { display: grid; gap: var(--xz-space-3); min-width: 0; }
+.xz-calendar-view__events { margin: 0; padding-inline-start: var(--xz-space-5); }
+.xz-calendar-view.is-ready > .xz-calendar-view__events { display: none; }
+.xz-calendar-view__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--xz-space-3); }
+.xz-calendar-view__title { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-lg); font-weight: var(--xz-font-weight-semibold); }
+.xz-calendar-view__nav { display: flex; align-items: center; gap: var(--xz-space-1); }
+.xz-calendar-view__grid { width: 100%; table-layout: fixed; border-collapse: collapse; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-calendar-view__grid th { padding: var(--xz-space-2); border-bottom: 1px solid var(--xz-border); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-align: start; text-transform: uppercase; }
+.xz-calendar-view__grid td { height: 6.5rem; padding: var(--xz-space-1); vertical-align: top; border: 1px solid var(--xz-border); }
+.xz-calendar-view__grid td.is-outside { background: var(--xz-surface-2); }
+.xz-calendar-view__grid td.is-outside .xz-calendar-view__num { color: var(--xz-text-subtle); }
+.xz-calendar-view__grid td[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--xz-accent); }
+.xz-calendar-view__date { display: inline-grid; place-items: center; min-width: 1.75rem; height: 1.75rem; padding: 0 var(--xz-space-1); background: transparent; border: 0; border-radius: var(--xz-radius-control); color: var(--xz-text); font: inherit; font-size: var(--xz-font-size-sm); font-variant-numeric: tabular-nums; cursor: pointer; }
+.xz-calendar-view__date:hover { background: var(--xz-surface-2); }
+.xz-calendar-view__date:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: 1px; }
+.is-today > .xz-calendar-view__date { background: var(--xz-accent); color: var(--xz-on-accent); font-weight: var(--xz-font-weight-semibold); }
+.xz-calendar-view__chips { display: grid; gap: 2px; margin: var(--xz-space-1) 0 0; padding: 0; list-style: none; }
+.xz-calendar-view__chips li { overflow: hidden; padding: 1px var(--xz-space-1); border-inline-start: 3px solid var(--_c); background: var(--xz-surface-2); border-radius: 2px; font-size: var(--xz-font-size-xs); line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+.xz-calendar-view__chips li.is-more { border-color: transparent; background: none; color: var(--xz-text-muted); }
+.xz-calendar-view__agenda-day { margin: var(--xz-space-3) 0 var(--xz-space-1); font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
+.xz-calendar-view__list { display: grid; gap: var(--xz-space-1); margin: 0; padding: 0; list-style: none; }
+.xz-calendar-view__list li { display: flex; gap: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); border-inline-start: 3px solid var(--_c); background: var(--xz-surface); border-radius: var(--xz-radius-control); font-size: var(--xz-font-size-sm); }
+.xz-calendar-view__time { flex: none; color: var(--xz-text-muted); font-variant-numeric: tabular-nums; }
+.xz-calendar-view__empty { margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-calendar-view__day[hidden] { display: none; }
+/* Phones: the agenda instead of the grid. */
+.xz-calendar-view__agenda { display: none; }
+@media (max-width: 639px) {
+  .xz-calendar-view.is-ready .xz-calendar-view__grid, .xz-calendar-view.is-ready .xz-calendar-view__day { display: none; }
+  .xz-calendar-view.is-ready .xz-calendar-view__agenda { display: block; }
+}

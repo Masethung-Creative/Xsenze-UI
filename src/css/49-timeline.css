@@ -1,0 +1,25 @@
+/* Timeline: what happened, newest first. Fee paid, class attended, certificate issued.
+   <ol class="xz-timeline"> with li.xz-timeline__item (marker + body) and optional li.xz-timeline__day headings. */
+.xz-timeline { --_size: 2rem; margin: 0; padding: 0; list-style: none; }
+.xz-timeline__item { --_c: var(--xz-text-muted); position: relative; display: grid; grid-template-columns: var(--_size) minmax(0, 1fr); gap: var(--xz-space-3); padding-block-end: var(--xz-space-5); }
+/* The line runs from each marker down to the next one. */
+.xz-timeline__item::before { content: ""; position: absolute; inset-block: calc(var(--_size) + var(--xz-space-1)) var(--xz-space-1); inset-inline-start: calc(var(--_size) / 2 - 1px); width: 2px; background: var(--xz-border); border-radius: 1px; }
+.xz-timeline__item:last-child::before, .xz-timeline__item:has(+ .xz-timeline__day)::before { display: none; }
+.xz-timeline__item:last-child { padding-block-end: 0; }
+.xz-timeline__marker { position: relative; display: grid; place-items: center; width: var(--_size); height: var(--_size); border-radius: 50%; background: var(--xz-surface); border: 1.5px solid var(--_c); color: var(--_c); }
+.xz-timeline__marker:empty::after { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--_c); }
+.xz-timeline__body { min-width: 0; padding-block-start: calc((var(--_size) - 1.4em) / 2); }
+.xz-timeline__title { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); line-height: 1.4; }
+.xz-timeline__meta { margin: var(--xz-space-1) 0 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-timeline__meta time, .xz-timeline__time { font-variant-numeric: tabular-nums; }
+.xz-timeline__time { float: inline-end; margin-inline-start: var(--xz-space-3); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); }
+.xz-timeline__actions { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); margin-block-start: var(--xz-space-2); }
+.xz-timeline__day { padding-block: var(--xz-space-2) var(--xz-space-3); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; color: var(--xz-text-subtle); }
+.xz-timeline__item--success { --_c: var(--xz-success-text); }
+.xz-timeline__item--warning { --_c: var(--xz-warning-text); }
+.xz-timeline__item--danger { --_c: var(--xz-danger-text); }
+.xz-timeline__item--info { --_c: var(--xz-info-text); }
+.xz-timeline__item--accent { --_c: var(--xz-accent-2-text); }
+.xz-timeline--compact { --_size: 1.25rem; }
+.xz-timeline--compact .xz-timeline__item { padding-block-end: var(--xz-space-3); }
+.xz-timeline--compact .xz-timeline__marker .xz-icon { width: 0.75rem; height: 0.75rem; }

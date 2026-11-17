@@ -2,6 +2,7 @@
 // date picker (single and range), time picker and a small rich text editor.
 // Each control keeps a real form field up to date, so a normal form post still works.
 import { place } from './place.js';
+import { pad, toIso, fromIso, showDate, parseDate, addDays, sameDay, MONTHS, DAYS } from './dates.js';
 
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const ready = (el) => {
@@ -266,29 +267,19 @@ function initDropzones(root, icon) {
       commit();
       input.focus();
     });
+    // Empties the list, for example after a chat message with attachments has been sent.
+    el.xzDropzone = {
+      clear() {
+        files = [];
+        rejected = [];
+        commit();
+      },
+    };
   }
 }
 
 // ---------- dates ----------
-const pad = (n) => String(n).padStart(2, '0');
-const toIso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-const fromIso = (s) => {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || '');
-  return m ? new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3])) : null;
-};
-const showDate = (d) => `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`;
-/** "5/3/26", "05-03-2026" and "5.3.2026" all mean 5 March 2026. Day comes first. */
-function parseDate(text) {
-  const m = /^\s*(\d{1,2})[/.\-\s](\d{1,2})[/.\-\s](\d{2}|\d{4})\s*$/.exec(text);
-  if (!m) return null;
-  const year = m[3].length === 2 ? 2000 + Number(m[3]) : Number(m[3]);
-  const d = new Date(year, Number(m[2]) - 1, Number(m[1]));
-  return d.getDate() === Number(m[1]) && d.getMonth() === Number(m[2]) - 1 ? d : null;
-}
-const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
-const sameDay = (a, b) => a && b && a.getTime() === b.getTime();
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// The helpers live in dates.js, shared with the calendar month view.
 
 function initDatepickers(root, icon) {
   for (const el of $$('[data-xz-datepicker]', root)) {
