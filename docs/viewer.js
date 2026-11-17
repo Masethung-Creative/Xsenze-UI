@@ -32,7 +32,6 @@
 document.addEventListener('click', (e) => { if (e.target.closest('a[href]')) e.preventDefault(); });
 new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.documentElement.getBoundingClientRect().height) }, '*')).observe(document.documentElement);
 <\/script>`;
-  const onPublicSite = () => location.protocol.startsWith('http') && !/^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
   const all = [];
   let n = 0;
 
@@ -90,7 +89,7 @@ new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.
     v.fit = fit;
 
     const page = (sectionHtml, head) =>
-      `<!doctype html><html lang="en" data-theme="${root.dataset.theme || 'light'}"><head><base href="${absolute(template)}">${onPublicSite() ? head.replace(/<link[^>]+xsenze-satoshi\.css[^>]*>/g, '') : head}<style>body { min-height: ${section === 'navigation' ? '4.5rem' : '0'}; }</style></head><body>${sectionHtml}${inner}</body></html>`;
+      `<!doctype html><html lang="en" data-theme="${root.dataset.theme || 'light'}"><head><base href="${absolute(template)}">${head}<style>body { min-height: ${section === 'navigation' ? '4.5rem' : '0'}; }</style></head><body>${sectionHtml}${inner}</body></html>`;
     const load = async () => {
       v.loaded = true;
       if (kind === 'page') {

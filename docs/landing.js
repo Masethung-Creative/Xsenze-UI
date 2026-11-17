@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     $('lp-theme-radius').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.radius === state.radius)));
     const dark = state.mode === 'dark';
     $('lp-theme-mode').innerHTML = `${window.Xsenze.icon(dark ? 'sun' : 'moon', { size: 'sm' })}${dark ? 'Light' : 'Dark'}`;
-    $('lp-theme-link').href = `create.html#preset=grey.${state.theme}.satoshi.grotesk.${state.radius}.regular&mode=${state.mode}`;
+    $('lp-theme-link').href = `create.html#preset=grey.${state.theme}.jakarta.grotesk.${state.radius}.regular&mode=${state.mode}`;
   };
   colours.addEventListener('click', (e) => {
     const b = e.target.closest('[data-theme-key]');

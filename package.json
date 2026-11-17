@@ -1,6 +1,6 @@
 {
   "name": "@sfj/ui-kit",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Xsenze UI Kit: design tokens, CSS components and small behaviours for HTML, PHP and framework projects.",
   "license": "MIT",
   "homepage": "https://xsenze-ui.vercel.app/",
@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@fontsource-variable/space-grotesk": "^5.3.0",
     "esbuild": "^0.28.2",
     "lucide-static": "^1.73.0"

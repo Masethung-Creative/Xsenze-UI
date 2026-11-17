@@ -6,7 +6,7 @@
 //   dist/tokens/tokens.json              flat, resolved values per theme
 //   dist/tokens/tokens.dtcg.json         source tokens (Design Tokens format, for Figma import)
 //   dist/icons/                          sprite + single SVG files
-//   dist/xsenze-satoshi.css              heading font (the font file itself is not in the npm package)
+//   dist/xsenze-satoshi.css              optional: Satoshi headings for projects with their own copy of the font
 //   dist/fonts/                          self-hosted woff2
 import { build, transform } from 'esbuild';
 import fs from 'node:fs';
@@ -74,7 +74,10 @@ write('dist/tokens/tokens.json', JSON.stringify(flat, null, 2) + '\n');
 write('dist/tokens/tokens.dtcg.json', JSON.stringify(tokens, null, 2) + '\n');
 
 // ---------- fonts ----------
+// All three are under the SIL Open Font License, so they ship in dist/fonts, on the CDN and in the npm package.
 const fonts = [
+  ['plus-jakarta-sans', 'latin', 'Plus Jakarta Sans Variable', '200 800'],
+  ['plus-jakarta-sans', 'latin-ext', 'Plus Jakarta Sans Variable', '200 800'],
   ['space-grotesk', 'latin', 'Space Grotesk Variable', '300 700'],
   ['space-grotesk', 'latin-ext', 'Space Grotesk Variable', '300 700'],
   ['jetbrains-mono', 'latin', 'JetBrains Mono Variable', '100 800'],
@@ -91,19 +94,15 @@ for (const [pkgName, subset, family, weight] of fonts) {
   fontCss += `@font-face {\n  font-family: "${family}";\n  font-style: normal;\n  font-display: swap;\n  font-weight: ${weight};\n  src: url("fonts/${file}") format("woff2-variations");\n  unicode-range: ${ranges[subset]};\n}\n`;
 }
 
-// Satoshi is the official, unmodified variable file from Fontshare (ITF Free Font License, copied next to it).
-// That licence does not allow passing the font file on to others, so it lives in its own stylesheet,
-// xsenze-satoshi.css, and package.json leaves the font file out of the npm package.
-// Each project adds its own copy of Satoshi-Variable.woff2. Without it, headings use Space Grotesk.
+// Satoshi is optional. Headings use Plus Jakarta Sans, which ships with the kit. A project that has its own copy
+// of Satoshi (ITF Free Font License, which does not allow passing the file on) links xsenze-satoshi.css after the
+// main stylesheet and puts Satoshi-Variable.woff2 in fonts/. The file is never in the repository or the npm package.
 const satoshiDir = 'src/fonts/Satoshi_Complete';
-// The font is not in the public repository. Download Satoshi from Fontshare into src/fonts/Satoshi_Complete to use it.
 if (fs.existsSync(r(satoshiDir, 'Fonts/WEB/fonts/Satoshi-Variable.woff2'))) {
   fs.copyFileSync(r(satoshiDir, 'Fonts/WEB/fonts/Satoshi-Variable.woff2'), r('dist/fonts/Satoshi-Variable.woff2'));
   fs.copyFileSync(r(satoshiDir, 'License/FFL.txt'), r('dist/fonts/Satoshi-FFL.txt'));
-} else {
-  console.log('Satoshi not found in src/fonts/Satoshi_Complete: headings will use Space Grotesk. Download it from Fontshare to add it.');
 }
-const satoshiCss = `@font-face {\n  font-family: "Satoshi";\n  font-style: normal;\n  font-display: swap;\n  font-weight: 300 900;\n  src: url("fonts/Satoshi-Variable.woff2") format("woff2-variations");\n}\n`;
+const satoshiCss = `@font-face {\n  font-family: "Satoshi";\n  font-style: normal;\n  font-display: swap;\n  font-weight: 300 900;\n  src: url("fonts/Satoshi-Variable.woff2") format("woff2-variations");\n}\n:root {\n  --xz-font-display: "Satoshi", "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Space Grotesk Variable", "Space Grotesk", "Noto Sans", system-ui, sans-serif;\n}\n`;
 
 // ---------- css ----------
 const cssOrder = fs.readdirSync(r('src/css')).filter((f) => f.endsWith('.css')).sort();
@@ -117,7 +116,7 @@ const blocksCss = blockFiles.map((f) => `/* ---- blocks/${f.replace(/\.css$/, ''
 const fullCss = `${banner}\n${fontCss}\n${tokensCss}\n${componentsCss}\n${blocksCss}`;
 write('dist/xsenze.css', fullCss);
 write('dist/xsenze.min.css', banner + '\n' + (await transform(fullCss, { loader: 'css', minify: true })).code);
-write('dist/xsenze-satoshi.css', `${banner}\n/* Heading font. Load after xsenze.css, and put your own licensed copy of Satoshi-Variable.woff2 in fonts/. */\n${satoshiCss}`);
+write('dist/xsenze-satoshi.css', `${banner}\n/* Optional: switches headings to Satoshi. Load after xsenze.css, and put your own licensed copy of Satoshi-Variable.woff2 in fonts/. Without this file, headings use Plus Jakarta Sans. */\n${satoshiCss}`);
 
 // ---------- icons ----------
 const icons = {};

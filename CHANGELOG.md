@@ -4,7 +4,12 @@ This project follows semantic versioning.
 
 ## Unreleased
 
-- The docs are published at <https://xsenze-ui.vercel.app/docs/>. `vercel.json` and `npm run site` publish a `site` folder with the docs, the kit files and the templates, without the Satoshi font file
+## 0.6.1 (17 Nov 2026)
+
+A heading font that can be shared, and the docs online.
+
+- Headings, buttons, labels and numbers now use **Plus Jakarta Sans**, which ships with the kit under the SIL Open Font License, so pages look the same from the CDN, npm, the docs and your own server. Satoshi's licence does not allow passing the font file on, so the kit no longer depends on it. `xsenze-satoshi.css` is now optional: link it after the main stylesheet, with your own `Satoshi-Variable.woff2` in `fonts/`, to switch headings back to Satoshi. Create page presets that name Satoshi open with Plus Jakarta Sans
+- The docs are published at <https://xsenze-ui.vercel.app/docs/>. `vercel.json` and `npm run site` publish a `site` folder with the docs, the kit files and the templates
 
 ## 0.6.0 (17 Nov 2026)
 

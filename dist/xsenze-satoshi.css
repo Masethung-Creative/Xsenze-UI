@@ -1,9 +1,12 @@
-/*! Xsenze UI Kit v0.6.0 | MIT */
-/* Heading font. Load after xsenze.css, and put your own licensed copy of Satoshi-Variable.woff2 in fonts/. */
+/*! Xsenze UI Kit v0.6.1 | MIT */
+/* Optional: switches headings to Satoshi. Load after xsenze.css, and put your own licensed copy of Satoshi-Variable.woff2 in fonts/. Without this file, headings use Plus Jakarta Sans. */
 @font-face {
   font-family: "Satoshi";
   font-style: normal;
   font-display: swap;
   font-weight: 300 900;
   src: url("fonts/Satoshi-Variable.woff2") format("woff2-variations");
+}
+:root {
+  --xz-font-display: "Satoshi", "Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Space Grotesk Variable", "Space Grotesk", "Noto Sans", system-ui, sans-serif;
 }

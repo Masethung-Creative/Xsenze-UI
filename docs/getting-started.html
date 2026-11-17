@@ -69,7 +69,7 @@
     <!-- Only on pages with charts -->
     <script src="__XZ_CDN__/xsenze-charts.min.js" defer></script>
   </textarea>
-  <p>Headings use the Satoshi font when it is available. Its licence does not allow the CDN to serve it, so on the CDN headings use Space Grotesk. To use Satoshi, host the files yourself (see <a class="xz-link" href="#quick-start--4-the-heading-font">the heading font</a>).</p>
+  <p>The fonts come with the stylesheet: headings in Plus Jakarta Sans, body text in Space Grotesk and code in JetBrains Mono. Nothing else to add.</p>
   <h3 id="npm">npm</h3>
   <p>Install the kit straight from its GitHub release. The package name stays <code class="xz-code">@sfj/ui-kit</code> in your imports.</p>
   <pre class="doc-snippet" data-lang="text">
@@ -104,12 +104,11 @@
   <h3 id="quick-start--3-link">3. Link</h3>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css">
-    <link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css">
     <script src="/assets/xsenze/xsenze.min.js" defer></script>
   </textarea>
   <h3 id="quick-start--4-the-heading-font">4. The heading font</h3>
-  <p>Headings, buttons and numbers use <strong>Satoshi</strong>. Its free licence lets you use it on any website, but not pass the font file on, so neither the CDN nor the npm package includes it. Download Satoshi from Fontshare, then put <code class="xz-code">Satoshi-Variable.woff2</code> in the <code class="xz-code">fonts/</code> folder next to <code class="xz-code">xsenze-satoshi.css</code>.</p>
-  <p>Without the file, or without <code class="xz-code">xsenze-satoshi.css</code>, headings use Space Grotesk. Nothing breaks.</p>
+  <p>Headings, buttons and numbers use <strong>Plus Jakarta Sans</strong>, which comes with the kit. If you have your own copy of <strong>Satoshi</strong> and want it for headings instead, add <code class="xz-code">&lt;link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css"&gt;</code> after the main stylesheet and put <code class="xz-code">Satoshi-Variable.woff2</code> in the <code class="xz-code">fonts/</code> folder. Satoshi's licence does not allow passing the file on, so the kit cannot include it.</p>
+  <p>Without <code class="xz-code">xsenze-satoshi.css</code>, headings use Plus Jakarta Sans. Nothing breaks.</p>
 </section>
 
 <section class="doc-section" id="platforms">
@@ -193,7 +192,7 @@
     <thead><tr><th>File</th><th>Use it for</th></tr></thead>
     <tbody>
       <tr><td><code>xsenze.min.css</code></td><td>Everything: body and code fonts, tokens, base styles and all components. Use this in production.</td></tr>
-      <tr><td><code>xsenze-satoshi.css</code></td><td>The heading font. Load it after the main stylesheet, when you host Satoshi yourself.</td></tr>
+      <tr><td><code>xsenze-satoshi.css</code></td><td>Optional: switches headings to Satoshi, for projects with their own copy of the font. Load it after the main stylesheet.</td></tr>
       <tr><td><code>xsenze.css</code></td><td>The same, readable. Use it while debugging.</td></tr>
       <tr><td><code>xsenze.min.js</code></td><td>Behaviours and icons for pages loaded with a script tag. Adds the global <code>Xsenze</code>.</td></tr>
       <tr><td><code>xsenze.esm.js</code></td><td>The same as an ES module, for bundlers.</td></tr>
@@ -202,7 +201,7 @@
       <tr><td><code>tokens/tokens.json</code></td><td>Flat values for each theme. For scripts, emails and native apps.</td></tr>
       <tr><td><code>tokens/tokens.dtcg.json</code></td><td>Tokens in the Design Tokens format. Import this into Figma variables.</td></tr>
       <tr><td><code>icons/</code></td><td>Each icon as an SVG file, plus <code>sprite.svg</code>.</td></tr>
-      <tr><td><code>fonts/</code></td><td>Space Grotesk and JetBrains Mono, self-hosted, so no request leaves your server. Add Satoshi here yourself; see the heading font above.</td></tr>
+      <tr><td><code>fonts/</code></td><td>Plus Jakarta Sans, Space Grotesk and JetBrains Mono, self-hosted, so no request leaves your server.</td></tr>
       <tr><td><code>brand/</code></td><td>Logo and mark.</td></tr>
     </tbody>
   </table></div>

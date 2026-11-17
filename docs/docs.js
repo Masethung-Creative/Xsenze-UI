@@ -7,13 +7,6 @@
   const site = window.XZ_SITE || { urls: {} };
   const version = site.version || (window.XZ_DOCS && window.XZ_DOCS.version) || '';
   const urls = site.urls || {};
-  // Any published copy of the docs (GitHub Pages, Vercel or your own host), as opposed to `npm run dev` or a file on disk.
-  const onPublicSite = location.protocol.startsWith('http') && !/^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
-  // The heading font may not be published, so published docs use the fallback font. Locally it loads as usual.
-  if (!onPublicSite && !document.querySelector('link[href$="xsenze-satoshi.css"]')) {
-    const css = document.querySelector('link[href$="xsenze.css"]');
-    if (css) css.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${css.getAttribute('href').replace(/xsenze\.css$/, 'xsenze-satoshi.css')}">`);
-  }
   // Snippets can say __XZ_VERSION__, __XZ_CDN__, __XZ_NPM__ or __XZ_REPO__; the current values go in before the code is shown.
   const vars = { __XZ_VERSION__: version, __XZ_CDN__: urls.cdn || '', __XZ_NPM__: urls.npm || '', __XZ_REPO__: urls.repo || '' };
   const fill = (s) => s.replace(/__XZ_(VERSION|CDN|NPM|REPO)__/g, (m) => vars[m] ?? m);

@@ -3,13 +3,13 @@
 Design tokens, CSS components and small behaviours for Xsenze products. It works in plain HTML, PHP and any framework, and has no run-time dependencies.
 
 - Black and white on pure grey neutrals, with one orange (`#ff6300`) for highlights and the logo; 4px corners, 1px borders
-- Satoshi for headings, buttons and numbers; Space Grotesk for body text; JetBrains Mono for code
-- Satoshi is licensed under the ITF Free Font License, which does not allow passing the font files on to others. So the font file is not in the npm package: its `@font-face` is in `dist/xsenze-satoshi.css`, and each project puts its own copy of `Satoshi-Variable.woff2` in `fonts/`. Without it, headings use Space Grotesk. This repository leaves the font out too: to build with it, download Satoshi from Fontshare and unzip it to `src/fonts/Satoshi_Complete`
+- Plus Jakarta Sans for headings, buttons and numbers; Space Grotesk for body text; JetBrains Mono for code. All three are under the SIL Open Font License and ship with the kit
+- Satoshi is optional: its licence (ITF Free Font License) does not allow passing the file on, so it is never in this repository or the npm package. A project with its own copy links `dist/xsenze-satoshi.css` after the main stylesheet and puts `Satoshi-Variable.woff2` in `fonts/`
 - Light and dark themes
 - WCAG 2.2 AA contrast, tested by a script on every build
 - Indian formats: ₹, lakh and crore grouping, day-first dates
 
-Version 0.6.0 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, and the high-priority additions: a command palette, charts, a stronger data table, long-text styles, CDN links and docs search. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
+Version 0.6.1 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, and the high-priority additions: a command palette, charts, a stronger data table, long-text styles, CDN links and docs search. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
 
 Documentation: <https://xsenze-ui.vercel.app/docs/>
 
@@ -23,8 +23,8 @@ Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.0/dist/xsenze.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.0/dist/xsenze.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.1/dist/xsenze.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.1/dist/xsenze.min.js" defer></script>
 </head>
 <body>
   <main class="xz-container">
@@ -41,7 +41,7 @@ On pages with charts, add `xsenze-charts.min.js` from the same address after the
 With npm, install the release from GitHub; the import name stays `@sfj/ui-kit`:
 
 ```bash
-npm install github:Masethung-Creative/Xsenze-UI#v0.6.0
+npm install github:Masethung-Creative/Xsenze-UI#v0.6.1
 ```
 
 To host the files yourself, run `npm install` and `npm run build`, then copy `dist/` into your project. Keep `dist/` together: the stylesheet loads its fonts from the `fonts/` folder beside it.
@@ -75,7 +75,7 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 | `dist/xsenze.min.js` | Behaviours and icons, global `Xsenze` |
 | `dist/xsenze.esm.js` | ES module build |
 | `dist/xsenze-charts.min.js` | Charts, optional. `dist/xsenze-charts.esm.js` for bundlers (`import charts from '@sfj/ui-kit/charts'`) |
-| `dist/xsenze-satoshi.css` | The heading font, for projects that host Satoshi themselves |
+| `dist/xsenze-satoshi.css` | Optional: switches headings to Satoshi, for projects with their own copy of the font |
 | `dist/tokens/tokens.css` | CSS variables only |
 | `dist/tokens/tokens.json` | Flat values for each theme |
 | `dist/tokens/tokens.dtcg.json` | Design Tokens format, for Figma variables |

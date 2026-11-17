@@ -19,7 +19,7 @@
     violet: { label: 'Violet', ramp: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95', 950: '#2e1065' } },
   };
   const FONTS = {
-    satoshi: { label: 'Satoshi', stack: '"Satoshi", "Space Grotesk Variable", "Space Grotesk", "Noto Sans", system-ui, sans-serif' },
+    jakarta: { label: 'Plus Jakarta Sans', stack: '"Plus Jakarta Sans Variable", "Plus Jakarta Sans", "Space Grotesk Variable", "Space Grotesk", "Noto Sans", system-ui, sans-serif' },
     grotesk: { label: 'Space Grotesk', stack: '"Space Grotesk Variable", "Space Grotesk", "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif' },
     mono: { label: 'JetBrains Mono', stack: '"JetBrains Mono Variable", "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace' },
     system: { label: 'System font', stack: 'system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif' },
@@ -34,7 +34,9 @@
   const ICONS = { thin: { label: 'Thin', width: 1.5 }, regular: { label: 'Regular', width: 1.75 }, bold: { label: 'Bold', width: 2.25 } };
   const OPTIONS = { base: BASES, theme: THEMES, heading: FONTS, body: FONTS, radius: RADII, icon: ICONS };
   const ORDER = ['base', 'theme', 'heading', 'body', 'radius', 'icon'];
-  const DEFAULTS = { base: 'grey', theme: 'mono', heading: 'satoshi', body: 'grotesk', radius: '4', icon: 'regular', mode: 'dark' };
+  const DEFAULTS = { base: 'grey', theme: 'mono', heading: 'jakarta', body: 'grotesk', radius: '4', icon: 'regular', mode: 'dark' };
+  // Presets made before 0.6.0 name the old heading font; they now open with the kit's shipped heading font.
+  const ALIASES = { satoshi: 'jakarta' };
 
   // ---------- colour maths (same as scripts/contrast.mjs) ----------
   const parse = (c) => {
@@ -142,7 +144,7 @@
 
   // ---------- state ----------
   function fromPreset(code) {
-    const parts = String(code || '').trim().toLowerCase().split('.');
+    const parts = String(code || '').trim().toLowerCase().split('.').map((p) => ALIASES[p] || p);
     if (parts.length !== ORDER.length) return null;
     const out = {};
     for (const [i, key] of ORDER.entries()) {
@@ -159,7 +161,10 @@
     /* start from the defaults */
   }
   const state = { ...DEFAULTS, ...saved, ...(fromPreset(hash.get('preset')) || {}) };
-  for (const key of ORDER) if (!(state[key] in OPTIONS[key])) state[key] = DEFAULTS[key];
+  for (const key of ORDER) {
+    if (ALIASES[state[key]]) state[key] = ALIASES[state[key]];
+    if (!(state[key] in OPTIONS[key])) state[key] = DEFAULTS[key];
+  }
   if (hash.get('mode') === 'light' || hash.get('mode') === 'dark') state.mode = hash.get('mode');
   if (state.mode !== 'light' && state.mode !== 'dark') state.mode = DEFAULTS.mode;
 
@@ -170,7 +175,7 @@
   const $$ = (sel) => [...document.querySelectorAll(sel)];
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
   const MODES = { light: { label: 'Light' }, dark: { label: 'Dark' } };
-  const FONT_NAMES = { satoshi: 'Satoshi', grotesk: 'Grotesk', mono: 'Mono', system: 'System' };
+  const FONT_NAMES = { jakarta: 'Jakarta', grotesk: 'Grotesk', mono: 'Mono', system: 'System' };
 
   // Each row: its name, its choices and the small picture drawn in each tile.
   const ROWS = {
@@ -358,7 +363,7 @@
       change(next);
     } else {
       presetInput.setAttribute('aria-invalid', 'true');
-      window.Xsenze?.toast({ title: 'That code is not a preset', message: 'A preset looks like grey.mono.satoshi.grotesk.4.regular', variant: 'danger' });
+      window.Xsenze?.toast({ title: 'That code is not a preset', message: 'A preset looks like grey.mono.jakarta.grotesk.4.regular', variant: 'danger' });
     }
   };
   presetInput.addEventListener('keydown', (e) => {

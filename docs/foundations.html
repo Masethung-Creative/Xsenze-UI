@@ -68,9 +68,10 @@
 
 <section class="doc-section" id="typography">
   <h2>Typography</h2>
-  <p><strong>Satoshi</strong> is the primary font: headings, buttons, labels and numbers. <strong>Space Grotesk</strong> is the secondary font: body text and what people type into forms. <strong>JetBrains Mono</strong> is for code, keyboard keys and token names. All three are bundled with the kit. When a script is not covered, the stack falls back to Noto Sans and then to the system font.</p>
+  <p><strong>Plus Jakarta Sans</strong> is the primary font: headings, buttons, labels and numbers. <strong>Space Grotesk</strong> is the secondary font: body text and what people type into forms. <strong>JetBrains Mono</strong> is for code, keyboard keys and token names. All three are under the SIL Open Font License and ship with the kit, on the CDN and in the npm package. When a script is not covered, the stack falls back to Noto Sans and then to the system font.</p>
+  <p>Projects that have their own copy of Satoshi can use it for headings instead: link <code class="xz-code">xsenze-satoshi.css</code> after the main stylesheet and put <code class="xz-code">Satoshi-Variable.woff2</code> in <code class="xz-code">fonts/</code>. Its licence does not allow passing the file on, so the kit cannot include it.</p>
   <div class="doc-example" data-layout="stack" data-code="off">
-    <p style="font-family: var(--xz-font-display); font-size: var(--xz-font-size-4xl); font-weight: 700; line-height: 1.1">Satoshi Aa ₹ 0123456789</p>
+    <p style="font-family: var(--xz-font-display); font-size: var(--xz-font-size-4xl); font-weight: 700; line-height: 1.1">Plus Jakarta Sans Aa ₹ 0123456789</p>
     <p style="font-family: var(--xz-font-sans); font-size: var(--xz-font-size-2xl); font-weight: 500">Space Grotesk Aa ₹ 0123456789</p>
     <p style="font-family: var(--xz-font-mono); font-size: var(--xz-font-size-2xl)">JetBrains Mono Aa ₹ 0123456789</p>
   </div>
@@ -302,7 +303,7 @@
 
 <section class="doc-section" id="logo">
   <h2>Logo</h2>
-  <p>The final logo is still to come. Until then the logo is the name alone, set in Satoshi bold. Use the markup below in headers, or the SVG files in <code class="xz-code">dist/brand/</code> everywhere else.</p>
+  <p>The final logo is still to come. Until then the logo is the name alone, set in the heading font, bold. Use the markup below in headers, or the SVG files in <code class="xz-code">dist/brand/</code> everywhere else.</p>
   <div class="doc-example">
     <a class="xz-logo" href="#logo">Xsenze</a>
     <a class="xz-logo xz-logo--lg" href="#logo">Xsenze</a>
