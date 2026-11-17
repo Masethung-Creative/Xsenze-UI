@@ -1,6 +1,9 @@
 node_modules
 .DS_Store
 .playwright-mcp
+# The website folder that hosts such as Vercel publish; scripts/site.mjs writes it.
+site/
+.vercel
 
 # Satoshi (ITF Free Font License) may not be shared, so it stays out of the repository.
 # Download it from Fontshare into src/fonts/Satoshi_Complete; the build copies it into dist/fonts.

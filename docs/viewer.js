@@ -32,7 +32,7 @@
 document.addEventListener('click', (e) => { if (e.target.closest('a[href]')) e.preventDefault(); });
 new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.documentElement.getBoundingClientRect().height) }, '*')).observe(document.documentElement);
 <\/script>`;
-  const onPublicSite = () => window.XZ_SITE?.urls?.site && location.href.startsWith(window.XZ_SITE.urls.site);
+  const onPublicSite = () => location.protocol.startsWith('http') && !/^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
   const all = [];
   let n = 0;
 

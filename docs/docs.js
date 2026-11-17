@@ -7,8 +7,9 @@
   const site = window.XZ_SITE || { urls: {} };
   const version = site.version || (window.XZ_DOCS && window.XZ_DOCS.version) || '';
   const urls = site.urls || {};
-  const onPublicSite = Boolean(urls.site) && location.href.startsWith(urls.site);
-  // The heading font may not be published, so the public site uses the fallback font. Locally it loads as usual.
+  // Any published copy of the docs (GitHub Pages, Vercel or your own host), as opposed to `npm run dev` or a file on disk.
+  const onPublicSite = location.protocol.startsWith('http') && !/^(localhost|127\.0\.0\.1|\[::1\]|0\.0\.0\.0)$/.test(location.hostname);
+  // The heading font may not be published, so published docs use the fallback font. Locally it loads as usual.
   if (!onPublicSite && !document.querySelector('link[href$="xsenze-satoshi.css"]')) {
     const css = document.querySelector('link[href$="xsenze.css"]');
     if (css) css.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${css.getAttribute('href').replace(/xsenze\.css$/, 'xsenze-satoshi.css')}">`);
