@@ -1,0 +1,33 @@
+/* Split view: two panes with a handle between them that people drag, or move with the arrow keys.
+   Without the script the panes sit side by side at the starting size. On phones they stack. */
+.xz-split { --xz-split: 50%; display: grid; grid-template-columns: minmax(0, var(--xz-split)) minmax(0, 1fr); min-width: 0; min-height: 0; }
+.xz-split:has(> .xz-split__handle) { grid-template-columns: minmax(0, var(--xz-split)) auto minmax(0, 1fr); }
+.xz-split--rows { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, var(--xz-split)) minmax(0, 1fr); }
+.xz-split--rows:has(> .xz-split__handle) { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, var(--xz-split)) auto minmax(0, 1fr); }
+.xz-split__pane { min-width: 0; min-height: 0; overflow: auto; }
+.xz-split__pane + .xz-split__pane { border-inline-start: 1px solid var(--xz-border); }
+.xz-split--rows > .xz-split__pane + .xz-split__pane { border-inline-start: 0; border-top: 1px solid var(--xz-border); }
+.xz-split__handle + .xz-split__pane { border: 0; }
+
+.xz-split__handle { position: relative; z-index: 1; width: 1px; background: var(--xz-border); cursor: col-resize; touch-action: none; }
+.xz-split__handle::before { content: ""; position: absolute; inset: 0 -6px; }
+.xz-split__handle::after { content: ""; position: absolute; top: 50%; left: 50%; width: 6px; height: 2rem; border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-full); background: var(--xz-surface); transform: translate(-50%, -50%); transition: border-color var(--xz-duration-fast) var(--xz-ease-out), background var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-split__handle:hover, .xz-split.is-dragging > .xz-split__handle { background: var(--xz-accent-2); }
+.xz-split__handle:hover::after, .xz-split.is-dragging > .xz-split__handle::after { border-color: var(--xz-accent-2); background: var(--xz-accent-2); }
+.xz-split__handle:focus-visible { outline: none; background: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-split__handle:focus-visible::after { border-color: var(--xz-focus); background: var(--xz-focus); }
+.xz-split--rows > .xz-split__handle { width: auto; height: 1px; cursor: row-resize; }
+.xz-split--rows > .xz-split__handle::before { inset: -6px 0; }
+.xz-split--rows > .xz-split__handle::after { width: 2rem; height: 6px; }
+.xz-split.is-dragging { cursor: col-resize; user-select: none; }
+.xz-split--rows.is-dragging { cursor: row-resize; }
+.xz-split.is-dragging > .xz-split__pane { pointer-events: none; }
+.xz-split.is-collapsed > .xz-split__pane:first-child { visibility: hidden; }
+
+@media (max-width: 40rem) {
+  .xz-split:not(.xz-split--keep) { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto; }
+  .xz-split:not(.xz-split--keep) > .xz-split__handle { display: none; }
+  .xz-split:not(.xz-split--keep) > .xz-split__pane + .xz-split__pane,
+  .xz-split:not(.xz-split--keep) > .xz-split__handle + .xz-split__pane { border-inline-start: 0; border-top: 1px solid var(--xz-border); }
+  .xz-split.is-collapsed:not(.xz-split--keep) > .xz-split__pane:first-child { visibility: visible; }
+}

@@ -12,4 +12,5 @@ receipt clipboard-list file-warning server-crash compass
 bold italic underline list list-ordered undo-2 redo-2 heading cloud-upload calendar-range play pause
 volume-2 volume-x maximize minimize history check-check bell-dot images crown smartphone lock-open shuffle
 command list-filter columns-3 chart-line chart-pie monitor tablet rotate-cw quote
-bot send thumbs-up thumbs-down flag timer list-checks folder-open file square`.split(/\s+/).filter(Boolean);
+bot send thumbs-up thumbs-down flag timer list-checks folder-open file square
+mic video radio circle-dot contrast sigma ruler clipboard-paste keyboard rotate-ccw award`.split(/\s+/).filter(Boolean);

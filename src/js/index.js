@@ -560,7 +560,8 @@ function listen() {
 // `api` becomes Xsenze[name]; `init` runs now and on every later Xsenze.init(root).
 const plugins = [];
 let started = false;
-const helpers = { icon, format, place, placeAt, fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready, sanitize, copy, toast, openDialog, closeDialog };
+// init lets an optional part wire up the markup it builds (icons, copy buttons, sliders) with the kit's behaviours.
+const helpers = { icon, format, place, placeAt, fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready, sanitize, copy, toast, openDialog, closeDialog, init };
 function use(plugin) {
   if (!plugin || plugins.includes(plugin)) return Xsenze;
   plugins.push(plugin);

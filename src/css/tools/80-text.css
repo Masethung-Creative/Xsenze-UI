@@ -1,0 +1,30 @@
+/* Code block: code with its language and a copy button, for lessons and setup guides. */
+.xz-codeblock { display: flex; flex-direction: column; min-width: 0; margin: 0; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: clip; }
+.xz-codeblock__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-3); min-height: 2.5rem; padding: 0 var(--xz-space-1) 0 var(--xz-space-4); background: var(--xz-surface-2); border-bottom: 1px solid var(--xz-border); }
+.xz-codeblock__lang { color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); text-transform: lowercase; }
+.xz-codeblock__pre { margin: 0; padding: var(--xz-space-4); overflow-x: auto; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); line-height: var(--xz-line-height-relaxed); tab-size: 2; }
+.xz-codeblock__pre:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: -2px; }
+.xz-codeblock__pre code { font: inherit; }
+.xz-codeblock--lines .xz-codeblock__pre code { display: block; counter-reset: xz-line; }
+.xz-codeblock--lines .xz-codeblock__line { display: block; counter-increment: xz-line; }
+.xz-codeblock--lines .xz-codeblock__line::before { content: counter(xz-line); display: inline-block; width: 2.5ch; margin-inline-end: 2ch; color: var(--xz-text-subtle); text-align: end; user-select: none; }
+.xz-codeblock__line.is-marked { margin-inline: calc(var(--xz-space-4) * -1); padding-inline: var(--xz-space-4); background: var(--xz-accent-2-soft); box-shadow: inset 3px 0 0 var(--xz-accent-2); }
+
+/* Text box: a text area with a bar for paste, clear, copy and a live count. */
+.xz-textbox { display: flex; flex-direction: column; min-width: 0; background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); overflow: clip; }
+.xz-textbox:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-textbox .xz-textarea { min-height: 7rem; border: 0; border-radius: 0; box-shadow: none; }
+.xz-textbox .xz-textarea:focus { box-shadow: none; }
+.xz-textbox__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-1); padding: var(--xz-space-1); background: var(--xz-surface-2); border-top: 1px solid var(--xz-border); }
+.xz-textbox__count { margin-inline-end: auto; padding: 0 var(--xz-space-2); color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-variant-numeric: tabular-nums; }
+.xz-textbox__output { min-height: 5rem; margin: 0; padding: var(--xz-space-3); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-semibold); overflow-wrap: anywhere; white-space: pre-wrap; }
+[data-xz-share]:not([data-xz-share-ready]) { display: none; }
+
+/* Letter tiles: each letter of a word on its own tile, for spelling practice, codes and font samples.
+   Hindi, Tamil and other scripts split into whole letters, not loose marks. */
+.xz-glyphs { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-1); min-height: 3rem; margin: 0; padding: 0; list-style: none; }
+.xz-glyphs__tile { display: grid; place-items: center; min-width: 2.25rem; height: 2.75rem; padding: 0 var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border-strong); border-radius: var(--xz-radius-control); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-semibold); line-height: 1; animation: xz-glyph-in var(--xz-duration-base) var(--xz-ease-out) both; }
+.xz-glyphs__tile--space { min-width: 1rem; background: transparent; border-style: dashed; border-color: var(--xz-border); }
+.xz-glyphs--lg .xz-glyphs__tile { min-width: 3rem; height: 3.75rem; font-size: var(--xz-font-size-3xl); }
+@keyframes xz-glyph-in { from { opacity: 0; transform: translateY(4px); } }
+[data-xz-motion="off"] .xz-glyphs__tile { animation: none; }

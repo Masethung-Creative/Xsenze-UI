@@ -1,0 +1,45 @@
+/* Measure: width and height lines around a box, for print set-ups, image sizes and page previews. */
+.xz-measure { display: grid; grid-template-areas: ". x" "y box"; grid-template-columns: auto minmax(0, 1fr); align-items: stretch; min-width: 0; margin: 0; color: var(--xz-text-muted); }
+.xz-measure__x, .xz-measure__y { display: flex; align-items: center; gap: var(--xz-space-2); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap; }
+.xz-measure__x { grid-area: x; margin-block-end: var(--xz-space-2); }
+.xz-measure__y { grid-area: y; flex-direction: column; margin-inline-end: var(--xz-space-2); }
+.xz-measure__x::before, .xz-measure__x::after { content: ""; flex: 1; height: 0.5rem; border-color: currentColor; border-style: solid; border-width: 0; background: linear-gradient(currentColor 0 0) center / 100% 1px no-repeat; }
+.xz-measure__x::before { border-inline-start-width: 1px; }
+.xz-measure__x::after { border-inline-end-width: 1px; }
+.xz-measure__y::before, .xz-measure__y::after { content: ""; flex: 1; width: 0.5rem; border-color: currentColor; border-style: solid; border-width: 0; background: linear-gradient(currentColor 0 0) center / 1px 100% no-repeat; }
+.xz-measure__y::before { border-top-width: 1px; }
+.xz-measure__y::after { border-bottom-width: 1px; }
+.xz-measure__y > span { writing-mode: vertical-rl; transform: rotate(180deg); }
+.xz-measure__box { grid-area: box; position: relative; display: grid; place-items: center; min-width: 0; aspect-ratio: var(--xz-ratio, auto); overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); box-shadow: var(--xz-shadow-sm); color: var(--xz-text); transition: aspect-ratio var(--xz-duration-slow) var(--xz-ease-out); }
+.xz-measure--fit { justify-self: center; width: min(100%, var(--xz-measure-width, 16rem)); }
+
+/* Paper: size and orientation choices that resize a measure box, for certificates, report cards and ID cards. */
+.xz-paper__stage { display: grid; place-items: center; padding: var(--xz-space-6) var(--xz-space-4); background: var(--xz-surface-2); }
+.xz-paper__stage .xz-measure { width: min(100%, var(--xz-paper-width, 15rem)); }
+.xz-paper[data-orientation="landscape"] .xz-paper__stage .xz-measure { width: min(100%, var(--xz-paper-width-landscape, 21rem)); }
+
+/* Page strip: thumbnails of pages, slides or certificates to pick from. Built on radio buttons, so it needs no script. */
+.xz-pagestrip { display: flex; gap: var(--xz-space-4); margin: 0; padding: var(--xz-space-4); overflow-x: auto; border: 0; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.xz-pagestrip > legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); }
+.xz-pagestrip__page { position: relative; display: flex; flex: none; flex-direction: column; gap: var(--xz-space-1); width: var(--xz-page-width, 5.5rem); cursor: pointer; scroll-snap-align: start; }
+.xz-pagestrip__page input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.xz-pagestrip__sheet { display: grid; place-items: center; aspect-ratio: var(--xz-ratio, 210 / 297); overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); transition: box-shadow var(--xz-duration-fast) var(--xz-ease-out), border-color var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-pagestrip__sheet > :is(img, svg, video) { width: 100%; height: 100%; object-fit: cover; }
+.xz-pagestrip__sheet--stack { box-shadow: 3px 3px 0 -1px var(--xz-surface), 3px 3px 0 0 var(--xz-border), 6px 6px 0 -1px var(--xz-surface), 6px 6px 0 0 var(--xz-border); }
+.xz-pagestrip__page:hover .xz-pagestrip__sheet { border-color: var(--xz-border-control); }
+.xz-pagestrip__page:has(input:checked) .xz-pagestrip__sheet { border-color: var(--xz-accent-2); box-shadow: 0 0 0 1px var(--xz-accent-2); }
+.xz-pagestrip__page:has(input:checked) .xz-pagestrip__sheet--stack { box-shadow: 0 0 0 1px var(--xz-accent-2), 3px 3px 0 -1px var(--xz-surface), 3px 3px 0 0 var(--xz-border), 6px 6px 0 -1px var(--xz-surface), 6px 6px 0 0 var(--xz-border); }
+.xz-pagestrip__page:has(input:focus-visible) .xz-pagestrip__sheet { outline: 2px solid var(--xz-focus); outline-offset: 3px; }
+.xz-pagestrip__num { margin-top: var(--xz-space-1); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); line-height: 1; }
+.xz-pagestrip__caption { overflow: hidden; color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); line-height: 1.3; text-overflow: ellipsis; white-space: nowrap; }
+.xz-pagestrip__page:has(input:checked) .xz-pagestrip__num { color: var(--xz-accent-2-text); }
+
+/* Stage: a preview area with a bar for its name and size. --checker shows transparent parts of a picture. */
+.xz-stage { display: flex; flex-direction: column; min-width: 0; margin: 0; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: clip; }
+.xz-stage__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-3); min-height: 2.25rem; padding: 0 var(--xz-space-3); background: var(--xz-surface-2); border-bottom: 1px solid var(--xz-border); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+.xz-stage__size { font-family: var(--xz-font-mono); font-weight: var(--xz-font-weight-regular); font-variant-numeric: tabular-nums; }
+.xz-stage__view { position: relative; display: grid; place-items: center; min-height: 10rem; padding: var(--xz-space-4); aspect-ratio: var(--xz-ratio, auto); overflow: hidden; }
+.xz-stage__view > :is(img, video, canvas, svg) { max-width: 100%; max-height: 100%; }
+.xz-stage__view--checker { background: repeating-conic-gradient(var(--xz-surface-2) 0 25%, var(--xz-surface) 0 50%) 0 0 / 16px 16px; }
+.xz-stage__view--fill { padding: 0; }
+.xz-stage__view--fill > :is(img, video, canvas, svg) { width: 100%; height: 100%; object-fit: cover; }

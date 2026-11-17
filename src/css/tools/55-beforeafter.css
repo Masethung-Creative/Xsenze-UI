@@ -1,0 +1,21 @@
+/* Before and after: two pictures in one frame with a line to drag between them.
+   The line is a range input, so arrow keys, Home and End move it too. Without the script the pictures sit side by side. */
+.xz-beforeafter { --xz-pos: 50%; position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--xz-space-2); min-width: 0; margin: 0; overflow: hidden; border-radius: var(--xz-radius-surface); }
+.xz-beforeafter > :is(img, picture, video, canvas, svg) { display: block; width: 100%; height: 100%; object-fit: cover; }
+.xz-beforeafter[data-xz-beforeafter-ready] { grid-template-columns: minmax(0, 1fr); gap: 0; background: var(--xz-surface-2); border: 1px solid var(--xz-border); touch-action: pan-y; user-select: none; }
+.xz-beforeafter[data-xz-beforeafter-ready] > .xz-beforeafter__before,
+.xz-beforeafter[data-xz-beforeafter-ready] > .xz-beforeafter__after { grid-area: 1 / 1; }
+.xz-beforeafter[data-xz-beforeafter-ready] > .xz-beforeafter__after { clip-path: inset(0 0 0 var(--xz-pos)); }
+[dir="rtl"] .xz-beforeafter[data-xz-beforeafter-ready] > .xz-beforeafter__after { clip-path: inset(0 var(--xz-pos) 0 0); }
+.xz-beforeafter[data-xz-beforeafter-ready] { cursor: ew-resize; }
+.xz-beforeafter__range { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none; -webkit-appearance: none; appearance: none; }
+.xz-beforeafter__line { position: absolute; z-index: 1; inset-block: 0; inset-inline-start: var(--xz-pos); width: 2px; margin-inline-start: -1px; background: var(--xz-surface); box-shadow: 0 0 0 1px var(--xz-shadow-color); pointer-events: none; }
+.xz-beforeafter__knob { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: var(--xz-surface); border: 1px solid var(--xz-border-strong); border-radius: var(--xz-radius-control); color: var(--xz-text); box-shadow: var(--xz-shadow-sm); transform: translate(-50%, -50%); }
+.xz-beforeafter:has(.xz-beforeafter__range:focus-visible) .xz-beforeafter__knob { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-beforeafter.is-dragging .xz-beforeafter__knob { background: var(--xz-accent); border-color: var(--xz-accent); color: var(--xz-on-accent); }
+.xz-beforeafter__tag { position: absolute; z-index: 1; top: var(--xz-space-3); padding: 2px var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-sm); color: var(--xz-text); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); pointer-events: none; }
+.xz-beforeafter__tag--before { inset-inline-start: var(--xz-space-3); }
+.xz-beforeafter__tag--after { inset-inline-end: var(--xz-space-3); }
+.xz-beforeafter:not([data-xz-beforeafter-ready]) .xz-beforeafter__tag { display: none; }
+.xz-beforeafter > figcaption { grid-column: 1 / -1; padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+.xz-beforeafter[data-xz-beforeafter-ready] > figcaption { grid-area: 2 / 1; border-top: 1px solid var(--xz-border); }

@@ -1,0 +1,43 @@
+/* Maths: expressions typed as plain text, such as sqrt(x^2+1)/(2x), shown as real notation with MathML.
+   Without the script the text stays as typed, which still reads correctly. */
+.xz-math { font-size: 1.1em; }
+.xz-math math { font-size: inherit; }
+.xz-math--block { display: block; overflow-x: auto; padding: var(--xz-space-2) 0; font-size: var(--xz-font-size-2xl); text-align: center; }
+.xz-math--block math { display: block math; }
+.xz-math.is-error, .xz-mathfield__preview.is-error { color: var(--xz-danger-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); }
+
+/* Maths field: a text box with the notation drawn under it as you type. */
+.xz-mathfield { display: flex; flex-direction: column; gap: var(--xz-space-2); min-width: 0; }
+.xz-mathfield__box { display: flex; flex-direction: column; min-width: 0; background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); overflow: clip; }
+.xz-mathfield__box:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-mathfield__preview { display: grid; place-items: center; min-height: 4.5rem; padding: var(--xz-space-3) var(--xz-space-4); overflow-x: auto; background: var(--xz-surface-2); font-size: var(--xz-font-size-xl); }
+.xz-mathfield__preview:empty::before { content: attr(data-empty); color: var(--xz-text-subtle); font-size: var(--xz-font-size-sm); }
+.xz-mathfield__bar { display: flex; align-items: center; gap: var(--xz-space-2); border-top: 1px solid var(--xz-border); }
+.xz-mathfield__input { flex: 1; min-width: 0; min-height: var(--xz-control-md); padding: 0 var(--xz-space-3); background: transparent; border: 0; color: var(--xz-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); }
+.xz-mathfield__input:focus { outline: none; }
+.xz-mathfield__bar .xz-btn { flex: none; margin-inline-end: var(--xz-space-1); }
+
+/* Maths keypad: keys in tabs (numbers, functions, sums, letters) that type into a maths field. */
+.xz-mathpad { display: flex; flex-direction: column; min-width: 0; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: clip; }
+.xz-mathpad[hidden] { display: none; }
+.xz-mathpad__tabs { display: flex; gap: 1px; background: var(--xz-border); border-bottom: 1px solid var(--xz-border); }
+.xz-mathpad__tab { flex: 1; min-height: 2.5rem; padding: 0 var(--xz-space-2); background: var(--xz-surface-2); border: 0; color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); cursor: pointer; }
+.xz-mathpad__tab[aria-selected="true"] { background: var(--xz-surface); color: var(--xz-text); box-shadow: inset 0 -2px 0 var(--xz-accent-2); }
+.xz-mathpad__tab:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: -4px; }
+.xz-mathpad__keys { display: grid; grid-template-columns: repeat(var(--xz-mathpad-cols, 6), minmax(0, 1fr)); gap: 1px; background: var(--xz-border); }
+.xz-mathpad__keys[hidden] { display: none; }
+.xz-mathpad__key { display: grid; place-items: center; min-width: 0; min-height: 2.75rem; padding: 0 2px; background: var(--xz-surface); border: 0; color: var(--xz-text); font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", var(--xz-font-sans); font-size: var(--xz-font-size-lg); line-height: 1; cursor: pointer; touch-action: manipulation; user-select: none; }
+.xz-mathpad__key:hover { background: var(--xz-surface-2); }
+.xz-mathpad__key:active { background: var(--xz-surface-3); }
+.xz-mathpad__key:focus-visible { z-index: 1; outline: 2px solid var(--xz-focus); outline-offset: -4px; }
+.xz-mathpad__key--op { background: var(--xz-surface-2); }
+.xz-mathpad__key--op:hover { background: var(--xz-surface-3); }
+.xz-mathpad__key--fn { font-family: var(--xz-font-sans); font-size: var(--xz-font-size-sm); }
+.xz-mathpad__key--edit { background: var(--xz-surface-2); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
+.xz-mathpad__key--done { background: var(--xz-accent); color: var(--xz-on-accent); font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
+.xz-mathpad__key--done:hover { background: var(--xz-accent-hover); }
+.xz-mathpad__key--done:focus-visible { outline-color: var(--xz-on-accent); }
+.xz-mathpad__key--wide { grid-column: span 2; }
+.xz-mathpad__key math { pointer-events: none; }
+.xz-mathpad__key .xz-icon { width: 1.25rem; height: 1.25rem; }
+@media (pointer: coarse) { .xz-mathpad__key { min-height: 3rem; } }

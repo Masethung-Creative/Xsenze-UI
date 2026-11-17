@@ -1,0 +1,73 @@
+/* Readout: numbers drawn as lit segments, for timers and counters. The script draws the segments from the
+   text; screen readers and the page without the script get the text itself. */
+.xz-readout { --xz-readout-off: 0.09; display: inline-flex; align-items: center; color: var(--xz-text); font-family: var(--xz-font-mono); font-size: var(--xz-readout-size, 2.5rem); font-variant-numeric: tabular-nums; font-weight: var(--xz-font-weight-semibold); line-height: 1; letter-spacing: 0.02em; white-space: nowrap; }
+.xz-readout__digits { display: inline-flex; align-items: stretch; gap: 0.06em; height: 1em; }
+.xz-readout__char { display: block; flex: none; width: 0.56em; height: 1em; overflow: visible; }
+.xz-readout__char--narrow { width: 0.22em; }
+.xz-readout__seg { fill: currentColor; opacity: var(--xz-readout-off); transition: opacity var(--xz-duration-fast) linear; }
+.xz-readout__seg.is-on { opacity: 1; }
+.xz-readout--accent { color: var(--xz-accent-2-text); }
+.xz-readout--success { color: var(--xz-success-text); }
+.xz-readout--danger, .xz-readout.is-warning { color: var(--xz-danger-text); }
+.xz-readout--sm { --xz-readout-size: 1.5rem; }
+.xz-readout--lg { --xz-readout-size: 4rem; }
+[data-theme="dark"] .xz-readout__seg.is-on { filter: drop-shadow(0 0 0.06em currentColor); }
+
+/* Timer: a readout with start, pause and reset. */
+.xz-timer { display: inline-flex; flex-direction: column; align-items: center; gap: var(--xz-space-4); }
+.xz-timer__controls { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-2); }
+.xz-panel .xz-timer { display: flex; gap: 0; align-items: stretch; }
+.xz-panel .xz-timer > .xz-readout { justify-content: center; padding: var(--xz-space-6) var(--xz-panel-pad); }
+.xz-panel .xz-timer > * + * { border-top: 1px solid var(--xz-border); }
+
+/* Lamps: lights for live states, such as recording, microphone and camera. Each lamp says its state in words too. */
+.xz-lamps { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-2) var(--xz-space-6); margin: 0; padding: 0; list-style: none; }
+.xz-lamp { display: inline-flex; flex-direction: column; align-items: center; gap: var(--xz-space-1); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-medium); transition: color var(--xz-duration-base) var(--xz-ease-out); }
+.xz-lamp .xz-icon { width: 1.75rem; height: 1.75rem; opacity: 0.45; transition: opacity var(--xz-duration-base) var(--xz-ease-out), filter var(--xz-duration-base) var(--xz-ease-out); }
+.xz-lamp.is-on { color: var(--xz-text); }
+.xz-lamp.is-on .xz-icon { opacity: 1; filter: drop-shadow(0 0 6px color-mix(in srgb, currentColor 45%, transparent)); }
+.xz-lamp--success.is-on { color: var(--xz-success-text); }
+.xz-lamp--danger.is-on { color: var(--xz-danger-text); }
+.xz-lamp--warning.is-on { color: var(--xz-warning-text); }
+.xz-lamp--accent.is-on { color: var(--xz-accent-2-text); }
+.xz-lamp--row { flex-direction: row; gap: var(--xz-space-2); font-size: var(--xz-font-size-sm); }
+.xz-lamp--row .xz-icon { width: 1.25rem; height: 1.25rem; }
+.xz-lamp.is-on.is-blinking .xz-icon { animation: xz-lamp-blink 1.2s steps(1, end) infinite; }
+@keyframes xz-lamp-blink { 50% { opacity: 0.3; filter: none; } }
+[data-xz-motion="off"] .xz-lamp.is-blinking .xz-icon { animation: none; }
+@media (prefers-reduced-motion: reduce) { .xz-lamp.is-blinking .xz-icon { animation: none !important; } }
+
+/* Readings: small labelled values in a grid, each with an optional level bar (--xz-level). */
+.xz-readings { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8.5rem), 1fr)); gap: 1px; margin: 0; background: var(--xz-border); }
+.xz-readings__item { position: relative; display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: var(--xz-space-3) var(--xz-panel-pad, var(--xz-space-4)) var(--xz-space-4); background: var(--xz-surface); }
+.xz-readings__item dt { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+.xz-readings__item dd { margin: 0; overflow: hidden; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-md); font-variant-numeric: tabular-nums; font-weight: var(--xz-font-weight-medium); text-overflow: ellipsis; white-space: nowrap; }
+.xz-readings__item::after { content: ""; position: absolute; inset-inline-start: 0; bottom: 0; width: var(--xz-level, 0%); height: 3px; background: var(--xz-accent); }
+.xz-readings__item--success { --xz-readings-bar: var(--xz-success); }
+.xz-readings__item--warning { --xz-readings-bar: var(--xz-warning); }
+.xz-readings__item--danger { --xz-readings-bar: var(--xz-danger); }
+.xz-readings__item[class*="--"]::after { background: var(--xz-readings-bar); }
+:not(.xz-panel) > .xz-readings { border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: clip; }
+
+/* Change bars: a before and after amount with the change between them, such as a file before and after compression. */
+.xz-delta { display: grid; gap: var(--xz-space-2); min-width: 0; }
+.xz-delta__change { margin: 0 0 var(--xz-space-1); font-family: var(--xz-font-display); font-size: var(--xz-font-size-4xl); font-weight: var(--xz-font-weight-bold); font-variant-numeric: tabular-nums; line-height: 1; text-align: end; }
+.xz-delta__change small { margin-inline-start: 0.1em; color: var(--xz-text-muted); font-size: 0.5em; }
+.xz-delta__change--down { color: var(--xz-success-text); }
+.xz-delta__change--up { color: var(--xz-danger-text); }
+.xz-delta__bar { display: flex; align-items: center; gap: var(--xz-space-2); width: var(--xz-value, 100%); min-width: max-content; max-width: 100%; min-height: 2rem; padding: 0 var(--xz-space-3); background: var(--xz-surface-3); color: var(--xz-text); font-size: var(--xz-font-size-xs); white-space: nowrap; }
+.xz-delta__bar strong { font-family: var(--xz-font-mono); font-weight: var(--xz-font-weight-semibold); }
+.xz-delta__bar--after { background: var(--xz-accent); color: var(--xz-on-accent); }
+
+/* Meter: the native meter element, coloured by its low, high and optimum values. */
+.xz-meter { display: block; width: 100%; height: 0.5rem; background: var(--xz-surface-3); border: 0; border-radius: var(--xz-radius-full); -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+.xz-meter::-webkit-meter-bar { height: 0.5rem; background: var(--xz-surface-3); border: 0; border-radius: var(--xz-radius-full); }
+.xz-meter::-webkit-meter-optimum-value { background: var(--xz-success); border-radius: var(--xz-radius-full); }
+.xz-meter::-webkit-meter-suboptimum-value { background: var(--xz-warning); border-radius: var(--xz-radius-full); }
+.xz-meter::-webkit-meter-even-less-good-value { background: var(--xz-danger); border-radius: var(--xz-radius-full); }
+.xz-meter::-moz-meter-bar { background: var(--xz-success); border-radius: var(--xz-radius-full); }
+.xz-meter:-moz-meter-sub-optimum::-moz-meter-bar { background: var(--xz-warning); }
+.xz-meter:-moz-meter-sub-sub-optimum::-moz-meter-bar { background: var(--xz-danger); }
+.xz-meter--neutral::-webkit-meter-optimum-value { background: var(--xz-accent); }
+.xz-meter--neutral::-moz-meter-bar { background: var(--xz-accent); }
+.xz-panel__row > .xz-meter { flex: 0 1 8rem; }

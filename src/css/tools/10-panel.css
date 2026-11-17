@@ -1,0 +1,156 @@
+/* Panel: a box of hairline rows, for settings, inspectors and tool screens.
+   Every child after the first gets a hairline above it, so rows, labels, stages and
+   action bars stack without extra markup. */
+.xz-panel {
+  --xz-panel-row: 3rem;
+  --xz-panel-pad: var(--xz-space-4);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--xz-surface);
+  border: 1px solid var(--xz-border);
+  border-radius: var(--xz-radius-surface);
+  overflow: clip;
+}
+.xz-panel > * + * { border-top: 1px solid var(--xz-border); }
+.xz-panel--compact { --xz-panel-row: 2.5rem; --xz-panel-pad: var(--xz-space-3); }
+.xz-panel--flat { border-radius: 0; border-inline: 0; }
+
+.xz-panel__head { display: flex; align-items: center; gap: var(--xz-space-2); min-height: 2.75rem; padding: 0 var(--xz-space-2) 0 var(--xz-panel-pad); background: var(--xz-surface-2); }
+.xz-panel__head > .xz-icon { color: var(--xz-text-muted); }
+.xz-panel__title { flex: 1; min-width: 0; margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); line-height: 1.3; }
+.xz-panel__tools { display: flex; align-items: center; gap: 2px; margin-inline-start: auto; }
+.xz-panel__label { margin: 0; padding: var(--xz-space-2) var(--xz-panel-pad); background: var(--xz-surface-2); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; }
+
+/* A row: a label at the start, a control or value at the end. A label element works as a row too. */
+.xz-panel__row { display: flex; align-items: center; gap: var(--xz-space-3); min-height: var(--xz-panel-row); margin: 0; padding: var(--xz-space-2) var(--xz-panel-pad); font-size: var(--xz-font-size-sm); }
+.xz-panel__row > :first-child { flex: 1 1 auto; min-width: 0; }
+.xz-panel__row > .xz-slider { flex: 1 1 8rem; }
+.xz-panel__row > :is(.xz-select, .xz-input) { flex: 0 1 auto; width: auto; max-width: 60%; }
+label.xz-panel__row { cursor: pointer; }
+label.xz-panel__row:has(input:disabled) { color: var(--xz-disabled-text); cursor: not-allowed; }
+.xz-panel__key { display: block; font-weight: var(--xz-font-weight-medium); }
+.xz-panel__hint { display: block; color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+.xz-panel__value { flex: none; margin-inline-start: auto; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); font-variant-numeric: tabular-nums; text-align: end; }
+.xz-panel__value small { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+/* The row reads as a switch: the label at the start, the switch at the end. */
+.xz-panel__row.xz-toggle { display: flex; align-items: center; line-height: inherit; }
+
+/* Cells: rows side by side, two to a line unless --xz-cols says otherwise. One to a line on phones. */
+.xz-panel__cells { display: grid; grid-template-columns: repeat(var(--xz-cols, 2), minmax(0, 1fr)); gap: 1px; background: var(--xz-border); }
+.xz-panel__cells > * { min-width: 0; background: var(--xz-surface); }
+@media (max-width: 30rem) { .xz-panel__cells:not(.xz-panel__cells--keep) { grid-template-columns: minmax(0, 1fr); } }
+
+/* Stage: a large area for a preview, a picture or a readout. */
+.xz-panel__stage { display: grid; place-items: center; min-height: 9rem; padding: var(--xz-space-6) var(--xz-panel-pad); background: var(--xz-surface-2); text-align: center; }
+.xz-panel__stage--plain { background: var(--xz-surface); }
+.xz-panel__empty { display: grid; place-items: center; min-height: 5rem; margin: 0; padding: var(--xz-space-6) var(--xz-panel-pad); color: var(--xz-text-subtle); font-size: var(--xz-font-size-sm); text-align: center; }
+.xz-panel__foot { margin: 0; padding: var(--xz-space-2) var(--xz-panel-pad); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+
+/* Actions: full-width buttons in a strip of cells. */
+.xz-panel__actions { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1px; background: var(--xz-border); }
+.xz-panel__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--xz-space-2);
+  min-width: 0;
+  min-height: var(--xz-panel-row);
+  padding: 0 var(--xz-space-3);
+  background: var(--xz-surface);
+  border: 0;
+  border-radius: 0;
+  color: var(--xz-text);
+  font-family: var(--xz-font-display);
+  font-size: var(--xz-font-size-sm);
+  font-weight: var(--xz-font-weight-semibold);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--xz-duration-fast) var(--xz-ease-out), color var(--xz-duration-fast) var(--xz-ease-out);
+}
+.xz-panel__action:hover { background: var(--xz-surface-2); }
+.xz-panel__action:active { background: var(--xz-surface-3); }
+.xz-panel__action:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: -4px; }
+.xz-panel__action--primary { background: var(--xz-accent); color: var(--xz-on-accent); }
+.xz-panel__action--primary:hover { background: var(--xz-accent-hover); }
+.xz-panel__action--primary:active { background: var(--xz-accent-active); }
+.xz-panel__action--primary:focus-visible { outline-color: var(--xz-on-accent); }
+.xz-panel__action--danger { color: var(--xz-danger-text); }
+.xz-panel__action[aria-pressed="true"] { background: var(--xz-accent-soft); box-shadow: inset 0 -2px 0 var(--xz-accent-2); }
+.xz-panel__action:disabled, .xz-panel__action[aria-disabled="true"] { background: var(--xz-surface); color: var(--xz-disabled-text); cursor: not-allowed; }
+@media (pointer: coarse) { .xz-panel__row, .xz-panel__action { min-height: max(var(--xz-panel-row), var(--xz-control-touch)); } }
+
+/* Segments as cells: a full-width choice for panels, the chosen cell filled. */
+.xz-segmented--cells { display: flex; width: 100%; padding: 0; gap: 1px; overflow-x: auto; background: var(--xz-border); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-segmented--cells label { flex: 1 0 auto; }
+.xz-segmented--cells span { min-height: var(--xz-panel-row, 3rem); padding-inline: var(--xz-space-3); background: var(--xz-surface); border-radius: 0; color: var(--xz-text-muted); font-weight: var(--xz-font-weight-medium); }
+.xz-segmented--cells input:hover + span { background: var(--xz-surface-2); }
+.xz-segmented--cells input:checked + span { background: var(--xz-accent); color: var(--xz-on-accent); box-shadow: none; }
+.xz-segmented--cells input:focus-visible + span { outline: 2px solid var(--xz-focus); outline-offset: -4px; }
+.xz-segmented--cells input:checked:focus-visible + span { outline-color: var(--xz-on-accent); }
+.xz-segmented--cells input:disabled + span { background: var(--xz-surface); color: var(--xz-disabled-text); }
+
+/* Fader: a slider drawn as a filled bar, for panels. The core script keeps --_fill and the output up to date.
+   Set --xz-fader-track to draw your own track, such as a colour ramp. */
+.xz-slider--fader { --_track: var(--xz-fader-track, linear-gradient(to right, var(--xz-accent) var(--_fill), var(--xz-surface-3) var(--_fill))); height: 2.25rem; border-radius: var(--xz-radius-control); }
+.xz-slider--fader::-webkit-slider-runnable-track { height: 2.25rem; border-radius: var(--xz-radius-control); background: var(--_track); box-shadow: inset 0 0 0 1px var(--xz-border); }
+.xz-slider--fader::-moz-range-track { height: 2.25rem; border-radius: var(--xz-radius-control); background: var(--_track); box-shadow: inset 0 0 0 1px var(--xz-border); }
+.xz-slider--fader::-moz-range-progress { height: 0; background: transparent; }
+.xz-slider--fader::-webkit-slider-thumb { width: 0.375rem; height: 2.75rem; margin-top: -0.25rem; background: var(--xz-accent-2); border: 1px solid var(--xz-surface); border-radius: var(--xz-radius-sm); box-shadow: 0 0 0 1px var(--xz-shadow-color); }
+.xz-slider--fader::-moz-range-thumb { box-sizing: border-box; width: 0.375rem; height: 2.75rem; background: var(--xz-accent-2); border: 1px solid var(--xz-surface); border-radius: var(--xz-radius-sm); box-shadow: 0 0 0 1px var(--xz-shadow-color); }
+.xz-slider--fader:hover::-webkit-slider-thumb, .xz-slider--fader:active::-webkit-slider-thumb { transform: none; }
+[dir="rtl"] .xz-slider--fader { --_track: var(--xz-fader-track, linear-gradient(to left, var(--xz-accent) var(--_fill), var(--xz-surface-3) var(--_fill))); }
+
+/* Number field: the stepper with a unit, flat for panels. --big puts a large number between the buttons. */
+.xz-numfield { display: inline-flex; align-items: stretch; min-height: var(--xz-control-md); background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); }
+.xz-numfield:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-numfield .xz-stepper__btn { width: var(--xz-control-md); background: transparent; border: 0; border-radius: 0; }
+.xz-numfield .xz-stepper__btn:first-child { border-inline-end: 1px solid var(--xz-border); }
+.xz-numfield .xz-stepper__btn:last-child { border-inline-start: 1px solid var(--xz-border); }
+.xz-numfield .xz-stepper__btn:focus-visible { outline-offset: -4px; }
+.xz-numfield__box { display: inline-flex; align-items: baseline; justify-content: center; gap: var(--xz-space-1); min-width: 0; padding: 0 var(--xz-space-2); cursor: text; }
+.xz-numfield__input { width: var(--xz-numfield-width, 4ch); min-width: 0; padding: 0; background: transparent; border: 0; color: var(--xz-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); font-variant-numeric: tabular-nums; text-align: end; appearance: textfield; -moz-appearance: textfield; align-self: center; }
+.xz-numfield__input::-webkit-outer-spin-button, .xz-numfield__input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.xz-numfield__input:focus { outline: none; }
+.xz-numfield__unit { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); white-space: nowrap; align-self: center; }
+.xz-numfield--big { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; width: 100%; min-height: 5.5rem; }
+.xz-numfield--big .xz-stepper__btn { width: 3.5rem; height: auto; }
+.xz-numfield--big .xz-numfield__box { flex-direction: column; align-items: center; justify-content: center; gap: 0; }
+.xz-numfield--big .xz-numfield__input { width: 100%; font-family: var(--xz-font-display); font-size: var(--xz-font-size-4xl); font-weight: var(--xz-font-weight-bold); line-height: 1.1; text-align: center; }
+.xz-numfield--big .xz-numfield__unit { align-self: center; font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; }
+.xz-panel > .xz-numfield--big:focus-within { box-shadow: inset 0 0 0 2px var(--xz-focus); }
+
+/* Status: a short state with a dot, such as Allowed, Blocked or Stopped. */
+.xz-status { display: inline-flex; align-items: center; gap: 0.45em; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-medium); white-space: nowrap; }
+.xz-status::before { content: ""; flex: none; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; }
+.xz-status--success { color: var(--xz-success-text); }
+.xz-status--warning { color: var(--xz-warning-text); }
+.xz-status--danger { color: var(--xz-danger-text); }
+.xz-status--info { color: var(--xz-info-text); }
+.xz-status--off::before { background: transparent; box-shadow: inset 0 0 0 1.5px currentColor; }
+
+/* Value line: a label, a value in mono and a copy button. Stack several for a list of values. */
+.xz-valueline { display: grid; grid-template-columns: minmax(3.5rem, auto) minmax(0, 1fr) auto; align-items: center; gap: var(--xz-space-3); min-height: 2.75rem; padding: var(--xz-space-1) var(--xz-space-1) var(--xz-space-1) var(--xz-panel-pad, var(--xz-space-3)); }
+.xz-valueline + .xz-valueline { border-top: 1px solid var(--xz-border); }
+.xz-valueline__label { color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; white-space: nowrap; }
+.xz-valueline__value { min-width: 0; overflow: hidden; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); text-overflow: ellipsis; white-space: nowrap; user-select: all; }
+.xz-valueline--stack { grid-template-columns: minmax(0, 1fr) auto; row-gap: 0; padding-block: var(--xz-space-2); }
+.xz-valueline--stack .xz-valueline__label { grid-column: 1; }
+.xz-valueline--stack .xz-valueline__value { grid-column: 1; }
+.xz-valueline--stack > :last-child { grid-column: 2; grid-row: 1 / span 2; }
+.xz-valuelines { margin: 0; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+
+/* File field: a compact "None / Choose" row. Until the script is ready the browser's own file input shows. */
+.xz-filefield { display: flex; align-items: center; gap: var(--xz-space-3); min-height: var(--xz-panel-row, 3rem); padding: var(--xz-space-1) var(--xz-space-1) var(--xz-space-1) var(--xz-panel-pad, var(--xz-space-3)); font-size: var(--xz-font-size-sm); cursor: pointer; }
+.xz-filefield__label { flex: 1 1 auto; min-width: 0; font-weight: var(--xz-font-weight-medium); }
+.xz-filefield__name { min-width: 0; max-width: 50%; overflow: hidden; color: var(--xz-text-muted); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); text-overflow: ellipsis; white-space: nowrap; }
+.xz-filefield__btn { flex: none; display: inline-flex; align-items: center; min-height: var(--xz-control-sm); padding: 0 var(--xz-space-3); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+.xz-filefield:hover .xz-filefield__btn { background: var(--xz-surface-2); }
+.xz-filefield:has(input:focus-visible) .xz-filefield__btn { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-filefield[data-xz-filefield-ready] input[type="file"] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); opacity: 0; }
+.xz-filefield:not([data-xz-filefield-ready]) :is(.xz-filefield__name, .xz-filefield__btn) { display: none; }
+.xz-filefield:not([data-xz-filefield-ready]) input[type="file"] { max-width: 55%; font-size: var(--xz-font-size-xs); }
+
+/* Parts with their own border drop it inside a panel, where the panel's hairlines take over. */
+.xz-panel > :is(.xz-segmented--cells, .xz-numfield--big, .xz-stage, .xz-readings, .xz-pagestrip, .xz-duallist, .xz-valuelines, .xz-swatches, .xz-colorpicker, .xz-mathpad, .xz-codeblock, .xz-beforeafter, .xz-contrast) { border: 0; border-radius: 0; box-shadow: none; }
+.xz-panel > * + :is(.xz-segmented--cells, .xz-numfield--big, .xz-stage, .xz-readings, .xz-pagestrip, .xz-duallist, .xz-valuelines, .xz-swatches, .xz-colorpicker, .xz-mathpad, .xz-codeblock, .xz-beforeafter, .xz-contrast) { border-top: 1px solid var(--xz-border); }

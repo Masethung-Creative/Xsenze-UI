@@ -1,0 +1,39 @@
+/* Pixel loader: nine cells that light up in a pattern while something loads. CSS only.
+   With less motion, or the page's motion off, the cells hold a still pattern. */
+.xz-loader { --_cell: var(--xz-loader-cell, 0.375rem); --_step: var(--xz-loader-step, 120ms); display: inline-grid; grid-template-columns: repeat(3, var(--_cell)); gap: max(1px, calc(var(--_cell) / 3)); flex: none; color: var(--xz-text); vertical-align: middle; }
+.xz-loader > i { width: var(--_cell); height: var(--_cell); background: currentColor; opacity: 0.14; animation: xz-loader-ring calc(var(--_step) * 8) linear infinite both; animation-delay: calc(var(--_i, 0) * var(--_step) - var(--_step) * 8); }
+/* Ring order, clockwise from the top-left cell. The centre cell sits out of the ring patterns. */
+.xz-loader > :nth-child(1) { --_i: 0; --_r: 2; }
+.xz-loader > :nth-child(2) { --_i: 1; --_r: 1; }
+.xz-loader > :nth-child(3) { --_i: 2; --_r: 2; }
+.xz-loader > :nth-child(6) { --_i: 3; --_r: 1; }
+.xz-loader > :nth-child(9) { --_i: 4; --_r: 2; }
+.xz-loader > :nth-child(8) { --_i: 5; --_r: 1; }
+.xz-loader > :nth-child(7) { --_i: 6; --_r: 2; }
+.xz-loader > :nth-child(4) { --_i: 7; --_r: 1; }
+.xz-loader > :nth-child(5) { --_r: 0; animation: none; }
+/* snake (the default): three cells chase round the ring */
+@keyframes xz-loader-ring { 0%, 37.5% { opacity: 1; } 38%, 100% { opacity: 0.14; } }
+/* comet: one bright cell with a fading tail */
+.xz-loader--comet > i { animation-name: xz-loader-comet; }
+@keyframes xz-loader-comet { 0% { opacity: 1; } 60%, 100% { opacity: 0.14; } }
+/* dot: one cell at a time */
+.xz-loader--dot > i { animation-name: xz-loader-dot; }
+@keyframes xz-loader-dot { 0%, 12.4% { opacity: 1; } 12.5%, 100% { opacity: 0.14; } }
+/* twin: two opposite cells */
+.xz-loader--twin > i { animation-name: xz-loader-twin; animation-duration: calc(var(--_step) * 4); animation-delay: calc(var(--_i, 0) * var(--_step) - var(--_step) * 8); }
+@keyframes xz-loader-twin { 0%, 24.9% { opacity: 1; } 25%, 100% { opacity: 0.14; } }
+/* pulse: rings of light from the centre outwards */
+.xz-loader--pulse > i, .xz-loader--pulse > :nth-child(5) { animation: xz-loader-pulse calc(var(--_step) * 8) var(--xz-ease-in-out) infinite both; animation-delay: calc(var(--_r) * var(--_step) * 1.5 - var(--_step) * 8); }
+@keyframes xz-loader-pulse { 0%, 30% { opacity: 1; } 60%, 100% { opacity: 0.14; } }
+.xz-loader--lg { --xz-loader-cell: 0.625rem; }
+.xz-loader--accent { color: var(--xz-accent-2); }
+/* reverse: the ring patterns run anticlockwise */
+.xz-loader--reverse:not(.xz-loader--pulse) > i { animation-delay: calc(var(--_i, 0) * var(--_step) * -1); }
+
+[data-xz-motion="off"] .xz-loader > i { animation: none; }
+[data-xz-motion="off"] .xz-loader > :is(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(5)) { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .xz-loader > i { animation: none !important; }
+  .xz-loader > :is(:nth-child(1), :nth-child(2), :nth-child(3), :nth-child(5)) { opacity: 1; }
+}
