@@ -245,6 +245,14 @@
     if (f && typeof e.data?.xzExampleHeight === 'number') f.fit(Math.max(80, e.data.xzExampleHeight));
   });
   addEventListener('resize', () => frames.forEach((f) => f.fit()));
+  // Motion demos: a box marked data-motion="class" plays that entrance again when selected.
+  document.addEventListener('click', (e) => {
+    const box = e.target.closest('[data-motion]');
+    if (!box) return;
+    box.classList.remove(box.dataset.motion);
+    void box.offsetWidth; // restart the animation
+    box.classList.add(box.dataset.motion);
+  });
 
   // <pre class="doc-snippet"> or <textarea class="doc-snippet" data-lang="html"> -> code block with a copy button
   for (const pre of document.querySelectorAll('.doc-snippet')) {

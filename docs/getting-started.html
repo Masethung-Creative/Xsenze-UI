@@ -47,7 +47,13 @@
     </body>
     </html>
   </textarea>
-  <p>That is the whole setup. Components start by themselves when the page loads.</p>
+  <p>That is the whole setup. Components start by themselves when the page loads. This is the page it makes; press the button to see it work.</p>
+  <div class="doc-example" data-code="off" data-layout="stack">
+    <div class="xz-stack" style="align-items: center">
+      <p class="xz-h1" style="margin: 0">Namaste</p>
+      <button class="xz-btn xz-btn--primary" type="button" data-xz-toast="It works."><i data-xz-icon="check"></i> Try it</button>
+    </div>
+  </div>
   <div class="xz-alert xz-alert--info" role="note">
     <i data-xz-icon="info"></i>
     <div class="xz-alert__body">
@@ -239,6 +245,13 @@
       }
     </style>
   </textarea>
+  <p>The card below is drawn with those tokens alone. Switch the preview to dark: the same names give the dark values.</p>
+  <div class="doc-example" data-code="off">
+    <div style="width: min(100%, 20rem); padding: var(--xz-space-5); background: var(--xz-surface); border: 1px solid var(--xz-border); color: var(--xz-text)">
+      <p style="margin: 0 0 var(--xz-space-1); font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold)">Batch B-14</p>
+      <p style="margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm)">Data analytics · 32 learners</p>
+    </div>
+  </div>
   <p>To change a value, edit <code class="xz-code">tokens/tokens.json</code> and run <code class="xz-code">npm run build</code>. Then run <code class="xz-code">npm run check</code> to confirm the colours still meet AA contrast.</p>
 </section>
 

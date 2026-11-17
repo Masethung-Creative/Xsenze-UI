@@ -137,9 +137,11 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-table-wrap { overflow-x: auto; }
 
 /* foundations */
-.doc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: 1px; margin: var(--xz-space-3) 0 var(--xz-space-6); background: var(--xz-border); border: 1px solid var(--xz-border); }
-.doc-swatch { display: flex; flex-direction: column; background: var(--xz-surface); font-family: var(--xz-font-mono); font-size: 0.6875rem; }
-.doc-swatch__chip { height: 3.5rem; }
+/* Swatches share their borders, so a short last row leaves no grey gap. */
+.doc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); margin: var(--xz-space-3) 0 var(--xz-space-6); padding: 0 1px 1px 0; }
+.doc-swatch { display: flex; flex-direction: column; margin: 0 -1px -1px 0; background: var(--xz-surface); border: 1px solid var(--xz-border); font-family: var(--xz-font-mono); font-size: 0.6875rem; }
+/* A hairline under the chip keeps a chip in the swatch's own colour visible. */
+.doc-swatch__chip { height: 3.5rem; box-shadow: inset 0 -1px 0 var(--xz-border); }
 .doc-swatch__name { padding: var(--xz-space-2) var(--xz-space-2) 0; color: var(--xz-text); }
 .doc-swatch__value { padding: 0 var(--xz-space-2) var(--xz-space-2); color: var(--xz-text-muted); }
 .doc-swatches--wide { grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
@@ -148,6 +150,9 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-scale__row > code { font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
 .doc-bar { height: 1rem; background: var(--xz-accent); }
 .doc-box { display: flex; align-items: center; justify-content: center; width: 5rem; height: 5rem; background: var(--xz-surface); border: 1px solid var(--xz-border-control); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
+/* The reveal entrance at a chosen duration (--doc-rise), for the token demo on Blocks. */
+.doc-rise { animation: xz-reveal var(--doc-rise, var(--xz-duration-reveal)) var(--xz-ease-out) backwards; }
+[data-xz-motion="off"] .doc-rise { animation: none; }
 .doc-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: 1px; margin: var(--xz-space-3) 0 var(--xz-space-6); background: var(--xz-border); border: 1px solid var(--xz-border); }
 .doc-icons button { display: flex; flex-direction: column; align-items: center; gap: var(--xz-space-2); padding: var(--xz-space-4) var(--xz-space-1); background: var(--xz-surface); border: 0; color: var(--xz-text); font-family: var(--xz-font-mono); font-size: 0.6875rem; cursor: pointer; }
 .doc-icons button:hover { background: var(--xz-accent); color: var(--xz-on-accent); }

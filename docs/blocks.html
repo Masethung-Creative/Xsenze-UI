@@ -666,6 +666,11 @@
       <tr><td><code>--xz-duration-reveal</code></td><td>640ms</td><td>Whole blocks of text rising into place need longer than the 480ms used for drawers, or they read as a jolt. It continues the existing steps: 120, 200, 320, 480, 640.</td></tr>
     </tbody>
   </table></div>
+  <p>Select a box to play it again: the first rises in 480ms, the second in 640ms, the reveal's own duration.</p>
+  <div class="doc-example" data-code="off">
+    <button type="button" class="doc-box doc-rise" data-motion="doc-rise" style="--doc-rise: var(--xz-duration-slower)">480ms</button>
+    <button type="button" class="doc-box doc-rise" data-motion="doc-rise">640ms</button>
+  </div>
   <p>Component settings are custom properties on the component, not tokens, so changing one never changes the rest of the kit:</p>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Property</th><th>Default</th><th>On</th></tr></thead>

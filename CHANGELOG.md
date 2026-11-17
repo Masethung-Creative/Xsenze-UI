@@ -4,6 +4,8 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+- Docs: live results for Quick start and Tokens only on Get started, the colours the tools use as live swatches on Tools, and a replay of the reveal duration on Blocks, each with its own light and dark switch. Colour swatches share their borders, so a short last row no longer leaves a grey gap
+
 ## 0.9.0 (18 Nov 2026)
 
 Every part of the docs has a live preview with its own light and dark switch, parts are listed by family, and parts that used to change size now hold still.
