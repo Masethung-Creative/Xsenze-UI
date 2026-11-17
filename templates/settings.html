@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Settings · Xsenze</title>
+<link rel="stylesheet" href="../dist/xsenze.min.css">
+<link rel="stylesheet" href="../dist/xsenze-tools.min.css">
+<script src="../dist/xsenze.min.js" defer></script>
+<script src="../dist/xsenze-tools.min.js" defer></script>
+<style>
+  /* Page layout only: two columns of panels from 900px, and a save bar that stays in view. */
+  .settings { display: grid; gap: var(--xz-space-5); align-items: start; }
+  @media (min-width: 900px) { .settings { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .settings__col { display: grid; gap: var(--xz-space-5); min-width: 0; }
+  .settings__bar { position: sticky; bottom: 0; z-index: var(--xz-z-sticky); display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-3); margin-top: var(--xz-space-6); padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); box-shadow: var(--xz-shadow-md); }
+  .settings__bar .xz-status { margin-inline-end: auto; }
+</style>
+</head>
+<body>
+<a class="xz-skip-link" href="#main">Skip to content</a>
+
+<header class="xz-navbar">
+  <a class="xz-logo" href="./dashboard.html">Xsenze</a>
+  <span class="xz-navbar__spacer"></span>
+  <div class="xz-navbar__actions">
+    <a class="xz-btn xz-btn--ghost" href="./dashboard.html"><i data-xz-icon="arrow-left" data-size="sm"></i>Dashboard</a>
+    <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-theme-toggle aria-pressed="false" aria-label="Dark theme" data-xz-tooltip="Switch theme" data-xz-tooltip-place="bottom"><i data-xz-icon="moon"></i></button>
+  </div>
+</header>
+
+<main class="xz-container" id="main" style="padding-block: var(--xz-space-6) var(--xz-space-10)">
+  <div style="margin-bottom: var(--xz-space-6)">
+    <p class="xz-overline">Saffron Learning Institute</p>
+    <h1 class="xz-h2" style="margin: 0">Settings</h1>
+    <p class="xz-text-muted" style="margin: var(--xz-space-2) 0 0">Changes apply to every batch. Save them at the bottom of the page.</p>
+  </div>
+
+  <form id="settings-form" action="#" method="post">
+    <div class="settings">
+      <div class="settings__col">
+
+        <section class="xz-panel" aria-labelledby="st-appearance">
+          <header class="xz-panel__head"><i data-xz-icon="sliders-horizontal" data-size="sm"></i><h2 class="xz-panel__title" id="st-appearance">Appearance</h2></header>
+          <p class="xz-panel__label" id="st-theme-label">Theme</p>
+          <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-labelledby="st-theme-label" id="st-theme">
+            <label><input type="radio" name="theme" value="light" checked><span>Light</span></label>
+            <label><input type="radio" name="theme" value="dark"><span>Dark</span></label>
+            <label><input type="radio" name="theme" value="auto"><span>Auto</span></label>
+          </div>
+          <div class="xz-panel__row">
+            <label for="st-text">Text size</label>
+            <input class="xz-slider xz-slider--fader" id="st-text" name="text_size" type="range" min="14" max="18" value="16" data-xz-suffix=" px">
+            <output class="xz-panel__value" for="st-text">16 px</output>
+          </div>
+          <label class="xz-panel__row xz-toggle"><span><span class="xz-panel__key">Motion</span><span class="xz-panel__hint">Moving parts on the landing page</span></span><input type="checkbox" role="switch" name="motion" checked></label>
+          <div class="xz-panel__row">
+            <label for="st-lang">Language</label>
+            <select class="xz-select xz-select--sm" id="st-lang" name="language"><option value="en">English</option><option value="hi" lang="hi">हिन्दी</option><option value="ta" lang="ta">தமிழ்</option><option value="kn" lang="kn">ಕನ್ನಡ</option></select>
+          </div>
+        </section>
+
+        <section class="xz-panel" aria-labelledby="st-formats">
+          <header class="xz-panel__head"><i data-xz-icon="indian-rupee" data-size="sm"></i><h2 class="xz-panel__title" id="st-formats">Formats</h2></header>
+          <p class="xz-panel__label" id="st-number-label">Numbers</p>
+          <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-labelledby="st-number-label">
+            <label><input type="radio" name="numbers" value="indian" checked><span>12,34,567</span></label>
+            <label><input type="radio" name="numbers" value="international"><span>1,234,567</span></label>
+          </div>
+          <p class="xz-panel__label" id="st-date-label">Dates</p>
+          <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-labelledby="st-date-label">
+            <label><input type="radio" name="dates" value="dmy" checked><span>17/11/2026</span></label>
+            <label><input type="radio" name="dates" value="iso"><span>2026-11-17</span></label>
+          </div>
+          <div class="xz-panel__cells">
+            <div class="xz-panel__row"><label for="st-currency">Currency</label><select class="xz-select xz-select--sm" id="st-currency" name="currency"><option>₹ INR</option><option>$ USD</option><option>د.إ AED</option></select></div>
+            <div class="xz-panel__row"><label for="st-week">Week starts</label><select class="xz-select xz-select--sm" id="st-week" name="week_start"><option>Monday</option><option>Sunday</option></select></div>
+          </div>
+        </section>
+
+        <section class="xz-panel" aria-labelledby="st-classes">
+          <header class="xz-panel__head"><i data-xz-icon="graduation-cap" data-size="sm"></i><h2 class="xz-panel__title" id="st-classes">Classes</h2></header>
+          <div class="xz-panel__row">
+            <label for="st-length">Class length</label>
+            <div class="xz-stepper xz-numfield" data-xz-stepper>
+              <button class="xz-stepper__btn" type="button" data-xz-step="-1" aria-label="Five minutes shorter"><i data-xz-icon="minus" data-size="sm"></i></button>
+              <span class="xz-numfield__box"><input class="xz-numfield__input" id="st-length" name="class_length" type="number" min="30" max="180" step="5" value="90" aria-describedby="st-length-unit"><span class="xz-numfield__unit" id="st-length-unit">min</span></span>
+              <button class="xz-stepper__btn" type="button" data-xz-step="1" aria-label="Five minutes longer"><i data-xz-icon="plus" data-size="sm"></i></button>
+            </div>
+          </div>
+          <div class="xz-panel__row">
+            <label for="st-seats">Seats per batch</label>
+            <div class="xz-stepper xz-numfield" data-xz-stepper>
+              <button class="xz-stepper__btn" type="button" data-xz-step="-1" aria-label="One seat fewer"><i data-xz-icon="minus" data-size="sm"></i></button>
+              <span class="xz-numfield__box"><input class="xz-numfield__input" id="st-seats" name="seats" type="number" min="5" max="120" value="40" aria-describedby="st-seats-unit"><span class="xz-numfield__unit" id="st-seats-unit">seats</span></span>
+              <button class="xz-stepper__btn" type="button" data-xz-step="1" aria-label="One seat more"><i data-xz-icon="plus" data-size="sm"></i></button>
+            </div>
+          </div>
+          <div class="xz-panel__row">
+            <label for="st-attendance"><span class="xz-panel__key">Attendance rule</span><span class="xz-panel__hint">Below this, the learner is flagged</span></label>
+            <input class="xz-slider xz-slider--fader" id="st-attendance" name="attendance_rule" type="range" min="50" max="100" step="5" value="75" data-xz-suffix="%">
+            <output class="xz-panel__value" for="st-attendance">75%</output>
+          </div>
+        </section>
+      </div>
+
+      <div class="settings__col">
+        <section class="xz-panel" aria-labelledby="st-messages">
+          <header class="xz-panel__head"><i data-xz-icon="bell" data-size="sm"></i><h2 class="xz-panel__title" id="st-messages">Messages</h2></header>
+          <label class="xz-panel__row xz-toggle"><span><span class="xz-panel__key">Fee reminders by SMS</span><span class="xz-panel__hint">Three days before each due date</span></span><input type="checkbox" role="switch" name="sms_reminders" checked></label>
+          <label class="xz-panel__row xz-toggle"><span class="xz-panel__key">Class updates on WhatsApp</span><input type="checkbox" role="switch" name="whatsapp" checked></label>
+          <label class="xz-panel__row xz-toggle"><span class="xz-panel__key">Receipts by email</span><input type="checkbox" role="switch" name="email_receipts"></label>
+          <p class="xz-panel__label">Channels</p>
+          <div class="xz-panel__row"><span>SMS credits</span><span class="xz-status xz-status--success">1,240 left</span></div>
+          <div class="xz-panel__row"><span>WhatsApp</span><span class="xz-status xz-status--success">Connected</span></div>
+          <div class="xz-panel__row"><span>Email sender</span><span class="xz-status xz-status--warning">Check your inbox to confirm</span></div>
+        </section>
+
+        <section class="xz-panel" aria-labelledby="st-brand">
+          <header class="xz-panel__head"><i data-xz-icon="palette" data-size="sm"></i><h2 class="xz-panel__title" id="st-brand">Brand</h2></header>
+          <label class="xz-filefield" data-xz-filefield><span class="xz-filefield__label" id="st-logo-label">Logo</span><span class="xz-filefield__name" id="st-logo-name">saffron-logo.svg</span><span class="xz-filefield__btn" aria-hidden="true">Change</span><input type="file" name="logo" accept="image/png, image/svg+xml" aria-labelledby="st-logo-label" aria-describedby="st-logo-name"></label>
+          <div class="xz-panel__row">
+            <label for="st-colour">Brand colour</label>
+            <div class="xz-colorfield" data-xz-color id="st-colour-field"><input type="color" value="#db5200" aria-label="Pick the brand colour"><input class="xz-input" id="st-colour" name="brand_colour" value="#DB5200" spellcheck="false" autocomplete="off"></div>
+          </div>
+          <div data-xz-shades="#db5200" data-xz-shades-for="#st-colour-field" aria-label="Shades of the brand colour"></div>
+          <div class="xz-valueline"><span class="xz-valueline__label">Code</span><code class="xz-valueline__value">SLI-BLR-0042</code><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-copy="SLI-BLR-0042" aria-label="Copy institute code"><i data-xz-icon="copy" data-size="sm"></i></button></div>
+          <div class="xz-valueline"><span class="xz-valueline__label">UPI</span><code class="xz-valueline__value">saffron.fees@upi</code><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-copy="saffron.fees@upi" aria-label="Copy UPI ID"><i data-xz-icon="copy" data-size="sm"></i></button></div>
+        </section>
+
+        <section class="xz-panel" aria-labelledby="st-storage">
+          <header class="xz-panel__head"><i data-xz-icon="folder" data-size="sm"></i><h2 class="xz-panel__title" id="st-storage">Storage</h2></header>
+          <div class="xz-panel__row"><span><span class="xz-panel__key" id="st-used">Used</span><span class="xz-panel__hint">6.4 GB of 10 GB</span></span><meter class="xz-meter" min="0" max="10" low="7" high="9" optimum="0" value="6.4" aria-labelledby="st-used">6.4 GB</meter></div>
+          <dl class="xz-readings">
+            <div class="xz-readings__item" style="--xz-level: 80%"><dt>Class videos</dt><dd>5.1 GB</dd></div>
+            <div class="xz-readings__item" style="--xz-level: 16%"><dt>Notes and papers</dt><dd>1.0 GB</dd></div>
+            <div class="xz-readings__item" style="--xz-level: 4%"><dt>Photos</dt><dd>280 MB</dd></div>
+          </dl>
+          <div class="xz-panel__actions">
+            <button class="xz-panel__action" type="button" data-xz-toast="Your data is being packed. We will email the link to the admin address." data-xz-toast-title="Download started"><i data-xz-icon="download" data-size="sm"></i>Download all data</button>
+            <button class="xz-panel__action xz-panel__action--danger" type="button" data-xz-open="#st-clear">Delete old videos</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="settings__bar">
+      <span class="xz-status xz-status--off" id="st-state" role="status">All changes saved</span>
+      <button class="xz-btn" type="reset">Undo changes</button>
+      <button class="xz-btn xz-btn--primary" type="submit">Save changes</button>
+    </div>
+  </form>
+</main>
+
+<dialog class="xz-modal xz-modal--sm" id="st-clear" aria-labelledby="st-clear-title">
+  <div class="xz-modal__header"><h2 class="xz-modal__title" id="st-clear-title">Delete videos older than one year?</h2></div>
+  <div class="xz-modal__body"><p>This frees about 3.8 GB. Learners lose the recordings of those classes. Notes and papers stay.</p></div>
+  <div class="xz-modal__footer">
+    <button class="xz-btn" type="button" data-xz-close>Keep them</button>
+    <button class="xz-btn xz-btn--danger" type="button" data-xz-close="delete" data-xz-toast="Old videos deleted. 3.8 GB is free again." data-xz-toast-variant="success">Delete videos</button>
+  </div>
+</dialog>
+
+<script>
+  // The theme choice switches the page at once; Auto follows the device.
+  const form = document.getElementById('settings-form');
+  const state = document.getElementById('st-state');
+  const apply = (value) => {
+    const theme = value === 'auto' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : value;
+    window.Xsenze?.theme.set(theme);
+  };
+  document.getElementById('st-theme').addEventListener('change', (e) => apply(e.target.value));
+  addEventListener('DOMContentLoaded', () => {
+    const current = window.Xsenze?.theme.get() || 'light';
+    const radio = form.querySelector(`input[name="theme"][value="${current}"]`);
+    if (radio) radio.checked = true;
+  });
+  // The save bar says when there is something to save.
+  const dirty = (on) => {
+    state.textContent = on ? 'Unsaved changes' : 'All changes saved';
+    state.className = `xz-status ${on ? 'xz-status--warning' : 'xz-status--off'}`;
+  };
+  form.addEventListener('input', () => dirty(true));
+  form.addEventListener('change', () => dirty(true));
+  form.addEventListener('reset', () => setTimeout(() => dirty(false)));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    dirty(false);
+    window.Xsenze?.toast({ title: 'Settings saved', message: 'Every batch uses the new settings from now on.', variant: 'success' });
+  });
+</script>
+</body>
+</html>

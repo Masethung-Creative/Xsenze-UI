@@ -7,6 +7,7 @@ export default {
     { file: 'foundations.html', label: 'Foundations', kind: 'guide' },
     { file: 'components.html', label: 'Components', kind: 'components' },
     { file: 'forms.html', label: 'Forms', kind: 'components' },
+    { file: 'tools.html', label: 'Tools', kind: 'components' },
     { file: 'patterns.html', label: 'Guidelines', kind: 'guide' },
     { file: 'blocks.html', label: 'Blocks', kind: 'components' },
     { file: 'templates.html', label: 'Templates', kind: 'guide' },

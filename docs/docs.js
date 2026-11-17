@@ -15,11 +15,12 @@
   for (const el of document.querySelectorAll('[data-doc-copy]')) el.setAttribute('data-doc-copy', fill(el.getAttribute('data-doc-copy')));
   // Links and kit copy buttons can use the placeholders too.
   for (const el of document.querySelectorAll('a[href*="__XZ_"], [data-xz-copy*="__XZ_"]')) for (const name of ['href', 'data-xz-copy']) if (el.hasAttribute(name)) el.setAttribute(name, fill(el.getAttribute(name)));
-  // The four reference pages share one "Docs" link in the header and a side menu inside the pages.
+  // The reference pages share one "Docs" link in the header and a side menu inside the pages.
   const docsPages = [
     ['foundations', 'Foundations', 'foundations.html'],
     ['components', 'Components', 'components.html'],
     ['forms', 'Forms', 'forms.html'],
+    ['tools', 'Tools', 'tools.html'],
     ['patterns', 'Guidelines', 'patterns.html'],
   ];
   const inDocs = docsPages.some(([key]) => key === page);
@@ -162,7 +163,7 @@
   }
 
   // ---- side menu: a tree ----
-  // Docs pages: the four page names, the current one opened to its sections. Other pages: their sections.
+  // Docs pages: the page names, the current one opened to its sections. Other pages: their sections.
   // Only the section you are reading opens to its sub-headings, so the menu stays short.
   const toc = document.querySelector('[data-doc-toc]');
   if (toc && (inDocs || sections.length)) {

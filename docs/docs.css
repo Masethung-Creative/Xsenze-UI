@@ -44,7 +44,9 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-section > ul, .doc-section > ol { padding-left: var(--xz-space-5); }
 /* Only the page's own lists: the examples show components exactly as they look in a project. */
 .doc-section > :is(ul, ol) li + li { margin-top: var(--xz-space-1); }
-.doc-section strong { color: var(--xz-text); }
+.doc-section strong:not(.doc-example__preview strong) { color: var(--xz-text); }
+/* Code in tables is read letter by letter, so no ligatures: >= stays two characters. */
+.doc-table code { font-variant-ligatures: none; }
 
 /* example = live preview + its code */
 .doc-example { margin: var(--xz-space-4) 0 var(--xz-space-6); border: 1px solid var(--xz-border); background: var(--xz-surface); }

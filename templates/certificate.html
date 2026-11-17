@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Certificate maker · Xsenze</title>
+<link rel="stylesheet" href="../dist/xsenze.min.css">
+<link rel="stylesheet" href="../dist/xsenze-tools.min.css">
+<script src="../dist/xsenze.min.js" defer></script>
+<script src="../dist/xsenze-tools.min.js" defer></script>
+<style>
+  /* Page layout: the tool fills the window and each pane scrolls on its own. On phones the page scrolls as one. */
+  .maker { display: grid; grid-template-rows: auto auto minmax(0, 1fr); min-height: 100dvh; }
+  @media (min-width: 641px) { .maker { height: 100dvh; } }
+  .maker__side { display: grid; align-content: start; gap: var(--xz-space-4); padding: var(--xz-space-4); background: var(--xz-bg); }
+  .maker__main { display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--xz-surface-2); }
+  .maker__canvas { display: grid; place-items: center; min-height: 24rem; padding: var(--xz-space-8) var(--xz-space-6); overflow: auto; }
+  .maker__canvas .xz-measure { width: min(100%, var(--maker-width, 34rem)); }
+  .maker .xz-pagestrip { border-top: 1px solid var(--xz-border); background: var(--xz-surface); }
+  /* The certificate itself, drawn from the choices on the left. */
+  .cert { --cert-ink: #1e3a8a; --cert-paper: #fffdf7; position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 0.6em; padding: 9% 8%; background: var(--cert-paper); color: var(--cert-ink); font-size: clamp(0.5rem, 2.2cqi, 1.1rem); text-align: center; }
+  .xz-measure__box:has(.cert) { container-type: inline-size; }
+  .cert::before { content: ""; position: absolute; inset: 4%; border: 0.35em double var(--cert-ink); pointer-events: none; }
+  .cert.has-margins::after { content: ""; position: absolute; inset: 9%; border: 1px dashed currentColor; opacity: 0.35; pointer-events: none; }
+  .cert__kicker { margin: 0; font-family: var(--xz-font-display); font-size: 0.85em; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+  .cert__title { margin: 0; font-family: var(--xz-font-display); font-size: 2.4em; font-weight: 700; line-height: 1.1; }
+  .cert__name { margin: 0.2em 0; padding: 0 0.6em 0.1em; border-bottom: 1px solid currentColor; font-family: var(--xz-font-display); font-size: 2em; font-weight: 600; }
+  .cert__text { max-width: 30em; margin: 0; font-size: 1em; line-height: 1.5; }
+  .cert__foot { display: flex; justify-content: space-between; align-self: end; width: 100%; margin-top: 1.2em; font-size: 0.85em; }
+  .cert__sign { display: grid; gap: 0.2em; min-width: 10em; padding-top: 0.4em; border-top: 1px solid currentColor; }
+</style>
+</head>
+<body>
+<a class="xz-skip-link" href="#main">Skip to the preview</a>
+
+<div class="maker">
+  <header class="xz-navbar xz-navbar--static">
+    <a class="xz-logo" href="./dashboard.html">Xsenze</a>
+    <span class="xz-navbar__title xz-hide-mobile">Certificate maker</span>
+    <span class="xz-badge xz-hide-mobile">Batch B-14 · Data analytics</span>
+    <span class="xz-navbar__spacer"></span>
+    <div class="xz-navbar__actions">
+      <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-theme-toggle aria-pressed="false" aria-label="Dark theme" data-xz-tooltip="Switch theme" data-xz-tooltip-place="bottom"><i data-xz-icon="moon"></i></button>
+      <button class="xz-btn xz-btn--primary" type="button" id="mk-export-top"><i data-xz-icon="download" data-size="sm"></i>Export</button>
+    </div>
+  </header>
+
+  <ul class="xz-menubar" data-xz-menubar aria-label="Certificate maker" id="mk-menu">
+    <li>
+      <button class="xz-menubar__trigger" type="button">File</button>
+      <ul class="xz-menu__list">
+        <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+alt+n">New design</button></li>
+        <li>
+          <button class="xz-menu__item" type="button">Open recent</button>
+          <ul class="xz-menu__list">
+            <li><button class="xz-menu__item" type="button">Batch B-13 completion</button></li>
+            <li><button class="xz-menu__item" type="button">Hackathon winners</button></li>
+          </ul>
+        </li>
+        <li class="xz-menu__separator"></li>
+        <li><button class="xz-menu__item" type="button" data-action="export" data-xz-shortcut="mod+e">Export…</button></li>
+        <li><button class="xz-menu__item" type="button" data-action="print" data-xz-shortcut="mod+p">Print</button></li>
+      </ul>
+    </li>
+    <li>
+      <button class="xz-menubar__trigger" type="button">Edit</button>
+      <ul class="xz-menu__list">
+        <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+z">Undo</button></li>
+        <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+shift+z">Redo</button></li>
+        <li class="xz-menu__separator"></li>
+        <li><button class="xz-menu__item" type="button" data-action="names">Fill names from the batch list</button></li>
+      </ul>
+    </li>
+    <li>
+      <button class="xz-menubar__trigger" type="button">View</button>
+      <ul class="xz-menu__list">
+        <li><button class="xz-menu__item" type="button" role="menuitemcheckbox" data-action="margins">Show safe margins</button></li>
+        <li class="xz-menu__separator"></li>
+        <li>
+          <ul class="xz-menu__group" aria-label="Zoom">
+            <li><button class="xz-menu__item" type="button" role="menuitemradio" data-action="zoom-75">75%</button></li>
+            <li><button class="xz-menu__item" type="button" role="menuitemradio" aria-checked="true" data-action="zoom-100">100%</button></li>
+            <li><button class="xz-menu__item" type="button" role="menuitemradio" data-action="zoom-125">125%</button></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <button class="xz-menubar__trigger" type="button">Help</button>
+      <ul class="xz-menu__list">
+        <li><button class="xz-menu__item" type="button" data-action="help">Printing tips</button></li>
+      </ul>
+    </li>
+  </ul>
+
+  <div class="xz-split" data-xz-split="certificate-maker" data-xz-label="Resize the set-up panel" data-xz-paper data-xz-min="24" data-xz-max="50" style="--xz-split: 32%; min-height: 0">
+    <aside class="xz-split__pane maker__side" aria-label="Set-up">
+      <section class="xz-panel" aria-labelledby="mk-paper">
+        <header class="xz-panel__head"><i data-xz-icon="ruler" data-size="sm"></i><h2 class="xz-panel__title" id="mk-paper">Paper</h2></header>
+        <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Paper size">
+          <label><input type="radio" name="size" value="A5"><span>A5</span></label>
+          <label><input type="radio" name="size" value="A4" checked><span>A4</span></label>
+          <label><input type="radio" name="size" value="A3"><span>A3</span></label>
+          <label><input type="radio" name="size" value="Letter"><span>Letter</span></label>
+        </div>
+        <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Orientation">
+          <label><input type="radio" name="orientation" value="portrait"><span>Portrait</span></label>
+          <label><input type="radio" name="orientation" value="landscape" checked><span>Landscape</span></label>
+        </div>
+        <div class="xz-panel__cells">
+          <div class="xz-panel__row"><span>Width</span><output class="xz-panel__value" data-xz-paper-out="width">297 mm</output></div>
+          <div class="xz-panel__row"><span>Height</span><output class="xz-panel__value" data-xz-paper-out="height">210 mm</output></div>
+        </div>
+      </section>
+
+      <section class="xz-panel" aria-labelledby="mk-words">
+        <header class="xz-panel__head"><i data-xz-icon="type" data-size="sm"></i><h2 class="xz-panel__title" id="mk-words">Words</h2></header>
+        <div class="xz-panel__row"><label for="mk-name">Name</label><input class="xz-input xz-input--sm" id="mk-name" value="Ananya Iyer" autocomplete="off" data-cert="name"></div>
+        <div class="xz-panel__row"><label for="mk-course">Course</label><input class="xz-input xz-input--sm" id="mk-course" value="Data analytics with Excel and Power BI" autocomplete="off" data-cert="course"></div>
+        <div class="xz-panel__row"><label for="mk-date">Date</label><input class="xz-input xz-input--sm" id="mk-date" value="28/11/2026" autocomplete="off" data-cert="date"></div>
+        <label class="xz-filefield" data-xz-filefield><span class="xz-filefield__label" id="mk-sign-label">Signature</span><span class="xz-filefield__name" id="mk-sign-name">None</span><span class="xz-filefield__btn" aria-hidden="true">Choose</span><input type="file" name="signature" accept="image/*" aria-labelledby="mk-sign-label" aria-describedby="mk-sign-name"></label>
+      </section>
+
+      <section class="xz-panel" aria-labelledby="mk-colours">
+        <header class="xz-panel__head"><i data-xz-icon="palette" data-size="sm"></i><h2 class="xz-panel__title" id="mk-colours">Colours</h2></header>
+        <div class="xz-contrast" data-xz-contrast id="mk-contrast">
+          <div class="xz-contrast__fields">
+            <div><label class="xz-label" for="mk-ink">Ink</label><div class="xz-colorfield" data-xz-color id="mk-ink-field"><input type="color" value="#1e3a8a" aria-label="Pick the ink colour"><input class="xz-input" id="mk-ink" value="#1E3A8A" spellcheck="false" autocomplete="off"></div></div>
+            <div><label class="xz-label" for="mk-paper-colour">Paper</label><div class="xz-colorfield" data-xz-color id="mk-paper-field"><input type="color" value="#fffdf7" aria-label="Pick the paper colour"><input class="xz-input" id="mk-paper-colour" value="#FFFDF7" spellcheck="false" autocomplete="off"></div></div>
+          </div>
+          <ul class="xz-contrast__marks"><li>Contrast <strong class="xz-contrast__ratio">–</strong> : 1</li><li data-level="4.5">AA</li><li data-level="7">AAA</li></ul>
+        </div>
+      </section>
+
+      <section class="xz-panel" aria-labelledby="mk-export">
+        <header class="xz-panel__head"><i data-xz-icon="download" data-size="sm"></i><h2 class="xz-panel__title" id="mk-export">Export</h2></header>
+        <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="File type">
+          <label><input type="radio" name="format" value="pdf" checked><span>PDF</span></label>
+          <label><input type="radio" name="format" value="png"><span>PNG</span></label>
+        </div>
+        <div class="xz-panel__row"><label for="mk-copies">For</label><select class="xz-select xz-select--sm" id="mk-copies"><option>Ananya Iyer only</option><option>All 38 learners in B-14</option></select></div>
+        <div class="xz-panel__row" id="mk-progress-row" hidden><span class="xz-loader" role="status" aria-label="Making the file"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><div class="xz-progress" style="flex: 1" role="progressbar" aria-label="Export" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="xz-progress__bar" id="mk-bar" style="width: 0%"></div></div></div>
+        <dl class="xz-readings">
+          <div class="xz-readings__item"><dt>Pages</dt><dd id="mk-pages">1</dd></div>
+          <div class="xz-readings__item"><dt>File size</dt><dd id="mk-size">–</dd></div>
+        </dl>
+        <div class="xz-panel__actions"><button class="xz-panel__action xz-panel__action--primary" type="button" id="mk-render"><i data-xz-icon="download" data-size="sm"></i>Make the file</button></div>
+      </section>
+    </aside>
+
+    <main class="xz-split__pane maker__main" id="main">
+      <div class="maker__canvas">
+        <figure class="xz-measure" aria-label="Certificate preview">
+          <span class="xz-measure__x">297 mm</span>
+          <span class="xz-measure__y"><span>210 mm</span></span>
+          <div class="xz-measure__box" style="--xz-ratio: 297 / 210">
+            <div class="cert" id="mk-cert">
+              <p class="cert__kicker">Saffron Learning Institute</p>
+              <p class="cert__title">Certificate of completion</p>
+              <p class="cert__text">This certifies that</p>
+              <p class="cert__name" data-cert-out="name">Ananya Iyer</p>
+              <p class="cert__text">completed <strong data-cert-out="course">Data analytics with Excel and Power BI</strong> with 92% attendance and a final score of 88 out of 100.</p>
+              <div class="cert__foot"><span class="cert__sign"><strong>Meera Raghavan</strong>Principal</span><span class="cert__sign"><strong data-cert-out="date">28/11/2026</strong>Date</span></div>
+            </div>
+          </div>
+        </figure>
+      </div>
+      <fieldset class="xz-pagestrip">
+        <legend>Pages</legend>
+        <label class="xz-pagestrip__page" style="--xz-page-width: 6.5rem"><input type="radio" name="page" value="front" checked><span class="xz-pagestrip__sheet" style="--xz-ratio: 297 / 210"><i data-xz-icon="award" data-size="lg"></i></span><span class="xz-pagestrip__num">1</span><span class="xz-pagestrip__caption">Front</span></label>
+        <label class="xz-pagestrip__page" style="--xz-page-width: 6.5rem"><input type="radio" name="page" value="back"><span class="xz-pagestrip__sheet" style="--xz-ratio: 297 / 210"><i data-xz-icon="list-checks" data-size="lg"></i></span><span class="xz-pagestrip__num">2</span><span class="xz-pagestrip__caption">Marks</span></label>
+        <label class="xz-pagestrip__page" style="--xz-page-width: 6.5rem"><input type="radio" name="page" value="card"><span class="xz-pagestrip__sheet" style="--xz-ratio: 85.6 / 54"><i data-xz-icon="user" data-size="lg"></i></span><span class="xz-pagestrip__num">3</span><span class="xz-pagestrip__caption">ID card</span></label>
+      </fieldset>
+    </main>
+  </div>
+</div>
+
+<script>
+  const cert = document.getElementById('mk-cert');
+  // Words: each box fills its place on the certificate.
+  for (const input of document.querySelectorAll('[data-cert]')) {
+    input.addEventListener('input', () => {
+      for (const out of document.querySelectorAll(`[data-cert-out="${input.dataset.cert}"]`)) out.textContent = input.value || ' ';
+    });
+  }
+  // Colours: the ink and the paper of the certificate.
+  document.getElementById('mk-ink-field').addEventListener('xz:color', (e) => cert.style.setProperty('--cert-ink', e.detail.hex));
+  document.getElementById('mk-paper-field').addEventListener('xz:color', (e) => cert.style.setProperty('--cert-paper', e.detail.hex));
+  // Menu bar choices.
+  const zoom = { 'zoom-75': '26rem', 'zoom-100': '34rem', 'zoom-125': '44rem' };
+  document.getElementById('mk-menu').addEventListener('xz:action', (e) => {
+    const { action, checked } = e.detail;
+    if (action === 'margins') cert.classList.toggle('has-margins', checked);
+    else if (zoom[action]) document.querySelector('.maker__canvas').style.setProperty('--maker-width', zoom[action]);
+    else if (action === 'export') document.getElementById('mk-render').click();
+    else if (action === 'print') window.print();
+    else window.Xsenze?.toast({ message: `${action}: not part of this template` });
+  });
+  // Export: a pretend job with progress, then the readings.
+  const row = document.getElementById('mk-progress-row');
+  const bar = document.getElementById('mk-bar');
+  const render = document.getElementById('mk-render');
+  const run = () => {
+    if (render.disabled) return;
+    const all = document.getElementById('mk-copies').selectedIndex === 1;
+    const pdf = document.querySelector('input[name="format"]:checked').value === 'pdf';
+    render.disabled = true;
+    row.hidden = false;
+    let done = 0;
+    const tick = setInterval(() => {
+      done = Math.min(100, done + 12);
+      bar.style.width = `${done}%`;
+      bar.parentElement.setAttribute('aria-valuenow', String(done));
+      if (done < 100) return;
+      clearInterval(tick);
+      row.hidden = true;
+      render.disabled = false;
+      document.getElementById('mk-pages').textContent = all ? '38' : '1';
+      document.getElementById('mk-size').textContent = `${((all ? 38 : 1) * (pdf ? 0.18 : 0.62)).toFixed(1)} MB`;
+      window.Xsenze?.toast({ title: 'File ready', message: all ? 'Certificates for all 38 learners are in one file.' : 'Ananya Iyer\'s certificate is ready to download.', variant: 'success' });
+    }, 180);
+  };
+  render.addEventListener('click', run);
+  document.getElementById('mk-export-top').addEventListener('click', run);
+</script>
+</body>
+</html>

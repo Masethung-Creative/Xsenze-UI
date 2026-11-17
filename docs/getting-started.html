@@ -71,6 +71,10 @@
 
     <!-- Only on pages with a chat or a quiz -->
     <script src="__XZ_CDN__/xsenze-apps.min.js" defer></script>
+
+    <!-- Only on pages with tools: panels, split views, colour and maths -->
+    <link rel="stylesheet" href="__XZ_CDN__/xsenze-tools.min.css">
+    <script src="__XZ_CDN__/xsenze-tools.min.js" defer></script>
   </textarea>
   <p>The fonts come with the stylesheet: headings in Plus Jakarta Sans, body text in Space Grotesk and code in JetBrains Mono. Nothing else to add.</p>
   <h3 id="npm">npm</h3>
@@ -89,6 +93,11 @@
     // Chat and quiz, only where you need them:
     import apps from '@sfj/ui-kit/apps';
     Xsenze.use(apps);
+
+    // Tools (panels, split views, colour and maths), only where you need them:
+    import '@sfj/ui-kit/tools.css';
+    import tools from '@sfj/ui-kit/tools';
+    Xsenze.use(tools);
 
     // After you add markup to the page later (a route change, an AJAX response):
     Xsenze.init(document.querySelector('#new-content'));
@@ -205,6 +214,7 @@
       <tr><td><code>xsenze.esm.js</code></td><td>The same as an ES module, for bundlers.</td></tr>
       <tr><td><code>xsenze-charts.min.js</code></td><td>Charts. Optional: load it after the main script, only on pages with charts. <code>xsenze-charts.esm.js</code> is the module version.</td></tr>
       <tr><td><code>xsenze-apps.min.js</code></td><td>Chat and quiz. Optional: load it after the main script, only on pages that use them. <code>xsenze-apps.esm.js</code> is the module version.</td></tr>
+      <tr><td><code>xsenze-tools.min.css</code>, <code>xsenze-tools.min.js</code></td><td>The <a class="xz-link" href="tools.html">tools</a>: panels, split view, menu bar, dual list, readouts, colour and maths. Optional: load both after the main files, only on pages that use them. <code>xsenze-tools.css</code> and <code>xsenze-tools.esm.js</code> are the readable and module versions.</td></tr>
       <tr><td><code>tokens/tokens.css</code></td><td>CSS variables only, with no component styles. For projects that only want the tokens.</td></tr>
       <tr><td><code>tokens/tokens.json</code></td><td>Flat values for each theme. For scripts, emails and native apps.</td></tr>
       <tr><td><code>tokens/tokens.dtcg.json</code></td><td>Tokens in the Design Tokens format. Import this into Figma variables.</td></tr>

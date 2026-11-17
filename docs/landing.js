@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ['xsenze.min.js', 'Every page', sizes.js],
     ['xsenze-charts.min.js', 'Pages with charts', sizes.charts],
     ['xsenze-apps.min.js', 'Pages with a chat or quiz', sizes.apps],
+    ['xsenze-tools.min.css', 'Pages with tools', sizes.toolsCss],
+    ['xsenze-tools.min.js', 'Pages with tools', sizes.tools],
     ['tokens.css', 'Tokens only', sizes.tokens],
   ].filter(([, , s]) => s);
   $('lp-sizes').innerHTML = files.map(([name, where, s]) => `<tr><td class="xz-table__primary">${name}</td><td>${where}</td><td class="xz-table__num">${kb(s.gzip)}</td></tr>`).join('');

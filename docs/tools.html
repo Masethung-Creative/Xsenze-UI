@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Tools · Xsenze UI Kit</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-tools.css">
+<link rel="stylesheet" href="docs.css">
+<script src="data.generated.js" defer></script>
+<script src="site.generated.js" defer></script>
+<script src="docs.js" defer></script>
+<script src="viewer.js" defer></script>
+<script src="../dist/xsenze.js" defer></script>
+<script src="../dist/xsenze-tools.js" defer></script>
+</head>
+<body class="doc" data-page="tools">
+<a class="xz-skip-link" href="#main">Skip to content</a>
+<header data-doc-header></header>
+<div class="doc-layout">
+<aside class="doc-toc" data-doc-toc></aside>
+<main id="main" class="doc-main">
+
+<header class="doc-hero">
+  <p class="xz-overline">Tools</p>
+  <h1 class="xz-h1">Parts for tool screens</h1>
+  <p class="xz-lead">Settings pages, editors, print set-ups, colour and maths: panels of rows, a split view, a menu bar, readouts, a colour picker and a maths keypad. They live in an optional pair of files, so pages that do not use them stay light.</p>
+</header>
+
+<!-- ================= INVENTORY ================= -->
+<section class="doc-section" id="inventory">
+  <h2>Inventory</h2>
+  <p>Every part a full tool kit needs, and where each one lives in Xsenze. <strong>New</strong> parts are in the tools pack on this page. <strong>In the kit</strong> parts were already in the main files; follow the link to their page. A few parts are <strong>left out</strong>, with the reason and what to use instead.</p>
+  <dl class="xz-readings" style="margin-block: var(--xz-space-4) var(--xz-space-6)">
+    <div class="xz-readings__item" style="--xz-level: 100%"><dt>Parts listed</dt><dd>78</dd></div>
+    <div class="xz-readings__item xz-readings__item--success" style="--xz-level: 71%"><dt>New in the tools pack</dt><dd>55</dd></div>
+    <div class="xz-readings__item" style="--xz-level: 24%"><dt>Already in the kit</dt><dd>19</dd></div>
+    <div class="xz-readings__item xz-readings__item--warning" style="--xz-level: 5%"><dt>Left out</dt><dd>4</dd></div>
+  </dl>
+
+  <h3 id="inventory--layout">Layout</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Row</td><td>A label at the start, a control or value at the end</td><td><a class="xz-link" href="#panel--rows"><code>xz-panel__row</code></a></td><td>New</td></tr>
+      <tr><td>Rows</td><td>Rows stacked with hairlines between them</td><td><a class="xz-link" href="#panel--rows"><code>xz-panel</code></a></td><td>New</td></tr>
+      <tr><td>Panel heading</td><td>A small label row that names a group</td><td><a class="xz-link" href="#panel--rows"><code>xz-panel__label</code></a></td><td>New</td></tr>
+      <tr><td>Jump heading</td><td>A title bar with a link onward</td><td><a class="xz-link" href="#panel--rows"><code>xz-panel__head</code></a> and <code>__tools</code></td><td>New</td></tr>
+      <tr><td>Stage</td><td>A large area for a preview or a readout</td><td><a class="xz-link" href="#panel--actions"><code>xz-panel__stage</code></a></td><td>New</td></tr>
+      <tr><td>Empty row</td><td>"Nothing here" inside a panel</td><td><a class="xz-link" href="#panel--actions"><code>xz-panel__empty</code></a></td><td>New</td></tr>
+      <tr><td>Action grid</td><td>Full-width buttons in cells, and icon actions in a row</td><td><a class="xz-link" href="#panel--actions"><code>xz-panel__actions</code></a></td><td>New</td></tr>
+      <tr><td>Level bar</td><td>A thin bar for a level inside a row</td><td><a class="xz-link" href="#readouts--meter"><code>meter.xz-meter</code></a></td><td>New</td></tr>
+      <tr><td>Split</td><td>Two panes with a handle to resize them</td><td><a class="xz-link" href="#split-view"><code>data-xz-split</code></a></td><td>New</td></tr>
+      <tr><td>Page</td><td>Plain, scrolling and centred page layouts</td><td><a class="xz-link" href="templates.html#dashboard"><code>xz-shell</code></a>, <code>xz-container</code></td><td>In the kit</td></tr>
+      <tr><td>Rule</td><td>A divider with words on it</td><td><a class="xz-link" href="components.html#links"><code>xz-divider--label</code></a></td><td>In the kit</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--controls">Controls</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Option cells</td><td>A full-width single choice, the chosen cell filled</td><td><a class="xz-link" href="#panel--cells"><code>xz-segmented--cells</code></a></td><td>New</td></tr>
+      <tr><td>Fader</td><td>A slider drawn as a filled bar with its value</td><td><a class="xz-link" href="#panel--fader"><code>xz-slider--fader</code></a></td><td>New</td></tr>
+      <tr><td>Number field</td><td>A number with its unit and − and + buttons</td><td><a class="xz-link" href="#panel--number"><code>xz-numfield</code></a></td><td>New</td></tr>
+      <tr><td>Decimal field</td><td>The same with a decimal step</td><td><a class="xz-link" href="#panel--number"><code>xz-numfield</code></a> with <code>step="0.5"</code></td><td>New</td></tr>
+      <tr><td>Big number field</td><td>A large number between the buttons</td><td><a class="xz-link" href="#panel--number"><code>xz-numfield--big</code></a></td><td>New</td></tr>
+      <tr><td>Figure</td><td>A large read-only number that follows a control</td><td><a class="xz-link" href="#readouts--readings"><code>xz-readings</code></a>, <code>output.xz-panel__value</code></td><td>New</td></tr>
+      <tr><td>Status</td><td>A short state with a dot: Allowed, Blocked, Stopped</td><td><a class="xz-link" href="#panel--status"><code>xz-status</code></a></td><td>New</td></tr>
+      <tr><td>Text cell and menu cell</td><td>A text box or a select at the end of a row</td><td><a class="xz-link" href="#panel--rows"><code>xz-panel__row</code></a> with <code>xz-input</code> or <code>xz-select</code></td><td>New</td></tr>
+      <tr><td>From and to</td><td>Two choices with an arrow between them</td><td><a class="xz-link" href="#panel--rows"><code>xz-panel__cells</code></a> with two selects</td><td>New</td></tr>
+      <tr><td>File cell</td><td>A compact "None / Choose" file picker</td><td><a class="xz-link" href="#panel--file"><code>xz-filefield</code></a></td><td>New</td></tr>
+      <tr><td>Dual list</td><td>Pick items into a second list and order them</td><td><a class="xz-link" href="#dual-list"><code>data-xz-duallist</code></a></td><td>New</td></tr>
+      <tr><td>Pixel loader</td><td>Nine cells that light up in a pattern</td><td><a class="xz-link" href="#loaders"><code>xz-loader</code></a></td><td>New</td></tr>
+      <tr><td>Button</td><td>Actions</td><td><a class="xz-link" href="components.html#buttons"><code>xz-btn</code></a></td><td>In the kit</td></tr>
+      <tr><td>Switch</td><td>On and off</td><td><a class="xz-link" href="components.html#choices"><code>xz-toggle</code></a></td><td>In the kit</td></tr>
+      <tr><td>Segmented</td><td>A compact single choice</td><td><a class="xz-link" href="components.html#segmented"><code>xz-segmented</code></a></td><td>In the kit</td></tr>
+      <tr><td>Slider</td><td>A level on a track</td><td><a class="xz-link" href="forms.html#slider"><code>xz-slider</code></a></td><td>In the kit</td></tr>
+      <tr><td>Stepper</td><td>A number with buttons</td><td><a class="xz-link" href="forms.html#stepper"><code>data-xz-stepper</code></a></td><td>In the kit</td></tr>
+      <tr><td>Text area</td><td>Long text</td><td><a class="xz-link" href="components.html#inputs"><code>xz-textarea</code></a></td><td>In the kit</td></tr>
+      <tr><td>Drop zone</td><td>Drop or choose files</td><td><a class="xz-link" href="forms.html#upload"><code>data-xz-dropzone</code></a></td><td>In the kit</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--text">Text</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Code block</td><td>Code with its language and a copy button</td><td><a class="xz-link" href="#text-tools--code"><code>xz-codeblock</code></a></td><td>New</td></tr>
+      <tr><td>Text input</td><td>A text box with paste, clear and a live count</td><td><a class="xz-link" href="#text-tools--box"><code>xz-textbox</code></a>, <code>data-xz-paste</code>, <code>data-xz-clear</code>, <code>data-xz-count</code></td><td>New</td></tr>
+      <tr><td>Text output</td><td>A result with copy and share</td><td><a class="xz-link" href="#text-tools--box"><code>xz-textbox__output</code></a>, <code>data-xz-share</code></td><td>New</td></tr>
+      <tr><td>Glyph tiles</td><td>Each letter on its own tile</td><td><a class="xz-link" href="#text-tools--glyphs"><code>data-xz-glyphs</code></a></td><td>New</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--colour">Colour</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Colour well</td><td>A swatch that opens the system picker, with its value</td><td><a class="xz-link" href="#colour--field"><code>data-xz-color</code></a></td><td>New</td></tr>
+      <tr><td>Notation input</td><td>Takes any CSS colour; eyedropper where the browser has one</td><td><a class="xz-link" href="#colour--field"><code>data-xz-color</code></a></td><td>New</td></tr>
+      <tr><td>Colour controls</td><td>A model (RGB, HSL, OKLCH) and a fader per channel</td><td><a class="xz-link" href="#colour--picker"><code>data-xz-colorpicker</code></a></td><td>New</td></tr>
+      <tr><td>Colour card</td><td>One colour with every notation to copy</td><td><a class="xz-link" href="#colour--picker"><code>data-xz-colorpicker</code></a> value lines</td><td>New</td></tr>
+      <tr><td>Value line</td><td>A label, a value and a copy button</td><td><a class="xz-link" href="#panel--status"><code>xz-valueline</code></a></td><td>New</td></tr>
+      <tr><td>Swatch and colour strip</td><td>Colours side by side, each one copies</td><td><a class="xz-link" href="#colour--swatches"><code>xz-swatches</code></a></td><td>New</td></tr>
+      <tr><td>Palette card</td><td>Shades from light to dark, with a hue fader</td><td><a class="xz-link" href="#colour--shades"><code>data-xz-shades</code></a></td><td>New</td></tr>
+      <tr><td>Contrast check</td><td>The WCAG ratio and the levels it passes</td><td><a class="xz-link" href="#colour--contrast"><code>data-xz-contrast</code></a></td><td>New</td></tr>
+      <tr><td>Colour solid</td><td>A 3D colour cube to turn</td><td>The <a class="xz-link" href="#colour--picker">colour picker</a> faders</td><td>Left out: a 3D drawing is heavy and hard to use with keys</td></tr>
+      <tr><td>Detent wheel</td><td>A spinning wheel to pick an option</td><td><a class="xz-link" href="#panel--cells">Option cells</a></td><td>Left out: cells show every choice at once and work with keys</td></tr>
+      <tr><td>Detent wheel row</td><td>Several wheels side by side</td><td><a class="xz-link" href="#panel--cells">Option cells</a></td><td>Left out: same reason</td></tr>
+      <tr><td>Loupe</td><td>A magnifier to pick a pixel</td><td>The eyedropper in the <a class="xz-link" href="#colour--field">colour field</a></td><td>Left out: the browser's eyedropper does this job</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--maths">Maths</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Maths view</td><td>Typed maths shown as real notation</td><td><a class="xz-link" href="#maths--text"><code>data-xz-math</code></a></td><td>New</td></tr>
+      <tr><td>Maths field</td><td>A text box with the notation drawn as you type</td><td><a class="xz-link" href="#maths--field"><code>data-xz-mathfield</code></a></td><td>New</td></tr>
+      <tr><td>Maths input</td><td>The field with a button that opens the keypad</td><td><a class="xz-link" href="#maths--field"><code>data-xz-mathpad-toggle</code></a></td><td>New</td></tr>
+      <tr><td>Maths editor</td><td>Field, preview and keypad together</td><td><a class="xz-link" href="#maths--field"><code>xz-mathfield</code></a></td><td>New</td></tr>
+      <tr><td>Maths keypad</td><td>Keys that type into the field</td><td><a class="xz-link" href="#maths--field"><code>data-xz-mathpad</code></a></td><td>New</td></tr>
+      <tr><td>Maths tabs</td><td>Key sets: numbers, functions, sums, letters</td><td><a class="xz-link" href="#maths--field"><code>xz-mathpad__tabs</code></a></td><td>New</td></tr>
+      <tr><td>Maths key</td><td>One key</td><td><a class="xz-link" href="#maths--field"><code>xz-mathpad__key</code></a></td><td>New</td></tr>
+      <tr><td>Maths rail</td><td>Move, delete, clear and done</td><td><a class="xz-link" href="#maths--field">The keypad's last row</a></td><td>New</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--display">Display</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Timecode</td><td>Numbers drawn as lit segments</td><td><a class="xz-link" href="#readouts--readout"><code>data-xz-readout</code></a>, <a class="xz-link" href="#readouts--timer"><code>data-xz-timer</code></a></td><td>New</td></tr>
+      <tr><td>Readout band</td><td>A readout over a picture</td><td><a class="xz-link" href="#readouts--readout"><code>xz-readout</code></a> on an <code>xz-stage</code></td><td>New</td></tr>
+      <tr><td>Lamps</td><td>Lights for live states</td><td><a class="xz-link" href="#readouts--lamps"><code>xz-lamps</code></a></td><td>New</td></tr>
+      <tr><td>Tiles</td><td>Small labelled measurements</td><td><a class="xz-link" href="#readouts--readings"><code>xz-readings</code></a></td><td>New</td></tr>
+      <tr><td>Compression scale</td><td>A before and after amount with the change</td><td><a class="xz-link" href="#readouts--change"><code>xz-delta</code></a></td><td>New</td></tr>
+      <tr><td>Dimension line</td><td>Width and height lines around a box</td><td><a class="xz-link" href="#measure--lines"><code>xz-measure</code></a></td><td>New</td></tr>
+      <tr><td>Page strip</td><td>Page thumbnails to pick from</td><td><a class="xz-link" href="#measure--strip"><code>xz-pagestrip</code></a></td><td>New</td></tr>
+      <tr><td>Preview panel</td><td>A preview area with its name and size</td><td><a class="xz-link" href="#measure--stage"><code>xz-stage</code></a></td><td>New</td></tr>
+      <tr><td>Image compare</td><td>Two pictures with a line to drag</td><td><a class="xz-link" href="#before-after"><code>data-xz-beforeafter</code></a></td><td>New</td></tr>
+      <tr><td>Icon</td><td>Line icons</td><td><a class="xz-link" href="foundations.html#icons"><code>data-xz-icon</code></a></td><td>In the kit</td></tr>
+      <tr><td>Toast</td><td>A short message after an action</td><td><a class="xz-link" href="components.html#overlays"><code>Xsenze.toast()</code></a></td><td>In the kit</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--menus">Overlays, menus and shell</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Part</th><th>What it does</th><th>In Xsenze</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Menu bar</td><td>File, Edit and View menus</td><td><a class="xz-link" href="#menu-bar"><code>data-xz-menubar</code></a></td><td>New</td></tr>
+      <tr><td>Menu with ticks and submenus</td><td>Tick items, dot items, submenus and key labels</td><td><a class="xz-link" href="#menu-bar"><code>menuitemcheckbox</code>, <code>menuitemradio</code></a></td><td>New</td></tr>
+      <tr><td>Sidebar rail</td><td>The sidebar as a column of icons</td><td><a class="xz-link" href="#rail"><code>xz-sidebar--rail</code></a></td><td>New</td></tr>
+      <tr><td>Sidebar row</td><td>A row with a coloured edge for a live state</td><td><a class="xz-link" href="#rail"><code>data-tone</code></a></td><td>New</td></tr>
+      <tr><td>Window</td><td>An app frame with a menu bar and a sidebar</td><td><a class="xz-link" href="#screens">Certificate maker template</a></td><td>New</td></tr>
+      <tr><td>Command</td><td>Search and run anything</td><td><a class="xz-link" href="components.html#command-palette">Command palette</a></td><td>In the kit</td></tr>
+      <tr><td>Jump grid</td><td>A grid of places to jump to</td><td><a class="xz-link" href="components.html#command-palette">Command palette</a> with groups</td><td>In the kit</td></tr>
+      <tr><td>Dialog</td><td>A modal question</td><td><a class="xz-link" href="components.html#overlays"><code>xz-modal</code></a></td><td>In the kit</td></tr>
+      <tr><td>Sheet</td><td>A panel from the side or the bottom</td><td><a class="xz-link" href="components.html#overlays"><code>xz-drawer</code></a>, <a class="xz-link" href="components.html#bottom-sheet"><code>xz-sheet</code></a></td><td>In the kit</td></tr>
+      <tr><td>Context menu</td><td>A right-click menu</td><td><a class="xz-link" href="components.html#context-menu"><code>data-xz-context-menu</code></a></td><td>In the kit</td></tr>
+      <tr><td>Menu</td><td>A dropdown of actions</td><td><a class="xz-link" href="components.html#menu"><code>data-xz-menu</code></a></td><td>In the kit</td></tr>
+      <tr><td>Popover</td><td>A small panel by a button</td><td><a class="xz-link" href="components.html#popover"><code>data-xz-popover</code></a></td><td>In the kit</td></tr>
+      <tr><td>Tooltip</td><td>A name for an icon button</td><td><a class="xz-link" href="components.html#tooltips"><code>data-xz-tooltip</code></a></td><td>In the kit</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="inventory--patterns">Patterns and screens</h3>
+  <p>Patterns are parts working together. Each one below is a demo on this page or a template.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Pattern</th><th>Built from</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td>Settings screen</td><td>Panel, option cells, fader, switches, number field, meter, status</td><td><a class="xz-link" href="#screens">Settings template</a></td></tr>
+      <tr><td>Print set-up and export job</td><td>Menu bar, split view, paper size, colour fields, contrast check, page strip, readings</td><td><a class="xz-link" href="#screens">Certificate maker template</a></td></tr>
+      <tr><td>Paper</td><td>Option cells, measure lines, outputs</td><td><a class="xz-link" href="#measure--paper">Paper size</a></td></tr>
+      <tr><td>Equation</td><td>Maths field, keypad, maths view</td><td><a class="xz-link" href="#maths--field">Maths field and keypad</a></td></tr>
+      <tr><td>Contrast</td><td>Two colour fields, ratio, pass marks</td><td><a class="xz-link" href="#colour--contrast">Contrast check</a></td></tr>
+      <tr><td>Palette</td><td>Shades and a hue fader</td><td><a class="xz-link" href="#colour--shades">Shades</a></td></tr>
+      <tr><td>Swatch</td><td>Colour field, swatches, value lines</td><td><a class="xz-link" href="#colour--picker">Colour picker</a></td></tr>
+      <tr><td>Timecode</td><td>Readout, timer buttons</td><td><a class="xz-link" href="#readouts--timer">Timer</a></td></tr>
+      <tr><td>Lamps</td><td>Lamps and switches</td><td><a class="xz-link" href="#readouts--lamps">Lamps</a></td></tr>
+      <tr><td>Columns</td><td>Dual list</td><td><a class="xz-link" href="#dual-list">Dual list</a></td></tr>
+      <tr><td>Compare</td><td>Before and after, option cells</td><td><a class="xz-link" href="#before-after">Before and after</a></td></tr>
+      <tr><td>Glyphs and text tool</td><td>Text box, option cells, output, letter tiles</td><td><a class="xz-link" href="#text-tools--box">Text box</a></td></tr>
+      <tr><td>Loaders</td><td>Pixel loaders and their options</td><td><a class="xz-link" href="#loaders">Pixel loaders</a></td></tr>
+      <tr><td>Drop slot</td><td>Drop zone, file field</td><td><a class="xz-link" href="forms.html#upload">Upload</a>, <a class="xz-link" href="#panel--file">File field</a></td></tr>
+      <tr><td>Unit converter</td><td>Number field and readings</td><td><a class="xz-link" href="#readouts--readings">Readings</a></td></tr>
+      <tr><td>Colour cube, shape halves</td><td>3D and decorative drawings</td><td>Left out: decoration without a job in school and business screens</td></tr>
+      <tr><td>Tone player and media editor</td><td>Sound waves and audio editing</td><td>Left out: the kit's <a class="xz-link" href="components.html#player">player</a> covers audio; an editor needs sound code outside a UI kit</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= ADD THE FILES ================= -->
+<section class="doc-section" id="add-tools">
+  <h2>Add the tools files</h2>
+  <p>The tools pack is one stylesheet and one script. Load them after the kit's own files, on the pages that use them. Everything else on this page needs them.</p>
+  <h3 id="add-tools--cdn">From the CDN</h3>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <link rel="stylesheet" href="__XZ_CDN__/xsenze.min.css">
+    <link rel="stylesheet" href="__XZ_CDN__/xsenze-tools.min.css">
+    <script src="__XZ_CDN__/xsenze.min.js" defer></script>
+    <script src="__XZ_CDN__/xsenze-tools.min.js" defer></script>
+  </textarea>
+  <h3 id="add-tools--npm">With npm</h3>
+  <textarea class="doc-snippet" hidden>
+    import '@sfj/ui-kit/css';
+    import '@sfj/ui-kit/tools.css';
+    import Xsenze from '@sfj/ui-kit';
+    import tools from '@sfj/ui-kit/tools';
+    Xsenze.use(tools);
+  </textarea>
+  <h3 id="add-tools--steps">Integration steps</h3>
+  <ol>
+    <li>Add the two files above. The script finds its parts by their <code class="xz-code">data-xz-*</code> attributes and starts them on page load.</li>
+    <li>Copy a part's markup from this page and change the words, names and values. Keep the classes.</li>
+    <li>Markup added later, such as a panel loaded from your server, starts with <code class="xz-code">Xsenze.init(element)</code>.</li>
+    <li>Listen for the part's <code class="xz-code">xz:*</code> events, or call the methods on its element, such as <code class="xz-code">element.xzSplit.set(40)</code>. Each section below lists them.</li>
+    <li>Check the page with the keyboard alone, and with the script switched off: every part says what it does without it.</li>
+  </ol>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>File</th><th>Size, gzipped</th><th>Holds</th></tr></thead>
+    <tbody>
+      <tr><td><code>xsenze-tools.min.css</code></td><td data-doc-size="toolsCss">9 KB</td><td>Every style on this page</td></tr>
+      <tr><td><code>xsenze-tools.min.js</code></td><td data-doc-size="tools">19 KB</td><td>Split view, menu bar, dual list, readouts and timer, paper, before and after, colour, maths and text tools. Most of it is the colour maths and the maths reader.</td></tr>
+    </tbody>
+  </table></div>
+  <p>The script adds <code class="xz-code">Xsenze.tools</code>: <code class="xz-code">Xsenze.tools.color</code> (read, convert and compare colours), <code class="xz-code">Xsenze.tools.math.toMathML(text)</code> and <code class="xz-code">Xsenze.tools.letters(text)</code>, which splits text into letters the way people read them.</p>
+</section>
+
+<!-- ================= TOKENS ================= -->
+<section class="doc-section" id="tools-tokens">
+  <h2>Design tokens</h2>
+  <p>The pack adds no colours, fonts or corners of its own. Every part draws on the kit's tokens, so a theme made on the <a class="xz-link" href="create.html">Create</a> page changes the tools too.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Style</th><th>Tokens</th></tr></thead>
+    <tbody>
+      <tr><td>Hairlines between rows and cells</td><td><code>--xz-border</code>, drawn as 1px gaps</td></tr>
+      <tr><td>Panels, title bars and stages</td><td><code>--xz-surface</code>, <code>--xz-surface-2</code>, <code>--xz-surface-3</code></td></tr>
+      <tr><td>The chosen cell and the main action</td><td><code>--xz-accent</code> with <code>--xz-on-accent</code></td></tr>
+      <tr><td>Highlights: fader handle, open menu, chosen page, dual list choice</td><td><code>--xz-accent-2</code>, <code>--xz-accent-2-soft</code></td></tr>
+      <tr><td>Corners</td><td><code>--xz-radius-surface</code>, <code>--xz-radius-control</code></td></tr>
+      <tr><td>Numbers, values and code</td><td><code>--xz-font-mono</code> with tabular figures</td></tr>
+      <tr><td>Titles, labels and big numbers</td><td><code>--xz-font-display</code>, <code>--xz-letter-spacing-label</code></td></tr>
+      <tr><td>States</td><td><code>--xz-success</code>, <code>--xz-warning</code>, <code>--xz-danger</code>, <code>--xz-info</code> and their <code>-text</code> and <code>-soft</code> forms</td></tr>
+      <tr><td>Focus</td><td><code>--xz-focus</code>, drawn inside cells so it is never cut off</td></tr>
+      <tr><td>Motion</td><td><code>--xz-duration-*</code>, <code>--xz-ease-out</code>; still with less motion or the page's motion button off</td></tr>
+      <tr><td>Touch</td><td>Rows and keys grow to <code>--xz-control-touch</code> (44px) on touch screens</td></tr>
+    </tbody>
+  </table></div>
+  <h3 id="tools-tokens--settings">Settings per part</h3>
+  <p>Set these on a part, or on a parent, to change one instance.</p>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Custom property</th><th>Part</th><th>Default</th></tr></thead>
+    <tbody>
+      <tr><td><code>--xz-panel-row</code>, <code>--xz-panel-pad</code></td><td>Panel row height and side space</td><td>3rem, 1rem (<code>xz-panel--compact</code>: 2.5rem, 0.75rem)</td></tr>
+      <tr><td><code>--xz-cols</code></td><td>Cells per line in <code>xz-panel__cells</code></td><td>2</td></tr>
+      <tr><td><code>--xz-split</code></td><td>Size of the first pane in a split view</td><td>50%</td></tr>
+      <tr><td><code>--xz-fader-track</code></td><td>The fader's track, such as a colour ramp</td><td>Filled to the value</td></tr>
+      <tr><td><code>--xz-numfield-width</code></td><td>Width of the number in a number field</td><td>4ch</td></tr>
+      <tr><td><code>--xz-readout-size</code></td><td>Height of a readout's digits</td><td>2.5rem</td></tr>
+      <tr><td><code>--xz-loader-cell</code>, <code>--xz-loader-step</code></td><td>Pixel loader cell size and speed</td><td>0.375rem, 120ms</td></tr>
+      <tr><td><code>--xz-level</code></td><td>Bar under a reading</td><td>none</td></tr>
+      <tr><td><code>--xz-value</code></td><td>Width of a change bar</td><td>100%</td></tr>
+      <tr><td><code>--xz-ratio</code></td><td>Shape of a measure box, page or stage, such as <code>210 / 297</code></td><td>auto, A4 for pages</td></tr>
+      <tr><td><code>--xz-page-width</code></td><td>Page strip thumbnail width</td><td>5.5rem</td></tr>
+      <tr><td><code>--xz-swatch</code>, <code>--xz-swatch-height</code></td><td>A swatch's colour and height</td><td>none, 3.5rem</td></tr>
+      <tr><td><code>--xz-duallist-height</code></td><td>Most a dual list's lists grow to</td><td>16rem</td></tr>
+      <tr><td><code>--xz-mathpad-cols</code></td><td>Keys per line on the maths keypad</td><td>6</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= PANEL ================= -->
+<section class="doc-section" id="panel">
+  <h2>Panel</h2>
+  <p>A box of rows with hairlines between them, for settings, side inspectors and tool screens. Each row puts a label at the start and its control or value at the end, so a long list of settings still scans in one line of sight. It is CSS only.</p>
+
+  <h3 id="panel--rows">Rows and cells</h3>
+  <p>Any child after the first gets a hairline above it. Put rows side by side in <code class="xz-code">xz-panel__cells</code>; on phones they stack.</p>
+  <div class="doc-example">
+    <section class="xz-panel" aria-labelledby="pn-appearance" style="flex: 1 1 19rem; max-width: 26rem">
+      <header class="xz-panel__head">
+        <i data-xz-icon="sliders-horizontal" data-size="sm"></i>
+        <h4 class="xz-panel__title" id="pn-appearance">Appearance</h4>
+        <div class="xz-panel__tools"><a class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" href="#panel--rows" aria-label="All appearance settings" data-xz-tooltip="All settings"><i data-xz-icon="arrow-up-right" data-size="sm"></i></a></div>
+      </header>
+      <p class="xz-panel__label" id="pn-theme-label">Theme</p>
+      <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-labelledby="pn-theme-label">
+        <label><input type="radio" name="pn-theme" value="light"><span>Light</span></label>
+        <label><input type="radio" name="pn-theme" value="dark" checked><span>Dark</span></label>
+        <label><input type="radio" name="pn-theme" value="auto"><span>Auto</span></label>
+      </div>
+      <div class="xz-panel__row">
+        <label for="pn-size">Text size</label>
+        <input class="xz-slider xz-slider--fader" id="pn-size" type="range" min="12" max="20" value="15" data-xz-suffix=" px">
+        <output class="xz-panel__value" for="pn-size">15 px</output>
+      </div>
+      <label class="xz-panel__row xz-toggle"><span><span class="xz-panel__key">Motion</span><span class="xz-panel__hint">Moving parts on landing pages</span></span><input type="checkbox" role="switch" checked></label>
+      <label class="xz-panel__row xz-toggle"><span class="xz-panel__key">Sounds</span><input type="checkbox" role="switch"></label>
+      <div class="xz-panel__row">
+        <label for="pn-lang">Language</label>
+        <select class="xz-select xz-select--sm" id="pn-lang"><option>English</option><option lang="hi">हिन्दी</option><option lang="ta">தமிழ்</option></select>
+      </div>
+    </section>
+    <section class="xz-panel" aria-labelledby="pn-class" style="flex: 1 1 19rem; max-width: 26rem">
+      <header class="xz-panel__head"><i data-xz-icon="video" data-size="sm"></i><h4 class="xz-panel__title" id="pn-class">Live class</h4></header>
+      <div class="xz-panel__cells">
+        <label class="xz-panel__row xz-toggle"><span>Camera</span><input type="checkbox" role="switch" checked></label>
+        <label class="xz-panel__row xz-toggle"><span>Microphone</span><input type="checkbox" role="switch"></label>
+        <div class="xz-panel__row"><span>Starts</span><span class="xz-panel__value">6:30 <small>pm</small></span></div>
+        <div class="xz-panel__row"><span>Length</span><span class="xz-panel__value">90 <small>min</small></span></div>
+      </div>
+      <div class="xz-panel__cells">
+        <div class="xz-panel__row"><label class="xz-sr-only" for="pn-from">From</label><select class="xz-select xz-select--sm" id="pn-from" style="max-width: none; width: 100%"><option>Batch B-14</option><option>Batch B-15</option></select></div>
+        <div class="xz-panel__row"><label class="xz-sr-only" for="pn-to">To</label><i data-xz-icon="arrow-right" data-size="sm" style="flex: none"></i><select class="xz-select xz-select--sm" id="pn-to" style="max-width: none; width: 100%"><option>Room 2</option><option>Online only</option></select></div>
+      </div>
+      <div class="xz-panel__row"><span>Recording</span><span class="xz-status xz-status--off">Stopped</span></div>
+      <div class="xz-panel__actions">
+        <button class="xz-panel__action" type="button">Test audio</button>
+        <button class="xz-panel__action xz-panel__action--primary" type="button">Go live</button>
+      </div>
+    </section>
+  </div>
+
+  <h3 id="panel--cells">Option cells</h3>
+  <p>A single choice that fills the width, the chosen cell solid. Use it for two to five short options; past that, use a select.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Report period" style="max-width: 32rem">
+      <label><input type="radio" name="oc-period" value="week"><span>Week</span></label>
+      <label><input type="radio" name="oc-period" value="month" checked><span>Month</span></label>
+      <label><input type="radio" name="oc-period" value="term"><span>Term</span></label>
+      <label><input type="radio" name="oc-period" value="year"><span>Year</span></label>
+    </div>
+  </div>
+
+  <h3 id="panel--fader">Fader</h3>
+  <p>A slider drawn as a filled bar, for levels people judge by eye. The kit's slider script keeps the fill and the linked <code class="xz-code">output</code> up to date.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-panel" style="max-width: 28rem">
+      <div class="xz-panel__row"><label for="fd-pass">Pass mark</label><input class="xz-slider xz-slider--fader" id="fd-pass" type="range" min="0" max="100" step="5" value="60" data-xz-suffix="%"><output class="xz-panel__value" for="fd-pass">60%</output></div>
+      <div class="xz-panel__row"><label for="fd-vol">Class volume</label><input class="xz-slider xz-slider--fader" id="fd-vol" type="range" min="0" max="100" value="35" data-xz-suffix="%"><output class="xz-panel__value" for="fd-vol">35%</output></div>
+    </div>
+  </div>
+
+  <h3 id="panel--number">Number field</h3>
+  <p>The kit's stepper with the unit beside the number. The <code class="xz-code">--big</code> form puts one large number between the buttons, for the main setting on a screen.</p>
+  <div class="doc-example">
+    <div class="xz-panel" style="flex: 1 1 19rem; max-width: 26rem">
+      <div class="xz-panel__row">
+        <label for="nf-seats">Seats</label>
+        <div class="xz-stepper xz-numfield" data-xz-stepper>
+          <button class="xz-stepper__btn" type="button" data-xz-step="-1" aria-label="One seat fewer"><i data-xz-icon="minus" data-size="sm"></i></button>
+          <span class="xz-numfield__box"><input class="xz-numfield__input" id="nf-seats" type="number" min="1" max="120" value="40" aria-describedby="nf-seats-unit"><span class="xz-numfield__unit" id="nf-seats-unit">seats</span></span>
+          <button class="xz-stepper__btn" type="button" data-xz-step="1" aria-label="One seat more"><i data-xz-icon="plus" data-size="sm"></i></button>
+        </div>
+      </div>
+      <div class="xz-panel__row">
+        <label for="nf-gap">Line spacing</label>
+        <div class="xz-stepper xz-numfield" data-xz-stepper>
+          <button class="xz-stepper__btn" type="button" data-xz-step="-1" aria-label="Less spacing"><i data-xz-icon="minus" data-size="sm"></i></button>
+          <span class="xz-numfield__box"><input class="xz-numfield__input" id="nf-gap" type="number" min="1" max="3" step="0.5" value="1.5" aria-describedby="nf-gap-unit"><span class="xz-numfield__unit" id="nf-gap-unit">lines</span></span>
+          <button class="xz-stepper__btn" type="button" data-xz-step="1" aria-label="More spacing"><i data-xz-icon="plus" data-size="sm"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="xz-panel" style="flex: 1 1 14rem; max-width: 18rem">
+      <p class="xz-panel__label" id="nf-q-label">Questions in the test</p>
+      <div class="xz-stepper xz-numfield xz-numfield--big" data-xz-stepper>
+        <button class="xz-stepper__btn" type="button" data-xz-step="-1" aria-label="One question fewer"><i data-xz-icon="minus"></i></button>
+        <span class="xz-numfield__box"><input class="xz-numfield__input" type="number" min="5" max="100" value="25" aria-labelledby="nf-q-label"><span class="xz-numfield__unit" aria-hidden="true">questions</span></span>
+        <button class="xz-stepper__btn" type="button" data-xz-step="1" aria-label="One question more"><i data-xz-icon="plus"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="panel--status">Status and value lines</h3>
+  <p>A status says a state in one or two words, with a dot for a quick scan; the words carry the meaning, so it reads the same without colour. A value line shows something people copy, such as a code or a link.</p>
+  <div class="doc-example">
+    <div class="xz-panel" style="flex: 1 1 18rem; max-width: 24rem">
+      <p class="xz-panel__label">Permissions for the test</p>
+      <div class="xz-panel__row"><span>Camera</span><span class="xz-status xz-status--success">Allowed</span></div>
+      <div class="xz-panel__row"><span>Microphone</span><span class="xz-status xz-status--danger">Blocked</span></div>
+      <div class="xz-panel__row"><span>Screen sharing</span><span class="xz-status xz-status--off">Not asked yet</span></div>
+    </div>
+    <div class="xz-valuelines" style="flex: 1 1 18rem; max-width: 26rem">
+      <div class="xz-valueline"><span class="xz-valueline__label">Batch</span><code class="xz-valueline__value">B-14-2026</code><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-copy="B-14-2026" aria-label="Copy batch code"><i data-xz-icon="copy" data-size="sm"></i></button></div>
+      <div class="xz-valueline"><span class="xz-valueline__label">UPI</span><code class="xz-valueline__value">xsenze.fees@upi</code><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-copy="xsenze.fees@upi" aria-label="Copy UPI ID"><i data-xz-icon="copy" data-size="sm"></i></button></div>
+      <div class="xz-valueline xz-valueline--stack"><span class="xz-valueline__label">Join link</span><code class="xz-valueline__value">https://meet.example.com/b14-pivot-tables</code><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-copy="https://meet.example.com/b14-pivot-tables" aria-label="Copy join link"><i data-xz-icon="copy" data-size="sm"></i></button></div>
+    </div>
+  </div>
+
+  <h3 id="panel--file">File field</h3>
+  <p>A compact file picker for one setting, such as a logo or a signature. Until the script runs, the browser's own file input shows; after, the row shows the file's name.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-panel" style="max-width: 26rem">
+      <label class="xz-filefield" data-xz-filefield><span class="xz-filefield__label" id="ff-logo-label">School logo</span><span class="xz-filefield__name" id="ff-logo-name">None</span><span class="xz-filefield__btn" aria-hidden="true">Choose</span><input type="file" name="logo" accept="image/png, image/svg+xml" aria-labelledby="ff-logo-label" aria-describedby="ff-logo-name"></label>
+      <label class="xz-filefield" data-xz-filefield><span class="xz-filefield__label" id="ff-sign-label">Principal's signature</span><span class="xz-filefield__name" id="ff-sign-name">None</span><span class="xz-filefield__btn" aria-hidden="true">Choose</span><input type="file" name="signature" accept="image/*" aria-labelledby="ff-sign-label" aria-describedby="ff-sign-name"></label>
+    </div>
+  </div>
+
+  <h3 id="panel--actions">Actions, stages and empty rows</h3>
+  <p>Actions fill the panel's last row; give the main one <code class="xz-code">--primary</code>. A stage holds a preview or a readout. An empty row says what will appear, and how.</p>
+  <div class="doc-example">
+    <section class="xz-panel" aria-labelledby="pn-waitlist" style="flex: 1 1 18rem; max-width: 24rem">
+      <header class="xz-panel__head"><i data-xz-icon="users" data-size="sm"></i><h4 class="xz-panel__title" id="pn-waitlist">Waiting list</h4></header>
+      <p class="xz-panel__empty">No one is waiting for Batch B-15 yet.</p>
+      <div class="xz-panel__actions">
+        <button class="xz-panel__action" type="button"><i data-xz-icon="upload" data-size="sm"></i>Import</button>
+        <button class="xz-panel__action xz-panel__action--primary" type="button"><i data-xz-icon="plus" data-size="sm"></i>Add learner</button>
+      </div>
+      <p class="xz-panel__foot">Learners join from the list when a seat opens.</p>
+    </section>
+    <section class="xz-panel" aria-labelledby="pn-zoom" style="flex: 1 1 18rem; max-width: 24rem">
+      <header class="xz-panel__head"><i data-xz-icon="image" data-size="sm"></i><h4 class="xz-panel__title" id="pn-zoom">Photo</h4></header>
+      <div class="xz-panel__stage"><img src="media/cover-campus.svg" alt="Campus drawing" style="width: 100%; max-width: 16rem"></div>
+      <div class="xz-panel__row">
+        <span><span class="xz-panel__key">Zoom</span><span class="xz-panel__hint">50% to 400%</span></span>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Zoom out" data-xz-tooltip="Zoom out"><i data-xz-icon="minus" data-size="sm"></i></button>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Zoom in" data-xz-tooltip="Zoom in"><i data-xz-icon="plus" data-size="sm"></i></button>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Fit to the frame" data-xz-tooltip="Fit"><i data-xz-icon="maximize" data-size="sm"></i></button>
+      </div>
+    </section>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-panel</code></td><td>The box. <code>--compact</code> for shorter rows, <code>--flat</code> for no corners or side borders, such as a full-height side panel.</td></tr>
+      <tr><td><code>xz-panel__head</code>, <code>__title</code>, <code>__tools</code></td><td>The title bar: an icon, the title (a heading) and small buttons or a link at the end.</td></tr>
+      <tr><td><code>xz-panel__label</code></td><td>A small heading row for a group of rows.</td></tr>
+      <tr><td><code>xz-panel__row</code></td><td>A label at the start and a control at the end. A <code>label</code> element works as a row; add <code>xz-toggle</code> to make the whole row a switch.</td></tr>
+      <tr><td><code>xz-panel__key</code>, <code>__hint</code>, <code>__value</code></td><td>A row's name, a line of help under it, and a value in mono at the end (an <code>output</code> for values that change).</td></tr>
+      <tr><td><code>xz-panel__cells</code></td><td>Rows side by side, two to a line; set <code>--xz-cols</code> for more. They stack under 480px unless you add <code>xz-panel__cells--keep</code>.</td></tr>
+      <tr><td><code>xz-panel__stage</code></td><td>A large area for a preview. <code>--plain</code> keeps the panel's colour.</td></tr>
+      <tr><td><code>xz-panel__actions</code>, <code>__action</code></td><td>A strip of full-width buttons. <code>--primary</code> for the main one, <code>--danger</code> for a risky one; <code>aria-pressed</code> for a toggle.</td></tr>
+      <tr><td><code>xz-panel__empty</code>, <code>__foot</code></td><td>An empty state inside the panel, and a small note at the bottom.</td></tr>
+      <tr><td><code>xz-segmented--cells</code></td><td>Option cells: the kit's segmented control as full-width cells.</td></tr>
+      <tr><td><code>xz-slider--fader</code></td><td>Fader: add to an <code>xz-slider</code>. Set <code>--xz-fader-track</code> to draw your own track.</td></tr>
+      <tr><td><code>xz-numfield</code>, <code>--big</code></td><td>Number field: on an <code>xz-stepper</code> with <code>data-xz-stepper</code>. Inside: <code>__box</code> holding <code>__input</code> and <code>__unit</code>. Point the input's <code>aria-describedby</code> at the unit.</td></tr>
+      <tr><td><code>xz-status</code></td><td><code>--success</code>, <code>--warning</code>, <code>--danger</code>, <code>--info</code>, or <code>--off</code> for a hollow dot.</td></tr>
+      <tr><td><code>xz-valueline</code>, <code>xz-valuelines</code></td><td><code>__label</code>, <code>__value</code> and a copy button with <code>data-xz-copy</code>. <code>--stack</code> puts a long value under its label. <code>xz-valuelines</code> frames a list of them.</td></tr>
+      <tr><td><code>xz-filefield</code> + <code>data-xz-filefield</code></td><td>A <code>label</code> with <code>__label</code>, <code>__name</code>, <code>__btn</code> and a file input. Shows the chosen file's name, or "3 files".</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= SPLIT VIEW ================= -->
+<section class="doc-section" id="split-view">
+  <h2>Split view</h2>
+  <p>Two panes with a handle between them: a list and its detail, a question and its answer, a form and its preview. Drag the handle, or focus it and use the arrow keys; Shift moves further, Home and End go to the limits, and Enter folds the first pane away and back. A name remembers the size on this device. On phones the panes stack.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-split" data-xz-split="docs-lessons" data-xz-label="Resize the lesson list" style="--xz-split: 34%; height: 17rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface)">
+      <nav class="xz-split__pane" aria-label="Lessons">
+        <ul class="xz-sidebar__nav" style="padding-block: var(--xz-space-2)">
+          <li><a class="xz-sidebar__link" href="#split-view">1. Cells and ranges</a></li>
+          <li><a class="xz-sidebar__link" href="#split-view" aria-current="page">2. Formulas</a></li>
+          <li><a class="xz-sidebar__link" href="#split-view">3. Pivot tables</a></li>
+          <li><a class="xz-sidebar__link" href="#split-view">4. Lookups</a></li>
+          <li><a class="xz-sidebar__link" href="#split-view">5. Charts</a></li>
+        </ul>
+      </nav>
+      <article class="xz-split__pane" style="padding: var(--xz-space-5)">
+        <h4 class="xz-h5" style="margin-top: 0">2. Formulas</h4>
+        <p class="xz-small">Start every formula with an equals sign. <code class="xz-code">=SUM(B2:B9)</code> adds the fees in B2 to B9, and <code class="xz-code">=AVERAGE(C2:C9)</code> gives the batch's average mark.</p>
+        <p class="xz-small xz-text-muted">Drag the line on the left to give this lesson more room.</p>
+      </article>
+    </div>
+  </div>
+  <p>Add <code class="xz-code">xz-split--rows</code> to put the panes one above the other.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-split xz-split--rows" data-xz-split data-xz-label="Resize the question" style="--xz-split: 45%; height: 16rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface)">
+      <div class="xz-split__pane" style="padding: var(--xz-space-4)"><p class="xz-small" style="margin: 0"><strong>Question 4.</strong> A batch of 40 learners pays ₹12,500 each. How much is collected? Show your working.</p></div>
+      <div class="xz-split__pane" style="padding: var(--xz-space-4)"><label class="xz-label" for="sv-answer">Your working</label><textarea class="xz-textarea" id="sv-answer" rows="3">40 × 12,500 = 5,00,000</textarea></div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-split</code> + <code>data-xz-split="name"</code></td><td>Around two <code>xz-split__pane</code> elements. The script adds the handle between them. The name remembers the size; leave it empty to start fresh each time.</td></tr>
+      <tr><td><code>--xz-split</code></td><td>The first pane's starting size, such as <code>34%</code>.</td></tr>
+      <tr><td><code>data-xz-min</code>, <code>data-xz-max</code></td><td>The limits, in per cent. 15 and 85 unless set.</td></tr>
+      <tr><td><code>data-xz-label</code></td><td>The handle's name for screen readers, such as "Resize the lesson list".</td></tr>
+      <tr><td><code>xz-split--rows</code></td><td>Panes one above the other.</td></tr>
+      <tr><td><code>xz-split--keep</code></td><td>Keeps two panes side by side on phones too.</td></tr>
+      <tr><td><code>xz:resize</code></td><td>Fires as the size changes, with <code>event.detail.size</code> and <code>collapsed</code>.</td></tr>
+      <tr><td><code>element.xzSplit</code></td><td><code>set(40)</code>, <code>get()</code>, <code>collapse()</code>, <code>restore()</code> and <code>toggle()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= MENU BAR ================= -->
+<section class="doc-section" id="menu-bar">
+  <h2>Menu bar</h2>
+  <p>File, Edit and View menus for editor screens, such as a question paper or a certificate. Menus hold actions, tick items that switch something on and off, dot items that pick one of a group, and submenus. Ticks and dots change without closing the menu. Left and Right move along the bar, Down opens a menu, Escape closes it, and a letter jumps to the item that starts with it.</p>
+  <div class="doc-example" data-layout="block">
+    <div style="max-width: 40rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: hidden">
+      <ul class="xz-menubar" data-xz-menubar aria-label="Question paper" id="mb-demo">
+        <li>
+          <button class="xz-menubar__trigger" type="button">File</button>
+          <ul class="xz-menu__list">
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+alt+n">New paper</button></li>
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+o">Open…</button></li>
+            <li>
+              <button class="xz-menu__item" type="button">Open recent</button>
+              <ul class="xz-menu__list">
+                <li><button class="xz-menu__item" type="button">Unit test 3: Algebra</button></li>
+                <li><button class="xz-menu__item" type="button">Mock test: Physics</button></li>
+                <li><button class="xz-menu__item" type="button">Weekly quiz 12</button></li>
+              </ul>
+            </li>
+            <li class="xz-menu__separator"></li>
+            <li>
+              <button class="xz-menu__item" type="button">Export as</button>
+              <ul class="xz-menu__list">
+                <li><button class="xz-menu__item" type="button">PDF</button></li>
+                <li><button class="xz-menu__item" type="button">Word document</button></li>
+                <li><button class="xz-menu__item" type="button">Answer key only</button></li>
+              </ul>
+            </li>
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+p">Print</button></li>
+            <li class="xz-menu__separator"></li>
+            <li><button class="xz-menu__item xz-menu__item--danger" type="button">Delete paper</button></li>
+          </ul>
+        </li>
+        <li>
+          <button class="xz-menubar__trigger" type="button">Edit</button>
+          <ul class="xz-menu__list">
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+z">Undo</button></li>
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+shift+z">Redo</button></li>
+            <li class="xz-menu__separator"></li>
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+d">Duplicate question</button></li>
+            <li><button class="xz-menu__item" type="button" disabled>Paste as plain text</button></li>
+          </ul>
+        </li>
+        <li>
+          <button class="xz-menubar__trigger" type="button">View</button>
+          <ul class="xz-menu__list">
+            <li><button class="xz-menu__item" type="button" role="menuitemcheckbox" aria-checked="true">Show answers</button></li>
+            <li><button class="xz-menu__item" type="button" role="menuitemcheckbox">Show marks</button></li>
+            <li class="xz-menu__separator"></li>
+            <li>
+              <ul class="xz-menu__group" aria-label="Zoom">
+                <li><button class="xz-menu__item" type="button" role="menuitemradio">75%</button></li>
+                <li><button class="xz-menu__item" type="button" role="menuitemradio" aria-checked="true">100%</button></li>
+                <li><button class="xz-menu__item" type="button" role="menuitemradio">125%</button></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <button class="xz-menubar__trigger" type="button">Help</button>
+          <ul class="xz-menu__list">
+            <li><button class="xz-menu__item" type="button" data-xz-shortcut="mod+/">Keyboard shortcuts</button></li>
+            <li><a class="xz-menu__item" href="#menu-bar">Writing good questions</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="xz-panel__row" style="border-top: 0"><span class="xz-text-muted">Chosen</span><output class="xz-panel__value" id="mb-chosen">Nothing yet</output></div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-menubar</code> + <code>data-xz-menubar</code></td><td>On a <code>ul</code> with an <code>aria-label</code>. Each <code>li</code> holds an <code>xz-menubar__trigger</code> button and its <code>xz-menu__list</code>.</td></tr>
+      <tr><td><code>xz-menu__item</code></td><td>A button, or a link for a page. <code>disabled</code> greys it out; <code>xz-menu__item--danger</code> marks a risky action.</td></tr>
+      <tr><td>A nested <code>xz-menu__list</code></td><td>After an item, makes it open a submenu. Right opens it and Left closes it (the other way round in right-to-left pages).</td></tr>
+      <tr><td><code>role="menuitemcheckbox"</code></td><td>A tick item. <code>aria-checked="true"</code> starts it ticked.</td></tr>
+      <tr><td><code>role="menuitemradio"</code> in <code>xz-menu__group</code></td><td>Dot items; one in the group is picked. Give the group an <code>aria-label</code>.</td></tr>
+      <tr><td><code>xz-menu__separator</code></td><td>A line between groups of items.</td></tr>
+      <tr><td><code>data-xz-shortcut="mod+o"</code></td><td>Shows the key label (Ctrl O, or ⌘O on Apple devices) and sets <code>aria-keyshortcuts</code>. The menu does not run the shortcut; your page does.</td></tr>
+      <tr><td><code>data-action</code></td><td>The name sent with the event. The item's words are used without it.</td></tr>
+      <tr><td><code>xz:action</code></td><td>Fires on every choice, with <code>event.detail.action</code>, <code>item</code> and, for ticks and dots, <code>checked</code>.</td></tr>
+      <tr><td><code>element.xzMenubar</code></td><td><code>open('File')</code> and <code>close()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= DUAL LIST ================= -->
+<section class="doc-section" id="dual-list">
+  <h2>Dual list</h2>
+  <p>Pick items into a second list and put them in order: the columns a table shows, the learners in a batch, the subjects on a report card. The markup is a set of checkboxes, so the form sends the choice even without the script. With it, click to select, Shift and Ctrl to select more, double-click or Enter to move, and Alt with Up or Down to reorder.</p>
+  <div class="doc-example" data-layout="block">
+    <fieldset class="xz-duallist" data-xz-duallist data-xz-labels="Hidden|Shown" data-xz-buttons="Show|Hide|Up|Down" style="max-width: 36rem">
+      <legend>Columns in the fee table</legend>
+      <label><input type="checkbox" name="columns" value="learner" checked> Learner <small>text</small></label>
+      <label><input type="checkbox" name="columns" value="batch" checked> Batch <small>text</small></label>
+      <label><input type="checkbox" name="columns" value="due" checked> Due date <small>date</small></label>
+      <label><input type="checkbox" name="columns" value="amount" checked> Amount <small>₹</small></label>
+      <label><input type="checkbox" name="columns" value="mobile"> Mobile <small>+91</small></label>
+      <label><input type="checkbox" name="columns" value="city"> City <small>text</small></label>
+      <label><input type="checkbox" name="columns" value="gst"> GST number <small>code</small></label>
+    </fieldset>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-duallist</code> + <code>data-xz-duallist</code></td><td>On a <code>fieldset</code> with a <code>legend</code> and one <code>label</code> per item, each holding a checkbox. Ticked boxes start in the second list. A <code>small</code> adds a note at the end of the item.</td></tr>
+      <tr><td><code>data-xz-labels="Hidden|Shown"</code></td><td>The two lists' names. "Available" and "Chosen" unless set.</td></tr>
+      <tr><td><code>data-xz-buttons="Show|Hide|Up|Down"</code></td><td>The four buttons' words. "Add", "Remove", "Up" and "Down" unless set.</td></tr>
+      <tr><td><code>data-xz-empty</code></td><td>What an empty list says. "Nothing here" unless set.</td></tr>
+      <tr><td>The form value</td><td>The ticked checkboxes, sent in the chosen order.</td></tr>
+      <tr><td><code>xz:change</code></td><td>Fires when the choice or order changes, with <code>event.detail.value</code>: the chosen values in order. Each checkbox also fires <code>change</code>.</td></tr>
+      <tr><td><code>element.xzDuallist</code></td><td><code>value()</code> and <code>set(['learner', 'amount'])</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= READOUTS ================= -->
+<section class="doc-section" id="readouts">
+  <h2>Readouts and timer</h2>
+  <p>Numbers and states that people read at a glance: a countdown, live class lights, a week's figures, a file before and after compression.</p>
+
+  <h3 id="readouts--readout">Readout</h3>
+  <p>Numbers drawn as lit segments, like a clock. Screen readers, and the page without the script, get the text itself. It shows digits, the colon, the point, the minus sign and spaces.</p>
+  <div class="doc-example">
+    <span class="xz-readout" data-xz-readout>01:23.40</span>
+    <span class="xz-readout xz-readout--accent" data-xz-readout>18:30</span>
+    <span class="xz-readout xz-readout--sm xz-readout--success" data-xz-readout>098</span>
+  </div>
+
+  <h3 id="readouts--timer">Timer</h3>
+  <p>A countdown for an activity or a test, or a stopwatch. It warns once when time is short and says "Time is up" at the end; it does not read out every second.</p>
+  <div class="doc-example">
+    <div class="xz-timer" data-xz-timer="300" data-xz-warn="60" role="group" aria-label="Activity timer">
+      <span class="xz-readout xz-readout--lg" data-xz-readout role="timer" aria-label="Time left">05:00</span>
+      <div class="xz-timer__controls">
+        <button class="xz-btn xz-btn--primary" type="button" data-xz-timer-start><span>Start</span></button>
+        <button class="xz-btn" type="button" data-xz-timer-reset><i data-xz-icon="rotate-ccw" data-size="sm"></i>Reset</button>
+      </div>
+    </div>
+    <section class="xz-panel" aria-labelledby="tm-speak" style="flex: 0 1 18rem">
+      <header class="xz-panel__head"><i data-xz-icon="mic" data-size="sm"></i><h4 class="xz-panel__title" id="tm-speak">Speaking practice</h4></header>
+      <div class="xz-timer" data-xz-timer="0" data-xz-tenths>
+        <span class="xz-readout" data-xz-readout role="timer" aria-label="Time spoken">00:00.00</span>
+        <div class="xz-panel__actions">
+          <button class="xz-panel__action xz-panel__action--primary" type="button" data-xz-timer-start><span>Start</span></button>
+          <button class="xz-panel__action" type="button" data-xz-timer-reset>Reset</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <h3 id="readouts--lamps">Lamps</h3>
+  <p>Lights for live states. Each lamp also says its state in words, here hidden for screen readers, so colour and glow are never the only signal.</p>
+  <div class="doc-example">
+    <ul class="xz-lamps" aria-label="Live class">
+      <li class="xz-lamp xz-lamp--success is-on"><i data-xz-icon="radio"></i>Live<span class="xz-sr-only">: on</span></li>
+      <li class="xz-lamp xz-lamp--danger is-on is-blinking"><i data-xz-icon="circle-dot"></i>Recording<span class="xz-sr-only">: on</span></li>
+      <li class="xz-lamp is-on"><i data-xz-icon="video"></i>Camera<span class="xz-sr-only">: on</span></li>
+      <li class="xz-lamp"><i data-xz-icon="mic"></i>Microphone<span class="xz-sr-only">: off</span></li>
+      <li class="xz-lamp"><i data-xz-icon="monitor"></i>Screen<span class="xz-sr-only">: off</span></li>
+    </ul>
+  </div>
+
+  <h3 id="readouts--readings">Readings</h3>
+  <p>Small labelled figures in a grid. A bar along the bottom shows a level when you set <code class="xz-code">--xz-level</code>.</p>
+  <div class="doc-example" data-layout="block">
+    <dl class="xz-readings" style="max-width: 40rem">
+      <div class="xz-readings__item xz-readings__item--success" style="--xz-level: 92%"><dt>Attendance</dt><dd>92%</dd></div>
+      <div class="xz-readings__item" style="--xz-level: 71%"><dt>Average score</dt><dd>71 / 100</dd></div>
+      <div class="xz-readings__item" style="--xz-level: 95%"><dt>Assignments in</dt><dd>38 of 40</dd></div>
+      <div class="xz-readings__item xz-readings__item--warning" style="--xz-level: 30%"><dt>Doubts open</dt><dd>6</dd></div>
+    </dl>
+  </div>
+
+  <h3 id="readouts--change">Change bars</h3>
+  <p>An amount before and after, with the change in large type. Set each bar's length with <code class="xz-code">--xz-value</code>.</p>
+  <div class="doc-example">
+    <div class="xz-delta" style="flex: 0 1 22rem">
+      <p class="xz-delta__change xz-delta__change--down">−66<small>%</small></p>
+      <div class="xz-delta__bar" style="--xz-value: 100%"><span>Lecture 7, original</span><strong>1.2 GB</strong></div>
+      <div class="xz-delta__bar xz-delta__bar--after" style="--xz-value: 34%"><span>Compressed</span><strong>410 MB</strong></div>
+    </div>
+  </div>
+
+  <h3 id="readouts--meter">Meter</h3>
+  <p>The browser's own <code class="xz-code">meter</code>, coloured by its <code class="xz-code">low</code>, <code class="xz-code">high</code> and <code class="xz-code">optimum</code> values: green when the value is good, amber when it is getting worse, red when it is bad.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-panel" style="max-width: 28rem">
+      <div class="xz-panel__row"><span><span class="xz-panel__key" id="mt-storage">Storage</span><span class="xz-panel__hint">3.2 GB of 10 GB</span></span><meter class="xz-meter" min="0" max="10" low="7" high="9" optimum="0" value="3.2" aria-labelledby="mt-storage">3.2 GB</meter></div>
+      <div class="xz-panel__row"><span><span class="xz-panel__key" id="mt-attend">Attendance</span><span class="xz-panel__hint">64%, the rule is 75%</span></span><meter class="xz-meter" min="0" max="100" low="75" high="90" optimum="100" value="64" aria-labelledby="mt-attend">64%</meter></div>
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-readout</code> + <code>data-xz-readout</code></td><td>Draws its text as segments. <code>--sm</code>, <code>--lg</code> or <code>--xz-readout-size</code> for the size; <code>--accent</code>, <code>--success</code>, <code>--danger</code> for the colour. Change it with <code>element.xzReadout.set('12:00')</code>.</td></tr>
+      <tr><td><code>xz-timer</code> + <code>data-xz-timer="300"</code></td><td>Counts down from 300 seconds. <code>0</code> makes a stopwatch. Inside: an <code>xz-readout</code>, a <code>data-xz-timer-start</code> button (Start, Pause, Resume) and a <code>data-xz-timer-reset</code> button.</td></tr>
+      <tr><td><code>data-xz-warn="60"</code></td><td>Turns the readout red and says "1 minute left" once, 60 seconds from the end.</td></tr>
+      <tr><td><code>data-xz-tenths</code>, <code>data-xz-autostart</code></td><td>Shows hundredths of a second; starts on page load.</td></tr>
+      <tr><td><code>data-xz-labels="Start|Pause|Resume"</code>, <code>data-xz-done</code></td><td>The button's words, and what is said at the end ("Time is up").</td></tr>
+      <tr><td><code>xz:timer</code>, <code>xz:timeup</code></td><td>Fire on start, pause and reset (<code>event.detail.state</code>), and when a countdown ends.</td></tr>
+      <tr><td><code>element.xzTimer</code></td><td><code>start()</code>, <code>pause()</code>, <code>reset()</code> and <code>seconds()</code>.</td></tr>
+      <tr><td><code>xz-lamps</code>, <code>xz-lamp</code></td><td>A list of lamps: an icon and a name. <code>is-on</code> lights one; <code>--success</code>, <code>--danger</code>, <code>--warning</code>, <code>--accent</code> colour it; <code>is-blinking</code> blinks it (never with less motion); <code>--row</code> puts the name beside the icon.</td></tr>
+      <tr><td><code>xz-readings</code>, <code>__item</code></td><td>On a <code>dl</code>, with a <code>div</code> per reading holding <code>dt</code> and <code>dd</code>. <code>--xz-level</code> draws the bar; <code>--success</code>, <code>--warning</code> and <code>--danger</code> colour it.</td></tr>
+      <tr><td><code>xz-delta</code></td><td><code>__change</code> (<code>--down</code> green, <code>--up</code> red), then <code>__bar</code> and <code>__bar--after</code> with <code>--xz-value</code>.</td></tr>
+      <tr><td><code>meter.xz-meter</code></td><td>Name it with <code>aria-labelledby</code>. <code>--neutral</code> uses the accent colour for a plain level.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= LOADERS ================= -->
+<section class="doc-section" id="loaders">
+  <h2>Pixel loaders</h2>
+  <p>Nine cells that light up in a pattern while something loads, for tool screens where a spinner feels out of place. It is CSS only. With less motion, or the page's motion button off, the cells hold a still pattern. Give it <code class="xz-code">role="status"</code> and say what is loading in <code class="xz-code">aria-label</code>.</p>
+  <div class="doc-example">
+    <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">snake</figcaption></figure>
+    <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader xz-loader--comet" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">comet</figcaption></figure>
+    <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader xz-loader--dot" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">dot</figcaption></figure>
+    <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader xz-loader--twin" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">twin</figcaption></figure>
+    <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader xz-loader--pulse" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">pulse</figcaption></figure>
+    <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader xz-loader--lg xz-loader--accent xz-loader--reverse" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">large, accent, reverse</figcaption></figure>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-loader</code></td><td>Around nine empty <code>i</code> elements. Snake is the pattern unless another is set.</td></tr>
+      <tr><td><code>--comet</code>, <code>--dot</code>, <code>--twin</code>, <code>--pulse</code></td><td>The other patterns.</td></tr>
+      <tr><td><code>--lg</code>, <code>--accent</code>, <code>--reverse</code></td><td>Bigger cells, the brand colour, and the ring the other way round.</td></tr>
+      <tr><td><code>--xz-loader-cell</code>, <code>--xz-loader-step</code></td><td>Cell size and the time per step.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= MEASURE ================= -->
+<section class="doc-section" id="measure">
+  <h2>Measure and paper</h2>
+  <p>For print set-ups and previews: certificates, report cards, ID cards and slides.</p>
+
+  <h3 id="measure--lines">Measure lines</h3>
+  <p>Width and height lines around a box. Set the box's shape with <code class="xz-code">--xz-ratio</code>.</p>
+  <div class="doc-example">
+    <figure class="xz-measure xz-measure--fit" style="--xz-measure-width: 17rem">
+      <span class="xz-measure__x">85.6 mm</span>
+      <span class="xz-measure__y"><span>54 mm</span></span>
+      <div class="xz-measure__box" style="--xz-ratio: 85.6 / 54; justify-items: start; padding: var(--xz-space-3); text-align: start">
+        <span class="xz-avatar xz-avatar--accent" aria-hidden="true">AI</span>
+        <span class="xz-small"><strong>Ananya Iyer</strong><br><span class="xz-text-muted">Batch B-14 · Roll 23</span></span>
+      </div>
+    </figure>
+  </div>
+
+  <h3 id="measure--paper">Paper size</h3>
+  <p>Size and orientation choices that reshape the preview and fill in the sizes. It knows A3, A4, A5, Letter, Legal and ID card; give any other choice <code class="xz-code">data-mm="100x150"</code>.</p>
+  <div class="doc-example">
+    <section class="xz-panel xz-paper" data-xz-paper aria-labelledby="pp-title" style="flex: 0 1 26rem">
+      <header class="xz-panel__head"><i data-xz-icon="ruler" data-size="sm"></i><h4 class="xz-panel__title" id="pp-title">Certificate paper</h4></header>
+      <div class="xz-paper__stage">
+        <figure class="xz-measure">
+          <span class="xz-measure__x">210 mm</span>
+          <span class="xz-measure__y"><span>297 mm</span></span>
+          <div class="xz-measure__box" style="--xz-ratio: 210 / 297"><i data-xz-icon="award" data-size="xl"></i></div>
+        </figure>
+      </div>
+      <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Paper size">
+        <label><input type="radio" name="pp-size" value="A5"><span>A5</span></label>
+        <label><input type="radio" name="pp-size" value="A4" checked><span>A4</span></label>
+        <label><input type="radio" name="pp-size" value="A3"><span>A3</span></label>
+        <label><input type="radio" name="pp-size" value="Letter"><span>Letter</span></label>
+      </div>
+      <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Orientation">
+        <label><input type="radio" name="pp-turn" value="portrait" checked><span>Portrait</span></label>
+        <label><input type="radio" name="pp-turn" value="landscape"><span>Landscape</span></label>
+      </div>
+      <div class="xz-panel__cells">
+        <div class="xz-panel__row"><span>Width</span><output class="xz-panel__value" data-xz-paper-out="width">210 mm</output></div>
+        <div class="xz-panel__row"><span>Height</span><output class="xz-panel__value" data-xz-paper-out="height">297 mm</output></div>
+      </div>
+      <p class="xz-panel__foot">On screen: <span data-xz-paper-out="pixels">794 × 1123 px</span> at 96 dpi</p>
+    </section>
+  </div>
+
+  <h3 id="measure--strip">Page strip</h3>
+  <p>Thumbnails of pages to pick from. It is built on radio buttons, so it needs no script and the arrow keys move along it.</p>
+  <div class="doc-example" data-layout="block">
+    <fieldset class="xz-pagestrip" style="max-width: 36rem; background: var(--xz-surface-2); border-radius: var(--xz-radius-surface)">
+      <legend>Certificate pages</legend>
+      <label class="xz-pagestrip__page" style="--xz-page-width: 7.5rem"><input type="radio" name="ps-page" value="front" checked><span class="xz-pagestrip__sheet" style="--xz-ratio: 297 / 210"><img src="media/cover-campus.svg" alt=""></span><span class="xz-pagestrip__num">1</span><span class="xz-pagestrip__caption">Front</span></label>
+      <label class="xz-pagestrip__page" style="--xz-page-width: 7.5rem"><input type="radio" name="ps-page" value="back"><span class="xz-pagestrip__sheet" style="--xz-ratio: 297 / 210">Back</span><span class="xz-pagestrip__num">2</span><span class="xz-pagestrip__caption">Back</span></label>
+      <label class="xz-pagestrip__page"><input type="radio" name="ps-page" value="marks"><span class="xz-pagestrip__sheet xz-pagestrip__sheet--stack">3 pages</span><span class="xz-pagestrip__num">3–5</span><span class="xz-pagestrip__caption">Marks sheets</span></label>
+      <label class="xz-pagestrip__page" style="--xz-page-width: 7.5rem"><input type="radio" name="ps-page" value="id"><span class="xz-pagestrip__sheet" style="--xz-ratio: 85.6 / 54">ID</span><span class="xz-pagestrip__num">6</span><span class="xz-pagestrip__caption">ID card</span></label>
+    </fieldset>
+  </div>
+
+  <h3 id="measure--stage">Stage</h3>
+  <p>A preview area with a bar for its name and size. <code class="xz-code">--checker</code> shows the transparent parts of a picture.</p>
+  <div class="doc-example">
+    <figure class="xz-stage" style="flex: 0 1 24rem">
+      <figcaption class="xz-stage__bar"><span>School logo</span><span class="xz-stage__size">512 × 512</span></figcaption>
+      <div class="xz-stage__view xz-stage__view--checker" style="--xz-ratio: 16 / 9"><img src="../dist/brand/logo.svg" alt="Xsenze logo" style="width: 45%"></div>
+    </figure>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-measure</code></td><td>A <code>figure</code> with <code>__x</code> (the width label), <code>__y</code> (a <code>span</code> inside holds the height label) and <code>__box</code>. <code>--fit</code> centres it at <code>--xz-measure-width</code>.</td></tr>
+      <tr><td><code>data-xz-paper</code></td><td>Around radio buttons for the size (value <code>A4</code>, or <code>data-mm="100x150"</code>) and the orientation (<code>portrait</code>, <code>landscape</code>), and an <code>xz-measure</code> to reshape.</td></tr>
+      <tr><td><code>data-xz-paper-out</code></td><td><code>width</code>, <code>height</code> (in mm), <code>pixels</code> (at 96 dpi) or <code>name</code>: filled in as the choice changes.</td></tr>
+      <tr><td><code>xz:paper</code></td><td>Fires on a change, with <code>size</code>, <code>orientation</code>, <code>mm</code> and <code>px</code>.</td></tr>
+      <tr><td><code>xz-pagestrip</code></td><td>A <code>fieldset</code> with a <code>legend</code> (read by screen readers only) and a <code>label.xz-pagestrip__page</code> per page holding a radio, <code>__sheet</code>, <code>__num</code> and <code>__caption</code>. <code>__sheet--stack</code> shows several pages.</td></tr>
+      <tr><td><code>xz-stage</code></td><td><code>__bar</code> with the name and <code>__size</code>, then <code>__view</code> (<code>--checker</code>, <code>--fill</code>) shaped by <code>--xz-ratio</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= BEFORE AND AFTER ================= -->
+<section class="doc-section" id="before-after">
+  <h2>Before and after</h2>
+  <p>Two pictures in one frame with a line between them: a scan before and after clean-up, a photo before and after a filter, a design before and after feedback. Drag anywhere on the picture, or focus it and use the arrow keys, Home and End. Without the script the two pictures sit side by side.</p>
+  <div class="doc-example" data-layout="block">
+    <figure class="xz-beforeafter" data-xz-beforeafter data-xz-before="Scanned" data-xz-after="Cleaned" aria-label="Answer sheet, scanned and cleaned" style="max-width: 40rem">
+      <img src="media/scan-before.svg" alt="Answer sheet as scanned: yellowed paper and faint pencil">
+      <img src="media/scan-after.svg" alt="The same sheet cleaned: white paper and dark ink">
+      <figcaption>Drag the line, or focus the picture and use the arrow keys.</figcaption>
+    </figure>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-beforeafter</code> + <code>data-xz-beforeafter</code></td><td>On a <code>figure</code> with two pictures (<code>img</code>, <code>picture</code>, <code>video</code> or <code>svg</code>) of the same shape, and an optional <code>figcaption</code>. Give it an <code>aria-label</code>.</td></tr>
+      <tr><td><code>data-xz-before</code>, <code>data-xz-after</code></td><td>The two tags. "Before" and "After" unless set.</td></tr>
+      <tr><td><code>data-xz-start="30"</code></td><td>Where the line starts, in per cent. 50 unless set.</td></tr>
+      <tr><td><code>xz:compare</code></td><td>Fires as the line moves, with <code>event.detail.position</code>.</td></tr>
+      <tr><td><code>element.xzBeforeafter</code></td><td><code>set(30)</code> and <code>get()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= COLOUR ================= -->
+<section class="doc-section" id="colour">
+  <h2>Colour</h2>
+  <p>For brand colours, themes and anything people colour in: a field that takes any colour, swatches, shades worked out from one colour, a contrast check and a full picker. The maths runs in OKLCH, so shades step evenly to the eye.</p>
+
+  <h3 id="colour--field">Colour field</h3>
+  <p>A swatch that opens the system picker, a box that takes any CSS colour (hex, <code class="xz-code">rgb()</code>, <code class="xz-code">hsl()</code>, <code class="xz-code">oklch()</code> or a name) and, in browsers that have one, an eyedropper. Set the value it writes with <code class="xz-code">data-xz-color="oklch"</code>.</p>
+  <div class="doc-example">
+    <div class="xz-field" style="flex: 1 1 16rem; max-width: 20rem">
+      <label class="xz-label" for="cf-brand">Brand colour</label>
+      <div class="xz-colorfield" data-xz-color id="cf-brand-wrap"><input type="color" value="#ff6300" aria-label="Pick the brand colour"><input class="xz-input" id="cf-brand" name="brand" value="#FF6300" spellcheck="false" autocomplete="off"></div>
+    </div>
+    <div class="xz-field" style="flex: 1 1 16rem; max-width: 20rem">
+      <label class="xz-label" for="cf-ink">Certificate ink</label>
+      <div class="xz-colorfield" data-xz-color="oklch"><input type="color" value="#1e3a8a" aria-label="Pick the ink colour"><input class="xz-input" id="cf-ink" name="ink" value="oklch(37.9% 0.138 265.5)" spellcheck="false" autocomplete="off"></div>
+    </div>
+  </div>
+
+  <h3 id="colour--swatches">Swatches</h3>
+  <p>Colours side by side; each one copies its value. The script picks black or white text for each, whichever reads better.</p>
+  <div class="doc-example" data-layout="block">
+    <ul class="xz-swatches" aria-label="Batch colours" style="max-width: 36rem">
+      <li><button class="xz-swatch" type="button" style="--xz-swatch: #db5200" data-xz-copy="#DB5200"><span class="xz-swatch__name">B-12</span><span>#DB5200</span></button></li>
+      <li><button class="xz-swatch" type="button" style="--xz-swatch: #2563eb" data-xz-copy="#2563EB"><span class="xz-swatch__name">B-13</span><span>#2563EB</span></button></li>
+      <li><button class="xz-swatch" type="button" style="--xz-swatch: #16a34a" data-xz-copy="#16A34A"><span class="xz-swatch__name">B-14</span><span>#16A34A</span></button></li>
+      <li><button class="xz-swatch" type="button" style="--xz-swatch: #facc15" data-xz-copy="#FACC15"><span class="xz-swatch__name">B-15</span><span>#FACC15</span></button></li>
+      <li><button class="xz-swatch" type="button" style="--xz-swatch: #9333ea" data-xz-copy="#9333EA"><span class="xz-swatch__name">B-16</span><span>#9333EA</span></button></li>
+    </ul>
+  </div>
+
+  <h3 id="colour--shades">Shades</h3>
+  <p>Eleven steps from 50 to 950 worked out from one colour, with the colour itself marked at its step. This one follows the brand colour field above; the hue fader turns the whole set.</p>
+  <div class="doc-example" data-layout="block">
+    <div data-xz-shades="#ff6300" data-xz-shades-for="#cf-brand-wrap" aria-label="Shades of the brand colour" style="max-width: 44rem">
+      <div class="xz-panel__row"><label for="sh-hue">Hue</label><input class="xz-slider xz-slider--fader" id="sh-hue" type="range" min="0" max="360" data-xz-shades-hue data-xz-suffix="°"><output class="xz-panel__value" for="sh-hue"></output></div>
+    </div>
+  </div>
+
+  <h3 id="colour--contrast">Contrast check</h3>
+  <p>Text on a background, the WCAG contrast ratio, and the levels it passes. Body text needs AA (4.5 to 1); large text and parts of the interface need 3 to 1. White on this orange passes for large text only.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-contrast" data-xz-contrast style="max-width: 36rem">
+      <div class="xz-contrast__sample"><span class="xz-contrast__aa" aria-hidden="true">Aa</span><p class="xz-contrast__ratio"><strong>4.02</strong><small> : 1</small></p></div>
+      <div class="xz-contrast__fields">
+        <div><label class="xz-label" for="ct-text">Text</label><div class="xz-colorfield" data-xz-color><input type="color" value="#ffffff" aria-label="Pick the text colour"><input class="xz-input" id="ct-text" value="#FFFFFF" spellcheck="false" autocomplete="off"></div></div>
+        <div><label class="xz-label" for="ct-bg">Background</label><div class="xz-colorfield" data-xz-color><input type="color" value="#db5200" aria-label="Pick the background colour"><input class="xz-input" id="ct-bg" value="#DB5200" spellcheck="false" autocomplete="off"></div></div>
+      </div>
+      <ul class="xz-contrast__marks"><li>WCAG 2.2</li><li data-level="3">AA large text</li><li data-level="4.5">AA</li><li data-level="7">AAA</li></ul>
+    </div>
+  </div>
+
+  <h3 id="colour--picker">Colour picker</h3>
+  <p>A model (RGB, HSL or OKLCH), a fader for each channel with its number, and every notation to copy. The swatch at the top opens the system picker. The form sends the colour as hex, from the colour input's <code class="xz-code">name</code>.</p>
+  <div class="doc-example" data-layout="block">
+    <div data-xz-colorpicker data-xz-model="oklch" style="max-width: 30rem">
+      <input type="color" name="theme" value="#2563eb" aria-label="Theme colour">
+    </div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-color</code></td><td>Colour field: around a colour input and a text input. The value (<code>hex</code>, <code>rgb</code>, <code>hsl</code>, <code>oklch</code>) sets the notation it writes; hex unless set.</td></tr>
+      <tr><td><code>xz:color</code></td><td>Fires from colour fields and pickers, with <code>hex</code>, <code>rgb</code>, <code>hsl</code>, <code>oklch</code> and <code>color</code> (the channels).</td></tr>
+      <tr><td><code>element.xzColor</code></td><td><code>get()</code> and <code>set('#2563eb')</code>.</td></tr>
+      <tr><td><code>xz-swatches</code>, <code>xz-swatch</code></td><td>A list of buttons, each with <code>--xz-swatch</code> and <code>data-xz-copy</code>. <code>__name</code> for a name; <code>is-base</code> marks one; <code>xz-swatches--tall</code> stands the words on end.</td></tr>
+      <tr><td><code>data-xz-shades="#ff6300"</code></td><td>Draws eleven shades. <code>data-xz-shades-for="#field"</code> follows a colour field; a range input with <code>data-xz-shades-hue</code> inside turns the hue. Fires <code>xz:shades</code>; <code>element.xzShades.set(colour)</code>.</td></tr>
+      <tr><td><code>data-xz-contrast</code></td><td>Around two colour fields, text first, then background. Fills <code>__ratio strong</code>, colours <code>__sample</code>, and marks each <code>[data-level]</code> as passing or failing in words too. Fires <code>xz:contrast</code> with <code>ratio</code> and <code>pass</code>.</td></tr>
+      <tr><td><code>data-xz-colorpicker</code></td><td>Around a colour input. <code>data-xz-model</code> picks the first model; OKLCH unless set. <code>element.xzColorpicker</code> has <code>get()</code> and <code>set()</code>.</td></tr>
+      <tr><td><code>Xsenze.tools.color</code></td><td><code>parse()</code>, <code>toHex()</code>, <code>toOklch()</code>, <code>fromOklch()</code>, <code>toHsl()</code>, <code>contrast(a, b)</code>, <code>readable(c)</code>, <code>shades(c)</code> and <code>formats</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= MATHS ================= -->
+<section class="doc-section" id="maths">
+  <h2>Maths</h2>
+  <p>Maths typed as plain text, such as <code class="xz-code">sqrt(x^2+1)/(2x)</code>, shown as real notation. It uses MathML, which every current browser draws and screen readers can speak. Without the script, the text stays as typed and still reads correctly.</p>
+
+  <h3 id="maths--text">Maths in text</h3>
+  <p>The area of a circle is <span data-xz-math>pi r^2</span>, and its roots are</p>
+  <div class="doc-example" data-layout="stack">
+    <p class="xz-math--block" data-xz-math>x = (-b ± sqrt(b^2 - 4ac))/(2a)</p>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Type</th><th>Shows as</th></tr></thead>
+    <tbody>
+      <tr><td><code>(x+1)/(x-1)</code></td><td><span data-xz-math>(x+1)/(x-1)</span></td></tr>
+      <tr><td><code>x^2 + 2x + 1</code></td><td><span data-xz-math>x^2 + 2x + 1</span></td></tr>
+      <tr><td><code>root(3, 27) = 3</code></td><td><span data-xz-math>root(3, 27) = 3</span></td></tr>
+      <tr><td><code>x_1 + x_2</code></td><td><span data-xz-math>x_1 + x_2</span></td></tr>
+      <tr><td><code>|x - 3| &lt;= 2</code></td><td><span data-xz-math>|x - 3| &lt;= 2</span></td></tr>
+      <tr><td><code>log_2(8) = 3</code></td><td><span data-xz-math>log_2(8) = 3</span></td></tr>
+      <tr><td><code>sum(k=1, n, k) = (n(n+1))/2</code></td><td><span data-xz-math>sum(k=1, n, k) = (n(n+1))/2</span></td></tr>
+      <tr><td><code>int(0, 1, x^2, x) = 1/3</code></td><td><span data-xz-math>int(0, 1, x^2, x) = 1/3</span></td></tr>
+      <tr><td><code>lim(x-&gt;0, sin(x)/x) = 1</code></td><td><span data-xz-math>lim(x-&gt;0, sin(x)/x) = 1</span></td></tr>
+      <tr><td><code>diff(x^3, x) = 3x^2</code></td><td><span data-xz-math>diff(x^3, x) = 3x^2</span></td></tr>
+      <tr><td><code>ncr(5, 2) = 10</code></td><td><span data-xz-math>ncr(5, 2) = 10</span></td></tr>
+      <tr><td><code>theta = 45°</code>, <code>5! = 120</code></td><td><span data-xz-math>theta = 45°</span>, <span data-xz-math>5! = 120</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="maths--field">Maths field and keypad</h3>
+  <p>An answer box that draws the notation as you type, and a keypad for phones and for anyone who does not know the typed forms. Keys type at the caret; a selection goes inside the brackets of a key such as √. While the keypad is open, phones keep their own keyboard away.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-mathfield" data-xz-mathfield style="max-width: 32rem">
+      <label class="xz-label" for="mf-answer">Question 3: expand <span data-xz-math>(x+1)^2</span></label>
+      <div class="xz-mathfield__box">
+        <output class="xz-mathfield__preview" for="mf-answer" data-empty="Your answer shows here"></output>
+        <div class="xz-mathfield__bar">
+          <input class="xz-mathfield__input" id="mf-answer" name="answer" type="text" value="x^2 + 2x + 1" autocomplete="off" autocapitalize="off" spellcheck="false">
+          <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-mathpad-toggle><i data-xz-icon="keyboard" data-size="sm"></i>Keypad</button>
+        </div>
+      </div>
+      <div data-xz-mathpad="mf-answer" aria-label="Maths keypad"></div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute or class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-math</code></td><td>Draws the element's text as maths. <code>xz-math--block</code> centres it on its own line. Text it cannot read stays as typed, with the reason as a tooltip.</td></tr>
+      <tr><td>What it reads</td><td><code>+ - * / ^ = &lt; &gt; &lt;= &gt;= != ± ! %</code> and <code>°</code>; brackets; <code>x_1</code>; <code>|x|</code>; <code>sqrt</code>, <code>cbrt</code>, <code>root(n, x)</code>, <code>abs</code>; <code>sin</code>, <code>cos</code>, <code>tan</code> and their inverses (<code>asin</code>), <code>ln</code>, <code>log</code>, <code>log_2</code>; <code>sum</code>, <code>prod</code>, <code>int</code>, <code>lim</code>, <code>diff</code>, <code>ncr</code>, <code>npr</code>; <code>pi</code>, <code>theta</code> and other Greek names; <code>inf</code>. <code>2x</code> means 2 times x.</td></tr>
+      <tr><td><code>data-xz-mathfield</code></td><td>Around <code>xz-mathfield__box</code> with <code>__preview</code> (an <code>output</code>; <code>data-empty</code> is shown while it is empty), <code>__bar</code>, <code>__input</code> and a <code>data-xz-mathpad-toggle</code> button. <code>element.xzMathfield</code> has <code>value()</code> and <code>set()</code>.</td></tr>
+      <tr><td><code>data-xz-mathpad="input-id"</code></td><td>The keypad for that input: four key sets in tabs, then move, delete, clear and Done. Add <code>hidden</code> to start it closed. Done fires <code>xz:done</code> with <code>event.detail.value</code>.</td></tr>
+      <tr><td><code>Xsenze.tools.math</code></td><td><code>toMathML(text, { block })</code> returns MathML; <code>parse(text)</code> returns the tree, or throws with a short reason.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= TEXT TOOLS ================= -->
+<section class="doc-section" id="text-tools">
+  <h2>Text tools</h2>
+  <p>Code for lessons, a text box with the buttons people reach for, and letter tiles.</p>
+
+  <h3 id="text-tools--code">Code block</h3>
+  <p>Code with its language and a copy button. <code class="xz-code">--lines</code> numbers the lines; <code class="xz-code">is-marked</code> picks one out.</p>
+  <div class="doc-example" data-layout="stack">
+    <figure class="xz-codeblock" style="max-width: 36rem">
+      <figcaption class="xz-codeblock__bar"><span class="xz-codeblock__lang">python</span><button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-copy-target="#cb-average"><i data-xz-icon="copy" data-size="sm"></i>Copy</button></figcaption>
+      <pre class="xz-codeblock__pre" tabindex="0"><code id="cb-average">marks = [72, 85, 64, 91]
+average = sum(marks) / len(marks)
+print(f"Average: {average:.1f}")</code></pre>
+    </figure>
+    <figure class="xz-codeblock xz-codeblock--lines" style="max-width: 36rem">
+      <figcaption class="xz-codeblock__bar"><span class="xz-codeblock__lang">sql</span><button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-copy-target="#cb-fees"><i data-xz-icon="copy" data-size="sm"></i>Copy</button></figcaption>
+      <pre class="xz-codeblock__pre" tabindex="0"><code id="cb-fees"><span class="xz-codeblock__line">SELECT batch, SUM(amount) AS collected</span><span class="xz-codeblock__line">FROM fees</span><span class="xz-codeblock__line is-marked">WHERE paid_on &gt;= '2026-11-01'</span><span class="xz-codeblock__line">GROUP BY batch;</span></code></pre>
+    </figure>
+  </div>
+
+  <h3 id="text-tools--box">Text box</h3>
+  <p>A text area with paste, clear and a live count of characters and words, and a result with copy and share. Paste asks the browser for the clipboard; where it says no, a message explains Ctrl+V. Share shows only where the device can share. Pick a case below to see the result change.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-textbox" style="max-width: 36rem">
+      <label class="xz-sr-only" for="tt-source">Text to change</label>
+      <textarea class="xz-textarea" id="tt-source" rows="3">batch b-14 starts on monday at 6:30 pm.</textarea>
+      <div class="xz-textbox__bar">
+        <span class="xz-textbox__count" data-xz-count="#tt-source"></span>
+        <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-paste="#tt-source"><i data-xz-icon="clipboard-paste" data-size="sm"></i>Paste</button>
+        <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-clear="#tt-source"><i data-xz-icon="x" data-size="sm"></i>Clear</button>
+      </div>
+    </div>
+    <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Case" id="tt-case" style="max-width: 36rem">
+      <label><input type="radio" name="tt-case" value="sentence" checked><span>Sentence</span></label>
+      <label><input type="radio" name="tt-case" value="title"><span>Title</span></label>
+      <label><input type="radio" name="tt-case" value="upper"><span>Upper</span></label>
+      <label><input type="radio" name="tt-case" value="lower"><span>Lower</span></label>
+    </div>
+    <div class="xz-textbox" style="max-width: 36rem">
+      <p class="xz-textbox__output" id="tt-result">Batch b-14 starts on monday at 6:30 pm.</p>
+      <div class="xz-textbox__bar">
+        <span class="xz-textbox__count">Result</span>
+        <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-share="#tt-result"><i data-xz-icon="share-2" data-size="sm"></i>Share</button>
+        <button class="xz-btn xz-btn--ghost xz-btn--sm" type="button" data-xz-copy-target="#tt-result"><i data-xz-icon="copy" data-size="sm"></i>Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="text-tools--glyphs">Letter tiles</h3>
+  <p>Each letter on its own tile, for spelling practice, codes and font samples. Hindi, Tamil and other scripts split into whole letters, so स्ते stays one tile.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field" style="max-width: 20rem"><label class="xz-label" for="gl-word">Spell a word</label><input class="xz-input" id="gl-word" value="Namaste" autocomplete="off"></div>
+    <div class="xz-glyphs xz-glyphs--lg" data-xz-glyphs="#gl-word"></div>
+    <div class="xz-glyphs" data-xz-glyphs lang="hi">नमस्ते</div>
+    <div class="xz-glyphs" data-xz-glyphs lang="ta">வணக்கம்</div>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-codeblock</code></td><td>A <code>figure</code> with <code>__bar</code> (<code>__lang</code> and a copy button with <code>data-xz-copy-target</code>) and <code>pre.xz-codeblock__pre</code> (give it <code>tabindex="0"</code> so long lines scroll with the keys). <code>--lines</code> with a <code>span.xz-codeblock__line</code> per line numbers them.</td></tr>
+      <tr><td><code>xz-textbox</code></td><td>A frame for a text area (or <code>__output</code>) and <code>__bar</code>.</td></tr>
+      <tr><td><code>data-xz-paste="#id"</code>, <code>data-xz-clear="#id"</code></td><td>Buttons that paste into, or empty, that text box. Inside an <code>xz-textbox</code> they find their own box. Both fire <code>input</code> and <code>change</code> on it.</td></tr>
+      <tr><td><code>data-xz-count="#id"</code></td><td>Counts letters (as people read them) and words in that box. <code>data-xz-max</code> or the box's <code>maxlength</code> adds "of 500" and turns red past it.</td></tr>
+      <tr><td><code>data-xz-share="#id"</code></td><td>Shares that element's text with the device's share sheet. <code>data-xz-share-title</code>, <code>data-xz-share-url</code>. Hidden where sharing is not there.</td></tr>
+      <tr><td><code>data-xz-glyphs</code></td><td>Tiles for its own text, or <code>data-xz-glyphs="#input"</code> to follow a box. <code>--lg</code> for big tiles; <code>data-xz-max</code> limits the count (40). Fires <code>xz:glyphs</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= RAIL ================= -->
+<section class="doc-section" id="rail">
+  <h2>Rail sidebar</h2>
+  <p>The sidebar as a column of icons, for tool screens that need the room. Each link keeps its words for screen readers; a tooltip shows them to everyone else. <code class="xz-code">data-tone</code> gives a row a coloured edge for a live state.</p>
+  <div class="doc-example" data-layout="block">
+    <div style="display: flex; height: 19rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: hidden">
+      <nav class="xz-sidebar xz-sidebar--rail" aria-label="Teacher tools">
+        <div class="xz-sidebar__header"><i data-xz-icon="graduation-cap"></i></div>
+        <ul class="xz-sidebar__nav xz-sidebar__section">
+          <li><a class="xz-sidebar__link" href="#rail" aria-current="page" data-xz-tooltip="Dashboard"><i data-xz-icon="layout-dashboard"></i>Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-tone="danger" data-xz-tooltip="Live class, on air"><i data-xz-icon="radio"></i>Live class, on air</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Learners"><i data-xz-icon="users"></i>Learners</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Tests"><i data-xz-icon="list-checks"></i>Tests</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Fees, 3 overdue"><i data-xz-icon="indian-rupee"></i>Fees <span class="xz-badge xz-badge--count">3</span></a></li>
+        </ul>
+        <div class="xz-sidebar__footer"><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Settings"><i data-xz-icon="settings"></i>Settings</a></div>
+      </nav>
+      <div style="flex: 1; min-width: 0; padding: var(--xz-space-5)">
+        <p class="xz-overline">Dashboard</p>
+        <p class="xz-small">The rail leaves the rest of the screen to the work. Point at an icon, or move to it with Tab, to see its name.</p>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-sidebar--rail</code></td><td>On the kit's <code>xz-sidebar</code>. The words stay in each link, hidden from sight; add <code>data-xz-tooltip</code> with the same words. Section headings become thin lines.</td></tr>
+      <tr><td><code>data-tone</code></td><td>On an <code>xz-sidebar__link</code>: <code>success</code>, <code>danger</code>, <code>warning</code> or <code>accent</code>. Say the state in the link's words too, such as "Live class, on air".</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= SCREENS ================= -->
+<section class="doc-section" id="screens">
+  <h2>Screens</h2>
+  <p>Whole pages built from these parts, in the <code class="xz-code">templates</code> folder.</p>
+  <h3 id="screens--settings">Settings</h3>
+  <p>Institute settings: appearance, formats, notifications, storage and a danger zone, as panels of rows with a save bar.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/settings.html" data-title="Settings"></div>
+  <h3 id="screens--certificate">Certificate maker</h3>
+  <p>A tool screen: a menu bar, a split view with the set-up panels and a live preview, paper and colour choices with a contrast check, a page strip and an export panel.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/certificate.html" data-title="Certificate maker"></div>
+</section>
+
+</main>
+</div>
+<footer data-doc-footer></footer>
+<script>
+  // Menu bar demo: show the last choice.
+  const chosen = document.getElementById('mb-chosen');
+  document.getElementById('mb-demo').addEventListener('xz:action', (e) => {
+    chosen.textContent = e.detail.checked === undefined ? e.detail.action : `${e.detail.action}: ${e.detail.checked ? 'on' : 'off'}`;
+  });
+  // Text box demo: change the case of the text into the result.
+  const source = document.getElementById('tt-source');
+  const result = document.getElementById('tt-result');
+  const caseGroup = document.getElementById('tt-case');
+  const lower = (s) => s.toLocaleLowerCase('en-IN');
+  const cases = {
+    sentence: (s) => lower(s).replace(/(^\s*|[.!?]\s+)(\p{L})/gu, (m, a, b) => a + b.toLocaleUpperCase('en-IN')),
+    title: (s) => lower(s).replace(/(^|[\s-])(\p{L})/gu, (m, a, b) => a + b.toLocaleUpperCase('en-IN')),
+    upper: (s) => s.toLocaleUpperCase('en-IN'),
+    lower,
+  };
+  const drawCase = () => (result.textContent = cases[caseGroup.querySelector('input:checked').value](source.value));
+  source.addEventListener('input', drawCase);
+  caseGroup.addEventListener('change', drawCase);
+  drawCase();
+  // File sizes from the last build.
+  addEventListener('DOMContentLoaded', () => {
+    const sizes = window.XZ_DOCS?.sizes || {};
+    for (const td of document.querySelectorAll('[data-doc-size]')) {
+      const s = sizes[td.dataset.docSize];
+      if (s) td.textContent = (s.gzip / 1024).toFixed(1) + ' KB';
+    }
+  });
+</script>
+</body>
+</html>
