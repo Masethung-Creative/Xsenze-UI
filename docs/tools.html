@@ -27,6 +27,8 @@
   <p class="xz-lead">Settings pages, editors, print set-ups, colour and maths: panels of rows, a split view, a menu bar, readouts, a colour picker and a maths keypad. They live in an optional pair of files, so pages that do not use them stay light.</p>
 </header>
 
+<!-- ================= FAMILY: START HERE ================= -->
+<p class="doc-family-label" id="family-start-here">Start here</p>
 <!-- ================= INVENTORY ================= -->
 <section class="doc-section" id="inventory">
   <h2>Inventory</h2>
@@ -191,7 +193,7 @@
   </table></div>
 </section>
 
-<!-- ================= ADD THE FILES ================= -->
+<!-- ================= ADD THE TOOLS FILES ================= -->
 <section class="doc-section" id="add-tools">
   <h2>Add the tools files</h2>
   <p>The tools pack is one stylesheet and one script. Load them after the kit's own files, on the pages that use them. Everything else on this page needs them.</p>
@@ -228,7 +230,7 @@
   <p>The script adds <code class="xz-code">Xsenze.tools</code>: <code class="xz-code">Xsenze.tools.color</code> (read, convert and compare colours), <code class="xz-code">Xsenze.tools.math.toMathML(text)</code> and <code class="xz-code">Xsenze.tools.letters(text)</code>, which splits text into letters the way people read them.</p>
 </section>
 
-<!-- ================= TOKENS ================= -->
+<!-- ================= DESIGN TOKENS ================= -->
 <section class="doc-section" id="tools-tokens">
   <h2>Design tokens</h2>
   <p>The pack adds no colours, fonts or corners of its own. Every part draws on the kit's tokens, so a theme made on the <a class="xz-link" href="create.html">Create</a> page changes the tools too.</p>
@@ -265,12 +267,16 @@
       <tr><td><code>--xz-ratio</code></td><td>Shape of a measure box, page or stage, such as <code>210 / 297</code></td><td>auto, A4 for pages</td></tr>
       <tr><td><code>--xz-page-width</code></td><td>Page strip thumbnail width</td><td>5.5rem</td></tr>
       <tr><td><code>--xz-swatch</code>, <code>--xz-swatch-height</code></td><td>A swatch's colour and height</td><td>none, 3.5rem</td></tr>
-      <tr><td><code>--xz-duallist-height</code></td><td>Most a dual list's lists grow to</td><td>16rem</td></tr>
+      <tr><td><code>--xz-paper-stage</code></td><td>Height of the paper stage. The page is fitted inside it, so the stage never changes size</td><td>21rem</td></tr>
+      <tr><td><code>--xz-paper-scale</code></td><td>Share of the stage the page fills, for a zoom control (0.1 to 1)</td><td>1</td></tr>
+      <tr><td><code>--xz-duallist-height</code></td><td>Height of each list in a dual list. Long lists scroll inside it</td><td>13.75rem</td></tr>
       <tr><td><code>--xz-mathpad-cols</code></td><td>Keys per line on the maths keypad</td><td>6</td></tr>
     </tbody>
   </table></div>
 </section>
 
+<!-- ================= FAMILY: LAYOUT AND MENUS ================= -->
+<p class="doc-family-label" id="family-layout-and-menus">Layout and menus</p>
 <!-- ================= PANEL ================= -->
 <section class="doc-section" id="panel">
   <h2>Panel</h2>
@@ -324,6 +330,7 @@
   </div>
 
   <h3 id="panel--cells">Option cells</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#choices--family">choices family</a>: every choice control side by side.</span></p>
   <p>A single choice that fills the width, the chosen cell solid. Use it for two to five short options; past that, use a select.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-segmented xz-segmented--cells" role="radiogroup" aria-label="Report period" style="max-width: 32rem">
@@ -335,6 +342,7 @@
   </div>
 
   <h3 id="panel--fader">Fader</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="forms.html#slider--family">sliders family</a>: every slider side by side.</span></p>
   <p>A slider drawn as a filled bar, for levels people judge by eye. The kit's slider script keeps the fill and the linked <code class="xz-code">output</code> up to date.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-panel" style="max-width: 28rem">
@@ -344,6 +352,7 @@
   </div>
 
   <h3 id="panel--number">Number field</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="forms.html#stepper--family">number inputs family</a>: every number input side by side.</span></p>
   <p>The kit's stepper with the unit beside the number. The <code class="xz-code">--big</code> form puts one large number between the buttons, for the main setting on a screen.</p>
   <div class="doc-example">
     <div class="xz-panel" style="flex: 1 1 19rem; max-width: 26rem">
@@ -375,6 +384,7 @@
   </div>
 
   <h3 id="panel--status">Status and value lines</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#badges--family">status family</a>: every status mark side by side.</span></p>
   <p>A status says a state in one or two words, with a dot for a quick scan; the words carry the meaning, so it reads the same without colour. A value line shows something people copy, such as a code or a link.</p>
   <div class="doc-example">
     <div class="xz-panel" style="flex: 1 1 18rem; max-width: 24rem">
@@ -391,6 +401,7 @@
   </div>
 
   <h3 id="panel--file">File field</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="forms.html#upload--family">upload family</a>: every way to add a file.</span></p>
   <p>A compact file picker for one setting, such as a logo or a signature. Until the script runs, the browser's own file input shows; after, the row shows the file's name.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-panel" style="max-width: 26rem">
@@ -493,6 +504,7 @@
 <section class="doc-section" id="menu-bar">
   <h2>Menu bar</h2>
   <p>File, Edit and View menus for editor screens, such as a question paper or a certificate. Menus hold actions, tick items that switch something on and off, dot items that pick one of a group, and submenus. Ticks and dots change without closing the menu. Left and Right move along the bar, Down opens a menu, Escape closes it, and a letter jumps to the item that starts with it.</p>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#menu--family">menus family</a>: every menu side by side.</span></p>
   <div class="doc-example" data-layout="block">
     <div style="max-width: 40rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: hidden">
       <ul class="xz-menubar" data-xz-menubar aria-label="Question paper" id="mb-demo">
@@ -579,7 +591,7 @@
 <!-- ================= DUAL LIST ================= -->
 <section class="doc-section" id="dual-list">
   <h2>Dual list</h2>
-  <p>Pick items into a second list and put them in order: the columns a table shows, the learners in a batch, the subjects on a report card. The markup is a set of checkboxes, so the form sends the choice even without the script. With it, click to select, Shift and Ctrl to select more, double-click or Enter to move, and Alt with Up or Down to reorder.</p>
+  <p>Pick items into a second list and put them in order: the columns a table shows, the learners in a batch, the subjects on a report card. The markup is a set of checkboxes, so the form sends the choice even without the script. With it, click to select, Shift and Ctrl to select more, double-click or Enter to move, and Alt with Up or Down to reorder. Both lists keep one height and scroll inside it, so moving items never moves the page.</p>
   <div class="doc-example" data-layout="block">
     <fieldset class="xz-duallist" data-xz-duallist data-xz-labels="Hidden|Shown" data-xz-buttons="Show|Hide|Up|Down" style="max-width: 36rem">
       <legend>Columns in the fee table</legend>
@@ -606,12 +618,48 @@
   </table></div>
 </section>
 
-<!-- ================= READOUTS ================= -->
+<!-- ================= RAIL SIDEBAR ================= -->
+<section class="doc-section" id="rail">
+  <h2>Rail sidebar</h2>
+  <p>The sidebar as a column of icons, for tool screens that need the room. Each link keeps its words for screen readers; a tooltip shows them to everyone else. <code class="xz-code">data-tone</code> gives a row a coloured edge for a live state.</p>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#navigation--family">navigation family</a>: every way to move around.</span></p>
+  <div class="doc-example" data-layout="block">
+    <div style="display: flex; height: 19rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: hidden">
+      <nav class="xz-sidebar xz-sidebar--rail" aria-label="Teacher tools">
+        <div class="xz-sidebar__header"><i data-xz-icon="graduation-cap"></i></div>
+        <ul class="xz-sidebar__nav xz-sidebar__section">
+          <li><a class="xz-sidebar__link" href="#rail" aria-current="page" data-xz-tooltip="Dashboard"><i data-xz-icon="layout-dashboard"></i>Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-tone="danger" data-xz-tooltip="Live class, on air"><i data-xz-icon="radio"></i>Live class, on air</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Learners"><i data-xz-icon="users"></i>Learners</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Tests"><i data-xz-icon="list-checks"></i>Tests</a></li>
+          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Fees, 3 overdue"><i data-xz-icon="indian-rupee"></i>Fees <span class="xz-badge xz-badge--count">3</span></a></li>
+        </ul>
+        <div class="xz-sidebar__footer"><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Settings"><i data-xz-icon="settings"></i>Settings</a></div>
+      </nav>
+      <div style="flex: 1; min-width: 0; padding: var(--xz-space-5)">
+        <p class="xz-overline">Dashboard</p>
+        <p class="xz-small">The rail leaves the rest of the screen to the work. Point at an icon, or move to it with Tab, to see its name.</p>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-sidebar--rail</code></td><td>On the kit's <code>xz-sidebar</code>. The words stay in each link, hidden from sight; add <code>data-xz-tooltip</code> with the same words. Section headings become thin lines.</td></tr>
+      <tr><td><code>data-tone</code></td><td>On an <code>xz-sidebar__link</code>: <code>success</code>, <code>danger</code>, <code>warning</code> or <code>accent</code>. Say the state in the link's words too, such as "Live class, on air".</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= FAMILY: READOUTS AND LOADERS ================= -->
+<p class="doc-family-label" id="family-readouts-and-loaders">Readouts and loaders</p>
+<!-- ================= READOUTS AND TIMER ================= -->
 <section class="doc-section" id="readouts">
   <h2>Readouts and timer</h2>
   <p>Numbers and states that people read at a glance: a countdown, live class lights, a week's figures, a file before and after compression.</p>
 
   <h3 id="readouts--readout">Readout</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#cards--family">numbers family</a>: every way to show a number.</span></p>
   <p>Numbers drawn as lit segments, like a clock. Screen readers, and the page without the script, get the text itself. It shows digits, the colon, the point, the minus sign and spaces.</p>
   <div class="doc-example">
     <span class="xz-readout" data-xz-readout>01:23.40</span>
@@ -620,6 +668,7 @@
   </div>
 
   <h3 id="readouts--timer">Timer</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>The quiz has a countdown of its own, kept across reloads: see <a class="xz-link" href="components.html#quiz">Quiz</a>.</span></p>
   <p>A countdown for an activity or a test, or a stopwatch. It warns once when time is short and says "Time is up" at the end; it does not read out every second.</p>
   <div class="doc-example">
     <div class="xz-timer" data-xz-timer="300" data-xz-warn="60" role="group" aria-label="Activity timer">
@@ -642,6 +691,7 @@
   </div>
 
   <h3 id="readouts--lamps">Lamps</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#badges--family">status family</a>: every status mark side by side.</span></p>
   <p>Lights for live states. Each lamp also says its state in words, here hidden for screen readers, so colour and glow are never the only signal.</p>
   <div class="doc-example">
     <ul class="xz-lamps" aria-label="Live class">
@@ -654,6 +704,7 @@
   </div>
 
   <h3 id="readouts--readings">Readings</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#cards--family">numbers family</a>: every way to show a number.</span></p>
   <p>Small labelled figures in a grid. A bar along the bottom shows a level when you set <code class="xz-code">--xz-level</code>.</p>
   <div class="doc-example" data-layout="block">
     <dl class="xz-readings" style="max-width: 40rem">
@@ -665,6 +716,7 @@
   </div>
 
   <h3 id="readouts--change">Change bars</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#cards--family">numbers family</a>: every way to show a number.</span></p>
   <p>An amount before and after, with the change in large type. Set each bar's length with <code class="xz-code">--xz-value</code>.</p>
   <div class="doc-example">
     <div class="xz-delta" style="flex: 0 1 22rem">
@@ -675,6 +727,7 @@
   </div>
 
   <h3 id="readouts--meter">Meter</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#cards--family">numbers family</a>: every way to show a number.</span></p>
   <p>The browser's own <code class="xz-code">meter</code>, coloured by its <code class="xz-code">low</code>, <code class="xz-code">high</code> and <code class="xz-code">optimum</code> values: green when the value is good, amber when it is getting worse, red when it is bad.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-panel" style="max-width: 28rem">
@@ -701,10 +754,11 @@
   </table></div>
 </section>
 
-<!-- ================= LOADERS ================= -->
+<!-- ================= PIXEL LOADERS ================= -->
 <section class="doc-section" id="loaders">
   <h2>Pixel loaders</h2>
   <p>Nine cells that light up in a pattern while something loads, for tool screens where a spinner feels out of place. It is CSS only. With less motion, or the page's motion button off, the cells hold a still pattern. Give it <code class="xz-code">role="status"</code> and say what is loading in <code class="xz-code">aria-label</code>.</p>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#loading--family">loaders family</a>: every loader side by side.</span></p>
   <div class="doc-example">
     <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">snake</figcaption></figure>
     <figure style="display: grid; justify-items: center; gap: var(--xz-space-2); margin: 0"><span class="xz-loader xz-loader--comet" role="status" aria-label="Loading results"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><figcaption class="xz-caption">comet</figcaption></figure>
@@ -724,7 +778,9 @@
   </table></div>
 </section>
 
-<!-- ================= MEASURE ================= -->
+<!-- ================= FAMILY: PRINT AND PICTURES ================= -->
+<p class="doc-family-label" id="family-print-and-pictures">Print and pictures</p>
+<!-- ================= MEASURE AND PAPER ================= -->
 <section class="doc-section" id="measure">
   <h2>Measure and paper</h2>
   <p>For print set-ups and previews: certificates, report cards, ID cards and slides.</p>
@@ -743,7 +799,7 @@
   </div>
 
   <h3 id="measure--paper">Paper size</h3>
-  <p>Size and orientation choices that reshape the preview and fill in the sizes. It knows A3, A4, A5, Letter, Legal and ID card; give any other choice <code class="xz-code">data-mm="100x150"</code>.</p>
+  <p>Size and orientation choices that reshape the preview and fill in the sizes. It knows A3, A4, A5, Letter, Legal and ID card; give any other choice <code class="xz-code">data-mm="100x150"</code>. The stage keeps one size: the page is fitted inside it and changes shape smoothly, so nothing around it moves.</p>
   <div class="doc-example">
     <section class="xz-panel xz-paper" data-xz-paper aria-labelledby="pp-title" style="flex: 0 1 26rem">
       <header class="xz-panel__head"><i data-xz-icon="ruler" data-size="sm"></i><h4 class="xz-panel__title" id="pp-title">Certificate paper</h4></header>
@@ -800,6 +856,8 @@
       <tr><td><code>data-xz-paper</code></td><td>Around radio buttons for the size (value <code>A4</code>, or <code>data-mm="100x150"</code>) and the orientation (<code>portrait</code>, <code>landscape</code>), and an <code>xz-measure</code> to reshape.</td></tr>
       <tr><td><code>data-xz-paper-out</code></td><td><code>width</code>, <code>height</code> (in mm), <code>pixels</code> (at 96 dpi) or <code>name</code>: filled in as the choice changes.</td></tr>
       <tr><td><code>xz:paper</code></td><td>Fires on a change, with <code>size</code>, <code>orientation</code>, <code>mm</code> and <code>px</code>.</td></tr>
+      <tr><td><code>xz-paper__stage</code></td><td>Holds the <code>xz-measure</code>. It keeps its height (<code>--xz-paper-stage</code>) and the script fits the page inside it. Set <code>--xz-paper-scale</code> on it to draw the page smaller, as a zoom.</td></tr>
+      <tr><td><code>element.xzPaper</code></td><td><code>fit()</code> fits the page again after you change the stage's size or <code>--xz-paper-scale</code>; <code>update()</code> reads the choices again.</td></tr>
       <tr><td><code>xz-pagestrip</code></td><td>A <code>fieldset</code> with a <code>legend</code> (read by screen readers only) and a <code>label.xz-pagestrip__page</code> per page holding a radio, <code>__sheet</code>, <code>__num</code> and <code>__caption</code>. <code>__sheet--stack</code> shows several pages.</td></tr>
       <tr><td><code>xz-stage</code></td><td><code>__bar</code> with the name and <code>__size</code>, then <code>__view</code> (<code>--checker</code>, <code>--fill</code>) shaped by <code>--xz-ratio</code>.</td></tr>
     </tbody>
@@ -810,6 +868,7 @@
 <section class="doc-section" id="before-after">
   <h2>Before and after</h2>
   <p>Two pictures in one frame with a line between them: a scan before and after clean-up, a photo before and after a filter, a design before and after feedback. Drag anywhere on the picture, or focus it and use the arrow keys, Home and End. Without the script the two pictures sit side by side.</p>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Compares two pictures. To compare options, such as plans or prices, use <a class="xz-link" href="blocks.html#compare">Compare</a> in Blocks.</span></p>
   <div class="doc-example" data-layout="block">
     <figure class="xz-beforeafter" data-xz-beforeafter data-xz-before="Scanned" data-xz-after="Cleaned" aria-label="Answer sheet, scanned and cleaned" style="max-width: 40rem">
       <img src="media/scan-before.svg" alt="Answer sheet as scanned: yellowed paper and faint pencil">
@@ -829,12 +888,15 @@
   </table></div>
 </section>
 
+<!-- ================= FAMILY: COLOUR, MATHS AND TEXT ================= -->
+<p class="doc-family-label" id="family-colour-maths-and-text">Colour, maths and text</p>
 <!-- ================= COLOUR ================= -->
 <section class="doc-section" id="colour">
   <h2>Colour</h2>
   <p>For brand colours, themes and anything people colour in: a field that takes any colour, swatches, shades worked out from one colour, a contrast check and a full picker. The maths runs in OKLCH, so shades step evenly to the eye.</p>
 
   <h3 id="colour--field">Colour field</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#inputs--family">inputs family</a>: every input side by side.</span></p>
   <p>A swatch that opens the system picker, a box that takes any CSS colour (hex, <code class="xz-code">rgb()</code>, <code class="xz-code">hsl()</code>, <code class="xz-code">oklch()</code> or a name) and, in browsers that have one, an eyedropper. Set the value it writes with <code class="xz-code">data-xz-color="oklch"</code>.</p>
   <div class="doc-example">
     <div class="xz-field" style="flex: 1 1 16rem; max-width: 20rem">
@@ -932,6 +994,7 @@
   </table></div>
 
   <h3 id="maths--field">Maths field and keypad</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#inputs--family">inputs family</a>: every input side by side.</span></p>
   <p>An answer box that draws the notation as you type, and a keypad for phones and for anyone who does not know the typed forms. Keys type at the caret; a selection goes inside the brackets of a key such as √. While the keypad is open, phones keep their own keyboard away.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-mathfield" data-xz-mathfield style="max-width: 32rem">
@@ -979,6 +1042,7 @@ print(f"Average: {average:.1f}")</code></pre>
   </div>
 
   <h3 id="text-tools--box">Text box</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#inputs--family">inputs family</a>: every input side by side.</span></p>
   <p>A text area with paste, clear and a live count of characters and words, and a result with copy and share. Paste asks the browser for the clipboard; where it says no, a message explains Ctrl+V. Share shows only where the device can share. Pick a case below to see the result change.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-textbox" style="max-width: 36rem">
@@ -1028,38 +1092,8 @@ print(f"Average: {average:.1f}")</code></pre>
   </table></div>
 </section>
 
-<!-- ================= RAIL ================= -->
-<section class="doc-section" id="rail">
-  <h2>Rail sidebar</h2>
-  <p>The sidebar as a column of icons, for tool screens that need the room. Each link keeps its words for screen readers; a tooltip shows them to everyone else. <code class="xz-code">data-tone</code> gives a row a coloured edge for a live state.</p>
-  <div class="doc-example" data-layout="block">
-    <div style="display: flex; height: 19rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: hidden">
-      <nav class="xz-sidebar xz-sidebar--rail" aria-label="Teacher tools">
-        <div class="xz-sidebar__header"><i data-xz-icon="graduation-cap"></i></div>
-        <ul class="xz-sidebar__nav xz-sidebar__section">
-          <li><a class="xz-sidebar__link" href="#rail" aria-current="page" data-xz-tooltip="Dashboard"><i data-xz-icon="layout-dashboard"></i>Dashboard</a></li>
-          <li><a class="xz-sidebar__link" href="#rail" data-tone="danger" data-xz-tooltip="Live class, on air"><i data-xz-icon="radio"></i>Live class, on air</a></li>
-          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Learners"><i data-xz-icon="users"></i>Learners</a></li>
-          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Tests"><i data-xz-icon="list-checks"></i>Tests</a></li>
-          <li><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Fees, 3 overdue"><i data-xz-icon="indian-rupee"></i>Fees <span class="xz-badge xz-badge--count">3</span></a></li>
-        </ul>
-        <div class="xz-sidebar__footer"><a class="xz-sidebar__link" href="#rail" data-xz-tooltip="Settings"><i data-xz-icon="settings"></i>Settings</a></div>
-      </nav>
-      <div style="flex: 1; min-width: 0; padding: var(--xz-space-5)">
-        <p class="xz-overline">Dashboard</p>
-        <p class="xz-small">The rail leaves the rest of the screen to the work. Point at an icon, or move to it with Tab, to see its name.</p>
-      </div>
-    </div>
-  </div>
-  <div class="doc-table-wrap"><table class="doc-table">
-    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
-    <tbody>
-      <tr><td><code>xz-sidebar--rail</code></td><td>On the kit's <code>xz-sidebar</code>. The words stay in each link, hidden from sight; add <code>data-xz-tooltip</code> with the same words. Section headings become thin lines.</td></tr>
-      <tr><td><code>data-tone</code></td><td>On an <code>xz-sidebar__link</code>: <code>success</code>, <code>danger</code>, <code>warning</code> or <code>accent</code>. Say the state in the link's words too, such as "Live class, on air".</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
+<!-- ================= FAMILY: SCREENS ================= -->
+<p class="doc-family-label" id="family-screens">Screens</p>
 <!-- ================= SCREENS ================= -->
 <section class="doc-section" id="screens">
   <h2>Screens</h2>

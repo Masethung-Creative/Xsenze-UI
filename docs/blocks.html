@@ -83,6 +83,8 @@
 
   <h3 id="navbar">Overlay navbar</h3>
   <p>Floats over the first section, transparent at the top of the page. As soon as the page scrolls it gets a frosted background, so links never sit on top of text. With <code class="xz-code">adapt</code> it also takes the theme of the band underneath, so it turns dark over a dark band. See it on the <a class="xz-link" href="../templates/landing.html">landing page template</a>.</p>
+  <p>Scroll inside the preview: the bar turns frosted as soon as the page moves, and turns dark over the dark band at the end.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/landing.html" data-title="Overlay navbar"></div>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <div data-xz-scroll-progress></div>
     <header class="xz-navbar xz-navbar--overlay" data-xz-navbar="adapt">
@@ -115,7 +117,8 @@
   </ul>
 
   <h3 id="progress">Scroll progress</h3>
-  <p>A thin bar in the brand colour across the top of the screen that fills as the page is read. Use one per page.</p>
+  <p>A thin bar in the brand colour across the top of the screen that fills as the page is read. Use one per page. Scroll inside the preview and watch the line at the very top.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/landing.html" data-title="Scroll progress" data-device="phone"></div>
   <textarea class="doc-snippet" data-lang="html" hidden><div data-xz-scroll-progress></div></textarea>
   <ul>
     <li><strong>Options:</strong> none. The script adds <code>xz-scroll-progress</code> and sets <code>--xz-progress</code> from 0 to 1.</li>
@@ -405,6 +408,7 @@
   <ul><li><strong>Accessibility:</strong> the lines are decoration and hidden from screen readers, so the targets' own labels must make sense without them.</li></ul>
 
   <h3 id="compare">Compare</h3>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Compares options. To compare two pictures, use <a class="xz-link" href="tools.html#before-after">Before and after</a> in Tools.</span></p>
   <p>Options for one job, ranked, with the chosen one marked and a result line. On its own it shows the finished comparison. Inside a <a class="xz-link" href="#sequence">Sequence</a> the rows arrive one by one and the pick lights up at the end.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-window" data-xz-sequence="220" data-xz-loop="5000">
@@ -531,6 +535,14 @@
 
   <h3 id="sequence">Sequence</h3>
   <p>Plays a small scripted demo when a third of it is on screen: each step arrives in turn, then the group is marked done. Components such as Compare, Ledger and Checklist style those states.</p>
+  <div class="doc-example" data-layout="block">
+    <ol class="xz-checklist" data-xz-sequence="420" data-xz-loop="4000" aria-label="Close the day" style="max-width: 22rem">
+      <li class="xz-checklist__item is-done" data-xz-step><span class="xz-checklist__icon"><i data-xz-icon="wallet"></i></span>collect term fees</li>
+      <li class="xz-checklist__item is-done" data-xz-step><span class="xz-checklist__icon"><i data-xz-icon="mail"></i></span>remind late payers</li>
+      <li class="xz-checklist__item is-done" data-xz-step><span class="xz-checklist__icon"><i data-xz-icon="receipt"></i></span>match bank credits</li>
+      <li class="xz-checklist__item is-done" data-xz-step><span class="xz-checklist__icon"><i data-xz-icon="chart-column"></i></span>day closed, report sent</li>
+    </ol>
+  </div>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Kind</th><th>Name</th><th>What it does</th></tr></thead>
     <tbody>
@@ -567,17 +579,38 @@
   <p>Options: <code class="xz-code">data-xz-layers="5"</code> plates (2 to 12), <code class="xz-code">--xz-layers-size</code> (10rem), <code class="xz-code">--xz-layers-gap</code> (0.85rem), and content in <code class="xz-code">xz-layers__face</code> on the top plate. The nearest <code class="xz-code">data-xz-tilt-area</code>, or else the section, tracks the pointer. With an <code class="xz-code">aria-label</code> it is announced as a picture; without one it is hidden as decoration.</p>
 
   <h3 id="depth">Depth</h3>
-  <p>Items in a long list tip back as they near the top or bottom of the screen and come flat in the middle, so scrolling feels like turning a drum. Normal scrolling is never taken over. It runs on laptops and wider, with a mouse, while motion is on; see it in the module catalogue of the <a class="xz-link" href="../templates/landing.html#modules">landing page template</a>.</p>
+  <p>Scroll this page with the cards below in view to see it. Items in a long list tip back as they near the top or bottom of the screen and come flat in the middle, so scrolling feels like turning a drum. Normal scrolling is never taken over. It runs on laptops and wider, with a mouse, while motion is on; see it in the module catalogue of the <a class="xz-link" href="../templates/landing.html#modules">landing page template</a>.</p>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <div class="xz-grid xz-grid--auto" data-xz-depth>
       <div class="xz-card">…</div>
       <div class="xz-card">…</div>
     </div>
   </textarea>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 13rem" data-xz-depth>
+      <div class="xz-card"><div class="xz-card__body"><span class="xz-card__title">Courses and lessons</span><p class="xz-caption">Modules, videos and notes</p></div></div>
+      <div class="xz-card"><div class="xz-card__body"><span class="xz-card__title">Timetable</span><p class="xz-caption">Rooms, teachers and batches</p></div></div>
+      <div class="xz-card"><div class="xz-card__body"><span class="xz-card__title">Exams and results</span><p class="xz-caption">Papers, marks and ranks</p></div></div>
+      <div class="xz-card"><div class="xz-card__body"><span class="xz-card__title">Fee collection</span><p class="xz-caption">UPI, cards and receipts</p></div></div>
+      <div class="xz-card"><div class="xz-card__body"><span class="xz-card__title">Attendance</span><p class="xz-caption">Daily, by class and batch</p></div></div>
+      <div class="xz-card"><div class="xz-card__body"><span class="xz-card__title">Certificates</span><p class="xz-caption">Made and sent in one go</p></div></div>
+    </div>
+  </div>
   <p><code class="xz-code">data-xz-depth="1"</code> sets the strength (0.2 to 2). Items are the direct children, or the elements marked <code class="xz-code">data-xz-depth-item</code>.</p>
 
   <h3 id="curtain">Curtain</h3>
-  <p>A band that opens out as it scrolls in: it starts as an inset panel with round corners, widens to full width, and its content rises a little more slowly than the page. Best on the last, dark band before the footer.</p>
+  <p>A band that opens out as it scrolls in: it starts as an inset panel with round corners, widens to full width, and its content rises a little more slowly than the page. Best on the last, dark band before the footer. Scroll the band below into view.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <section class="xz-band" data-theme="dark" data-xz-curtain aria-labelledby="curtain-demo-title">
+      <div class="xz-container">
+        <header class="xz-band__header">
+          <h2 class="xz-band__title" id="curtain-demo-title">Bring your whole campus <em>online.</em></h2>
+          <p class="xz-band__lead">Start with one module this week and add the rest when you are ready.</p>
+          <div class="xz-band__actions"><a class="xz-btn xz-btn--primary" href="#curtain">Start free</a></div>
+        </header>
+      </div>
+    </section>
+  </div>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <section class="xz-band" data-theme="dark" data-xz-curtain>
       <div class="xz-container">…</div>

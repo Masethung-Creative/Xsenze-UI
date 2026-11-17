@@ -6,11 +6,13 @@
 <link rel="icon" href="data:,">
 <title>Forms · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
+<link rel="stylesheet" href="../dist/xsenze-tools.css">
 <link rel="stylesheet" href="docs.css">
 <script src="data.generated.js" defer></script>
 <script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
+<script src="../dist/xsenze-tools.js" defer></script>
 </head>
 <body class="doc" data-page="forms">
 <a class="xz-skip-link" href="#main">Skip to content</a>
@@ -25,9 +27,13 @@
   <p class="xz-lead">Pickers, uploads and richer inputs. Each one keeps a normal form field up to date, so a plain HTML or PHP form post receives the value without any extra script.</p>
 </header>
 
+<!-- ================= FAMILY: DATES AND TIMES ================= -->
+<p class="doc-family-label" id="family-dates-and-times">Dates and times</p>
+<!-- ================= DATE PICKER ================= -->
 <section class="doc-section" id="date">
   <h2>Date picker</h2>
-  <p>People can type a date as DD/MM/YYYY or pick it from the calendar. The hidden field holds the value as YYYY-MM-DD, which is what your server should read.</p>
+  <p>People can type a date as DD/MM/YYYY or pick it from the calendar. The hidden field holds the value as YYYY-MM-DD, which is what your server should read. The calendar always shows six weeks, so it keeps its size from month to month.</p>
+  <p class="doc-family-note"><i data-xz-icon="layers" data-size="sm"></i><span>Part of the <a class="xz-link" href="components.html#inputs--family">inputs family</a>: every input side by side.</span></p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field" style="max-width: 20rem">
       <label class="xz-label" for="dp-start">Batch start date</label>
@@ -69,6 +75,7 @@
   <p><strong>Keyboard:</strong> Down arrow in the field opens the calendar. Arrow keys move by day and week, Page Up and Page Down by month, Home and End to the ends of the week, Enter chooses, Escape closes.</p>
 </section>
 
+<!-- ================= TIME PICKER ================= -->
 <section class="doc-section" id="time">
   <h2>Time picker</h2>
   <p>A list of times at a fixed step. People can also type a time such as 2:30 pm, 230pm or 14:30. The hidden field holds 24-hour HH:MM.</p>
@@ -94,39 +101,20 @@
   </table></div>
 </section>
 
-<section class="doc-section" id="upload">
-  <h2>File upload</h2>
-  <p>People can drag files in or browse for them. Files that are the wrong type or too large are listed with the reason and are not sent. The real file input always matches the list.</p>
-  <div class="doc-example" data-layout="stack">
-    <div class="xz-field">
-      <span class="xz-label" id="dz-label">ID proof</span>
-      <div class="xz-dropzone" data-xz-dropzone data-xz-max-size="5" data-xz-max-files="3">
-        <input class="xz-sr-only" id="dz-file" name="documents[]" type="file" multiple accept=".pdf,image/jpeg,image/png" aria-labelledby="dz-label">
-        <label class="xz-dropzone__area" for="dz-file">
-          <i data-xz-icon="cloud-upload" data-size="lg"></i>
-          <span class="xz-dropzone__title">Drag files here or <u>browse</u></span>
-          <span class="xz-dropzone__hint">PDF, JPG or PNG. Up to 3 files, 5 MB each.</span>
-        </label>
-        <ul class="xz-dropzone__list"></ul>
-      </div>
-    </div>
-  </div>
-  <div class="doc-table-wrap"><table class="doc-table">
-    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
-    <tbody>
-      <tr><td><code>accept</code> on the input</td><td>Allowed types, such as <code>.pdf,image/*</code>. Also checked for dropped files.</td></tr>
-      <tr><td><code>multiple</code> on the input</td><td>Allows more than one file. Without it, a new file replaces the old one.</td></tr>
-      <tr><td><code>data-xz-max-size</code></td><td>Largest allowed file in MB.</td></tr>
-      <tr><td><code>data-xz-max-files</code></td><td>Most files allowed.</td></tr>
-      <tr><td><code>xz:files</code> event</td><td>Fires with <code>event.detail.files</code> and <code>event.detail.rejected</code>.</td></tr>
-    </tbody>
-  </table></div>
-  <p>Check the type and size again on the server. Browser checks help people, but they can be bypassed.</p>
-</section>
-
+<!-- ================= FAMILY: NUMBERS AND RANGES ================= -->
+<p class="doc-family-label" id="family-numbers-and-ranges">Numbers and ranges</p>
+<!-- ================= SLIDER ================= -->
 <section class="doc-section" id="slider">
   <h2>Slider</h2>
   <p>Use a slider when the rough position matters more than the exact number, such as a budget or a pass mark. Link an <code class="xz-code">output</code> to show the value.</p>
+  <h3 id="slider--family">Every slider</h3>
+  <div class="doc-example" data-layout="block" data-code="off">
+    <ul class="doc-family" aria-label="Sliders">
+      <li class="is-here"><div class="doc-family__sample" inert><input class="xz-slider" type="range" value="60" style="width: 8rem"></div><a class="doc-family__name xz-link" href="#slider">Slider</a><span class="doc-family__where">Forms</span></li>
+      <li><div class="doc-family__sample" inert><input class="xz-slider xz-slider--fader" type="range" value="60" style="width: 8rem"></div><a class="doc-family__name xz-link" href="tools.html#panel--fader">Fader</a><span class="doc-family__where">Tools</span></li>
+      <li><div class="doc-family__sample" inert><input class="xz-slider xz-slider--fader" type="range" value="30" style="width: 8rem; --xz-fader-track: linear-gradient(to right, #db2777, #db5200, #ca8a04, #16a34a, #0891b2, #2563eb, #9333ea)"></div><a class="doc-family__name xz-link" href="tools.html#colour--picker">Colour fader</a><span class="doc-family__where">Tools</span></li>
+    </ul>
+  </div>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field" style="max-width: 24rem">
       <div class="xz-slider-head">
@@ -146,9 +134,18 @@
   </div>
 </section>
 
+<!-- ================= NUMBER STEPPER ================= -->
 <section class="doc-section" id="stepper">
   <h2>Number stepper</h2>
   <p>For small whole numbers that people adjust by one or two, such as seats or copies. The buttons stop at the minimum and maximum.</p>
+  <h3 id="stepper--family">Every number input</h3>
+  <div class="doc-example" data-layout="block" data-code="off">
+    <ul class="doc-family" aria-label="Number inputs">
+      <li class="is-here"><div class="doc-family__sample" inert><div class="xz-stepper"><button type="button" class="xz-stepper__btn"><i data-xz-icon="minus" data-size="sm"></i></button><input class="xz-input" type="number" value="40"><button type="button" class="xz-stepper__btn"><i data-xz-icon="plus" data-size="sm"></i></button></div></div><a class="doc-family__name xz-link" href="#stepper">Number stepper</a><span class="doc-family__where">Forms</span></li>
+      <li><div class="doc-family__sample" inert><div class="xz-stepper xz-numfield"><button class="xz-stepper__btn" type="button"><i data-xz-icon="minus" data-size="sm"></i></button><span class="xz-numfield__box"><input class="xz-numfield__input" type="number" value="90"><span class="xz-numfield__unit">min</span></span><button class="xz-stepper__btn" type="button"><i data-xz-icon="plus" data-size="sm"></i></button></div></div><a class="doc-family__name xz-link" href="tools.html#panel--number">Number field</a><span class="doc-family__where">Tools</span></li>
+      <li><div class="doc-family__sample" inert><div class="xz-stepper xz-numfield xz-numfield--big" style="width: 10rem; min-height: 4.5rem"><button class="xz-stepper__btn" type="button" style="width: 2.5rem"><i data-xz-icon="minus"></i></button><span class="xz-numfield__box"><input class="xz-numfield__input" type="number" value="25" style="font-size: var(--xz-font-size-2xl)"><span class="xz-numfield__unit">questions</span></span><button class="xz-stepper__btn" type="button" style="width: 2.5rem"><i data-xz-icon="plus"></i></button></div></div><a class="doc-family__name xz-link" href="tools.html#panel--number">Big number field</a><span class="doc-family__where">Tools</span></li>
+    </ul>
+  </div>
   <div class="doc-example">
     <div class="xz-field">
       <label class="xz-label" for="st-seats">Seats</label>
@@ -161,6 +158,7 @@
   </div>
 </section>
 
+<!-- ================= RATING ================= -->
 <section class="doc-section" id="rating">
   <h2>Rating</h2>
   <p>Five radio buttons drawn as stars, so it works with the keyboard and in a form post. Use the static version to show a rating that cannot be changed.</p>
@@ -182,6 +180,9 @@
   </div>
 </section>
 
+<!-- ================= FAMILY: TEXT ENTRY ================= -->
+<p class="doc-family-label" id="family-text-entry">Text entry</p>
+<!-- ================= ONE-TIME CODE ================= -->
 <section class="doc-section" id="otp">
   <h2>One-time code</h2>
   <p>One box per digit. Typing moves to the next box, Backspace moves back, and a pasted or auto-filled code fills every box. The hidden field holds the full code.</p>
@@ -203,6 +204,7 @@
   <p>The wrapper fires <code class="xz-code">xz:otp-complete</code> with <code class="xz-code">event.detail.value</code> when every box is filled, so you can submit the form at once.</p>
 </section>
 
+<!-- ================= TAG INPUT ================= -->
 <section class="doc-section" id="tags">
   <h2>Tag input</h2>
   <p>Type a word and press Enter or comma to add it. Backspace in an empty field removes the last tag. The hidden field holds the tags separated by commas.</p>
@@ -218,6 +220,7 @@
   </div>
 </section>
 
+<!-- ================= RICH TEXT EDITOR ================= -->
 <section class="doc-section" id="editor">
   <h2>Rich text editor</h2>
   <p>A small editor for descriptions and notes: bold, italic, underline, a heading, lists and links. The hidden textarea holds clean HTML with only those tags. Pasted text comes in as plain text.</p>
@@ -248,6 +251,47 @@
   </div>
   <p>Clean the HTML again on the server before you store or show it. <code class="xz-code">Xsenze.sanitize(html)</code> applies the same rules in the browser: it keeps bold, italic, underline, paragraphs, line breaks, lists, list items, h3 headings, quotes (<code class="xz-code">blockquote</code>), code (<code class="xz-code">pre</code>, <code class="xz-code">code</code>) and links to web or email addresses, and removes every other tag and attribute. If your server keeps its own list of allowed tags, add <code class="xz-code">blockquote</code>, <code class="xz-code">pre</code> and <code class="xz-code">code</code> to it.</p>
   <p>To show the saved text, put it inside an element with <code class="xz-code">xz-prose</code>; see <a class="xz-link" href="foundations.html#typography--long-text">Long text</a>.</p>
+</section>
+
+<!-- ================= FAMILY: FILES ================= -->
+<p class="doc-family-label" id="family-files">Files</p>
+<!-- ================= FILE UPLOAD ================= -->
+<section class="doc-section" id="upload">
+  <h2>File upload</h2>
+  <p>People can drag files in or browse for them. Files that are the wrong type or too large are listed with the reason and are not sent. The real file input always matches the list.</p>
+  <h3 id="upload--family">Every way to add a file</h3>
+  <div class="doc-example" data-layout="block" data-code="off">
+    <ul class="doc-family" aria-label="Upload">
+      <li class="is-here"><div class="doc-family__sample" inert><i data-xz-icon="cloud-upload" data-size="xl"></i></div><a class="doc-family__name xz-link" href="#upload">Drop zone</a><span class="doc-family__where">Forms</span></li>
+      <li><div class="doc-family__sample" inert><span class="xz-filefield" data-xz-filefield-ready style="width: 100%; padding: 0"><span class="xz-filefield__label">Logo</span><span class="xz-filefield__btn">Choose</span></span></div><a class="doc-family__name xz-link" href="tools.html#panel--file">File field</a><span class="doc-family__where">Tools</span></li>
+      <li><div class="doc-family__sample" inert><i data-xz-icon="paperclip" data-size="xl"></i></div><a class="doc-family__name xz-link" href="components.html#chat">Chat attachments</a><span class="doc-family__where">Components › Chat</span></li>
+    </ul>
+  </div>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <span class="xz-label" id="dz-label">ID proof</span>
+      <div class="xz-dropzone" data-xz-dropzone data-xz-max-size="5" data-xz-max-files="3">
+        <input class="xz-sr-only" id="dz-file" name="documents[]" type="file" multiple accept=".pdf,image/jpeg,image/png" aria-labelledby="dz-label">
+        <label class="xz-dropzone__area" for="dz-file">
+          <i data-xz-icon="cloud-upload" data-size="lg"></i>
+          <span class="xz-dropzone__title">Drag files here or <u>browse</u></span>
+          <span class="xz-dropzone__hint">PDF, JPG or PNG. Up to 3 files, 5 MB each.</span>
+        </label>
+        <ul class="xz-dropzone__list"></ul>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>accept</code> on the input</td><td>Allowed types, such as <code>.pdf,image/*</code>. Also checked for dropped files.</td></tr>
+      <tr><td><code>multiple</code> on the input</td><td>Allows more than one file. Without it, a new file replaces the old one.</td></tr>
+      <tr><td><code>data-xz-max-size</code></td><td>Largest allowed file in MB.</td></tr>
+      <tr><td><code>data-xz-max-files</code></td><td>Most files allowed.</td></tr>
+      <tr><td><code>xz:files</code> event</td><td>Fires with <code>event.detail.files</code> and <code>event.detail.rejected</code>.</td></tr>
+    </tbody>
+  </table></div>
+  <p>Check the type and size again on the server. Browser checks help people, but they can be bypassed.</p>
 </section>
 
 </main>
