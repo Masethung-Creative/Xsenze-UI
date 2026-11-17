@@ -240,22 +240,30 @@ function initShades(root, init) {
       renderShades(list, steps, init);
       if (emit) fire(el, 'xz:shades', { shades: steps.map(({ step, hex }) => ({ step, hex })) });
     };
+    // Moving the hue fader from here also tells the kit's slider script, which redraws its fill and output.
+    let quiet = false;
+    const setHue = (c) => {
+      if (!hueInput || !c) return;
+      hueInput.value = String(Math.round(toOklch(c).h));
+      quiet = true;
+      hueInput.dispatchEvent(new Event('input'));
+      quiet = false;
+    };
     if (hueInput) {
-      const c = parse(base);
-      if (c && !hueInput.hasAttribute('value')) hueInput.value = String(Math.round(toOklch(c).h));
-      hueInput.addEventListener('input', () => draw(true));
+      if (!hueInput.hasAttribute('value')) setHue(parse(base));
+      hueInput.addEventListener('input', () => !quiet && draw(true));
     }
     const source = el.dataset.xzShadesFor && document.querySelector(el.dataset.xzShadesFor);
     source?.addEventListener('xz:color', (e) => {
       base = e.detail.hex;
-      if (hueInput) hueInput.value = String(Math.round(toOklch(e.detail.color).h));
+      setHue(e.detail.color);
       draw(true);
     });
     el.xzShades = {
       set(v) {
         if (!parse(v)) return;
         base = v;
-        if (hueInput) hueInput.value = String(Math.round(toOklch(parse(v)).h));
+        setHue(parse(v));
         draw(true);
       },
       value: () => steps.map(({ step, hex }) => ({ step, hex })),

@@ -2,7 +2,7 @@
 // The markup is a fieldset of checkboxes, so a form gets the chosen values without the script.
 // With it, two listboxes: click, Shift+click and Ctrl+click select; Enter or a double click moves;
 // Alt+Up and Alt+Down reorder the chosen list. The checkboxes stay in the form, ticked and in order.
-import { $, $$, ready, fire, nextId } from '../shared.js';
+import { $$, ready, fire, nextId } from '../shared.js';
 
 export function initDuallists(root, { icon }) {
   for (const el of $$('[data-xz-duallist]', root)) {
@@ -71,7 +71,8 @@ export function initDuallists(root, { icon }) {
 
     const sync = (changed = []) => {
       for (const s of [avail, chosen]) s.count.textContent = String(optionsIn(s.list).length);
-      // The form sends the ticked boxes in the chosen order, then the rest.
+      // The form sends the ticked boxes in the chosen order, then the rest. Only the hidden labels move,
+      // never the lists, so the list in use keeps the keyboard focus.
       const order = [...optionsIn(chosen.list), ...optionsIn(avail.list)];
       for (const li of order) {
         const box = li.xzBox;
@@ -80,9 +81,8 @@ export function initDuallists(root, { icon }) {
           box.checked = on;
           changed.push(box);
         }
-        el.append(box.parentElement);
+        body.before(box.parentElement);
       }
-      el.append(body, actions, summary, status);
       const names = optionsIn(chosen.list).map(nameOf);
       summary.textContent = names.length ? names.join(' / ') : el.dataset.xzEmpty || 'Nothing chosen';
       const selAvail = selected(avail.list).length;

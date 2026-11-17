@@ -24,7 +24,7 @@
 .xz-pagestrip__page { position: relative; display: flex; flex: none; flex-direction: column; gap: var(--xz-space-1); width: var(--xz-page-width, 5.5rem); cursor: pointer; scroll-snap-align: start; }
 .xz-pagestrip__page input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
 .xz-pagestrip__sheet { display: grid; place-items: center; aspect-ratio: var(--xz-ratio, 210 / 297); overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); transition: box-shadow var(--xz-duration-fast) var(--xz-ease-out), border-color var(--xz-duration-fast) var(--xz-ease-out); }
-.xz-pagestrip__sheet > :is(img, svg, video) { width: 100%; height: 100%; object-fit: cover; }
+.xz-pagestrip__sheet > :is(img, video, svg:not(.xz-icon)) { width: 100%; height: 100%; object-fit: cover; }
 .xz-pagestrip__sheet--stack { box-shadow: 3px 3px 0 -1px var(--xz-surface), 3px 3px 0 0 var(--xz-border), 6px 6px 0 -1px var(--xz-surface), 6px 6px 0 0 var(--xz-border); }
 .xz-pagestrip__page:hover .xz-pagestrip__sheet { border-color: var(--xz-border-control); }
 .xz-pagestrip__page:has(input:checked) .xz-pagestrip__sheet { border-color: var(--xz-accent-2); box-shadow: 0 0 0 1px var(--xz-accent-2); }
@@ -39,7 +39,7 @@
 .xz-stage__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-3); min-height: 2.25rem; padding: 0 var(--xz-space-3); background: var(--xz-surface-2); border-bottom: 1px solid var(--xz-border); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
 .xz-stage__size { font-family: var(--xz-font-mono); font-weight: var(--xz-font-weight-regular); font-variant-numeric: tabular-nums; }
 .xz-stage__view { position: relative; display: grid; place-items: center; min-height: 10rem; padding: var(--xz-space-4); aspect-ratio: var(--xz-ratio, auto); overflow: hidden; }
-.xz-stage__view > :is(img, video, canvas, svg) { max-width: 100%; max-height: 100%; }
+.xz-stage__view > :is(img, video, canvas, svg:not(.xz-icon)) { max-width: 100%; max-height: 100%; }
 .xz-stage__view--checker { background: repeating-conic-gradient(var(--xz-surface-2) 0 25%, var(--xz-surface) 0 50%) 0 0 / 16px 16px; }
 .xz-stage__view--fill { padding: 0; }
-.xz-stage__view--fill > :is(img, video, canvas, svg) { width: 100%; height: 100%; object-fit: cover; }
+.xz-stage__view--fill > :is(img, video, canvas, svg:not(.xz-icon)) { width: 100%; height: 100%; object-fit: cover; }

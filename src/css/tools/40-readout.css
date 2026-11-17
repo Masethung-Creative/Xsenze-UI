@@ -17,7 +17,7 @@
 .xz-timer { display: inline-flex; flex-direction: column; align-items: center; gap: var(--xz-space-4); }
 .xz-timer__controls { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-2); }
 .xz-panel .xz-timer { display: flex; gap: 0; align-items: stretch; }
-.xz-panel .xz-timer > .xz-readout { justify-content: center; padding: var(--xz-space-6) var(--xz-panel-pad); }
+.xz-panel .xz-timer > .xz-readout { justify-content: center; padding: var(--xz-space-6) var(--xz-panel-pad, var(--xz-space-4)); }
 .xz-panel .xz-timer > * + * { border-top: 1px solid var(--xz-border); }
 
 /* Lamps: lights for live states, such as recording, microphone and camera. Each lamp says its state in words too. */
@@ -56,7 +56,7 @@
 .xz-delta__change--down { color: var(--xz-success-text); }
 .xz-delta__change--up { color: var(--xz-danger-text); }
 .xz-delta__bar { display: flex; align-items: center; gap: var(--xz-space-2); width: var(--xz-value, 100%); min-width: max-content; max-width: 100%; min-height: 2rem; padding: 0 var(--xz-space-3); background: var(--xz-surface-3); color: var(--xz-text); font-size: var(--xz-font-size-xs); white-space: nowrap; }
-.xz-delta__bar strong { font-family: var(--xz-font-mono); font-weight: var(--xz-font-weight-semibold); }
+.xz-delta__bar strong { color: inherit; font-family: var(--xz-font-mono); font-weight: var(--xz-font-weight-semibold); }
 .xz-delta__bar--after { background: var(--xz-accent); color: var(--xz-on-accent); }
 
 /* Meter: the native meter element, coloured by its low, high and optimum values. */

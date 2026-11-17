@@ -4,10 +4,10 @@ import { $, $$, ready, fire } from '../shared.js';
 const target = (btn, attr) => document.querySelector(btn.getAttribute(attr) || '') || btn.closest('.xz-textbox')?.querySelector('textarea, input');
 const segmenter = (granularity) => (typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity }) : null);
 const graphemes = segmenter('grapheme');
-const wordSeg = segmenter('word');
 /** Letters as people see them: क्षि is one, not four code points. */
 export const letters = (s) => (graphemes ? [...graphemes.segment(s)].map((x) => x.segment) : [...s]);
-const wordCount = (s) => (wordSeg ? [...wordSeg.segment(s)].filter((x) => x.isWordLike).length : (s.trim().match(/\S+/g) || []).length);
+// Words are runs of text between spaces, as in English and the Indian languages: b-14 and 6:30 count as one word each.
+const wordCount = (s) => (s.trim().match(/\S+/g) || []).length;
 const plural = (n, one) => `${n.toLocaleString('en-IN')} ${one}${n === 1 ? '' : 's'}`;
 
 function changed(field) {

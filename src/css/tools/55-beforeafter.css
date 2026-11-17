@@ -8,6 +8,8 @@
 .xz-beforeafter[data-xz-beforeafter-ready] > .xz-beforeafter__after { clip-path: inset(0 0 0 var(--xz-pos)); }
 [dir="rtl"] .xz-beforeafter[data-xz-beforeafter-ready] > .xz-beforeafter__after { clip-path: inset(0 var(--xz-pos) 0 0); }
 .xz-beforeafter[data-xz-beforeafter-ready] { cursor: ew-resize; }
+/* The line, the tags and the range sit in the pictures' cell, so a caption below stays clear. */
+.xz-beforeafter[data-xz-beforeafter-ready] > :is(.xz-beforeafter__range, .xz-beforeafter__line, .xz-beforeafter__tag) { grid-area: 1 / 1; }
 .xz-beforeafter__range { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none; -webkit-appearance: none; appearance: none; }
 .xz-beforeafter__line { position: absolute; z-index: 1; inset-block: 0; inset-inline-start: var(--xz-pos); width: 2px; margin-inline-start: -1px; background: var(--xz-surface); box-shadow: 0 0 0 1px var(--xz-shadow-color); pointer-events: none; }
 .xz-beforeafter__knob { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; background: var(--xz-surface); border: 1px solid var(--xz-border-strong); border-radius: var(--xz-radius-control); color: var(--xz-text); box-shadow: var(--xz-shadow-sm); transform: translate(-50%, -50%); }

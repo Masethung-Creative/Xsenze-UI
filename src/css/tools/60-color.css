@@ -29,11 +29,16 @@
 .xz-swatches--tall .xz-swatch { --xz-swatch-height: 7rem; align-items: center; }
 .xz-swatches--tall .xz-swatch > span { writing-mode: vertical-rl; transform: rotate(180deg); }
 .xz-swatches--tall .xz-swatch.is-base::after { inset-inline-end: 50%; margin-inline-end: -0.25rem; }
-.xz-swatch .xz-copy { flex-direction: column; align-items: inherit; gap: 2px; }
+.xz-swatch .xz-copy { place-items: end start; max-width: 100%; }
+.xz-swatch .xz-copy__idle { flex-direction: column; align-items: flex-start; gap: 2px; max-width: 100%; }
+.xz-swatches--tall .xz-swatch .xz-copy { place-items: end center; }
+.xz-swatches--tall .xz-swatch .xz-copy__idle { flex-direction: row; align-items: flex-end; }
 
 /* Shades: steps from light to dark worked out from one colour, with an optional hue fader. */
-.xz-shades { display: flex; flex-direction: column; min-width: 0; }
-.xz-shades > .xz-swatches { border-radius: var(--xz-radius-surface); }
+.xz-shades { display: flex; flex-direction: column; min-width: 0; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: clip; }
+.xz-shades > * + * { border-top: 1px solid var(--xz-border); }
+.xz-shades > .xz-swatches { border: 0; border-radius: 0; }
+.xz-shades > * + .xz-swatches { border-top: 1px solid var(--xz-border); }
 
 /* Contrast check: text on a background, the ratio, and which WCAG levels pass. */
 .xz-contrast { display: flex; flex-direction: column; min-width: 0; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); overflow: clip; }
@@ -52,6 +57,7 @@
 .xz-contrast__marks > li.is-fail { color: var(--xz-danger-text); --_mark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='square'%3E%3Cpath d='m5 5 10 10M15 5 5 15'/%3E%3C/svg%3E"); }
 .xz-contrast__marks > li:first-child { margin-inline-end: auto; color: var(--xz-text-muted); font-weight: var(--xz-font-weight-medium); }
 .xz-contrast__marks > li:first-child::before { display: none; }
+.xz-contrast__marks .xz-contrast__ratio { color: var(--xz-text); font-family: var(--xz-font-mono); font-size: inherit; }
 @media (max-width: 30rem) { .xz-contrast__fields { grid-template-columns: minmax(0, 1fr); } }
 
 /* Colour picker: a model (RGB, HSL or OKLCH), a fader for each channel and every notation to copy. */
