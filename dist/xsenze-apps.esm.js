@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit apps v0.9.0 | MIT */
+/*! Xsenze UI Kit apps v0.10.0 | MIT */
 
 // src/js/shared.js
 var $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
@@ -10,6 +10,8 @@ var ready = (el, key) => {
 };
 var fire = (el, type, detail, cancelable = false) => el.dispatchEvent(new CustomEvent(type, { bubbles: true, cancelable, detail }));
 var esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+var uid = 0;
+var nextId = (p) => `xz-${p}-s${++uid}`;
 var query = (q) => typeof matchMedia === "function" ? matchMedia(q) : { matches: false, addEventListener() {
 } };
 var reducedQuery = query("(prefers-reduced-motion: reduce)");
@@ -158,17 +160,40 @@ function messages(chat) {
   scroller.addEventListener("scroll", () => nearEnd() && (jump.hidden = true));
   jump.addEventListener("click", toEnd);
   const clean = (msg) => msg.trusted ? msg.html : H.sanitize ? H.sanitize(msg.html) : esc(msg.html);
+  const bubbles = chat.classList.contains("xz-chat--bubbles");
+  const filesHtml = (files = []) => files.length ? `<ul class="xz-files">${files.map((f) => {
+    var _a2;
+    return `<li><${f.url ? `a href="${esc(f.url)}" download` : "span"} class="xz-file"><span class="xz-file__icon">${((_a2 = H.icon) == null ? void 0 : _a2.call(H, f.icon || "file-text", { size: "sm" })) || ""}</span><span class="xz-file__body"><span class="xz-file__name">${esc(f.name)}</span>${f.meta ? `<span class="xz-file__meta">${esc(f.meta)}</span>` : ""}</span></${f.url ? "a" : "span"}></li>`;
+  }).join("")}</ul>` : "";
   const make = (msg) => {
     const li = document.createElement("li");
     const role = msg.role === "user" ? "user" : "assistant";
     li.className = `xz-message xz-message--${role}`;
+    if (msg.id) li.id = msg.id;
     const author = msg.author || (role === "user" ? "You" : "Assistant");
     const time = msg.time ? `<time class="xz-message__time">${esc(msg.time)}</time>` : "";
-    li.innerHTML = `${msg.avatar ? `<span class="xz-message__avatar" aria-hidden="true">${msg.avatar}</span>` : ""}<div class="xz-message__body"><p class="xz-sr-only">${esc(author)} said:</p><div class="xz-message__bubble${role === "assistant" ? " xz-prose xz-prose--sm" : ""}"></div>${time ? `<div class="xz-message__meta">${time}</div>` : ""}</div>`;
+    li.innerHTML = `${msg.avatar ? `<span class="xz-message__avatar" aria-hidden="true">${msg.avatar}</span>` : ""}<div class="xz-message__body">${bubbles && msg.author ? `<span class="xz-message__author" aria-hidden="true">${esc(author)}</span>` : ""}<p class="xz-sr-only">${esc(author)} said:</p><div class="xz-message__bubble${role === "assistant" && !bubbles ? " xz-prose xz-prose--sm" : ""}"></div>${filesHtml(msg.files)}${time ? `<div class="xz-message__meta">${time}</div>` : ""}</div>`;
     const bubble = li.querySelector(".xz-message__bubble");
     if (msg.html != null) bubble.innerHTML = clean(msg);
     else bubble.textContent = msg.text || "";
     return li;
+  };
+  const makeNote = (o) => {
+    var _a2;
+    const li = document.createElement("li");
+    li.className = `xz-chat__note${o.line ? " xz-chat__note--line" : o.box ? " xz-chat__note--box" : ""}${o.tone ? ` xz-chat__note--${o.tone}` : ""}`;
+    li.innerHTML = `${o.icon ? ((_a2 = H.icon) == null ? void 0 : _a2.call(H, o.icon, { size: "sm" })) || "" : ""}<span>${esc(o.text || "")}</span>`;
+    return li;
+  };
+  const fold = (li) => {
+    const bubble = li.querySelector(".xz-message__bubble");
+    if (!bubble || li.querySelector(".xz-message__more") || !(chat.hasAttribute("data-xz-fold") || li.hasAttribute("data-xz-fold"))) return;
+    bubble.classList.add("is-folded");
+    if (bubble.scrollHeight <= bubble.clientHeight + 24) return bubble.classList.remove("is-folded");
+    const more = Object.assign(document.createElement("button"), { type: "button", className: "xz-message__more", textContent: "Show more" });
+    more.setAttribute("aria-expanded", "false");
+    more.setAttribute("aria-controls", bubble.id || (bubble.id = nextId("message")));
+    bubble.after(more);
   };
   let typingRow = null;
   const api = {
@@ -176,9 +201,40 @@ function messages(chat) {
       const stick = nearEnd();
       const li = make(msg);
       list.append(li);
+      fold(li);
       after(stick || msg.role === "user");
       if (msg.role !== "user") say(`${msg.author || "Assistant"}: ${li.querySelector(".xz-message__bubble").textContent}`);
       return li;
+    },
+    /** A note in the conversation: { text, icon, tone: 'success' | 'warning' | 'danger', line: true for a day line, box: true for a framed note }. */
+    note(o) {
+      const opts = typeof o === "string" ? { text: o } : o;
+      const stick = nearEnd();
+      const li = makeNote(opts);
+      list.append(li);
+      after(stick);
+      if (!opts.line) say(opts.text || "");
+      return li;
+    },
+    /** Earlier messages go in above the others, and the messages being read stay where they are. */
+    prepend(msgs) {
+      const from = scroller.scrollHeight - scroller.scrollTop;
+      const items = [].concat(msgs).map((m) => m.note ? makeNote(m) : make(m));
+      list.prepend(...items);
+      items.forEach(fold);
+      scroller.scrollTop = scroller.scrollHeight - from;
+      return items;
+    },
+    /** Scroll to a message (an element or its id) and mark it for a moment. */
+    jumpTo(m) {
+      const li = typeof m === "string" ? document.getElementById(m) : m;
+      if (!li || !list.contains(li)) return;
+      const top = scroller.scrollTop + li.getBoundingClientRect().top - scroller.getBoundingClientRect().top - (scroller.clientHeight - li.offsetHeight) / 2;
+      scroller.scrollTo({ top, behavior: motionOn() ? "smooth" : "auto" });
+      li.classList.add("is-target");
+      setTimeout(() => li.classList.remove("is-target"), 1800);
+      li.tabIndex = -1;
+      li.focus({ preventScroll: true });
     },
     /** Write a reply bit by bit. Screen readers hear it once, when it is done. */
     stream(msg = {}) {
@@ -201,27 +257,45 @@ function messages(chat) {
         done(html) {
           li.classList.remove("is-streaming");
           if (html != null) bubble.innerHTML = clean({ ...msg, html });
+          fold(li);
           say(`${msg.author || "Assistant"}: ${bubble.textContent}`);
         }
       };
     },
-    typing(on = true) {
-      if (on && !typingRow) {
-        typingRow = Object.assign(document.createElement("li"), { className: "xz-message xz-message--assistant xz-message--typing" });
-        typingRow.innerHTML = '<div class="xz-message__body"><span class="xz-typing" role="status" aria-label="Writing a reply"><i></i><i></i><i></i></span></div>';
-        const stick = nearEnd();
-        list.append(typingRow);
-        after(stick);
-      } else if (!on && typingRow) {
-        typingRow.remove();
+    /** Typing dots while a reply is written, or a line of status in their place: typing(true, 'Checking the timetable…'). */
+    typing(on = true, label) {
+      if (!on) {
+        typingRow == null ? void 0 : typingRow.remove();
         typingRow = null;
+        return;
       }
+      const html = `<div class="xz-message__body">${label ? `<span class="xz-shimmer" role="status">${esc(label)}</span>` : '<span class="xz-typing" role="status" aria-label="Writing a reply"><i></i><i></i><i></i></span>'}</div>`;
+      if (typingRow) return void (typingRow.innerHTML = html);
+      typingRow = Object.assign(document.createElement("li"), { className: "xz-message xz-message--assistant xz-message--typing", innerHTML: html });
+      const stick = nearEnd();
+      list.append(typingRow);
+      after(stick);
     },
     scrollToEnd: toEnd
   };
   chat.xzChat = api;
   chat.addEventListener("click", (e) => {
-    var _a2, _b, _c, _d, _e;
+    var _a2, _b, _c, _d, _e, _f;
+    const more = e.target.closest(".xz-message__more");
+    if (more) {
+      const open = more.getAttribute("aria-expanded") !== "true";
+      (_a2 = document.getElementById(more.getAttribute("aria-controls"))) == null ? void 0 : _a2.classList.toggle("is-folded", !open);
+      more.setAttribute("aria-expanded", String(open));
+      more.textContent = open ? "Show less" : "Show more";
+    }
+    const re = e.target.closest(".xz-reaction");
+    if (re) {
+      const on = re.getAttribute("aria-pressed") !== "true";
+      re.setAttribute("aria-pressed", String(on));
+      const n = re.querySelector(".xz-reaction__count");
+      if (n) n.textContent = String(Math.max(0, (parseInt(n.textContent, 10) || 0) + (on ? 1 : -1)));
+      fire(chat, "xz:react", { reaction: re.getAttribute("data-xz-react") || re.textContent.trim(), on, message: re.closest(".xz-message") });
+    }
     const fb = e.target.closest("[data-xz-feedback]");
     if (fb) {
       const on = fb.getAttribute("aria-pressed") !== "true";
@@ -229,18 +303,19 @@ function messages(chat) {
       fire(chat, "xz:feedback", { value: on ? fb.getAttribute("data-xz-feedback") : null, message: fb.closest(".xz-message") });
     }
     const cp = e.target.closest("[data-xz-copy-message]");
-    if (cp) (_c = H.copy) == null ? void 0 : _c.call(H, ((_b = (_a2 = cp.closest(".xz-message")) == null ? void 0 : _a2.querySelector(".xz-message__bubble")) == null ? void 0 : _b.innerText) || "");
+    if (cp) (_d = H.copy) == null ? void 0 : _d.call(H, ((_c = (_b = cp.closest(".xz-message")) == null ? void 0 : _b.querySelector(".xz-message__bubble")) == null ? void 0 : _c.innerText) || "");
     const retry = e.target.closest("[data-xz-retry]");
     if (retry) fire(chat, "xz:retry", { message: retry.closest(".xz-message") });
     const suggest = e.target.closest("[data-xz-suggest]");
     if (suggest) {
-      const form = document.querySelector(chat.getAttribute("data-xz-chat-prompt") || "") || chat.querySelector("form[data-xz-prompt]") || ((_d = chat.parentElement) == null ? void 0 : _d.querySelector("form[data-xz-prompt]"));
+      const form = document.querySelector(chat.getAttribute("data-xz-chat-prompt") || "") || chat.querySelector("form[data-xz-prompt]") || ((_e = chat.parentElement) == null ? void 0 : _e.querySelector("form[data-xz-prompt]"));
       if (form == null ? void 0 : form.xzPrompt) {
         form.xzPrompt.value = suggest.getAttribute("data-xz-suggest") || suggest.textContent.trim();
-        (_e = form.xzSubmit) == null ? void 0 : _e.call(form);
+        (_f = form.xzSubmit) == null ? void 0 : _f.call(form);
       }
     }
   });
+  $$(".xz-message", list).forEach(fold);
   toEnd();
 }
 

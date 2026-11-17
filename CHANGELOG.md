@@ -4,7 +4,31 @@ This project follows semantic versioning.
 
 ## Unreleased
 
-- Docs: live results for Quick start and Tokens only on Get started, the colours the tools use as live swatches on Tools, and a replay of the reveal duration on Blocks, each with its own light and dark switch. Colour swatches share their borders, so a short last row no longer leaves a grey gap
+## 0.10.0 (18 Nov 2026)
+
+Every part a complete interface kit needs, checked off: a new All parts page lists the whole kit from A to Z, and 20 new parts and options fill the gaps it found.
+
+- All parts: a new docs page, first in the Docs menu. Its first section is the inventory: every part from A to Z with the page it is on, then every part a complete kit needs, grouped by kind, each marked New, Extended, In the kit, Left out or Planned, with where it lives in Xsenze. Then how to add a part to a page, the design token roles with live swatches in both themes, and the styling patterns every part follows
+- Toggle button: `aria-pressed` and `data-xz-toggle` on a button keep it pressed until it is pressed again, and fire `xz:press`. Button groups get square inner corners and a stacked style (`xz-btn-group--vertical`)
+- Input box (`xz-input-group--box`): the group draws the border, so words such as ₹ or https://, an icon, a button or a bar of tools (`--area` with `__bar`) sit inside the box with the field, which shows focus and errors as a whole
+- Side-by-side fields (`xz-field--row`, `xz-field__text`): the label and its help beside the control from 640px up, for settings pages
+- Choice cards (`xz-choice-card`): a radio or checkbox with a title and a line of detail, in a box people can click anywhere
+- Keyboard keys: `xz-kbd` is documented, and `xz-kbd-group` shows keys pressed together
+- Shimmer text (`xz-shimmer`): a line of status while work goes on. It stands still with less motion
+- List rows: `xz-list` gains a picture or icon (`__media`), actions (`__actions`), rows that open as a whole (`__link`), and the boxed, framed, muted and small styles
+- Collapsible (`details.xz-collapsible`): one section that shows and hides, with words that change with the state and a framed style. Collapsibles, accordion sections and sidebar groups now open and close with a smooth change of height in browsers that can animate it
+- Scroll area (`xz-scroll`): a box with its own thin scrollbar, named for screen readers and reachable with Tab when it scrolls. `--fade` softens the edges with more to scroll to, `--x` scrolls sideways
+- Sidebar: a button with `data-xz-sidebar-toggle` folds it to a rail of icons and back, with the names as tooltips; `data-xz-sidebar` keeps the choice; `xz:sidebar` fires. Groups of sub-pages (`details.xz-sidebar__group`, `xz-sidebar__sub`) open in place, and widen a folded sidebar first. The rail moves from the tools pack into the main stylesheet; the tools pack keeps the lit rows. Tooltips can sit at the end side (`data-xz-tooltip-place="end"`)
+- Alert dialog: `role="alertdialog"` with `xz-modal--alert` and a warning sign (`xz-modal__icon`), and `Xsenze.confirm()`, which builds one and answers `true` or `false`. Cancel has the focus and Escape answers Cancel
+- Calendar in the page: `data-xz-inline` draws the date picker's calendar in the page, always open, with or without a text box, and `data-xz-datepicker="multiple"` picks any number of dates, kept as a comma list. `xz:date` gives `dates` for them
+- File card (`xz-file`): one file with its type, size and actions, a thumbnail for pictures, a progress line while sending (`is-uploading`) and an error state
+- Steps (`xz-timeline--steps`): what a job or an assistant did, step by step, done, running or waiting, each opening to its detail
+- Charts: radar (`data-xz-chart="radar"`) and radial bars (`"radial"`), lines and areas in steps (`data-xz-chart-curve="step"`), stacks to 100% (`data-xz-chart-expand`, the tooltip still gives the amounts) and areas that fade towards the axis (`data-xz-chart-gradient`, `--xz-chart-fade`). The same options work from `Xsenze.chart()`
+- Chat: a bubbles style for chats between people (`xz-chat--bubbles`, `xz-message__author`); notes for days, status and system messages (`xz-chat__note`, `xzChat.note()`); files on a message; reactions that toggle, count and fire `xz:react`; long messages that fold behind "Show more" (`data-xz-fold`); earlier messages added above without moving the reader (`xzChat.prepend()`); `xzChat.jumpTo()` to scroll to a message and mark it; and `typing(true, 'status')` for a line of status in place of the dots. Several messages in a row from one side share one avatar
+- Templates: a one-time code screen (`templates/verify.html`), and the dashboard's sidebar now folds to icons and opens a group of sub-pages
+- Fixed: the hidden "said:" lines for screen readers in a chat no longer stretch a scrolling page around the chat
+- Docs: live results for Quick start and Tokens only on Get started, the colours the tools use as live swatches on Tools, and a replay of the reveal duration on Blocks. Colour swatches share their borders, so a short last row no longer leaves a grey gap. The home page's Explore tiles start with All parts
+- Size limits, gzipped: main script 48 KB (47.0 KB today), charts 12 KB (10.6 KB), apps 7 KB (6.0 KB). The stylesheet is 30.0 KB of its 31 KB
 
 ## 0.9.0 (18 Nov 2026)
 

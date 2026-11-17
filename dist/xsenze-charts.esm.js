@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit charts v0.9.0 | MIT */
+/*! Xsenze UI Kit charts v0.10.0 | MIT */
 
 // src/js/format.js
 var LOCALE = "en-IN";
@@ -120,7 +120,8 @@ function dirKey(e, el) {
 }
 
 // src/js/charts/index.js
-var TYPES = ["bar", "line", "area", "donut", "pie"];
+var TYPES = ["bar", "line", "area", "donut", "pie", "radar", "radial"];
+var TAU = Math.PI * 2;
 var MAX_SLICES = 8;
 var ctx2d = null;
 var textWidth = (text, font) => {
@@ -195,7 +196,7 @@ function chart(el, options = {}) {
   return el.xzChart;
 }
 function create(fig, options) {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j;
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
   fig.classList.add("xz-chart");
   const id = nextId("chart");
   const attr = (n) => fig.getAttribute(`data-xz-chart-${n}`);
@@ -204,23 +205,28 @@ function create(fig, options) {
     return v !== null && v !== "false" && v !== "off";
   };
   const type = TYPES.includes(options.type) ? options.type : TYPES.includes(fig.getAttribute("data-xz-chart")) ? fig.getAttribute("data-xz-chart") : "bar";
+  const curve = options.curve || attr("curve");
+  const expand = (_a = options.expand) != null ? _a : flag("expand");
   const cfg = {
     type,
-    round: type === "donut" || type === "pie",
-    stacked: (_a = options.stacked) != null ? _a : flag("stacked"),
-    horizontal: type === "bar" && ((_b = options.horizontal) != null ? _b : flag("horizontal")),
-    smooth: (options.curve || attr("curve")) === "smooth",
-    showValues: (_c = options.values) != null ? _c : flag("values"),
-    patterns: (_d = options.patterns) != null ? _d : flag("patterns"),
-    legend: (_e = options.legend) != null ? _e : attr("legend") !== "off",
-    zero: (_f = options.zero) != null ? _f : type === "bar" || type === "area" || attr("zero") !== "false",
-    min: (_g = options.min) != null ? _g : attr("min") !== null ? Number(attr("min")) : null,
-    max: (_h = options.max) != null ? _h : attr("max") !== null ? Number(attr("max")) : null,
+    round: type === "donut" || type === "pie" || type === "radial",
+    stacked: expand || ((_b = options.stacked) != null ? _b : flag("stacked")),
+    expand,
+    gradient: (_c = options.gradient) != null ? _c : flag("gradient"),
+    horizontal: type === "bar" && ((_d = options.horizontal) != null ? _d : flag("horizontal")),
+    curve: curve === "smooth" || curve === "step" ? curve : "",
+    showValues: (_e = options.values) != null ? _e : flag("values"),
+    patterns: (_f = options.patterns) != null ? _f : flag("patterns"),
+    legend: (_g = options.legend) != null ? _g : attr("legend") !== "off",
+    zero: (_h = options.zero) != null ? _h : type === "bar" || type === "area" || attr("zero") !== "false",
+    min: (_i = options.min) != null ? _i : attr("min") !== null ? Number(attr("min")) : null,
+    max: (_j = options.max) != null ? _j : attr("max") !== null ? Number(attr("max")) : null,
     empty: options.empty || attr("empty") || "No data to show yet."
   };
   const fmtName = options.format || attr("format") || "number";
   const fmt = formatter(fmtName);
   const axisFmt = formatter(options.axisFormat || attr("axis-format") || fmtName, { axis: true });
+  const pct = formatter("percent");
   const caption = fig.querySelector(":scope > figcaption");
   const table = fig.querySelector(":scope > table, :scope > .xz-table-wrap > table");
   const json = fig.querySelector(":scope > script.xz-chart__data");
@@ -331,19 +337,26 @@ function create(fig, options) {
       svg.setAttribute("aria-label", `${(caption == null ? void 0 : caption.textContent.trim()) || "Chart"}. ${cfg.empty}`);
       return;
     }
-    svg.innerHTML = cfg.round ? drawRound(W, H) : drawCartesian(W, H, visible, font, radius);
+    svg.innerHTML = type === "radial" ? drawRadial(W, H) : cfg.round ? drawRound(W, H) : type === "radar" ? drawRadar(W, H, visible, font) : drawCartesian(W, H, visible, font, radius);
     svg.setAttribute("aria-label", summary());
     if (active) showActive(false);
   }
   function summary() {
     const name = (caption == null ? void 0 : caption.textContent.trim()) || "Chart";
-    const kind = cfg.round ? `${cfg.type} chart` : `${cfg.horizontal ? "horizontal " : ""}${cfg.stacked ? "stacked " : ""}${cfg.type} chart`;
-    const what = cfg.round ? `${sliceList().length} parts` : `${data.labels.length} points, ${data.series.length} series`;
+    const kind = cfg.round || type === "radar" ? `${type} chart` : `${cfg.horizontal ? "horizontal " : ""}${cfg.expand ? "100% stacked " : cfg.stacked ? "stacked " : ""}${type} chart`;
+    const what = cfg.round ? `${sliceList().length} ${type === "radial" ? "rings" : "parts"}` : `${data.labels.length} points, ${data.series.length} series`;
     return `${name}. ${kind}, ${what}. Use the arrow keys to read each value.`;
   }
   function drawCartesian(W, H, visible, font, radius) {
     var _a2;
     const n = data.labels.length;
+    if (cfg.expand) {
+      const totals = data.labels.map((_, i) => visible.reduce((t, s) => {
+        var _a3;
+        return t + Math.max(0, (_a3 = s.values[i]) != null ? _a3 : 0);
+      }, 0));
+      visible = visible.map((s) => ({ ...s, raw: s.values, values: s.values.map((v, i) => v == null || !totals[i] ? null : Math.max(0, v) / totals[i]) }));
+    }
     let lo = Infinity;
     let hi = -Infinity;
     for (let i = 0; i < n; i++) {
@@ -367,8 +380,9 @@ function create(fig, options) {
     }
     if (cfg.min != null) lo = cfg.min;
     if (cfg.max != null) hi = cfg.max;
+    if (cfg.expand) [lo, hi] = [0, 1];
     const sc = scaleOf(lo, hi, { count: Math.max(3, Math.min(6, Math.floor((cfg.horizontal ? W : H) / 56))), zero: cfg.zero });
-    const tickText = sc.ticks.map(axisFmt);
+    const tickText = sc.ticks.map(cfg.expand ? formatter("percent", { axis: true }) : axisFmt);
     const catWidth = Math.max(...data.labels.map((l) => textWidth(l, font)), 0);
     const pad = 8;
     let x0;
@@ -418,6 +432,7 @@ function create(fig, options) {
       visible.forEach((s, k) => {
         out += `<g class="xz-chart__series" style="--_c:${s.color}">`;
         s.values.forEach((v, i) => {
+          var _a3;
           if (v == null) return;
           let from = 0;
           if (cfg.stacked) {
@@ -436,7 +451,7 @@ function create(fig, options) {
             const label = esc(axisFmt(v));
             out += cfg.horizontal ? `<text class="xz-chart__value" x="${round(Math.max(a, b) + 6)}" y="${round(start + bw / 2)}" dominant-baseline="middle">${label}</text>` : `<text class="xz-chart__value" x="${round(start + bw / 2)}" y="${round(Math.min(a, b) - 6)}" text-anchor="middle">${label}</text>`;
           }
-          cats[i].items.push({ s: s.i, name: s.name, color: s.color, value: v, x: cfg.horizontal ? Math.max(a, b) : start + bw / 2, y: cfg.horizontal ? start + bw / 2 : Math.min(a, b) });
+          cats[i].items.push({ s: s.i, name: s.name, color: s.color, value: v, raw: (_a3 = s.raw) == null ? void 0 : _a3[i], x: cfg.horizontal ? Math.max(a, b) : start + bw / 2, y: cfg.horizontal ? start + bw / 2 : Math.min(a, b) });
         });
         out += "</g>";
       });
@@ -453,23 +468,25 @@ function create(fig, options) {
         return { s, pts };
       });
       if (cfg.type === "area") {
-        for (const { s, pts } of layers) {
+        if (cfg.gradient) out += `<defs>${layers.map(({ s }, k) => `<linearGradient id="${id}-g${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:${s.color};stop-opacity:var(--xz-chart-fade)"/><stop offset="1" style="stop-color:${s.color};stop-opacity:0"/></linearGradient>`).join("")}</defs>`;
+        layers.forEach(({ s, pts }, k) => {
           for (const run of runs(pts)) {
-            const top = pathOf(run.map((p) => [p.x, p.y]), cfg.smooth);
-            const bottom = pathOf(run.map((p) => [p.x, p.base]).reverse(), cfg.smooth).replace(/^M/, "L");
-            out += `<path class="xz-chart__area" d="${top}${bottom}Z" style="--_c:${s.color}"/>`;
+            const top = pathOf(run.map((p) => [p.x, p.y]), cfg.curve);
+            const bottom = pathOf(run.map((p) => [p.x, p.base]).reverse(), cfg.curve).replace(/^M/, "L");
+            out += `<path class="xz-chart__area${cfg.gradient ? " is-gradient" : ""}" d="${top}${bottom}Z" style="--_c:${s.color}${cfg.gradient ? `;fill:url(#${id}-g${k})` : ""}"/>`;
           }
-        }
+        });
       }
       layers.forEach(({ s, pts }, k) => {
+        var _a3;
         const dash = cfg.patterns ? ["", "6 4", "2 3", "10 4 2 4", "1 4", "8 3 2 3 2 3"][k % 6] : "";
         out += `<g class="xz-chart__series" style="--_c:${s.color}">`;
-        for (const run of runs(pts)) out += `<path class="xz-chart__line" pathLength="1" d="${pathOf(run.map((p) => [p.x, p.y]), cfg.smooth)}"${dash ? ` style="stroke-dasharray:${dash}"` : ""}/>`;
+        for (const run of runs(pts)) out += `<path class="xz-chart__line" pathLength="1" d="${pathOf(run.map((p) => [p.x, p.y]), cfg.curve)}"${dash ? ` style="stroke-dasharray:${dash}"` : ""}/>`;
         const showPoints = n <= 31;
         for (const p of pts) {
           if (!p) continue;
           if (showPoints) out += pointShape(p.x, p.y, cfg.patterns ? k % 4 : 0, "xz-chart__point");
-          cats[p.i].items.push({ s: s.i, name: s.name, color: s.color, value: p.v, x: p.x, y: p.y });
+          cats[p.i].items.push({ s: s.i, name: s.name, color: s.color, value: p.v, raw: (_a3 = s.raw) == null ? void 0 : _a3[p.i], x: p.x, y: p.y });
         }
         out += "</g>";
       });
@@ -504,6 +521,80 @@ function create(fig, options) {
     geom = { kind: "round", parts, cx, cy, r0, R, total };
     return out;
   }
+  function drawRadar(W, H, visible, font) {
+    var _a2;
+    const n = data.labels.length;
+    let hi = 0;
+    for (const s of visible) for (const v of s.values) if (v != null) hi = Math.max(hi, v);
+    const sc = scaleOf(0, (_a2 = cfg.max) != null ? _a2 : hi, { count: 4 });
+    const cx = W / 2;
+    const cy = H / 2;
+    const labelW = Math.max(0, ...data.labels.map((l) => textWidth(l, font)));
+    const R = Math.max(12, Math.min(W / 2 - labelW - 14, H / 2 - 20));
+    const at = (i, r) => [cx + r * Math.sin(i / n * TAU), cy - r * Math.cos(i / n * TAU)];
+    const rOf = (v) => Math.max(0, v) / (sc.hi || 1) * R;
+    const xy = (p) => `${round(p[0])},${round(p[1])}`;
+    let out = '<g class="xz-chart__grid" aria-hidden="true">';
+    for (const t of sc.ticks) {
+      if (!t) continue;
+      const [tx, ty] = at(0.5, rOf(t) * Math.cos(Math.PI / n));
+      out += `<polygon points="${data.labels.map((_, i) => xy(at(i, rOf(t)))).join(" ")}"/><text x="${round(tx)}" y="${round(ty)}" text-anchor="middle" dominant-baseline="middle">${esc(axisFmt(t))}</text>`;
+    }
+    data.labels.forEach((_, i) => {
+      const [x, y] = at(i, R);
+      out += `<line x1="${cx}" y1="${cy}" x2="${round(x)}" y2="${round(y)}"/>`;
+    });
+    out += '</g><g class="xz-chart__axis" aria-hidden="true">';
+    const cats = data.labels.map((label, i) => {
+      const [x, y] = at(i, R + 10);
+      const sin = Math.sin(i / n * TAU);
+      const cos = Math.cos(i / n * TAU);
+      out += `<text x="${round(x)}" y="${round(y)}" text-anchor="${Math.abs(sin) < 0.2 ? "middle" : sin > 0 ? "start" : "end"}" dominant-baseline="${cos > 0.3 ? "auto" : cos < -0.3 ? "hanging" : "middle"}">${esc(label)}</text>`;
+      const [ex, ey] = at(i, R);
+      return { label, i, x: ex, y: ey, items: [] };
+    });
+    out += "</g>";
+    visible.forEach((s, k) => {
+      const pts = s.values.map((v, i) => at(i, rOf(v != null ? v : 0)));
+      const dash = cfg.patterns ? ["", "6 4", "2 3", "10 4 2 4", "1 4", "8 3 2 3 2 3"][k % 6] : "";
+      out += `<g class="xz-chart__series" style="--_c:${s.color}"><polygon class="xz-chart__radar" points="${pts.map(xy).join(" ")}"${dash ? ` style="stroke-dasharray:${dash}"` : ""}/>`;
+      pts.forEach(([x, y], i) => {
+        if (s.values[i] == null) return;
+        out += pointShape(x, y, cfg.patterns ? k % 4 : 0, "xz-chart__point");
+        cats[i].items.push({ s: s.i, name: s.name, color: s.color, value: s.values[i], x, y });
+      });
+      out += "</g>";
+    });
+    out += '<g class="xz-chart__focus" aria-hidden="true"></g>';
+    geom = { kind: "radar", cats, cx, cy, R };
+    return out;
+  }
+  function drawRadial(W, H) {
+    var _a2;
+    const rings = sliceList().filter((s) => !hidden.has(s.key));
+    const max = (_a2 = cfg.max) != null ? _a2 : Math.max(0, ...rings.map((s) => s.value)) || 1;
+    const all = sliceList();
+    const cx = W / 2;
+    const cy = H / 2;
+    let r = Math.max(12, Math.min(W, H) / 2 - 6);
+    const gap = 4;
+    const size = Math.max(6, Math.min(16, (r * 0.62 - gap * (rings.length - 1)) / Math.max(1, rings.length)));
+    const parts = [];
+    let out = `${patternDefs(all.map((s) => s.color))}<g class="xz-chart__rings">`;
+    for (const s of rings) {
+      const n = all.indexOf(s);
+      const a1 = Math.min(1, s.value / max) * TAU;
+      out += `<path class="xz-chart__track" d="${arcPath(cx, cy, r - size, r, 0, TAU)}"/>`;
+      if (a1 > 1e-3) out += `<path class="xz-chart__slice" d="${arcPath(cx, cy, r - size, r, 0, a1)}" style="--_c:${s.color};fill:${fillOf(s.color, n)}"/>`;
+      parts.push({ ...s, a0: 0, a1, r0: r - size, r1: r, share: s.value / max, x: cx + (r - size / 2) * Math.sin(Math.max(a1, 0.3) / 2), y: cy - (r - size / 2) * Math.cos(Math.max(a1, 0.3) / 2) });
+      r -= size + gap;
+    }
+    out += "</g>";
+    if (parts.length === 1) out += `<g class="xz-chart__total" aria-hidden="true"><text x="${cx}" y="${cy - 4}" text-anchor="middle">${esc(pct(parts[0].share))}</text><text class="xz-chart__total-label" x="${cx}" y="${cy + 14}" text-anchor="middle">${esc(parts[0].label)}</text></g>`;
+    out += '<g class="xz-chart__focus" aria-hidden="true"></g>';
+    geom = { kind: "radial", parts, cx, cy, total: max };
+    return out;
+  }
   const focusLayer = () => svg.querySelector(".xz-chart__focus");
   function hideTip() {
     if (tipEl && tipEl.xzOwner === fig) tipEl.hidden = true;
@@ -511,6 +602,7 @@ function create(fig, options) {
     if (f) f.innerHTML = "";
   }
   function showActive(announce = true) {
+    var _a2, _b2;
     if (!geom || !active) return hideTip();
     const t = tip();
     t.xzOwner = fig;
@@ -520,12 +612,12 @@ function create(fig, options) {
     let say = "";
     let px;
     let py;
-    if (geom.kind === "round") {
+    if (geom.parts) {
       const p = geom.parts[active.i];
       if (!p) return hideTip();
       html = `<div class="xz-chart-tip__row"><i style="--_c:${p.color}"></i><span>${esc(p.label)}</span><b>${esc(fmt(p.value))}</b></div><div class="xz-chart-tip__meta">${Math.round(p.share * 1e3) / 10}% of ${esc(fmt(geom.total))}${p.parts ? ` \xB7 ${p.parts} smaller parts` : ""}</div>`;
       say = `${p.label}, ${fmt(p.value)}, ${Math.round(p.share * 100)}%`;
-      f.innerHTML = `<path class="xz-chart__ring" d="${arcPath(geom.cx, geom.cy, geom.R + 3, geom.R + 6, p.a0, p.a1)}" style="--_c:${p.color}"/>`;
+      f.innerHTML = `<path class="xz-chart__ring" d="${geom.kind === "radial" ? arcPath(geom.cx, geom.cy, p.r1 + 1, p.r1 + 3, 0, Math.max(p.a1, 0.05)) : arcPath(geom.cx, geom.cy, geom.R + 3, geom.R + 6, p.a0, p.a1)}" style="--_c:${p.color}"/>`;
       px = box.left + p.x;
       py = box.top + p.y;
     } else {
@@ -533,12 +625,20 @@ function create(fig, options) {
       if (!c) return hideTip();
       const items = c.items;
       const pick = active.s != null ? items.find((it) => it.s === active.s) : null;
-      html = `<div class="xz-chart-tip__title">${esc(c.label)}</div>${items.map((it) => `<div class="xz-chart-tip__row${pick && pick.s !== it.s ? " is-quiet" : ""}"><i style="--_c:${it.color}"></i><span>${esc(it.name)}</span><b>${esc(fmt(it.value))}</b></div>`).join("")}`;
-      if (geom.total && items.length > 1) html += `<div class="xz-chart-tip__meta">Total ${esc(fmt(items.reduce((t2, it) => t2 + it.value, 0)))}</div>`;
+      const shown = (it) => {
+        var _a3;
+        return fmt((_a3 = it.raw) != null ? _a3 : it.value) + (it.raw != null ? ` \xB7 ${pct(it.value)}` : "");
+      };
+      html = `<div class="xz-chart-tip__title">${esc(c.label)}</div>${items.map((it) => `<div class="xz-chart-tip__row${pick && pick.s !== it.s ? " is-quiet" : ""}"><i style="--_c:${it.color}"></i><span>${esc(it.name)}</span><b>${esc(shown(it))}</b></div>`).join("")}`;
+      if (geom.total && items.length > 1) html += `<div class="xz-chart-tip__meta">Total ${esc(fmt(items.reduce((t2, it) => {
+        var _a3;
+        return t2 + ((_a3 = it.raw) != null ? _a3 : it.value);
+      }, 0)))}</div>`;
       const read = pick ? [pick] : items;
-      say = `${c.label}: ${read.map((it) => `${it.name} ${fmt(it.value)}`).join(", ") || "no value"}`;
-      f.innerHTML = (geom.horizontal ? `<rect class="xz-chart__band" x="${geom.x0}" y="${c.band[0]}" width="${geom.x1 - geom.x0}" height="${c.band[1] - c.band[0]}"/>` : cfg.type === "bar" ? `<rect class="xz-chart__band" x="${c.band[0]}" y="${geom.y0}" width="${c.band[1] - c.band[0]}" height="${geom.y1 - geom.y0}"/>` : `<line class="xz-chart__guide" x1="${c.at}" x2="${c.at}" y1="${geom.y0}" y2="${geom.y1}"/>`) + (cfg.type === "bar" ? "" : items.map((it) => `<circle class="xz-chart__hit" cx="${it.x}" cy="${it.y}" r="5" style="--_c:${it.color}"/>`).join(""));
-      const anchor = pick || items.reduce((m, it) => geom.horizontal ? it.x > m.x ? it : m : it.y < m.y ? it : m, items[0] || { x: c.at, y: geom.y0 });
+      say = `${c.label}: ${read.map((it) => `${it.name} ${shown(it)}`).join(", ") || "no value"}`;
+      const far = (it) => Math.hypot(it.x - geom.cx, it.y - geom.cy);
+      f.innerHTML = (geom.kind === "radar" ? `<line class="xz-chart__guide" x1="${geom.cx}" y1="${geom.cy}" x2="${round(c.x)}" y2="${round(c.y)}"/>` : geom.horizontal ? `<rect class="xz-chart__band" x="${geom.x0}" y="${c.band[0]}" width="${geom.x1 - geom.x0}" height="${c.band[1] - c.band[0]}"/>` : cfg.type === "bar" ? `<rect class="xz-chart__band" x="${c.band[0]}" y="${geom.y0}" width="${c.band[1] - c.band[0]}" height="${geom.y1 - geom.y0}"/>` : `<line class="xz-chart__guide" x1="${c.at}" x2="${c.at}" y1="${geom.y0}" y2="${geom.y1}"/>`) + (cfg.type === "bar" ? "" : items.map((it) => `<circle class="xz-chart__hit" cx="${it.x}" cy="${it.y}" r="5" style="--_c:${it.color}"/>`).join(""));
+      const anchor = pick || items.reduce((m, it) => geom.kind === "radar" ? far(it) > far(m) ? it : m : geom.horizontal ? it.x > m.x ? it : m : it.y < m.y ? it : m, items[0] || { x: (_a2 = c.x) != null ? _a2 : c.at, y: (_b2 = c.y) != null ? _b2 : geom.y0 });
       px = box.left + anchor.x;
       py = box.top + anchor.y;
     }
@@ -548,10 +648,10 @@ function create(fig, options) {
     if (announce) live.textContent = say;
     fire(fig, "xz:point", { index: active.i, series: active.s, label: say });
   }
-  const count = () => geom ? geom.kind === "round" ? geom.parts.length : geom.cats.length : 0;
+  const count = () => geom ? (geom.parts || geom.cats).length : 0;
   const seriesAt = (i) => {
     var _a2;
-    return geom && geom.kind === "cartesian" ? (_a2 = geom.cats[i]) == null ? void 0 : _a2.items.map((it) => it.s) : [];
+    return (geom == null ? void 0 : geom.cats) ? (_a2 = geom.cats[i]) == null ? void 0 : _a2.items.map((it) => it.s) : [];
   };
   svg.addEventListener("keydown", (e) => {
     const n = count();
@@ -562,7 +662,7 @@ function create(fig, options) {
       e.preventDefault();
       i = e.key === "Home" ? 0 : e.key === "End" ? n - 1 : Math.max(0, Math.min(n - 1, i + (dir === "next" ? 1 : -1)));
       if (i < 0) i = 0;
-    } else if ((e.key === "ArrowUp" || e.key === "ArrowDown") && geom.kind === "cartesian") {
+    } else if ((e.key === "ArrowUp" || e.key === "ArrowDown") && geom.cats) {
       e.preventDefault();
       const list = seriesAt(Math.max(0, i));
       if (!list.length) return;
@@ -591,14 +691,16 @@ function create(fig, options) {
     const box = svg.getBoundingClientRect();
     const x = e.clientX - box.left;
     const y = e.clientY - box.top;
-    if (geom.kind === "round") {
+    if (geom.cx != null) {
       const dx = x - geom.cx;
       const dy = y - geom.cy;
       const d = Math.hypot(dx, dy);
-      if (d < geom.r0 || d > geom.R + 6) return null;
       let ang = Math.atan2(dx, -dy);
-      if (ang < 0) ang += Math.PI * 2;
-      const i2 = geom.parts.findIndex((p) => ang >= p.a0 && ang < p.a1);
+      if (ang < 0) ang += TAU;
+      let i2 = -1;
+      if (geom.kind === "radial") i2 = geom.parts.findIndex((p) => d >= p.r0 - 2 && d <= p.r1 + 2);
+      else if (geom.kind === "radar") i2 = d > geom.R + 24 ? -1 : Math.round(ang / (TAU / geom.cats.length)) % geom.cats.length;
+      else if (d >= geom.r0 && d <= geom.R + 6) i2 = geom.parts.findIndex((p) => ang >= p.a0 && ang < p.a1);
       return i2 < 0 ? null : { i: i2, s: null };
     }
     const at = geom.horizontal ? y : x;
@@ -628,7 +730,7 @@ function create(fig, options) {
   });
   plot.addEventListener("click", () => {
     var _a2, _b2;
-    return active && fire(fig, "xz:select", { index: active.i, label: (geom == null ? void 0 : geom.kind) === "round" ? (_a2 = geom.parts[active.i]) == null ? void 0 : _a2.label : (_b2 = geom == null ? void 0 : geom.cats[active.i]) == null ? void 0 : _b2.label });
+    return active && fire(fig, "xz:select", { index: active.i, label: (_b2 = (_a2 = (geom == null ? void 0 : geom.parts) || (geom == null ? void 0 : geom.cats)) == null ? void 0 : _a2[active.i]) == null ? void 0 : _b2.label });
   });
   const redraw = perFrame(() => {
     draw();
@@ -636,7 +738,7 @@ function create(fig, options) {
   const ro = typeof ResizeObserver === "function" ? new ResizeObserver(redraw) : null;
   ro == null ? void 0 : ro.observe(plot);
   addEventListener("resize", redraw);
-  (_j = (_i = document.fonts) == null ? void 0 : _i.ready) == null ? void 0 : _j.then(redraw);
+  (_l = (_k = document.fonts) == null ? void 0 : _k.ready) == null ? void 0 : _l.then(redraw);
   const scrollHide = () => active && document.activeElement !== svg && hideTip();
   document.addEventListener("scroll", scrollHide, true);
   let io = null;
@@ -702,10 +804,11 @@ function runs(pts) {
   if (cur.length) out.push(cur);
   return out;
 }
-function pathOf(pts, smooth) {
+function pathOf(pts, curve) {
   if (!pts.length) return "";
   const f = (p) => `${round_(p[0])} ${round_(p[1])}`;
-  if (!smooth || pts.length < 3) return `M${pts.map(f).join("L")}`;
+  if (curve === "step") return `M${f(pts[0])}${pts.slice(1).map((p, i) => `H${round_((pts[i][0] + p[0]) / 2)}V${round_(p[1])}H${round_(p[0])}`).join("")}`;
+  if (curve !== "smooth" || pts.length < 3) return `M${pts.map(f).join("L")}`;
   const n = pts.length;
   const dx = [];
   const m = [];

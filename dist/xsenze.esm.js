@@ -1,8 +1,8 @@
-/*! Xsenze UI Kit v0.9.0 | MIT */
+/*! Xsenze UI Kit v0.10.0 | MIT */
 var __defProp = Object.defineProperty;
-var __export = (target, all) => {
+var __export = (target2, all) => {
   for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+    __defProp(target2, name, { get: all[name], enumerable: true });
 };
 
 // src/js/icons.generated.js
@@ -406,14 +406,17 @@ function initDropzones(root2, icon4) {
   }
 }
 function initDatepickers(root2, icon4) {
-  var _a, _b;
+  var _a, _b, _c;
   for (const el of $$("[data-xz-datepicker]", root2)) {
     if (ready(el)) continue;
     const range = el.dataset.xzDatepicker === "range";
+    const many = el.dataset.xzDatepicker === "multiple";
+    const inline = el.hasAttribute("data-xz-inline");
     const input = el.querySelector('input:not([type="hidden"])');
     const trigger = el.querySelector("button");
     const hidden = $$('input[type="hidden"]', el);
-    if (!input) continue;
+    if (!input && !inline) continue;
+    const picks = new Set(many ? (((_a = hidden[0]) == null ? void 0 : _a.value) || "").split(",").map((s) => s.trim()).filter((s) => fromIso(s)) : []);
     const min = fromIso(el.dataset.xzMin);
     const max = fromIso(el.dataset.xzMax);
     const weekStart = el.dataset.xzWeekStart === "0" ? 0 : 1;
@@ -421,23 +424,31 @@ function initDatepickers(root2, icon4) {
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const clamp2 = (d) => min && d < min ? min : max && d > max ? max : d;
     const off = (d) => min && d < min || max && d > max;
-    let start = fromIso((_a = hidden[0]) == null ? void 0 : _a.value);
-    let end = range ? fromIso((_b = hidden[1]) == null ? void 0 : _b.value) : null;
+    let start = fromIso((_b = hidden[0]) == null ? void 0 : _b.value);
+    let end = range ? fromIso((_c = hidden[1]) == null ? void 0 : _c.value) : null;
     let cursor = clamp2(start || today);
     const panel = document.createElement("div");
     panel.className = "xz-picker xz-calendar";
-    panel.hidden = true;
-    panel.setAttribute("role", "dialog");
-    panel.setAttribute("aria-label", range ? "Choose dates" : "Choose a date");
+    panel.hidden = !inline;
+    panel.setAttribute("role", inline ? "group" : "dialog");
+    panel.setAttribute("aria-label", range || many ? "Choose dates" : "Choose a date");
+    el.classList.toggle("xz-datepicker--inline", inline);
     el.append(panel);
-    input.setAttribute("autocomplete", "off");
+    input == null ? void 0 : input.setAttribute("autocomplete", "off");
+    if (many && input) input.readOnly = true;
     trigger == null ? void 0 : trigger.setAttribute("aria-haspopup", "dialog");
     trigger == null ? void 0 : trigger.setAttribute("aria-expanded", "false");
     const write = () => {
-      input.value = start ? showDate(start) + (range && end ? ` \u2013 ${showDate(end)}` : "") : "";
+      if (many) {
+        const list = [...picks].sort();
+        if (hidden[0]) hidden[0].value = list.join(",");
+        if (input) input.value = list.length === 1 ? showDate(fromIso(list[0])) : list.length ? `${list.length} dates` : "";
+        return fire(el, "xz:date", { dates: list });
+      }
+      if (input) input.value = start ? showDate(start) + (range && end ? ` \u2013 ${showDate(end)}` : "") : "";
       if (hidden[0]) hidden[0].value = start ? toIso(start) : "";
       if (range && hidden[1]) hidden[1].value = end ? toIso(end) : "";
-      input.removeAttribute("aria-invalid");
+      input == null ? void 0 : input.removeAttribute("aria-invalid");
       fire(el, "xz:date", { start: start ? toIso(start) : "", end: end ? toIso(end) : "" });
     };
     const draw = () => {
@@ -448,14 +459,14 @@ function initDatepickers(root2, icon4) {
         rows += "<tr>";
         for (let i = 0; i < 7; i++) {
           const d = addDays(first, w * 7 + i - lead);
-          const selected = sameDay(d, start) || sameDay(d, end);
+          const selected = many ? picks.has(toIso(d)) : sameDay(d, start) || sameDay(d, end);
           const cls = ["xz-calendar__day", d.getMonth() !== cursor.getMonth() && "is-outside", sameDay(d, today) && "is-today", range && start && end && d > start && d < end && "is-in-range"].filter(Boolean).join(" ");
           rows += `<td role="gridcell"><button type="button" class="${cls}" data-date="${toIso(d)}" tabindex="${sameDay(d, cursor) ? 0 : -1}" aria-label="${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}, ${DAYS[d.getDay()]}"${selected ? ' aria-selected="true"' : ""}${off(d) ? " disabled" : ""}>${d.getDate()}</button></td>`;
         }
         rows += "</tr>";
       }
       const heads = Array.from({ length: 7 }, (_, i) => DAYS[(i + weekStart) % 7]).map((n) => `<th scope="col"><abbr title="${n}" style="text-decoration:none">${n.slice(0, 2)}</abbr></th>`).join("");
-      const hint = range ? start && !end ? "Now pick the end date" : "Pick the start date" : "";
+      const hint = range ? start && !end ? "Now pick the end date" : "Pick the start date" : many ? picks.size ? `${picks.size} chosen` : "Pick one or more dates" : "";
       panel.innerHTML = `
         <div class="xz-calendar__header">
           <button type="button" class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" data-nav="-1" aria-label="Previous month">${icon4("chevron-left", { size: "sm" })}</button>
@@ -476,7 +487,7 @@ function initDatepickers(root2, icon4) {
     const api = {
       el,
       close(focus) {
-        if (panel.hidden) return;
+        if (inline || panel.hidden) return;
         panel.hidden = true;
         trigger == null ? void 0 : trigger.setAttribute("aria-expanded", "false");
         if (openPanel === api) openPanel = null;
@@ -493,30 +504,40 @@ function initDatepickers(root2, icon4) {
       openPanel = api;
       focusCursor();
     };
+    const stay = () => {
+      draw();
+      focusCursor();
+    };
     const choose = (d) => {
       if (off(d)) return;
+      cursor = d;
+      if (many) {
+        const k = toIso(d);
+        if (!picks.delete(k)) picks.add(k);
+        write();
+        return stay();
+      }
       if (!range) {
         start = d;
         write();
-        return api.close(true);
+        return inline ? stay() : api.close(true);
       }
       if (!start || end) [start, end] = [d, null];
       else if (d < start) start = d;
       else end = d;
-      cursor = d;
       write();
-      if (end) return api.close(true);
-      draw();
-      focusCursor();
+      if (end && !inline) return api.close(true);
+      stay();
     };
     trigger == null ? void 0 : trigger.addEventListener("click", () => panel.hidden ? open() : api.close(true));
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowDown") {
+    input == null ? void 0 : input.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowDown" && !inline) {
         e.preventDefault();
         open();
       }
     });
-    input.addEventListener("change", () => {
+    input == null ? void 0 : input.addEventListener("change", () => {
+      if (many) return;
       const text = input.value.trim();
       if (!text) {
         [start, end] = [null, null];
@@ -540,12 +561,14 @@ function initDatepickers(root2, icon4) {
       } else if (e.target.closest("[data-today]")) choose(today);
       else if (e.target.closest("[data-clear]")) {
         [start, end] = [null, null];
+        picks.clear();
         write();
-        api.close(true);
+        if (inline) draw();
+        else api.close(true);
       }
     });
     panel.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && !inline) {
         e.stopPropagation();
         return api.close(true);
       }
@@ -559,7 +582,8 @@ function initDatepickers(root2, icon4) {
       focusCursor();
     });
     el.addEventListener("focusout", () => setTimeout(() => !el.contains(document.activeElement) && api.close(), 0));
-    if (start) write();
+    if (inline) draw();
+    if (start || picks.size) write();
   }
 }
 var showTime = (mins) => {
@@ -1169,9 +1193,9 @@ function menuKeys(list, close) {
   });
 }
 function initContextMenus(root2) {
-  for (const target of $$3("[data-xz-context-menu]", root2)) {
-    if (ready3(target)) continue;
-    const list = document.querySelector(target.getAttribute("data-xz-context-menu"));
+  for (const target2 of $$3("[data-xz-context-menu]", root2)) {
+    if (ready3(target2)) continue;
+    const list = document.querySelector(target2.getAttribute("data-xz-context-menu"));
     if (!list) continue;
     if (!list.dataset.xzContextReady) {
       list.dataset.xzContextReady = "1";
@@ -1201,40 +1225,40 @@ function initContextMenus(root2) {
         fire3(t, "xz:action", { action: item.dataset.action || item.textContent.trim(), item });
       });
     }
-    if (!target.hasAttribute("tabindex") && !target.matches("a, button, input, select, textarea")) target.tabIndex = 0;
-    target.setAttribute("aria-haspopup", "menu");
+    if (!target2.hasAttribute("tabindex") && !target2.matches("a, button, input, select, textarea")) target2.tabIndex = 0;
+    target2.setAttribute("aria-haspopup", "menu");
     const open = (x, y) => {
       var _a;
       openFloating({ panel: list, trigger: null, close: list.xzClose });
-      list.xzTarget = target;
+      list.xzTarget = target2;
       list.hidden = false;
       placeAt(list, x, y);
-      fire3(target, "xz:open");
+      fire3(target2, "xz:open");
       (_a = list.querySelector(".xz-menu__item:not(:disabled)")) == null ? void 0 : _a.focus({ preventScroll: true });
     };
-    target.addEventListener("contextmenu", (e) => {
+    target2.addEventListener("contextmenu", (e) => {
       e.preventDefault();
-      if (list.hidden || list.xzTarget !== target) open(e.clientX, e.clientY);
+      if (list.hidden || list.xzTarget !== target2) open(e.clientX, e.clientY);
     });
-    target.addEventListener("keydown", (e) => {
-      if (e.target !== target) return;
+    target2.addEventListener("keydown", (e) => {
+      if (e.target !== target2) return;
       if (e.key === "ContextMenu" || e.key === "F10" && e.shiftKey) {
         e.preventDefault();
-        const r = target.getBoundingClientRect();
+        const r = target2.getBoundingClientRect();
         open(r.left + 8, r.top + Math.min(r.height, 32));
       }
     });
     let timer;
     let start;
-    target.addEventListener("pointerdown", (e) => {
+    target2.addEventListener("pointerdown", (e) => {
       if (e.pointerType !== "touch") return;
       start = [e.clientX, e.clientY];
       timer = setTimeout(() => open(start[0], start[1]), 550);
     });
-    target.addEventListener("pointermove", (e) => {
+    target2.addEventListener("pointermove", (e) => {
       if (timer && start && Math.hypot(e.clientX - start[0], e.clientY - start[1]) > 10) clearTimeout(timer);
     });
-    for (const type of ["pointerup", "pointercancel"]) target.addEventListener(type, () => clearTimeout(timer));
+    for (const type of ["pointerup", "pointercancel"]) target2.addEventListener(type, () => clearTimeout(timer));
   }
 }
 var recentSearches = (name) => recentList(name ? `xz-search-recent:${name}` : "", { max: 5, same: (a, b) => a.toLowerCase() === b.toLowerCase() });
@@ -2186,8 +2210,8 @@ function setup(table, { icon: icon4, init: init2 }) {
     changed2();
   });
   const select = (what, on = true) => {
-    const target = what === "all" ? list : what === "page" ? shown : what === "none" ? rows : rows.filter((r) => [].concat(what).includes(r.tr));
-    for (const r of target) setRow(r, what === "none" ? false : on);
+    const target2 = what === "all" ? list : what === "page" ? shown : what === "none" ? rows : rows.filter((r) => [].concat(what).includes(r.tr));
+    for (const r of target2) setRow(r, what === "none" ? false : on);
     changed2();
   };
   for (const bar of bars2) {
@@ -2354,11 +2378,11 @@ function renderPager(el, { page, pages, total, from, count, go }) {
   const info = Object.assign(document.createElement("span"), { className: "xz-pagination__info", textContent: total ? `Showing ${from + 1} to ${from + count} of ${total}` : "No results" });
   info.setAttribute("aria-live", "polite");
   el.append(info);
-  const button = (label, target, { current: current2, disabled, aria } = {}) => {
+  const button = (label, target2, { current: current2, disabled, aria } = {}) => {
     const b = Object.assign(document.createElement("button"), { type: "button", className: "xz-pagination__item", textContent: label, disabled: Boolean(disabled) });
     if (aria) b.setAttribute("aria-label", aria);
     if (current2) b.setAttribute("aria-current", "page");
-    b.addEventListener("click", () => go(target));
+    b.addEventListener("click", () => go(target2));
     el.append(b);
   };
   button("\u2190", page - 1, { disabled: page <= 1, aria: "Previous page" });
@@ -2687,16 +2711,16 @@ function sharedDialog() {
   build(shared);
   return shared;
 }
-var resolveTarget = (target) => typeof target === "string" ? document.querySelector(target) : target instanceof Element ? target : null;
+var resolveTarget = (target2) => typeof target2 === "string" ? document.querySelector(target2) : target2 instanceof Element ? target2 : null;
 var command = {
-  open(target, options) {
-    const el = resolveTarget(target);
+  open(target2, options) {
+    const el = resolveTarget(target2);
     if (el) {
       if (!el.xzCommand) build(el);
       return el.xzCommand.open(options || {});
     }
     const dlg = sharedDialog();
-    return dlg.xzCommand.open(target || {});
+    return dlg.xzCommand.open(target2 || {});
   },
   close() {
     for (const d of $$2("dialog[data-xz-command][open]")) closeDialog(d);
@@ -3099,6 +3123,116 @@ function setup3(tree, icon4) {
     expandAll: () => items.forEach((it) => setOpen(it, true, true)),
     collapseAll: () => items.forEach((it) => setOpen(it, false, true))
   };
+}
+
+// src/js/layout.js
+var H = {};
+function initScrollAreas(root2) {
+  for (const el of $$2(".xz-scroll, [data-xz-scroll]", root2)) {
+    if (ready2(el, "Scroll")) continue;
+    el.classList.add("xz-scroll");
+    if (el.hasAttribute("aria-label") && !el.hasAttribute("role")) el.setAttribute("role", "region");
+    const across = () => el.classList.contains("xz-scroll--x");
+    const update2 = () => {
+      const x = across();
+      const at = x ? Math.abs(el.scrollLeft) : el.scrollTop;
+      const end = x ? el.scrollWidth - el.clientWidth : el.scrollHeight - el.clientHeight;
+      el.classList.toggle("has-before", end > 1 && at > 1);
+      el.classList.toggle("has-after", end > 1 && at < end - 1);
+      if (end > 1 && !el.hasAttribute("tabindex")) el.tabIndex = 0;
+    };
+    el.addEventListener("scroll", update2, { passive: true });
+    if (typeof ResizeObserver === "function") {
+      const ro = new ResizeObserver(update2);
+      ro.observe(el);
+      for (const child of el.children) ro.observe(child);
+    }
+    update2();
+  }
+}
+var target = (btn) => {
+  const sel = btn.getAttribute("data-xz-sidebar-toggle");
+  return sel && document.querySelector(sel) || btn.closest(".xz-sidebar") || document.querySelector(".xz-shell > .xz-sidebar");
+};
+function setSidebar(bar, rail, save) {
+  bar.classList.toggle("xz-sidebar--rail", rail);
+  for (const btn of $$2("[data-xz-sidebar-toggle]")) {
+    if (target(btn) !== bar) continue;
+    btn.setAttribute("aria-expanded", String(!rail));
+    btn.setAttribute("aria-label", rail ? "Expand the menu" : "Collapse the menu");
+    if (btn.hasAttribute("data-xz-tooltip")) btn.setAttribute("data-xz-tooltip", rail ? "Expand the menu" : "Collapse the menu");
+  }
+  for (const link of $$2(".xz-sidebar__link", bar)) {
+    if (rail && !link.hasAttribute("data-xz-tooltip")) {
+      link.setAttribute("data-xz-tooltip", link.textContent.trim());
+      link.setAttribute("data-xz-tooltip-place", "end");
+      link.setAttribute("data-xz-tip-auto", "");
+    } else if (!rail && link.hasAttribute("data-xz-tip-auto")) {
+      for (const a of ["data-xz-tooltip", "data-xz-tooltip-place", "data-xz-tip-auto"]) link.removeAttribute(a);
+    }
+  }
+  const name = bar.getAttribute("data-xz-sidebar");
+  if (save && name) store.set(`xz-sidebar:${name}`, rail ? "rail" : "full");
+  if (save) fire2(bar, "xz:sidebar", { collapsed: rail });
+}
+function initSidebars(root2) {
+  for (const btn of $$2("[data-xz-sidebar-toggle]", root2)) {
+    if (ready2(btn, "Sidebar")) continue;
+    const bar = target(btn);
+    if (!bar) continue;
+    btn.setAttribute("aria-controls", bar.id || (bar.id = nextId("sidebar")));
+    const name = bar.getAttribute("data-xz-sidebar");
+    const saved = name ? store.get(`xz-sidebar:${name}`) : null;
+    setSidebar(bar, saved ? saved === "rail" : bar.classList.contains("xz-sidebar--rail"), false);
+    btn.addEventListener("click", () => setSidebar(bar, !bar.classList.contains("xz-sidebar--rail"), true));
+    if (ready2(bar, "SidebarGroups")) continue;
+    bar.addEventListener("click", (e) => {
+      const summary = e.target.closest(".xz-sidebar__group > summary");
+      if (!summary || !bar.classList.contains("xz-sidebar--rail")) return;
+      e.preventDefault();
+      setSidebar(bar, false, true);
+      summary.parentElement.open = true;
+    });
+  }
+}
+function confirm(options = {}) {
+  const o = typeof options === "string" ? { message: options } : options;
+  const back = document.activeElement;
+  return new Promise((resolve) => {
+    var _a;
+    const dlg = document.createElement("dialog");
+    const titleId = nextId("confirm");
+    dlg.className = "xz-modal xz-modal--sm xz-modal--alert";
+    dlg.setAttribute("role", "alertdialog");
+    dlg.setAttribute("data-xz-static", "");
+    dlg.setAttribute("aria-labelledby", titleId);
+    dlg.setAttribute("aria-describedby", `${titleId}-text`);
+    const icon4 = o.danger ? ((_a = H.icon) == null ? void 0 : _a.call(H, "triangle-alert")) || "" : "";
+    dlg.innerHTML = `<div class="xz-modal__body">${icon4 ? `<span class="xz-modal__icon">${icon4}</span>` : ""}<h2 class="xz-modal__title" id="${titleId}">${esc2(o.title || "Are you sure?")}</h2><p id="${titleId}-text">${esc2(o.message || "")}</p></div><div class="xz-modal__footer"><button class="xz-btn" type="button" value="">${esc2(o.cancel || "Cancel")}</button><button class="xz-btn ${o.danger ? "xz-btn--danger" : "xz-btn--primary"}" type="button" value="ok">${esc2(o.confirm || "Continue")}</button></div>`;
+    const done = (yes) => {
+      var _a2;
+      dlg.close();
+      dlg.remove();
+      (_a2 = back == null ? void 0 : back.focus) == null ? void 0 : _a2.call(back);
+      resolve(yes);
+    };
+    dlg.addEventListener("click", (e) => {
+      const b = e.target.closest("button[value]");
+      if (b) done(b.value === "ok");
+    });
+    dlg.addEventListener("cancel", (e) => {
+      e.preventDefault();
+      done(false);
+    });
+    document.body.append(dlg);
+    dlg.showModal();
+    dlg.querySelector("button").focus();
+  });
+}
+function initLayout(root2, helpers2) {
+  H = helpers2 || H;
+  initScrollAreas(root2);
+  initSidebars(root2);
 }
 
 // src/blocks/shared.js
@@ -3703,9 +3837,9 @@ function source(btn) {
   var _a;
   const literal = btn.getAttribute("data-xz-copy");
   if (literal) return { text: literal };
-  const target = btn.hasAttribute("data-xz-copy-target") ? document.querySelector(btn.getAttribute("data-xz-copy-target")) : (_a = btn.closest(".xz-command")) == null ? void 0 : _a.querySelector(".xz-command__text");
-  if (!target) return { text: "" };
-  return { text: "value" in target && typeof target.value === "string" ? target.value : target.textContent.trim(), target };
+  const target2 = btn.hasAttribute("data-xz-copy-target") ? document.querySelector(btn.getAttribute("data-xz-copy-target")) : (_a = btn.closest(".xz-command")) == null ? void 0 : _a.querySelector(".xz-command__text");
+  if (!target2) return { text: "" };
+  return { text: "value" in target2 && typeof target2.value === "string" ? target2.value : target2.textContent.trim(), target: target2 };
 }
 function initCopy(root2, { icon: icon4 }) {
   for (const btn of $$2("[data-xz-copy]", root2)) {
@@ -3721,7 +3855,7 @@ function initCopy(root2, { icon: icon4 }) {
     btn.append(wrap);
     let timer = 0;
     btn.addEventListener("click", async () => {
-      const { text, target } = source(btn);
+      const { text, target: target2 } = source(btn);
       if (!text) return;
       const ok = await copy(text);
       clearTimeout(timer);
@@ -3731,7 +3865,7 @@ function initCopy(root2, { icon: icon4 }) {
         timer = setTimeout(() => btn.classList.remove("is-copied"), 2e3);
       } else {
         announce("Could not copy. Select the text and press Ctrl+C.");
-        if (target) getSelection().selectAllChildren(target);
+        if (target2) getSelection().selectAllChildren(target2);
       }
       fire2(btn, "xz:copy", { text, ok });
     });
@@ -3954,13 +4088,13 @@ var theme = {
     else if (attr === "auto") theme.set(matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light", { persist: false });
   }
 };
-function openDialog2(target) {
-  const el = typeof target === "string" ? $(target) : target;
+function openDialog2(target2) {
+  const el = typeof target2 === "string" ? $(target2) : target2;
   if (el && !el.open) el.showModal();
   return el;
 }
-function closeDialog2(target, value) {
-  const el = typeof target === "string" ? $(target) : target;
+function closeDialog2(target2, value) {
+  const el = typeof target2 === "string" ? $(target2) : target2;
   if (el && el.open) el.close(value);
 }
 function toast(options) {
@@ -4143,7 +4277,11 @@ function showTip(el) {
   let top = place2 === "bottom" ? r.bottom + 8 : r.top - t.height - 8;
   if (top < 4) top = r.bottom + 8;
   if (top + t.height > innerHeight - 4) top = r.top - t.height - 8;
-  const left = Math.min(Math.max(4, r.left + r.width / 2 - t.width / 2), innerWidth - t.width - 4);
+  let left = Math.min(Math.max(4, r.left + r.width / 2 - t.width / 2), innerWidth - t.width - 4);
+  if (place2 === "end") {
+    top = r.top + r.height / 2 - t.height / 2;
+    left = isRtl(el) ? r.left - t.width - 8 : r.right + 8;
+  }
   tip.style.top = `${top}px`;
   tip.style.left = `${left}px`;
   requestAnimationFrame(() => tip == null ? void 0 : tip.classList.add("is-open"));
@@ -4390,9 +4528,9 @@ function listen() {
     }
     const toaster = t.closest("[data-xz-toast]");
     if (toaster) toast({ message: toaster.getAttribute("data-xz-toast"), title: toaster.getAttribute("data-xz-toast-title") || void 0, variant: toaster.getAttribute("data-xz-toast-variant") || void 0 });
-    const pressed = t.closest("button.xz-chip[aria-pressed], .xz-btn-group[data-xz-toggle] > .xz-btn");
+    const pressed = t.closest("button.xz-chip[aria-pressed], button.xz-btn[data-xz-toggle][aria-pressed], .xz-btn-group[data-xz-toggle] > .xz-btn");
     if (pressed && !pressed.disabled) {
-      if (pressed.matches(".xz-chip")) pressed.setAttribute("aria-pressed", String(pressed.getAttribute("aria-pressed") !== "true"));
+      if (pressed.matches(".xz-chip, [data-xz-toggle]")) pressed.setAttribute("aria-pressed", String(pressed.getAttribute("aria-pressed") !== "true"));
       else for (const b of pressed.parentElement.children) b.setAttribute("aria-pressed", String(b === pressed));
       fire2(pressed, "xz:press", { pressed: pressed.getAttribute("aria-pressed") === "true" });
     }
@@ -4449,6 +4587,7 @@ function init(root2 = document) {
   initCalendars(root2, { icon: icon3 });
   initHovercards(root2);
   initTrees(root2, { icon: icon3 });
+  initLayout(root2, { icon: icon3 });
   initBlocks(root2, { icon: icon3 });
   for (const p of plugins) (_a = p.init) == null ? void 0 : _a.call(p, root2, helpers);
   started = true;
@@ -4459,7 +4598,7 @@ if (typeof document !== "undefined") {
   else init();
 }
 var Xsenze = {
-  version: "0.9.0",
+  version: "0.10.0",
   init,
   icon: icon3,
   icons: Object.keys(icons_generated_default),
@@ -4467,6 +4606,7 @@ var Xsenze = {
   modal: { open: openDialog2, close: closeDialog2 },
   drawer: { open: openDialog2, close: closeDialog2 },
   sheet: { open: openDialog2, close: closeDialog2 },
+  confirm,
   toast,
   validate,
   format: format_exports,

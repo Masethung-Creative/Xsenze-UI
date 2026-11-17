@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit v0.9.0 | MIT */
+/*! Xsenze UI Kit v0.10.0 | MIT */
 @font-face {
   font-family: "Plus Jakarta Sans Variable";
   font-style: normal;
@@ -668,8 +668,19 @@ button, input, select, textarea {
   animation: xz-spin 0.7s linear infinite;
 }
 
+/* Toggle button: stays pressed until pressed again, such as Mute or Pin. Give it aria-pressed and data-xz-toggle. */
+.xz-btn[data-xz-toggle][aria-pressed="true"] { --_bg: var(--xz-inverse); --_fg: var(--xz-on-inverse); --_bd: var(--xz-inverse); --_bg-hover: var(--xz-inverse); --_bg-active: var(--xz-inverse); }
+.xz-btn--ghost[data-xz-toggle][aria-pressed="true"] { --_bg: var(--xz-surface-3); --_fg: var(--xz-text); --_bd: transparent; --_bg-hover: var(--xz-surface-3); }
+
+/* Button group: joined buttons. Inner corners are square; --vertical stacks them. */
 .xz-btn-group { display: inline-flex; }
-.xz-btn-group > .xz-btn + .xz-btn { margin-left: -1px; }
+.xz-btn-group > .xz-btn + .xz-btn { margin-inline-start: -1px; }
+.xz-btn-group:not(.xz-btn-group--vertical) > .xz-btn:not(:first-child) { border-start-start-radius: 0; border-end-start-radius: 0; }
+.xz-btn-group:not(.xz-btn-group--vertical) > .xz-btn:not(:last-child) { border-start-end-radius: 0; border-end-end-radius: 0; }
+.xz-btn-group--vertical { flex-direction: column; }
+.xz-btn-group--vertical > .xz-btn + .xz-btn { margin: -1px 0 0; }
+.xz-btn-group--vertical > .xz-btn:not(:first-child) { border-start-start-radius: 0; border-start-end-radius: 0; }
+.xz-btn-group--vertical > .xz-btn:not(:last-child) { border-end-start-radius: 0; border-end-end-radius: 0; }
 .xz-btn-group > .xz-btn:hover, .xz-btn-group > .xz-btn:focus-visible, .xz-btn-group > .xz-btn[aria-pressed="true"] { z-index: 1; }
 .xz-btn-group > .xz-btn[aria-pressed="true"] { background: var(--xz-inverse); color: var(--xz-on-inverse); border-color: var(--xz-inverse); }
 
@@ -690,6 +701,16 @@ button, input, select, textarea {
 .xz-error { display: flex; align-items: flex-start; gap: var(--xz-space-1); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-medium); color: var(--xz-danger-text); }
 .xz-error .xz-icon { margin-top: 0.15em; }
 .xz-success-text { font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-medium); color: var(--xz-success-text); }
+/* Side by side: the label and its help on one side, the control on the other, as on settings pages.
+   Narrow screens stack them. A switch, checkbox or button sits at the end of the row. */
+.xz-field__text { display: grid; gap: var(--xz-space-1); min-width: 0; }
+.xz-field--row { display: grid; grid-template-columns: minmax(0, 1fr); align-items: center; gap: var(--xz-space-2); }
+@media (min-width: 640px) {
+  .xz-field--row { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); column-gap: var(--xz-space-6); }
+  .xz-field--row:has(> .xz-textarea) { align-items: start; }
+  .xz-field--row > :is(.xz-error, .xz-help) { grid-column: 2; }
+  .xz-field--row > :is(.xz-toggle, .xz-check, .xz-btn) { justify-self: end; }
+}
 
 .xz-input, .xz-textarea, .xz-select {
   display: block;
@@ -757,8 +778,31 @@ button, input, select, textarea {
 .xz-input-group__addon:last-child { border-left: 0; border-radius: 0 var(--xz-radius-control) var(--xz-radius-control) 0; }
 .xz-input-group > .xz-input:has(+ .xz-input-group__addon) { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .xz-input-group__kbd { position: absolute; top: 50%; right: var(--xz-space-2); transform: translateY(-50%); pointer-events: none; }
+/* Box style: the group draws the border, so words, icons, buttons and a bar can sit inside the box with the field. */
+.xz-input-group--box { align-items: center; background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); transition: border-color var(--xz-duration-fast) var(--xz-ease-out), box-shadow var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-input-group--box:hover { border-color: var(--xz-text); }
+.xz-input-group--box:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-input-group--box:has([aria-invalid="true"]) { border-color: var(--xz-danger); box-shadow: 0 0 0 1px var(--xz-danger); }
+.xz-input-group--box:has(:disabled) { background: var(--xz-disabled-bg); border-color: var(--xz-disabled-bg); color: var(--xz-disabled-text); }
+.xz-input-group--box > :is(.xz-input, .xz-textarea), .xz-input-group--box > :is(.xz-input, .xz-textarea):is(:hover, :focus, :read-only, [aria-invalid="true"]) { background: transparent; border: 0; box-shadow: none; }
+.xz-input-group--box:has(> [readonly]) { background: var(--xz-surface-2); }
+.xz-input-group--box > .xz-input { min-height: calc(var(--xz-control-md) - 2px); }
+@media (pointer: coarse) { .xz-input-group--box > .xz-input { min-height: calc(var(--xz-control-touch) - 2px); } }
+.xz-input-group--box > .xz-btn { flex: none; margin-inline-end: 3px; }
+.xz-input-group__text { flex: none; padding-inline: var(--xz-space-3); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); white-space: nowrap; }
+.xz-input-group__text + .xz-input, .xz-input-group__text + svg + .xz-input { padding-inline-start: 0; }
+.xz-input-group--box > .xz-input:has(+ .xz-input-group__text) { padding-inline-end: 0; }
+.xz-input-group--box > .xz-icon { flex: none; margin-inline-start: var(--xz-space-3); color: var(--xz-text-muted); }
+.xz-input-group--box > .xz-icon + .xz-input { padding-inline-start: var(--xz-space-2); }
+/* A text area with a bar under it for tools, a count and the send button. */
+.xz-input-group--area { flex-direction: column; align-items: stretch; }
+.xz-input-group--area > .xz-textarea { resize: none; }
+.xz-input-group__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); padding: var(--xz-space-2); border-top: 1px solid var(--xz-border); }
+.xz-input-group__bar > :last-child { margin-inline-start: auto; }
 
 .xz-kbd { border-radius: var(--xz-radius-control); display: inline-flex; align-items: center; min-height: 1.5rem; padding: 0 var(--xz-space-1); background: var(--xz-surface-2); border: 1px solid var(--xz-border); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
+/* Keys pressed together: <span class="xz-kbd-group"><kbd class="xz-kbd">Ctrl</kbd>+<kbd class="xz-kbd">K</kbd></span> */
+.xz-kbd-group { display: inline-flex; align-items: center; gap: 2px; color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); white-space: nowrap; }
 
 /* ---- checkbox, radio, toggle ---- */
 .xz-check, .xz-radio, .xz-toggle {
@@ -807,6 +851,19 @@ button, input, select, textarea {
 .xz-check input:disabled, .xz-radio input:disabled, .xz-toggle input:disabled { background-color: var(--xz-disabled-bg); border-color: var(--xz-disabled-bg); cursor: not-allowed; }
 .xz-check:has(input:disabled), .xz-radio:has(input:disabled), .xz-toggle:has(input:disabled) { color: var(--xz-disabled-text); cursor: not-allowed; }
 .xz-check__hint { display: block; color: var(--xz-text-muted); }
+
+/* Choice cards: a radio or checkbox with a title and a line of detail, in a box people can click anywhere.
+   <label class="xz-radio xz-choice-card"> <input type="radio"> <span class="xz-choice-card__body">…</span> </label> */
+.xz-choice-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--xz-space-3); }
+.xz-choice-card { display: flex; padding: var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-surface); transition: border-color var(--xz-duration-fast) var(--xz-ease-out), background var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-choice-card:hover { border-color: var(--xz-text); }
+.xz-choice-card:has(input:checked) { background: var(--xz-accent-soft); border-color: var(--xz-accent); box-shadow: inset 0 0 0 1px var(--xz-accent); }
+.xz-choice-card:has(input:focus-visible) { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-choice-card:has(input:disabled) { background: var(--xz-disabled-bg); border-color: var(--xz-disabled-bg); box-shadow: none; }
+.xz-choice-card__body { display: grid; flex: 1; gap: 2px; min-width: 0; }
+.xz-choice-card__title { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-2); font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-semibold); }
+.xz-choice-card__text { color: var(--xz-text-muted); }
+.xz-choice-card:has(input:disabled) .xz-choice-card__text { color: inherit; }
 
 .xz-fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .xz-fieldset > legend { padding: 0; margin-bottom: var(--xz-space-3); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
@@ -919,6 +976,24 @@ button, input, select, textarea {
 .xz-dropzone__meta { flex: none; color: var(--xz-text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .xz-dropzone__file.is-error .xz-dropzone__meta { color: var(--xz-danger-text); white-space: normal; text-align: right; }
 
+/* File card: one file with its type, size and actions, for attachments in chats, forms and lists.
+   is-uploading shows a progress line; is-error marks a file that could not be sent. */
+.xz-files { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); margin: 0; padding: 0; list-style: none; }
+.xz-file { position: relative; display: flex; align-items: center; gap: var(--xz-space-3); min-width: 0; max-width: 22rem; padding: var(--xz-space-2); padding-inline-end: var(--xz-space-3); overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); font-size: var(--xz-font-size-sm); text-decoration: none; }
+a.xz-file:hover { border-color: var(--xz-border-strong); }
+.xz-file__icon, .xz-file__thumb { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: var(--xz-radius-control); background: var(--xz-surface-2); color: var(--xz-text-muted); object-fit: cover; }
+.xz-file__body { display: grid; flex: 1; min-width: 0; }
+.xz-file__name { overflow: hidden; font-weight: var(--xz-font-weight-medium); text-overflow: ellipsis; white-space: nowrap; }
+.xz-file__meta { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-variant-numeric: tabular-nums; }
+.xz-file__actions { display: flex; flex: none; gap: 2px; margin-inline-end: calc(var(--xz-space-2) * -1); }
+.xz-file__progress { position: absolute; inset-inline: 0; inset-block-end: 0; width: 100%; height: 2px; margin: 0; border: 0; background: transparent; appearance: none; }
+.xz-file__progress::-webkit-progress-bar { background: transparent; }
+.xz-file__progress::-webkit-progress-value { background: var(--xz-accent-2); }
+.xz-file__progress::-moz-progress-bar { background: var(--xz-accent-2); }
+.xz-file.is-error { border-color: var(--xz-danger); }
+.xz-file.is-error .xz-file__meta { color: var(--xz-danger-text); }
+.xz-file.is-error .xz-file__icon { background: var(--xz-danger-soft); color: var(--xz-danger-text); }
+
 /* ---- date and time pickers ----
    The script pins an open panel to the viewport, so a scrolling parent cannot clip it. */
 .xz-datepicker, .xz-timepicker { position: relative; }
@@ -940,6 +1015,9 @@ button, input, select, textarea {
 .xz-calendar__day:disabled { background: transparent; color: var(--xz-disabled-text); text-decoration: line-through; cursor: not-allowed; }
 .xz-calendar__footer { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-2); margin-top: var(--xz-space-2); padding-top: var(--xz-space-2); border-top: 1px solid var(--xz-border); }
 .xz-calendar__hint { font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
+/* Inline calendar (data-xz-inline): drawn in the page and always open. */
+.xz-datepicker--inline { display: inline-grid; gap: var(--xz-space-2); max-width: 100%; }
+.xz-datepicker--inline > .xz-picker { position: static; max-width: 100%; border-color: var(--xz-border); border-radius: var(--xz-radius-surface); box-shadow: none; }
 .xz-timelist { min-width: 9rem; max-height: 15rem; margin: 0; padding: var(--xz-space-1); overflow-y: auto; list-style: none; }
 .xz-timelist__option { padding: var(--xz-space-2) var(--xz-space-3); border-radius: var(--xz-radius-sm); font-size: var(--xz-font-size-sm); font-variant-numeric: tabular-nums; white-space: nowrap; cursor: pointer; }
 .xz-timelist__option:hover, .xz-timelist__option.is-active { background: var(--xz-surface-2); }
@@ -1107,6 +1185,13 @@ span.xz-chip { cursor: default; }
 .xz-tooltip.is-open { opacity: 1; }
 
 /* ---- spinner ---- */
+/* Shimmer: a light that sweeps along a line of text while work goes on, such as "Checking the timetable…".
+   It stands still with less motion, and plain text shows in high-contrast mode. */
+.xz-shimmer { background: linear-gradient(90deg, var(--xz-text-muted) 40%, var(--xz-text) 50%, var(--xz-text-muted) 60%) 0 0 / 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: xz-shimmer-text 2.4s linear infinite; }
+@keyframes xz-shimmer-text { from { background-position: 100% 0; } to { background-position: 0 0; } }
+[data-xz-motion="off"] .xz-shimmer { animation: none; }
+@media (forced-colors: active) { .xz-shimmer { background: none; color: CanvasText; } }
+
 .xz-spinner { display: inline-block; flex: none; width: 1.25rem; height: 1.25rem; border: 2px solid var(--xz-surface-3); border-top-color: var(--xz-accent); border-radius: 50%; animation: xz-spin 0.7s linear infinite; }
 .xz-spinner--sm { width: 1rem; height: 1rem; }
 .xz-spinner--lg { width: 2rem; height: 2rem; border-width: 3px; }
@@ -1293,6 +1378,27 @@ span.xz-chip { cursor: default; }
 .xz-list__title { font-weight: var(--xz-font-weight-medium); }
 .xz-list__text { color: var(--xz-text-muted); }
 .xz-list__meta { flex: none; font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); white-space: nowrap; }
+/* List rows: a picture or icon, words and actions in one row. Plain rows have dividers; --boxed frames the list,
+   --framed frames each row, --muted tints them, --sm is tighter. A row with an xz-list__link opens as a whole. */
+.xz-list__item { position: relative; }
+.xz-list__media { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; overflow: hidden; border-radius: var(--xz-radius-control); background: var(--xz-surface-2); color: var(--xz-text-muted); }
+.xz-list__media > img { width: 100%; height: 100%; object-fit: cover; }
+.xz-list__media:has(> .xz-avatar) { background: none; }
+.xz-list__title, .xz-list__text { overflow-wrap: anywhere; }
+.xz-list__actions { position: relative; z-index: 1; display: flex; flex: none; align-items: center; gap: var(--xz-space-1); }
+.xz-list__link { color: inherit; text-decoration: none; }
+.xz-list__link::after { content: ""; position: absolute; inset: 0; }
+.xz-list__link:focus-visible { outline: none; }
+.xz-list__item:has(.xz-list__link:focus-visible) { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-list__item:has(.xz-list__link:hover) .xz-list__title { text-decoration: underline; text-underline-offset: 3px; }
+.xz-list--boxed { background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-list--boxed > .xz-list__item { padding-inline: var(--xz-space-4); }
+.xz-list--framed { display: grid; gap: var(--xz-space-2); }
+.xz-list--framed > .xz-list__item, .xz-list--framed > .xz-list__item + .xz-list__item { padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-list--muted > .xz-list__item, .xz-list--muted > .xz-list__item + .xz-list__item { background: var(--xz-surface-2); border-color: transparent; }
+:is(.xz-list--boxed, .xz-list--framed) > .xz-list__item:has(.xz-list__link:hover) { background: var(--xz-surface-2); }
+.xz-list--sm > .xz-list__item, .xz-list--sm > .xz-list__item + .xz-list__item { padding-block: var(--xz-space-2); }
+.xz-list--sm .xz-list__media { width: 2rem; height: 2rem; }
 
 /* ---- empty state ---- */
 .xz-empty { display: flex; flex-direction: column; align-items: center; gap: var(--xz-space-3); max-width: 28rem; margin-inline: auto; padding: var(--xz-space-12) var(--xz-space-6); text-align: center; }
@@ -1300,6 +1406,45 @@ span.xz-chip { cursor: default; }
 .xz-empty__title { font-family: var(--xz-font-display); font-size: var(--xz-font-size-lg); font-weight: var(--xz-font-weight-semibold); }
 .xz-empty__text { font-size: var(--xz-font-size-sm); color: var(--xz-text-muted); }
 .xz-empty__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--xz-space-2); margin-top: var(--xz-space-3); }
+
+/* ---- collapsible ---- */
+/* Collapsible: one section that shows and hides, such as "Show 4 more lessons". Built on the native details
+   element, so it works without the script and find-in-page opens it. __more and __less swap the trigger's words. */
+.xz-collapsible { min-width: 0; }
+.xz-collapsible__trigger { display: inline-flex; align-items: center; gap: var(--xz-space-2); min-height: var(--xz-control-sm); margin-inline-start: calc(var(--xz-space-2) * -1); padding: 0 var(--xz-space-2); border-radius: var(--xz-radius-control); color: var(--xz-text); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); list-style: none; cursor: pointer; }
+.xz-collapsible__trigger::-webkit-details-marker { display: none; }
+.xz-collapsible__trigger:hover { background: var(--xz-surface-2); }
+/* A chevron that turns when the section opens */
+.xz-collapsible__trigger::after, .xz-sidebar__group > summary::after { content: ""; flex: none; width: 0.4rem; height: 0.4rem; margin-block-start: -0.2rem; border: solid currentColor; border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); transition: transform var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-collapsible[open] > .xz-collapsible__trigger::after, .xz-sidebar__group[open] > summary::after { margin-block-start: 0.2rem; transform: rotate(-135deg); }
+.xz-collapsible:not([open]) .xz-collapsible__less, .xz-collapsible[open] .xz-collapsible__more { display: none; }
+.xz-collapsible__content { padding-block-start: var(--xz-space-2); }
+/* --box: the section in a frame, with the trigger as its full-width header */
+.xz-collapsible--box { background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-collapsible--box > .xz-collapsible__trigger { display: flex; justify-content: space-between; width: 100%; min-height: var(--xz-control-lg); margin: 0; padding: 0 var(--xz-space-4); }
+.xz-collapsible--box > .xz-collapsible__content { padding: 0 var(--xz-space-4) var(--xz-space-4); }
+
+/* Opening and closing ease the height in browsers that can animate it; the others open at once. */
+@supports (interpolate-size: allow-keywords) {
+  :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group) { interpolate-size: allow-keywords; }
+  :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)::details-content { height: 0; overflow: clip; transition: height var(--xz-duration-base) var(--xz-ease-out), content-visibility var(--xz-duration-base) allow-discrete; }
+  :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)[open]::details-content { height: auto; }
+  [data-xz-motion="off"] :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)::details-content { transition: none; }
+  @media (prefers-reduced-motion: reduce) { :is(.xz-collapsible, .xz-accordion__item, .xz-sidebar__group)::details-content { transition: none; } }
+}
+
+/* ---- scroll ---- */
+/* Scroll area: a box with its own thin scrollbar, for long lists inside cards, menus and side panels.
+   Name it with aria-label; the script makes it reachable with Tab when it scrolls. --x scrolls sideways,
+   --fade softens the edges that have more to scroll to. --xz-scroll-height sets the height. */
+.xz-scroll { max-height: var(--xz-scroll-height, 16rem); overflow: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--xz-border-control) transparent; }
+.xz-scroll:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-scroll--x { max-height: none; overflow-x: auto; overflow-y: hidden; }
+.xz-scroll--fade { --_s: 0px; --_e: 0px; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); mask-image: linear-gradient(to bottom, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); }
+.xz-scroll--fade.xz-scroll--x { -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); mask-image: linear-gradient(to right, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); }
+[dir="rtl"] .xz-scroll--fade.xz-scroll--x { -webkit-mask-image: linear-gradient(to left, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); mask-image: linear-gradient(to left, transparent, #000 var(--_s), #000 calc(100% - var(--_e)), transparent); }
+.xz-scroll--fade.has-before { --_s: 2rem; }
+.xz-scroll--fade.has-after { --_e: 2rem; }
 
 /* ---- components ---- */
 /* Phase 2 components: media, profile and pricing cards, segmented control, popover,
@@ -1578,7 +1723,8 @@ span.xz-chip { cursor: default; }
 /* Chat and AI pieces (behaviour in xsenze-apps.js). The look is set with the variables on .xz-chat:
    people's messages sit in a filled bubble on the end side, replies read as plain text. */
 .xz-chat { --xz-chat-user-bg: var(--xz-accent); --xz-chat-user-text: var(--xz-on-accent); --xz-chat-height: 28rem; position: relative; display: flex; flex-direction: column; min-width: 0; }
-.xz-chat__list { display: flex; flex-direction: column; gap: var(--xz-space-4); max-height: var(--xz-chat-height); margin: 0; padding: var(--xz-space-4); overflow-y: auto; overscroll-behavior: contain; list-style: none; }
+/* The list is positioned, so the hidden "said:" lines for screen readers stay inside its scroll area. */
+.xz-chat__list { position: relative; display: flex; flex-direction: column; gap: var(--xz-space-4); max-height: var(--xz-chat-height); margin: 0; padding: var(--xz-space-4); overflow-y: auto; overscroll-behavior: contain; list-style: none; }
 .xz-message { display: flex; gap: var(--xz-space-3); max-width: 100%; }
 .xz-message__avatar { flex: none; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--xz-surface-2); border: 1px solid var(--xz-border); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
 .xz-message__body { display: grid; gap: var(--xz-space-1); min-width: 0; max-width: min(42rem, 100%); }
@@ -1605,6 +1751,32 @@ span.xz-chip { cursor: default; }
 .xz-typing i:nth-child(3) { animation-delay: 0.3s; }
 @keyframes xz-typing { 0%, 60%, 100% { opacity: 0.35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
 [data-xz-motion="off"] .xz-typing i, [data-xz-motion="off"] .xz-message.is-streaming .xz-message__bubble::after { animation: none; }
+/* Several messages in a row from one side share one avatar and sit closer together. */
+:is(.xz-message--user + .xz-message--user, .xz-message--assistant + .xz-message--assistant) { margin-block-start: calc(var(--xz-space-2) - var(--xz-space-4)); }
+:is(.xz-message--user + .xz-message--user, .xz-message--assistant + .xz-message--assistant) .xz-message__avatar { visibility: hidden; }
+/* --bubbles: replies sit in bubbles too, for chats between people, such as a teacher and a learner */
+.xz-chat--bubbles .xz-message--assistant .xz-message__bubble { justify-self: start; padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); border-end-start-radius: 2px; }
+.xz-message__author { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+/* A long message folds after --xz-chat-fold, with a button to read the rest. */
+.xz-message__bubble.is-folded { max-height: var(--xz-chat-fold, 14rem); overflow: hidden; -webkit-mask-image: linear-gradient(#000 60%, transparent); mask-image: linear-gradient(#000 60%, transparent); }
+.xz-message__more { justify-self: start; padding: 0; background: none; border: 0; color: var(--xz-accent-text); font: inherit; font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.xz-message--user .xz-message__more { justify-self: end; }
+/* Reactions under a message */
+.xz-reactions { display: flex; flex-wrap: wrap; gap: var(--xz-space-1); }
+.xz-reaction { display: inline-flex; align-items: center; gap: var(--xz-space-1); min-height: 1.75rem; padding: 0 var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); font: inherit; font-size: var(--xz-font-size-xs); cursor: pointer; }
+.xz-reaction:hover { border-color: var(--xz-border-strong); }
+.xz-reaction[aria-pressed="true"] { background: var(--xz-accent-2-soft); border-color: var(--xz-accent-2-border); }
+.xz-reaction__count { color: var(--xz-text-muted); font-variant-numeric: tabular-nums; }
+/* Notes in a conversation: a day line, a status line, or a note from the system in a box. */
+.xz-chat__note { display: flex; align-items: center; justify-content: center; gap: var(--xz-space-2); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); text-align: center; }
+.xz-chat__note--line::before, .xz-chat__note--line::after { content: ""; flex: 1; border-top: 1px solid var(--xz-border); }
+.xz-chat__note--box { justify-content: flex-start; padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); text-align: start; }
+.xz-chat__note .xz-icon { flex: none; }
+.xz-chat__note--success .xz-icon { color: var(--xz-success-text); }
+.xz-chat__note--warning .xz-icon { color: var(--xz-warning-text); }
+.xz-chat__note--danger .xz-icon { color: var(--xz-danger-text); }
+/* A message the chat jumped to stands out for a moment. */
+.xz-message.is-target { border-radius: var(--xz-radius-surface); outline: 2px solid var(--xz-accent-2); outline-offset: 4px; }
 .xz-chat__latest { position: absolute; inset-block-end: var(--xz-space-4); inset-inline-start: 50%; transform: translateX(-50%); box-shadow: var(--xz-shadow-md); }
 .xz-chat__latest[hidden] { display: none; }
 .xz-chat__suggestions { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); padding: 0 var(--xz-space-4) var(--xz-space-3); }
@@ -1709,6 +1881,25 @@ span.xz-chip { cursor: default; }
 .xz-timeline--compact .xz-timeline__item { padding-block-end: var(--xz-space-3); }
 .xz-timeline--compact .xz-timeline__marker .xz-icon { width: 0.75rem; height: 0.75rem; }
 
+/* Steps: what a job or an assistant did, step by step, each with its state (done, is-running, is-waiting, failed).
+   Make the body a details element, with the title as its summary, so people can open a step to see its detail. */
+.xz-timeline--steps { --_size: 1.5rem; }
+.xz-timeline--steps .xz-timeline__item { padding-block-end: var(--xz-space-3); }
+.xz-timeline--steps .xz-timeline__marker .xz-icon { width: 0.875rem; height: 0.875rem; }
+.xz-timeline--steps .xz-timeline__marker .xz-spinner { width: 0.875rem; height: 0.875rem; border-width: 2px; }
+summary.xz-timeline__title { display: flex; align-items: center; gap: var(--xz-space-2); list-style: none; cursor: pointer; }
+summary.xz-timeline__title::-webkit-details-marker { display: none; }
+summary.xz-timeline__title::after { content: ""; flex: none; width: 0.35rem; height: 0.35rem; margin-block-start: -0.15rem; border: solid var(--xz-text-muted); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); transition: transform var(--xz-duration-fast) var(--xz-ease-out); }
+details[open] > summary.xz-timeline__title::after { margin-block-start: 0.15rem; transform: rotate(-135deg); }
+summary.xz-timeline__title .xz-timeline__time { order: 1; float: none; margin-inline-start: auto; }
+summary.xz-timeline__title::after { order: 2; }
+.xz-timeline__detail { margin-block-start: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border-radius: var(--xz-radius-control); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-timeline__detail > :first-child { margin-block-start: 0; }
+.xz-timeline__detail > :last-child { margin-block-end: 0; }
+.xz-timeline__item.is-running { --_c: var(--xz-accent-2-text); }
+.xz-timeline__item.is-waiting { --_c: var(--xz-text-subtle); }
+.xz-timeline__item.is-waiting .xz-timeline__title { color: var(--xz-text-muted); font-weight: var(--xz-font-weight-medium); }
+
 /* ---- nav ---- */
 /* ---- logo ---- */
 .xz-logo { font-family: var(--xz-font-display); display: inline-flex; align-items: center; gap: var(--xz-space-2); color: var(--xz-text); font-size: var(--xz-font-size-lg); font-weight: var(--xz-font-weight-bold); text-decoration: none; white-space: nowrap; }
@@ -1736,7 +1927,7 @@ span.xz-chip { cursor: default; }
 /* Put .xz-shell__toggle on the button that opens the navigation drawer. It hides when the sidebar shows. */
 @media (min-width: 1024px) {
   .xz-shell__toggle { display: none !important; }
-  .xz-shell { grid-template-columns: var(--xz-sidebar-width, 16rem) minmax(0, 1fr); }
+  .xz-shell { grid-template-columns: var(--xz-sidebar-width, 16rem) minmax(0, 1fr); transition: grid-template-columns var(--xz-duration-slow) var(--xz-ease-out); }
   .xz-shell > .xz-sidebar { position: sticky; top: 0; height: 100vh; height: 100dvh; }
 }
 
@@ -1756,6 +1947,31 @@ span.xz-chip { cursor: default; }
 .xz-sidebar__link .xz-badge { margin-left: auto; }
 .xz-sidebar__footer { margin-top: auto; padding: var(--xz-space-4); border-top: 1px solid var(--xz-border); }
 @media (pointer: coarse) { .xz-sidebar__link, .xz-navbar__link { min-height: var(--xz-control-touch); } }
+/* The button that folds the sidebar (data-xz-sidebar-toggle) sits at the end of the header. */
+.xz-sidebar__header { gap: var(--xz-space-2); }
+.xz-sidebar__toggle { margin-inline-start: auto; }
+/* Groups: a link that opens a list of sub-pages, on the native details element. */
+.xz-sidebar__group > summary { list-style: none; cursor: pointer; }
+.xz-sidebar__group > summary::-webkit-details-marker { display: none; }
+.xz-sidebar__group > summary::after { margin-inline-start: auto; }
+.xz-sidebar__sub { margin: 0 0 var(--xz-space-1); margin-inline-start: calc(var(--xz-space-4) + 0.55rem); padding: 0; padding-inline-start: var(--xz-space-2); border-inline-start: 1px solid var(--xz-border); list-style: none; }
+.xz-sidebar__sub .xz-sidebar__link { min-height: 2.25rem; padding-inline: var(--xz-space-3); border-radius: var(--xz-radius-control); }
+
+/* Rail: the sidebar as a column of icons. Each link keeps its words for screen readers, and the toggle's script
+   shows them as tooltips. Groups close up; opening one widens the sidebar again. */
+.xz-sidebar { transition: width var(--xz-duration-slow) var(--xz-ease-out); }
+.xz-sidebar--rail { --xz-sidebar-width: 4rem; width: var(--xz-sidebar-width); align-items: stretch; overflow-x: hidden; }
+.xz-sidebar--rail .xz-sidebar__header { justify-content: center; padding: 0; }
+.xz-sidebar--rail .xz-sidebar__header:has(> .xz-sidebar__toggle) > :not(.xz-sidebar__toggle) { display: none; }
+.xz-sidebar--rail .xz-sidebar__toggle { margin: 0; }
+.xz-sidebar--rail .xz-sidebar__heading { height: 1px; margin: var(--xz-space-2) var(--xz-space-3); padding: 0; overflow: hidden; background: var(--xz-border); color: transparent; }
+.xz-sidebar--rail .xz-sidebar__link { position: relative; justify-content: center; gap: 0; padding: 0; font-size: 0; }
+.xz-sidebar--rail .xz-sidebar__link .xz-icon { width: 1.25rem; height: 1.25rem; }
+.xz-sidebar--rail .xz-sidebar__link .xz-badge { position: absolute; top: 4px; inset-inline-end: 6px; margin: 0; font-size: 0.625rem; }
+.xz-sidebar--rail .xz-sidebar__group > summary::after, .xz-sidebar--rail .xz-sidebar__sub { display: none; }
+.xz-sidebar--rail .xz-sidebar__footer { display: flex; justify-content: center; padding: var(--xz-space-3) 0; }
+.xz-sidebar--rail .xz-sidebar__footer .xz-grow { display: none; }
+.xz-shell:has(> .xz-sidebar--rail) { --xz-sidebar-width: 4rem; }
 
 /* ---- footer ---- */
 .xz-footer { padding: var(--xz-space-10) var(--xz-gutter) var(--xz-space-6); background: var(--xz-surface); border-top: 1px solid var(--xz-border); color: var(--xz-text); font-size: var(--xz-font-size-sm); }
@@ -1788,6 +2004,12 @@ span.xz-chip { cursor: default; }
 .xz-modal__body, .xz-drawer__body { flex: 1; padding: var(--xz-space-5); overflow-y: auto; font-size: var(--xz-font-size-sm); }
 .xz-modal__footer, .xz-drawer__footer { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--xz-space-3); padding: var(--xz-space-4) var(--xz-space-5); border-top: 1px solid var(--xz-border); }
 .xz-modal__close, .xz-drawer__close { flex: none; margin: -6px -6px 0 0; }
+/* Alert dialog: asks before a step that is hard to undo. role="alertdialog" and data-xz-static, so only an answer
+   closes it; Escape answers Cancel. Xsenze.confirm() builds one. */
+.xz-modal--alert .xz-modal__body { display: grid; gap: var(--xz-space-2); padding-block: var(--xz-space-6) var(--xz-space-4); }
+.xz-modal--alert .xz-modal__body > p { margin: 0; color: var(--xz-text-muted); }
+.xz-modal--alert .xz-modal__footer { padding-top: 0; border-top: 0; }
+.xz-modal__icon { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; margin-bottom: var(--xz-space-2); border-radius: 50%; background: var(--xz-danger-soft); color: var(--xz-danger-text); }
 
 .xz-drawer { width: min(100vw, var(--xz-drawer-width, 24rem)); height: 100dvh; max-width: none; max-height: none; margin: 0 0 0 auto; border-width: 0 0 0 1px; }
 .xz-drawer[open] { display: flex; flex-direction: column; animation: xz-slide-in-right var(--xz-duration-slow) var(--xz-ease-out); }
@@ -1977,7 +2199,7 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 /* ---- charts ---- */
 /* Charts. The drawing comes from xsenze-charts.js; the table inside the figure stays for screen readers
    and shows with "Show table". Change the look with the variables on .xz-chart. */
-.xz-chart { --xz-chart-height: 16rem; --xz-chart-radius: 2px; --xz-chart-line: 2px; --xz-chart-donut: 0.36; --xz-chart-area: 0.14; --xz-chart-grid-dash: none; display: flex; flex-direction: column; gap: var(--xz-space-3); min-width: 0; margin: 0; }
+.xz-chart { --xz-chart-height: 16rem; --xz-chart-radius: 2px; --xz-chart-line: 2px; --xz-chart-donut: 0.36; --xz-chart-area: 0.14; --xz-chart-fade: 0.45; --xz-chart-grid-dash: none; display: flex; flex-direction: column; gap: var(--xz-space-3); min-width: 0; margin: 0; }
 @media (max-width: 639px) { .xz-chart { --xz-chart-height: 12rem; } }
 .xz-chart > figcaption { font-family: var(--xz-font-display); font-size: var(--xz-font-size-md); font-weight: var(--xz-font-weight-semibold); line-height: var(--xz-line-height-snug); }
 .xz-chart__plot { position: relative; height: var(--xz-chart-height); min-width: 0; }
@@ -1991,6 +2213,12 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-chart__bar { fill: var(--_c); }
 .xz-chart__line { fill: none; stroke: var(--_c); stroke-width: var(--xz-chart-line); stroke-linejoin: round; stroke-linecap: round; }
 .xz-chart__area { fill: var(--_c); fill-opacity: var(--xz-chart-area); stroke: none; }
+.xz-chart__area.is-gradient { fill-opacity: 1; }
+/* Radar: rings of the grid, and one shape per series */
+.xz-chart__grid polygon { fill: none; stroke: var(--xz-border); stroke-width: 1px; stroke-dasharray: var(--xz-chart-grid-dash); }
+.xz-chart__radar { fill: var(--_c); fill-opacity: var(--xz-chart-area); stroke: var(--_c); stroke-width: var(--xz-chart-line); stroke-linejoin: round; }
+/* Radial bars: each ring on its own track */
+.xz-chart__track { fill: var(--xz-surface-3); }
 .xz-chart__point { fill: var(--xz-surface); stroke: var(--_c); stroke-width: 2px; }
 .xz-chart__slice { fill: var(--_c); stroke: var(--xz-surface); stroke-width: 2px; stroke-linejoin: round; }
 .xz-chart__pattern-mark { fill: var(--xz-surface); stroke: var(--xz-surface); stroke-width: 1.4px; }
@@ -2039,12 +2267,14 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-chart__svg.is-horizontal.is-entering .xz-chart__bar { transform-origin: 0 50%; animation-name: xz-chart-grow-x; }
 .xz-chart__svg.is-entering .xz-chart__line { stroke-dasharray: 1 1; animation: xz-chart-draw var(--xz-duration-reveal) var(--xz-ease-out) both; }
 .xz-chart__svg.is-entering :is(.xz-chart__area, .xz-chart__point, .xz-chart__total) { animation: xz-fade-in var(--xz-duration-reveal) var(--xz-ease-out) both; }
-.xz-chart__svg.is-entering .xz-chart__slices { transform-box: fill-box; transform-origin: center; animation: xz-chart-pop var(--xz-duration-reveal) var(--xz-ease-out) both; }
+.xz-chart__svg.is-entering :is(.xz-chart__slices, .xz-chart__rings) { transform-box: fill-box; transform-origin: center; animation: xz-chart-pop var(--xz-duration-reveal) var(--xz-ease-out) both; }
+.xz-chart__svg.is-entering .xz-chart__radar { transform-box: view-box; transform-origin: center; animation: xz-chart-spread var(--xz-duration-reveal) var(--xz-ease-out) both; }
 [data-xz-motion="off"] .xz-chart__svg.is-entering * { animation: none !important; }
 @keyframes xz-chart-grow { from { transform: scaleY(0); } }
 @keyframes xz-chart-grow-x { from { transform: scaleX(0); } }
 @keyframes xz-chart-draw { from { stroke-dashoffset: 1; } }
 @keyframes xz-chart-pop { from { opacity: 0; transform: scale(0.9) rotate(-8deg); } }
+@keyframes xz-chart-spread { from { opacity: 0; transform: scale(0.4); } }
 
 /* ---- templates ---- */
 /* ---- page header ---- */

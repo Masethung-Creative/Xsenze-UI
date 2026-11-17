@@ -40,8 +40,9 @@ Goal: cover complex workflows, plus LMS, ERP and CRM needs.
 - **Done (0.7.0)** Calendar month view, hover card, timeline and tree view; chat and AI pieces and a quiz in an optional file; a docs home page built from the kit's blocks
 - **Done (0.8.0)** Tools pack in optional files: panels of rows, resizable split view, menu bar, dual list, readouts and timer, lamps, pixel loaders, measure lines and paper sizes, page strip, before and after, colour field, shades, contrast check and colour picker, maths view, answer box and keypad, code block, text tools, rail sidebar; a Tools docs page with an inventory, integration steps and design tokens; settings and certificate maker templates
 - **Done (0.9.0)** Docs: a live preview for every part, each with its own light and dark switch and, for wide parts, desktop, tablet and phone widths; parts listed by family, with galleries of every kind of a part; parts that change size (calendar, date picker, wizard, dual list, paper) hold still
-- Next (0.10.0): one docs page per component, code previews, changelog and theming pages, AI-friendly copies of the docs (llms.txt, Markdown) and a kanban board
-- Then (0.11.0): named styles and chart colours on the Create page, a collapsible section, scroll areas, and right-to-left languages
+- **Done (0.10.0)** An All parts page with the whole kit from A to Z and an inventory against a complete interface kit; toggle button, input box with words and a bar, side-by-side fields, choice cards, keyboard keys, shimmer text, list rows, collapsible, scroll area, a sidebar that folds to icons with groups, alert dialog and `Xsenze.confirm()`, a calendar in the page with several dates, file card, steps; radar and radial charts with step, 100% and fade styles; chat notes, reactions, files, folding and history; a one-time code template
+- Next (0.11.0): one docs page per component, code previews, changelog and theming pages, AI-friendly copies of the docs (llms.txt, Markdown) and a kanban board
+- Then (0.12.0): named styles and chart colours on the Create page, and right-to-left languages
 - Domain: course card, lesson player, quiz (**done in 0.7.0**), progress dashboards, attendance grid, leaderboard, certificates (**certificate maker template in 0.8.0**), approval workflow, role-based views, CSV import and export, invoices and receipts
 - Templates: onboarding, settings (**done in 0.8.0**) and profile, list and detail, multi-step forms, search results, inbox
 - Responsive: mobile behaviour for every component, swipe actions, action sheets, pull-to-refresh
@@ -52,7 +53,7 @@ Goal: cover complex workflows, plus LMS, ERP and CRM needs.
 Goal: make the kit enterprise-grade, multilingual and self-sustaining.
 
 - Localisation: Indic script support, bundled Noto Sans fallbacks, text expansion rules, right-to-left support if needed
-- Components: command palette (**done in 0.6.0**), chat bubbles (**done in 0.7.0**), comments, colour picker, transfer list and code block (**done in 0.8.0**), floating action button, back to top, scroll areas, consent banner, checkout patterns
+- Components: command palette (**done in 0.6.0**), chat bubbles (**done in 0.7.0**), comments, colour picker, transfer list and code block (**done in 0.8.0**), floating action button, back to top, scroll areas (**done in 0.10.0**), consent banner, checkout patterns
 - Content: voice and tone guide, writing standards, full microcopy library
 - Brand assets: email, social, presentation and document templates, favicon and app icons, print stylesheets
 - Engineering: framework packages, design-to-code linking, visual regression tests, performance budgets, browser support matrix
