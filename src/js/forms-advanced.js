@@ -320,10 +320,9 @@ function initDatepickers(root, icon) {
     const draw = () => {
       const first = new Date(cursor.getFullYear(), cursor.getMonth(), 1);
       const lead = (first.getDay() - weekStart + 7) % 7;
-      const daysInMonth = new Date(cursor.getFullYear(), cursor.getMonth() + 1, 0).getDate();
-      const weeks = Math.ceil((lead + daysInMonth) / 7);
+      // Always six weeks, so the picker keeps its height from month to month.
       let rows = '';
-      for (let w = 0; w < weeks; w++) {
+      for (let w = 0; w < 6; w++) {
         rows += '<tr>';
         for (let i = 0; i < 7; i++) {
           const d = addDays(first, w * 7 + i - lead);

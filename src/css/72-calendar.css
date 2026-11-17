@@ -8,7 +8,8 @@
 .xz-calendar-view__nav { display: flex; align-items: center; gap: var(--xz-space-1); }
 .xz-calendar-view__grid { width: 100%; table-layout: fixed; border-collapse: collapse; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
 .xz-calendar-view__grid th { padding: var(--xz-space-2); border-bottom: 1px solid var(--xz-border); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-align: start; text-transform: uppercase; }
-.xz-calendar-view__grid td { height: 6.5rem; padding: var(--xz-space-1); vertical-align: top; border: 1px solid var(--xz-border); }
+/* Tall enough for the date, three events and "+n more", so every month has the same height. */
+.xz-calendar-view__grid td { height: 7.75rem; padding: var(--xz-space-1); vertical-align: top; border: 1px solid var(--xz-border); }
 .xz-calendar-view__grid td.is-outside { background: var(--xz-surface-2); }
 .xz-calendar-view__grid td.is-outside .xz-calendar-view__num { color: var(--xz-text-subtle); }
 .xz-calendar-view__grid td[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--xz-accent); }
@@ -25,6 +26,8 @@
 .xz-calendar-view__time { flex: none; color: var(--xz-text-muted); font-variant-numeric: tabular-nums; }
 .xz-calendar-view__empty { margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
 .xz-calendar-view__day[hidden] { display: none; }
+/* Room for a few events, so picking another day does not move the page. */
+.xz-calendar-view__day { min-height: 11rem; }
 /* Phones: the agenda instead of the grid. */
 .xz-calendar-view__agenda { display: none; }
 @media (max-width: 639px) {

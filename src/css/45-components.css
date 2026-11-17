@@ -165,6 +165,14 @@
 .is-done > .xz-wizard__step-btn .xz-wizard__marker::after { content: ""; position: absolute; inset: 0; background: var(--xz-accent-strong); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 1rem no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='square'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 1rem no-repeat; }
 .is-done > .xz-wizard__step-btn:hover .xz-wizard__label { text-decoration: underline; }
 .xz-wizard__panel { min-width: 0; margin: 0; padding: 0; border: 0; }
+/* Once the script runs, every step takes the room of the tallest one, so moving between steps does not move the page.
+   The steps list, the panels and the footer are the wizard's direct children. */
+.xz-wizard[data-xz-ready] { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "steps" "panel" "footer"; }
+.xz-wizard[data-xz-ready] > .xz-wizard__steps { grid-area: steps; }
+.xz-wizard[data-xz-ready] > .xz-wizard__panel { grid-area: panel; }
+.xz-wizard[data-xz-ready] > .xz-wizard__footer { grid-area: footer; }
+.xz-wizard[data-xz-ready] > .xz-wizard__panel[hidden] { display: block !important; visibility: hidden; }
+.xz-wizard[data-xz-ready] > .xz-wizard__panel.xz-form[hidden] { display: flex !important; }
 .xz-wizard__title { margin-bottom: var(--xz-space-1); padding: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-semibold); }
 .xz-wizard__title:focus { outline: none; }
 .xz-wizard__footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-3); padding-top: var(--xz-space-5); border-top: 1px solid var(--xz-border); }

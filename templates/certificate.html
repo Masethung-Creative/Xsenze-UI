@@ -14,8 +14,9 @@
   @media (min-width: 641px) { .maker { height: 100dvh; } }
   .maker__side { display: grid; align-content: start; gap: var(--xz-space-4); padding: var(--xz-space-4); background: var(--xz-bg); }
   .maker__main { display: grid; grid-template-rows: minmax(0, 1fr) auto; background: var(--xz-surface-2); }
-  .maker__canvas { display: grid; place-items: center; min-height: 24rem; padding: var(--xz-space-8) var(--xz-space-6); overflow: auto; }
-  .maker__canvas .xz-measure { width: min(100%, var(--maker-width, 34rem)); }
+  /* The canvas is the paper stage: it keeps its size and the certificate is fitted inside it. */
+  .maker__canvas.xz-paper__stage { height: 100%; min-height: 0; padding: var(--xz-space-8) var(--xz-space-6); background: transparent; }
+  @media (max-width: 640px) { .maker__canvas.xz-paper__stage { height: 24rem; } }
   .maker .xz-pagestrip { border-top: 1px solid var(--xz-border); background: var(--xz-surface); }
   /* The certificate itself, drawn from the choices on the left. */
   .cert { --cert-ink: #1e3a8a; --cert-paper: #fffdf7; position: absolute; inset: 0; display: grid; align-content: center; justify-items: center; gap: 0.6em; padding: 9% 8%; background: var(--cert-paper); color: var(--cert-ink); font-size: clamp(0.5rem, 2.2cqi, 1.1rem); text-align: center; }
@@ -78,9 +79,9 @@
         <li class="xz-menu__separator"></li>
         <li>
           <ul class="xz-menu__group" aria-label="Zoom">
+            <li><button class="xz-menu__item" type="button" role="menuitemradio" aria-checked="true" data-action="zoom-fit">Fit</button></li>
             <li><button class="xz-menu__item" type="button" role="menuitemradio" data-action="zoom-75">75%</button></li>
-            <li><button class="xz-menu__item" type="button" role="menuitemradio" aria-checked="true" data-action="zoom-100">100%</button></li>
-            <li><button class="xz-menu__item" type="button" role="menuitemradio" data-action="zoom-125">125%</button></li>
+            <li><button class="xz-menu__item" type="button" role="menuitemradio" data-action="zoom-50">50%</button></li>
           </ul>
         </li>
       </ul>
@@ -149,7 +150,7 @@
     </aside>
 
     <main class="xz-split__pane maker__main" id="main">
-      <div class="maker__canvas">
+      <div class="maker__canvas xz-paper__stage">
         <figure class="xz-measure" aria-label="Certificate preview">
           <span class="xz-measure__x">297 mm</span>
           <span class="xz-measure__y"><span>210 mm</span></span>
@@ -187,11 +188,15 @@
   document.getElementById('mk-ink-field').addEventListener('xz:color', (e) => cert.style.setProperty('--cert-ink', e.detail.hex));
   document.getElementById('mk-paper-field').addEventListener('xz:color', (e) => cert.style.setProperty('--cert-paper', e.detail.hex));
   // Menu bar choices.
-  const zoom = { 'zoom-75': '26rem', 'zoom-100': '34rem', 'zoom-125': '44rem' };
+  // Zoom draws the certificate at a share of the room it has; the page itself never moves.
+  const zoom = { 'zoom-fit': 1, 'zoom-75': 0.75, 'zoom-50': 0.5 };
   document.getElementById('mk-menu').addEventListener('xz:action', (e) => {
     const { action, checked } = e.detail;
     if (action === 'margins') cert.classList.toggle('has-margins', checked);
-    else if (zoom[action]) document.querySelector('.maker__canvas').style.setProperty('--maker-width', zoom[action]);
+    else if (zoom[action]) {
+      document.querySelector('.maker__canvas').style.setProperty('--xz-paper-scale', zoom[action]);
+      document.querySelector('[data-xz-paper]').xzPaper?.fit();
+    }
     else if (action === 'export') document.getElementById('mk-render').click();
     else if (action === 'print') window.print();
     else window.Xsenze?.toast({ message: `${action}: not part of this template` });

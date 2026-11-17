@@ -19,12 +19,10 @@ export const sameDay = (a, b) => a && b && a.getTime() === b.getTime();
 export const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-/** The days to show for a month: whole weeks from the week start, 4 to 6 rows. */
+/** The days to show for a month: always six whole weeks from the week start, so the grid keeps its height from month to month. */
 export function monthDays(year, month, weekStart = 1) {
   const first = new Date(year, month, 1);
   const lead = (first.getDay() - weekStart + 7) % 7;
   const start = addDays(first, -lead);
-  const last = new Date(year, month + 1, 0);
-  const total = Math.ceil((lead + last.getDate()) / 7) * 7;
-  return Array.from({ length: total }, (_, i) => addDays(start, i));
+  return Array.from({ length: 42 }, (_, i) => addDays(start, i));
 }

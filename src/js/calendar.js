@@ -94,9 +94,10 @@ function setup(el, icon) {
   };
   const showDay = () => {
     const d = state.selected;
-    if (!d) return (dayBox.hidden = true);
-    const list = on(toIso(d));
+    // The day box always shows, with a hint before a day is picked, so the calendar keeps its height.
     dayBox.hidden = false;
+    if (!d) return (dayBox.innerHTML = '<p class="xz-calendar-view__empty">Pick a day to see its events.</p>');
+    const list = on(toIso(d));
     dayBox.innerHTML = `<h4 class="xz-calendar-view__agenda-day">${DAYS[d.getDay()]}, ${d.getDate()} ${MONTHS[d.getMonth()]}</h4>${list.length ? `<ul class="xz-calendar-view__list">${list.map(eventHtml).join('')}</ul>` : '<p class="xz-calendar-view__empty">No events on this day.</p>'}`;
   };
   const load = async () => {

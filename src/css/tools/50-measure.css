@@ -13,10 +13,12 @@
 .xz-measure__box { grid-area: box; position: relative; display: grid; place-items: center; min-width: 0; aspect-ratio: var(--xz-ratio, auto); overflow: hidden; background: var(--xz-surface); border: 1px solid var(--xz-border); box-shadow: var(--xz-shadow-sm); color: var(--xz-text); transition: aspect-ratio var(--xz-duration-slow) var(--xz-ease-out); }
 .xz-measure--fit { justify-self: center; width: min(100%, var(--xz-measure-width, 16rem)); }
 
-/* Paper: size and orientation choices that resize a measure box, for certificates, report cards and ID cards. */
-.xz-paper__stage { display: grid; place-items: center; padding: var(--xz-space-6) var(--xz-space-4); background: var(--xz-surface-2); }
-.xz-paper__stage .xz-measure { width: min(100%, var(--xz-paper-width, 15rem)); }
-.xz-paper[data-orientation="landscape"] .xz-paper__stage .xz-measure { width: min(100%, var(--xz-paper-width-landscape, 21rem)); }
+/* Paper: size and orientation choices that reshape a measure box, for certificates, report cards and ID cards.
+   The stage keeps one size; the script fits the page inside it and the page changes shape smoothly. */
+.xz-paper__stage { display: grid; place-items: center; height: var(--xz-paper-stage, 21rem); padding: var(--xz-space-5) var(--xz-space-4); overflow: hidden; background: var(--xz-surface-2); }
+.xz-paper__stage .xz-measure__box { width: var(--xz-paper-w, 10rem); height: var(--xz-paper-h, 14rem); aspect-ratio: auto; }
+.xz-paper__stage.is-ready .xz-measure__box { transition: width var(--xz-duration-slow) var(--xz-ease-out), height var(--xz-duration-slow) var(--xz-ease-out); }
+[data-xz-motion="off"] .xz-paper__stage .xz-measure__box { transition: none; }
 
 /* Page strip: thumbnails of pages, slides or certificates to pick from. Built on radio buttons, so it needs no script. */
 .xz-pagestrip { display: flex; gap: var(--xz-space-4); margin: 0; padding: var(--xz-space-4); overflow-x: auto; border: 0; scroll-snap-type: x proximity; scrollbar-width: thin; }

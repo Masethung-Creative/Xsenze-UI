@@ -10,7 +10,7 @@
 .xz-mathfield { display: flex; flex-direction: column; gap: var(--xz-space-2); min-width: 0; }
 .xz-mathfield__box { display: flex; flex-direction: column; min-width: 0; background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); overflow: clip; }
 .xz-mathfield__box:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
-.xz-mathfield__preview { display: grid; place-items: center; min-height: 4.5rem; padding: var(--xz-space-3) var(--xz-space-4); overflow-x: auto; background: var(--xz-surface-2); font-size: var(--xz-font-size-xl); }
+.xz-mathfield__preview { display: grid; place-items: center; min-height: 6.5rem; padding: var(--xz-space-3) var(--xz-space-4); overflow-x: auto; background: var(--xz-surface-2); font-size: var(--xz-font-size-xl); }
 .xz-mathfield__preview:empty::before { content: attr(data-empty); color: var(--xz-text-subtle); font-size: var(--xz-font-size-sm); }
 .xz-mathfield__bar { display: flex; align-items: center; gap: var(--xz-space-2); border-top: 1px solid var(--xz-border); }
 .xz-mathfield__input { flex: 1; min-width: 0; min-height: var(--xz-control-md); padding: 0 var(--xz-space-3); background: transparent; border: 0; color: var(--xz-text); font-family: var(--xz-font-mono); font-variant-ligatures: none; font-size: var(--xz-font-size-sm); }
