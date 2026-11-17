@@ -141,12 +141,30 @@ span.xz-chip { cursor: default; }
 .xz-progress__bar { width: var(--xz-progress, 0%); height: 100%; background: var(--xz-accent); transition: width var(--xz-duration-slow) var(--xz-ease-out); }
 .xz-progress--sm { height: 0.25rem; }
 .xz-progress--lg { height: 0.75rem; }
-.xz-progress--success .xz-progress__bar { background: var(--xz-success); }
-.xz-progress--warning .xz-progress__bar { background: var(--xz-warning); }
-.xz-progress--danger .xz-progress__bar { background: var(--xz-danger); }
+/* Status fills use the text shades, which keep 3:1 against the grey track in both themes. */
+.xz-progress--success .xz-progress__bar { background: var(--xz-success-text); }
+.xz-progress--warning .xz-progress__bar { background: var(--xz-warning-text); }
+.xz-progress--danger .xz-progress__bar { background: var(--xz-danger-text); }
 .xz-progress--indeterminate .xz-progress__bar { width: 40%; animation: xz-progress 1.2s var(--xz-ease-in-out) infinite; }
 .xz-progress-label { display: flex; justify-content: space-between; margin-bottom: var(--xz-space-2); font-size: var(--xz-font-size-sm); }
 @keyframes xz-progress { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+
+/* ---- progress ring: style="--xz-ring: 72" with role="progressbar" and aria-valuenow ---- */
+.xz-ring { --_c: var(--xz-accent); --xz-ring-size: 4rem; --xz-ring-width: 6px; position: relative; display: inline-grid; flex: none; place-items: center; width: var(--xz-ring-size); aspect-ratio: 1; border-radius: 50%; font-family: var(--xz-font-display); font-size: calc(var(--xz-ring-size) * 0.24); font-weight: var(--xz-font-weight-semibold); font-variant-numeric: tabular-nums; line-height: 1; }
+.xz-ring::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(var(--_c) calc(var(--xz-ring, 0) * 1%), var(--xz-surface-3) 0); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--xz-ring-width)), #000 calc(100% - var(--xz-ring-width) + 1px)); mask: radial-gradient(farthest-side, transparent calc(100% - var(--xz-ring-width)), #000 calc(100% - var(--xz-ring-width) + 1px)); }
+.xz-ring--sm { --xz-ring-size: 2.5rem; --xz-ring-width: 4px; }
+.xz-ring--lg { --xz-ring-size: 6rem; --xz-ring-width: 8px; }
+.xz-ring--success { --_c: var(--xz-success-text); }
+.xz-ring--warning { --_c: var(--xz-warning-text); }
+.xz-ring--danger { --_c: var(--xz-danger-text); }
+
+/* ---- sparkline ---- */
+.xz-sparkline { --_c: var(--xz-viz-1); position: relative; display: inline-block; width: var(--xz-sparkline-width, 6rem); height: 1.75em; vertical-align: middle; }
+.xz-sparkline > svg { width: 100%; height: 100%; overflow: visible; }
+.xz-sparkline__line { fill: none; stroke: var(--_c); stroke-width: 1.75px; stroke-linejoin: round; stroke-linecap: round; }
+.xz-sparkline__area { fill: var(--_c); fill-opacity: 0.12; }
+.xz-sparkline__dot { position: absolute; inset-inline-end: -3px; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%; background: var(--_c); }
+[dir="rtl"] .xz-sparkline > svg { transform: scaleX(-1); }
 
 /* ---- skeleton ---- */
 .xz-skeleton { border-radius: var(--xz-radius-control); display: block; min-height: 1em; background: linear-gradient(90deg, var(--xz-surface-3) 25%, var(--xz-surface-2) 50%, var(--xz-surface-3) 75%); background-size: 200% 100%; animation: xz-shimmer 1.4s linear infinite; }

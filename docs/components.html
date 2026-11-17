@@ -5,10 +5,11 @@
 <link rel="icon" href="data:,">
 <title>Components · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
-<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <link rel="stylesheet" href="docs.css">
+<script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
+<script src="../dist/xsenze-charts.js" defer></script>
 </head>
 <body class="doc" data-page="components">
 <a class="xz-skip-link" href="#main">Skip to content</a>
@@ -28,7 +29,7 @@
   <h2>Buttons</h2>
   <p>Use a button for an action and a link for navigation. Give each screen one primary button, and label it with a verb and an object: "Save changes", not "OK".</p>
 
-  <h3>Variants</h3>
+  <h3 id="buttons--variants">Variants</h3>
   <div class="doc-example">
     <button class="xz-btn xz-btn--primary" type="button">Save changes</button>
     <button class="xz-btn" type="button">Cancel</button>
@@ -39,7 +40,7 @@
     <button class="xz-btn xz-btn--danger-outline" type="button">Remove access</button>
   </div>
 
-  <h3>Sizes</h3>
+  <h3 id="buttons--sizes">Sizes</h3>
   <p>Small is 32px, medium 40px and large 48px. On touch screens every size grows to at least 44px.</p>
   <div class="doc-example">
     <button class="xz-btn xz-btn--primary xz-btn--sm" type="button">Small</button>
@@ -47,14 +48,14 @@
     <button class="xz-btn xz-btn--primary xz-btn--lg" type="button">Large</button>
   </div>
 
-  <h3>With icons</h3>
+  <h3 id="buttons--with-icons">With icons</h3>
   <div class="doc-example">
     <button class="xz-btn xz-btn--primary" type="button"><i data-xz-icon="plus" data-size="sm"></i>Add learner</button>
     <button class="xz-btn" type="button"><i data-xz-icon="download" data-size="sm"></i>Export CSV</button>
     <button class="xz-btn xz-btn--ghost" type="button">Next step<i data-xz-icon="arrow-right" data-size="sm"></i></button>
   </div>
 
-  <h3>Icon only</h3>
+  <h3 id="buttons--icon-only">Icon only</h3>
   <p>An icon-only button always needs an <code class="xz-code">aria-label</code>. Add a tooltip so sighted people get the same name.</p>
   <div class="doc-example">
     <button class="xz-btn xz-btn--icon xz-btn--sm" type="button" aria-label="Edit" data-xz-tooltip="Edit"><i data-xz-icon="pencil" data-size="sm"></i></button>
@@ -63,12 +64,12 @@
     <button class="xz-btn xz-btn--icon xz-btn--ghost xz-btn--lg" type="button" aria-label="Settings" data-xz-tooltip="Settings"><i data-xz-icon="settings" data-size="lg"></i></button>
   </div>
 
-  <h3>Block</h3>
+  <h3 id="buttons--block">Block</h3>
   <div class="doc-example" data-layout="stack">
     <button class="xz-btn xz-btn--primary xz-btn--block xz-btn--lg" type="button">Sign in</button>
   </div>
 
-  <h3>States</h3>
+  <h3 id="buttons--states">States</h3>
   <p>The <code class="xz-code">is-*</code> classes pin a state for documentation and design review. Real buttons get these states by themselves.</p>
   <div class="doc-example">
     <button class="xz-btn xz-btn--primary" type="button">Default</button>
@@ -87,7 +88,7 @@
     <button class="xz-btn is-loading" type="button" aria-busy="true">Saving</button>
   </div>
 
-  <h3>Button group</h3>
+  <h3 id="buttons--button-group">Button group</h3>
   <p>With <code class="xz-code">data-xz-toggle</code> the group works as a single choice: the pressed button gets <code class="xz-code">aria-pressed="true"</code>.</p>
   <div class="doc-example">
     <div class="xz-btn-group" data-xz-toggle role="group" aria-label="Report period">
@@ -120,7 +121,7 @@
   <h2>Inputs</h2>
   <p>Use an input for short free text and a textarea for longer answers. Every input has a visible label above it. Placeholder text is a hint, never the label.</p>
 
-  <h3>Text</h3>
+  <h3 id="inputs--text">Text</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="in-name">Full name</label>
@@ -129,7 +130,7 @@
     </div>
   </div>
 
-  <h3>Password</h3>
+  <h3 id="inputs--password">Password</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="in-password">Password</label>
@@ -140,7 +141,7 @@
     </div>
   </div>
 
-  <h3>Number with an addon</h3>
+  <h3 id="inputs--number-with-an-addon">Number with an addon</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="in-fee">Course fee</label>
@@ -152,7 +153,7 @@
     </div>
   </div>
 
-  <h3>Search</h3>
+  <h3 id="inputs--search">Search</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="in-search">Search courses</label>
@@ -164,7 +165,7 @@
     </div>
   </div>
 
-  <h3>Textarea</h3>
+  <h3 id="inputs--textarea">Textarea</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="in-notes">Notes for the trainer <span class="xz-label__optional">(optional)</span></label>
@@ -172,7 +173,7 @@
     </div>
   </div>
 
-  <h3>Sizes</h3>
+  <h3 id="inputs--sizes">Sizes</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="in-size-sm">Small</label>
@@ -188,7 +189,7 @@
     </div>
   </div>
 
-  <h3>Labels and helper text</h3>
+  <h3 id="inputs--labels-and-helper-text">Labels and helper text</h3>
   <p>Mark the less common case. If most fields are required, mark only the optional ones.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
@@ -205,7 +206,7 @@
     </div>
   </div>
 
-  <h3>States</h3>
+  <h3 id="inputs--states">States</h3>
   <p>An error message says what went wrong and how to fix it. Link it to the input with <code class="xz-code">aria-describedby</code> and set <code class="xz-code">aria-invalid="true"</code>.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
@@ -254,7 +255,7 @@
   <h2>Checkbox, radio, toggle</h2>
   <p>Use checkboxes to pick any number of options, radios to pick exactly one, and a toggle for a setting that takes effect straight away. The whole label is the click target.</p>
 
-  <h3>Checkbox</h3>
+  <h3 id="choices--checkbox">Checkbox</h3>
   <p>The indeterminate state can only be set from script: <code class="xz-code">input.indeterminate = true</code>. Use it for a "select all" box when some rows are selected.</p>
   <div class="doc-example" data-layout="stack">
     <label class="xz-check"><input type="checkbox" name="ch-a"><span>Email me the weekly progress report</span></label>
@@ -270,7 +271,7 @@
     <label class="xz-check"><input type="checkbox" name="ch-f" checked disabled><span>Disabled and checked</span></label>
   </div>
 
-  <h3>Radio group</h3>
+  <h3 id="choices--radio-group">Radio group</h3>
   <p>Group related choices in a <code class="xz-code">fieldset</code> with a <code class="xz-code">legend</code>, so screen readers announce the question with each option.</p>
   <div class="doc-example" data-layout="stack">
     <fieldset class="xz-fieldset">
@@ -289,7 +290,7 @@
     </fieldset>
   </div>
 
-  <h3>Toggle</h3>
+  <h3 id="choices--toggle">Toggle</h3>
   <div class="doc-example" data-layout="stack">
     <label class="xz-toggle"><input type="checkbox" role="switch" name="tg-a"><span>Dark theme</span></label>
     <label class="xz-toggle"><input type="checkbox" role="switch" name="tg-b" checked><span>Attendance reminders</span></label>
@@ -319,7 +320,7 @@
   <h2>Select and combobox</h2>
   <p>Use a native select for up to about ten options. Past that, use the searchable combobox so people can type to filter. For two or three options, radios are quicker.</p>
 
-  <h3>Native select</h3>
+  <h3 id="select--native-select">Native select</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="sel-role">Role</label>
@@ -332,7 +333,7 @@
     </div>
   </div>
 
-  <h3>Sizes and states</h3>
+  <h3 id="select--sizes-and-states">Sizes and states</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
       <label class="xz-label" for="sel-sm">Small</label>
@@ -357,7 +358,7 @@
     </div>
   </div>
 
-  <h3>Searchable combobox</h3>
+  <h3 id="select--searchable-combobox">Searchable combobox</h3>
   <p>Wrap a normal select in <code class="xz-code">data-xz-combobox</code>. Without script it stays a working select; with it, people can type to filter, move with the arrow keys and choose with Enter. The select keeps the value, so forms submit as usual.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field">
@@ -432,7 +433,7 @@
     </form>
   </div>
 
-  <h3>Custom messages</h3>
+  <h3 id="validation--custom-messages">Custom messages</h3>
   <p>The default messages cover the common cases. Override one rule, or all of them, per field.</p>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Attribute</th><th>Used when</th><th>Default message</th></tr></thead>
@@ -447,7 +448,7 @@
     </tbody>
   </table></div>
 
-  <h3>From script</h3>
+  <h3 id="validation--from-script">From script</h3>
   <pre class="doc-snippet" data-lang="text">
     const form = document.querySelector('#val-form');
 
@@ -463,7 +464,7 @@
   <h2>Badges, tags, chips</h2>
   <p>Three small labels with three different jobs. A <strong>badge</strong> shows status and cannot be clicked. A <strong>tag</strong> names a category. A <strong>chip</strong> is a control: it can be selected or removed.</p>
 
-  <h3>Badges</h3>
+  <h3 id="badges--badges">Badges</h3>
   <p>Never rely on colour alone. The text carries the meaning; the colour supports it.</p>
   <div class="doc-example">
     <span class="xz-badge">Draft</span>
@@ -484,7 +485,7 @@
     <span class="xz-badge xz-badge--count xz-badge--danger">99+</span>
   </div>
 
-  <h3>Tags</h3>
+  <h3 id="badges--tags">Tags</h3>
   <div class="doc-example">
     <span class="xz-tag">python</span>
     <span class="xz-tag">data-science</span>
@@ -492,7 +493,7 @@
     <a class="xz-tag" href="#badges">weekend-batch</a>
   </div>
 
-  <h3>Chips</h3>
+  <h3 id="badges--chips">Chips</h3>
   <p>A toggle chip is a <code class="xz-code">button</code> with <code class="xz-code">aria-pressed</code>. A removable chip is a <code class="xz-code">span</code> with a remove button inside.</p>
   <div class="doc-example">
     <button class="xz-chip" type="button" aria-pressed="true">All</button>
@@ -524,7 +525,7 @@
   <h2>Avatars</h2>
   <p>Use an avatar to represent a person or a team. Show a photo when there is one, and fall back to one or two initials.</p>
 
-  <h3>Sizes</h3>
+  <h3 id="avatars--sizes">Sizes</h3>
   <div class="doc-example">
     <span class="xz-avatar xz-avatar--xs" aria-hidden="true">AK</span>
     <span class="xz-avatar xz-avatar--sm" aria-hidden="true">AK</span>
@@ -533,7 +534,7 @@
     <span class="xz-avatar xz-avatar--xl" aria-hidden="true">AK</span>
   </div>
 
-  <h3>Shape and colour</h3>
+  <h3 id="avatars--shape-and-colour">Shape and colour</h3>
   <div class="doc-example">
     <span class="xz-avatar" role="img" aria-label="Meera Iyer">MI</span>
     <span class="xz-avatar xz-avatar--round" role="img" aria-label="Rohan Deshmukh">RD</span>
@@ -542,14 +543,14 @@
     <span class="xz-avatar" role="img" aria-label="Guest"><i data-xz-icon="user"></i></span>
   </div>
 
-  <h3>Status</h3>
+  <h3 id="avatars--status">Status</h3>
   <div class="doc-example">
     <span class="xz-avatar" role="img" aria-label="Meera Iyer, online">MI<span class="xz-avatar__status"></span></span>
     <span class="xz-avatar" role="img" aria-label="Rohan Deshmukh, away">RD<span class="xz-avatar__status xz-avatar__status--away"></span></span>
     <span class="xz-avatar" role="img" aria-label="Sana Qureshi, offline">SQ<span class="xz-avatar__status xz-avatar__status--offline"></span></span>
   </div>
 
-  <h3>Group and with text</h3>
+  <h3 id="avatars--group-and-with-text">Group and with text</h3>
   <div class="doc-example">
     <div class="xz-avatar-group" role="img" aria-label="Meera, Rohan, Sana and 5 others">
       <span class="xz-avatar xz-avatar--sm">MI</span>
@@ -583,7 +584,7 @@
   <h2>Links and dividers</h2>
   <p>Links take people somewhere; they are underlined so they do not depend on colour. Dividers separate groups of content when spacing alone is not enough.</p>
 
-  <h3>Links</h3>
+  <h3 id="links--links">Links</h3>
   <div class="doc-example" data-layout="stack">
     <p class="xz-body">Read the <a class="xz-link" href="#links">refund policy</a> before you cancel a batch.</p>
     <p class="xz-body xz-text-muted">Need help? <a class="xz-link xz-link--quiet" href="#links">Contact support</a>, Monday to Saturday.</p>
@@ -592,7 +593,7 @@
     <p><a class="xz-link" aria-disabled="true">Download certificate</a> <span class="xz-caption">Available after you finish the course</span></p>
   </div>
 
-  <h3>Dividers</h3>
+  <h3 id="links--dividers">Dividers</h3>
   <div class="doc-example" data-layout="stack">
     <hr class="xz-divider">
     <hr class="xz-divider xz-divider--strong">
@@ -643,7 +644,7 @@
   <h2>Spinners, progress, skeleton</h2>
   <p>Use a spinner for a short wait with no known length, a progress bar when you can measure it, and a skeleton when a whole block of content is loading. For waits under a second, show nothing.</p>
 
-  <h3>Spinner</h3>
+  <h3 id="loading--spinner">Spinner</h3>
   <div class="doc-example">
     <span class="xz-spinner xz-spinner--sm" role="status" aria-label="Loading"></span>
     <span class="xz-spinner" role="status" aria-label="Loading"></span>
@@ -651,7 +652,7 @@
     <span class="xz-row xz-gap-2"><span class="xz-spinner xz-spinner--sm" aria-hidden="true"></span><span class="xz-small" role="status">Checking payment status</span></span>
   </div>
 
-  <h3>Progress bar</h3>
+  <h3 id="loading--progress-bar">Progress bar</h3>
   <p>Set the value twice: <code class="xz-code">aria-valuenow</code> for assistive technology and <code class="xz-code">--xz-progress</code> for the bar.</p>
   <div class="doc-example" data-layout="stack">
     <div>
@@ -674,7 +675,7 @@
     </div>
   </div>
 
-  <h3>Skeleton</h3>
+  <h3 id="loading--skeleton">Skeleton</h3>
   <p>Match the skeleton to the shape of the content that will replace it. Mark the container <code class="xz-code">aria-busy="true"</code> while it loads.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-card" aria-busy="true" aria-label="Loading course">
@@ -707,7 +708,7 @@
   <h2>Cards</h2>
   <p>Use a card to group one subject: a course, an invoice, a setting. Use a stat card for a single number that people check often.</p>
 
-  <h3>Basic</h3>
+  <h3 id="cards--basic">Basic</h3>
   <div class="doc-example" data-layout="stack">
     <article class="xz-card">
       <header class="xz-card__header">
@@ -727,7 +728,7 @@
     </article>
   </div>
 
-  <h3>Muted, raised, interactive</h3>
+  <h3 id="cards--muted-raised-interactive">Muted, raised, interactive</h3>
   <p>An interactive card is one link. Do not put other buttons or links inside it.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-grid xz-grid--auto">
@@ -752,7 +753,7 @@
     </div>
   </div>
 
-  <h3>Stat or KPI</h3>
+  <h3 id="cards--stat-or-kpi">Stat or KPI</h3>
   <p>Shorten large rupee amounts to lakh (L) and crore (Cr). Say what the trend compares against.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 200px">
@@ -797,7 +798,7 @@
   <p>Use tabs to switch between views of the same thing without leaving the page. If each view is its own page, use navigation links.</p>
   <p>Keyboard: Tab moves into the list, Left and Right arrows move between tabs, Home and End jump to the first and last.</p>
 
-  <h3>Underline</h3>
+  <h3 id="tabs--underline">Underline</h3>
   <div class="doc-example" data-layout="block">
     <div class="xz-tabs" data-xz-tabs>
       <div class="xz-tabs__list" aria-label="Course sections">
@@ -813,7 +814,7 @@
     </div>
   </div>
 
-  <h3>Boxed</h3>
+  <h3 id="tabs--boxed">Boxed</h3>
   <div class="doc-example" data-layout="block">
     <div class="xz-tabs xz-tabs--boxed" data-xz-tabs>
       <div class="xz-tabs__list" aria-label="Billing period">
@@ -845,7 +846,7 @@
   <h2>Accordion</h2>
   <p>Use an accordion for content people scan and open selectively, such as FAQs. It is built on the native <code class="xz-code">details</code> element, so it works without script and browser find-in-page can open it.</p>
 
-  <h3>Independent items</h3>
+  <h3 id="accordion--independent-items">Independent items</h3>
   <div class="doc-example" data-layout="block">
     <div class="xz-accordion">
       <details class="xz-accordion__item" open>
@@ -863,7 +864,7 @@
     </div>
   </div>
 
-  <h3>One open at a time</h3>
+  <h3 id="accordion--one-open-at-a-time">One open at a time</h3>
   <p>Give the items the same <code class="xz-code">name</code>. Opening one closes the others.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-accordion">
@@ -899,7 +900,7 @@
   <h2>Breadcrumbs and pagination</h2>
   <p>Breadcrumbs show where a page sits and let people step back up. Pagination splits a long list into pages. For tables, the table script builds the pagination for you.</p>
 
-  <h3>Breadcrumbs</h3>
+  <h3 id="wayfinding--breadcrumbs">Breadcrumbs</h3>
   <div class="doc-example">
     <nav aria-label="Breadcrumb">
       <ol class="xz-breadcrumbs">
@@ -911,7 +912,7 @@
     </nav>
   </div>
 
-  <h3>Pagination</h3>
+  <h3 id="wayfinding--pagination">Pagination</h3>
   <div class="doc-example" data-layout="block">
     <nav class="xz-pagination" aria-label="Pagination">
       <span class="xz-pagination__info">Showing 41 to 50 of 196</span>
@@ -954,7 +955,7 @@
   <p>An alert is a message inside the page about that page's content. A banner runs across the top and applies to the whole product. For feedback on something the person just did, use a toast.</p>
   <p>Use <code class="xz-code">role="alert"</code> only for errors that need attention now, since it interrupts screen readers. Use <code class="xz-code">role="status"</code> for everything else that appears after the page loads. Alerts that are there from the start need no role.</p>
 
-  <h3>Alerts</h3>
+  <h3 id="alerts--alerts">Alerts</h3>
   <div class="doc-example" data-layout="stack">
     <div class="xz-alert">
       <i data-xz-icon="info"></i>
@@ -1002,7 +1003,7 @@
     </div>
   </div>
 
-  <h3>Banners</h3>
+  <h3 id="alerts--banners">Banners</h3>
   <div class="doc-example" data-layout="stack" data-flush>
     <div class="xz-banner">
       <span>Republic Day offer: 20% off all yearly plans until 26 Jan.</span>
@@ -1040,7 +1041,7 @@
   <h2>Empty states</h2>
   <p>An empty state says why there is nothing here and what to do next. Write one for each cause: nothing created yet, nothing matches, or something failed.</p>
 
-  <h3>First use</h3>
+  <h3 id="empty-states--first-use">First use</h3>
   <div class="doc-example" data-layout="block">
     <div class="xz-empty">
       <div class="xz-empty__icon"><i data-xz-icon="graduation-cap" data-size="lg"></i></div>
@@ -1053,7 +1054,7 @@
     </div>
   </div>
 
-  <h3>No results</h3>
+  <h3 id="empty-states--no-results">No results</h3>
   <div class="doc-example" data-layout="block">
     <div class="xz-empty">
       <div class="xz-empty__icon"><i data-xz-icon="search" data-size="lg"></i></div>
@@ -1065,7 +1066,7 @@
     </div>
   </div>
 
-  <h3>Error</h3>
+  <h3 id="empty-states--error">Error</h3>
   <div class="doc-example" data-layout="block">
     <div class="xz-empty" role="alert">
       <div class="xz-empty__icon"><i data-xz-icon="file-warning" data-size="lg"></i></div>
@@ -1094,7 +1095,7 @@
   <h2>Navigation</h2>
   <p>Use the top navbar for a handful of top-level sections and the sidebar when a product has many. Mark the current page with <code class="xz-code">aria-current="page"</code> in both.</p>
 
-  <h3>Top navbar</h3>
+  <h3 id="navigation--top-navbar">Top navbar</h3>
   <p>The navbar sticks to the top of the page. <code class="xz-code">xz-navbar--static</code> turns that off, as in this example. Below 768px the links hide; put them in a left drawer opened by a menu button.</p>
   <div class="doc-example" data-layout="block" data-flush>
     <header class="xz-navbar xz-navbar--static">
@@ -1115,7 +1116,7 @@
     </header>
   </div>
 
-  <h3>Sidebar</h3>
+  <h3 id="navigation--sidebar">Sidebar</h3>
   <p>Inside <code class="xz-code">xz-shell</code> the sidebar fills the viewport height and hides below 1024px. On its own it takes the height you give it.</p>
   <div class="doc-example" data-layout="block" data-flush>
     <nav class="xz-sidebar" aria-label="Example sidebar" style="height: 28rem">
@@ -1149,7 +1150,7 @@
     </nav>
   </div>
 
-  <h3>Footer</h3>
+  <h3 id="navigation--footer">Footer</h3>
   <div class="doc-example" data-layout="block" data-flush>
     <footer class="xz-footer">
       <div class="xz-footer__grid">
@@ -1216,7 +1217,7 @@
   <p>Use a modal for a short task or a decision that must be made before going on. Use a drawer for details or a longer form next to the page. Use a toast to confirm something that just happened.</p>
   <p>Modals and drawers are native <code class="xz-code">dialog</code> elements: focus is kept inside, Escape closes them, and focus returns to the button that opened them.</p>
 
-  <h3>Modal</h3>
+  <h3 id="overlays--modal">Modal</h3>
   <div class="doc-example">
     <button class="xz-btn" type="button" data-xz-open="#ov-modal-sm">Small</button>
     <button class="xz-btn xz-btn--primary" type="button" data-xz-open="#ov-modal">Invite a trainer</button>
@@ -1276,7 +1277,7 @@
     </dialog>
   </div>
 
-  <h3>Destructive confirmation</h3>
+  <h3 id="overlays--destructive-confirmation">Destructive confirmation</h3>
   <p>Name the thing being deleted and say what is lost. <code class="xz-code">data-xz-static</code> stops a stray click on the backdrop from closing it, and the safe button comes first so it gets focus.</p>
   <div class="doc-example">
     <button class="xz-btn xz-btn--danger-outline" type="button" data-xz-open="#ov-confirm"><i data-xz-icon="trash-2" data-size="sm"></i>Delete course</button>
@@ -1293,7 +1294,7 @@
     </dialog>
   </div>
 
-  <h3>Drawer</h3>
+  <h3 id="overlays--drawer">Drawer</h3>
   <div class="doc-example">
     <button class="xz-btn" type="button" data-xz-open="#ov-drawer-left"><i data-xz-icon="panel-left" data-size="sm"></i>Open left drawer</button>
     <button class="xz-btn" type="button" data-xz-open="#ov-drawer-right">Open right drawer<i data-xz-icon="sliders-horizontal" data-size="sm"></i></button>
@@ -1345,7 +1346,7 @@
     </dialog>
   </div>
 
-  <h3>Toast</h3>
+  <h3 id="overlays--toast">Toast</h3>
   <p>Toasts appear at the bottom right and leave after 5 seconds. They pause while the pointer or keyboard focus is on them. Keep the text to one line, and never use a toast for an error that needs a fix: put that next to the field.</p>
   <div class="doc-example">
     <button class="xz-btn" type="button" data-xz-toast="Changes saved">Neutral</button>
@@ -1442,7 +1443,7 @@
   <h2>Table</h2>
   <p>Use a table to compare rows of the same kind of data. Right-align numbers so digits line up, keep one line per cell where you can, and put row actions in the last column.</p>
 
-  <h3>Sorting, search, pagination and row actions</h3>
+  <h3 id="table--sorting-search-pagination-and-row-actions">Sorting, search, pagination and row actions</h3>
   <p>Add <code class="xz-code">data-xz-table</code> and the script handles the rest. Sorting reads <code class="xz-code">data-value</code> when a cell has one, so "₹1,24,999" sorts as 124999 and "15 Nov 2026" sorts as a date.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-table-toolbar">
@@ -1698,7 +1699,7 @@
     </div>
   </div>
 
-  <h3>Compact and striped</h3>
+  <h3 id="table--compact-and-striped">Compact and striped</h3>
   <p>Compact suits dense admin screens. Stripes help the eye follow wide rows. The two combine.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-table-wrap">
@@ -1722,11 +1723,74 @@
     </div>
   </div>
 
-  <h3>Reference</h3>
+  <h3 id="table--selection-filters-columns-and-export">Selection, filters, columns and export</h3>
+  <p>Tick rows to act on several at once. Shift-click ticks a range, and "Select all" reaches rows on other pages. Filters combine with search, the Columns menu remembers what each person hides, and Export saves the filtered rows as a CSV file that spreadsheet apps open with ₹ and Indian names intact. The row boxes are real form fields, so the bulk buttons also work as a plain form post.</p>
+  <div class="doc-example" data-layout="block">
+    <form action="#table" method="post" id="tb-bulk-form">
+      <div class="xz-table-toolbar">
+        <div class="xz-table-filters">
+          <select class="xz-select xz-select--sm" data-xz-filter="#tb-learners" data-xz-column="city" data-xz-options="auto" aria-label="City">
+            <option value="">All cities</option>
+          </select>
+          <div role="group" aria-label="Status" class="xz-row xz-gap-1" data-xz-filter="#tb-learners" data-xz-column="status">
+            <button type="button" class="xz-chip" aria-pressed="false" value="Paid">Paid</button>
+            <button type="button" class="xz-chip" aria-pressed="false" value="Due">Due</button>
+            <button type="button" class="xz-chip" aria-pressed="false" value="Overdue">Overdue</button>
+          </div>
+        </div>
+        <div class="xz-row xz-gap-2">
+          <div data-xz-columns="#tb-learners"></div>
+          <button type="button" class="xz-btn xz-btn--sm" data-xz-export="#tb-learners" data-xz-filename="learners.csv"><i data-xz-icon="download" data-size="sm"></i>Export</button>
+        </div>
+      </div>
+      <div class="xz-table-bulk" data-xz-bulk="#tb-learners">
+        <span data-xz-bulk-count></span>
+        <button type="button" class="xz-btn xz-btn--sm xz-btn--ghost" data-xz-bulk-all></button>
+        <button type="submit" class="xz-btn xz-btn--sm" data-xz-bulk-action="remind" name="action" value="remind">Send reminder</button>
+        <button type="button" class="xz-btn xz-btn--sm xz-btn--ghost" data-xz-bulk-clear>Clear</button>
+      </div>
+      <div class="xz-table-wrap">
+        <table class="xz-table" id="tb-learners" data-xz-table="docs-learners" data-xz-page-size="4" data-xz-pagination="#tb-learners-pager">
+          <thead>
+            <tr>
+              <th class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select-all aria-label="Select all rows on this page"></label></th>
+              <th data-xz-sort data-xz-fixed>Learner</th>
+              <th data-xz-sort data-xz-key="city">City</th>
+              <th data-xz-key="status">Status</th>
+              <th data-xz-sort="number" class="xz-table__num">Fee paid</th>
+              <th class="xz-table__actions"><span class="xz-sr-only">Details</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="101" aria-label="Select Aarav Sharma"></label></td><td class="xz-table__primary">Aarav Sharma</td><td>Pune</td><td>Paid</td><td class="xz-table__num" data-value="24999">₹24,999</td><td class="xz-table__actions"><button type="button" class="xz-table__expand" data-xz-expand aria-label="Details for Aarav Sharma"><i data-xz-icon="chevron-down" data-size="sm"></i></button></td></tr>
+            <tr class="xz-table__detail"><td colspan="6">Batch B-14, Data Analytics. Mentor: Meenakshi Sundaram.</td></tr>
+            <tr><td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="102" aria-label="Select Bhavna Patel"></label></td><td class="xz-table__primary">Bhavna Patel</td><td>Ahmedabad</td><td>Due</td><td class="xz-table__num" data-value="0">₹0</td><td class="xz-table__actions"><button type="button" class="xz-table__expand" data-xz-expand aria-label="Details for Bhavna Patel"><i data-xz-icon="chevron-down" data-size="sm"></i></button></td></tr>
+            <tr class="xz-table__detail"><td colspan="6">Batch B-12, UX Design. First instalment due on 30 Nov.</td></tr>
+            <tr><td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="103" aria-label="Select Chitra Subramanian"></label></td><td class="xz-table__primary">Chitra Subramanian</td><td>Chennai</td><td>Overdue</td><td class="xz-table__num" data-value="-4500">−₹4,500</td><td class="xz-table__actions"></td></tr>
+            <tr><td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="104" aria-label="Select Dev Malhotra"></label></td><td class="xz-table__primary">Dev Malhotra</td><td>Delhi</td><td>Paid</td><td class="xz-table__num" data-value="125000">₹1,25,000</td><td class="xz-table__actions"></td></tr>
+            <tr><td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="105" aria-label="Select Esha Banerjee"></label></td><td class="xz-table__primary">Esha Banerjee</td><td>Kolkata</td><td>Paid</td><td class="xz-table__num" data-value="18500">₹18,500</td><td class="xz-table__actions"></td></tr>
+            <tr><td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="106" aria-label="Select Farhan Khan"></label></td><td class="xz-table__primary">Farhan Khan</td><td>Mumbai</td><td>Due</td><td class="xz-table__num" data-value="6250">₹6,250</td><td class="xz-table__actions"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="xz-table-footer"><div id="tb-learners-pager"></div></div>
+    </form>
+  </div>
+  <h3 id="table--reference">Reference</h3>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class, attribute or event</th><th>Where</th><th>What it does</th></tr></thead>
     <tbody>
-      <tr><td><code>xz-table-wrap</code></td><td>Wrapper</td><td>Border and horizontal scroll on narrow screens.</td></tr>
+      <tr><td><code>xz-table-wrap</code></td><td>Wrapper</td><td>Border and horizontal scroll on narrow screens. Add <code>xz-table-wrap--scroll</code> to give it a height (<code>--xz-table-height</code>, 70vh by default) so a sticky header stays in view.</td></tr>
+      <tr><td><code>data-xz-table="name"</code></td><td><code>table</code></td><td>The name is used to remember hidden columns on this device. Give the table an <code>id</code> so filters, bulk bars and buttons can point at it.</td></tr>
+      <tr><td><code>input[data-xz-select]</code> <code>[data-xz-select-all]</code></td><td>Row and header boxes</td><td>Row selection. The header box ticks the rows on this page and shows a dash when only some are ticked. Shift-click ticks a range.</td></tr>
+      <tr><td><code>data-xz-bulk="#id"</code></td><td>Bar</td><td>Shown while rows are ticked. Inside: <code>[data-xz-bulk-count]</code>, <code>[data-xz-bulk-all]</code> (select every result), <code>[data-xz-bulk-clear]</code> and <code>[data-xz-bulk-action="name"]</code> buttons, which fire <code>xz:bulk</code>.</td></tr>
+      <tr><td><code>data-xz-filter="#id"</code> <code>data-xz-column="key"</code></td><td><code>select</code> or a group of chips</td><td>Shows only rows whose cell matches. <code>data-xz-options="auto"</code> fills a select with the column's values. Chips in one group mean "any of these".</td></tr>
+      <tr><td><code>data-xz-key</code> <code>data-xz-fixed</code> <code>data-xz-hidden</code></td><td><code>th</code></td><td>The column's name for filters and the column menu, a column that cannot be hidden, and a column hidden at first.</td></tr>
+      <tr><td><code>data-xz-columns="#id"</code></td><td>Empty element</td><td>Becomes the Columns menu.</td></tr>
+      <tr><td><code>tr.xz-table__detail</code> + <code>[data-xz-expand]</code></td><td>Row after a row</td><td>A detail row, opened by the button in the row above.</td></tr>
+      <tr><td><code>data-xz-export="#id"</code></td><td>Button or link</td><td>Saves a CSV file. <code>data-xz-rows="filtered|selected|all"</code>, <code>data-xz-filename</code>. As a link with an <code>href</code>, it still downloads your server's file without the script.</td></tr>
+      <tr><td><code>table.xzTable</code></td><td>Script</td><td><code>refresh()</code> picks up rows added later, <code>replace(rowsOrHtml)</code> swaps them all, plus <code>sort</code>, <code>search</code>, <code>filter</code>, <code>select</code>, <code>selected()</code>, <code>columns.hide()</code>, <code>csv()</code> and <code>download()</code>. Add <code>data-xz-table-live</code> to refresh by itself.</td></tr>
+      <tr><td><code>xz:selection</code> <code>xz:bulk</code> <code>xz:expand</code> <code>xz:columns</code></td><td>Events on <code>table</code></td><td>Selection changed (<code>count</code>, <code>ids</code>), a bulk button was pressed (cancelable), a detail row opened or closed, a column was shown or hidden.</td></tr>
       <tr><td><code>xz-table</code></td><td><code>table</code></td><td>Base style. Modifiers: <code>--compact</code>, <code>--striped</code>, <code>--sticky</code> (sticky header).</td></tr>
       <tr><td><code>data-xz-table</code></td><td><code>table</code></td><td>Turns on the script features below.</td></tr>
       <tr><td><code>data-xz-sort="text"</code></td><td><code>th</code></td><td>Makes the column sortable. Types: <code>text</code>, <code>number</code>, <code>date</code>.</td></tr>
@@ -1739,8 +1803,88 @@
       <tr><td><code>xz-table__primary</code> <code>__secondary</code></td><td>Inside a cell</td><td>Main line and a smaller second line.</td></tr>
       <tr><td><code>xz-table__actions</code></td><td>Last column</td><td>Narrow, right-aligned cell for a row menu.</td></tr>
       <tr><td><code>xz-table-toolbar</code> <code>xz-table-footer</code></td><td>Before and after the wrapper</td><td>Bars that join the table's border.</td></tr>
-      <tr><td><code>aria-selected="true"</code></td><td><code>tr</code></td><td>Highlights a selected row.</td></tr>
-      <tr><td><code>xz:table</code></td><td>Event on <code>table</code></td><td>Fires after each update. <code>event.detail</code> has <code>total</code>, <code>page</code> and <code>pages</code>.</td></tr>
+      <tr><td><code>aria-selected="true"</code></td><td><code>tr</code></td><td>Highlights a selected row. Rows with a ticked box are highlighted by themselves.</td></tr>
+      <tr><td><code>xz:table</code></td><td>Event on <code>table</code></td><td>Fires after each update. <code>event.detail</code> has <code>total</code>, <code>page</code>, <code>pages</code>, <code>query</code>, <code>filters</code>, <code>sort</code> and <code>selected</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= CHARTS ================= -->
+<section class="doc-section" id="charts">
+  <h2>Charts</h2>
+  <p>Bar, line, area, donut and pie charts, drawn from a table in the page. The table stays for screen readers and behind a "Show table" link, so the numbers are never only in a picture. Hover a chart, or Tab to it and use the arrow keys. Charts are an optional file: add <code class="xz-code">xsenze-charts.min.js</code> after the main script on pages that show them.</p>
+  <h3 id="charts--bar">Bar</h3>
+  <div class="doc-example" data-layout="block">
+    <figure class="xz-chart" data-xz-chart="bar" data-xz-chart-format="inr">
+      <figcaption>Fees by month</figcaption>
+      <table>
+        <thead><tr><th>Month</th><th>Collected</th><th>Due</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Jun</th><td>1240000</td><td>310000</td></tr>
+          <tr><th scope="row">Jul</th><td>1385000</td><td>280000</td></tr>
+          <tr><th scope="row">Aug</th><td>1190000</td><td>365000</td></tr>
+          <tr><th scope="row">Sep</th><td>1520000</td><td>240000</td></tr>
+          <tr><th scope="row">Oct</th><td>1610000</td><td>205000</td></tr>
+          <tr><th scope="row">Nov</th><td>1745000</td><td>190000</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </div>
+  <h3 id="charts--line-and-area">Line and area</h3>
+  <div class="doc-example" data-layout="block">
+    <figure class="xz-chart" data-xz-chart="line" data-xz-chart-curve="smooth" data-xz-chart-zero="false">
+      <figcaption>New learners each month</figcaption>
+      <table>
+        <thead><tr><th>Month</th><th>Online</th><th>Classroom</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Jun</th><td>128</td><td>96</td></tr>
+          <tr><th scope="row">Jul</th><td>142</td><td>101</td></tr>
+          <tr><th scope="row">Aug</th><td>139</td><td>117</td></tr>
+          <tr><th scope="row">Sep</th><td>171</td><td>124</td></tr>
+          <tr><th scope="row">Oct</th><td>188</td><td>131</td></tr>
+          <tr><th scope="row">Nov</th><td>205</td><td>149</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </div>
+  <h3 id="charts--donut">Donut</h3>
+  <div class="doc-example" data-layout="block">
+    <figure class="xz-chart" data-xz-chart="donut" style="--xz-chart-height: 14rem">
+      <figcaption>Learners by course</figcaption>
+      <table>
+        <thead><tr><th>Course</th><th>Learners</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Data Analytics</th><td>420</td></tr>
+          <tr><th scope="row">Full Stack</th><td>310</td></tr>
+          <tr><th scope="row">Python</th><td>260</td></tr>
+          <tr><th scope="row">UX Design</th><td>180</td></tr>
+          <tr><th scope="row">Sales</th><td>90</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </div>
+  <h3 id="charts--sparkline-and-progress-ring">Sparkline and progress ring</h3>
+  <p>Two small pieces in the main file, for stat cards and table cells. They need no chart file.</p>
+  <div class="doc-example">
+    <span class="xz-sparkline" data-xz-sparkline="12 18 9 24 31 28 40" data-xz-sparkline-area aria-label="Enrolments, rising over seven weeks"></span>
+    <div class="xz-ring" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" aria-label="Course completion" style="--xz-ring: 72">72%</div>
+    <div class="xz-ring xz-ring--sm xz-ring--success" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" aria-label="Attendance" style="--xz-ring: 90">90</div>
+  </div>
+  <h3 id="charts--reference">Reference</h3>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute or option</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-chart="bar"</code></td><td>On a <code>figure.xz-chart</code> with a <code>figcaption</code> and a <code>table</code>. Types: <code>bar</code>, <code>line</code>, <code>area</code>, <code>donut</code>, <code>pie</code>. Header cells name the series; the first cell of each row names the category.</td></tr>
+      <tr><td><code>data-xz-chart-format</code></td><td>How numbers read: <code>number</code>, <code>inr</code>, <code>inr-compact</code>, <code>compact</code> or <code>percent</code> (values as fractions). Axes use the short form, such as ₹10 L.</td></tr>
+      <tr><td><code>data-xz-chart-stacked</code> <code>-horizontal</code> <code>-curve="smooth"</code></td><td>Stack the series, lay bars sideways, smooth the lines (without overshooting the data).</td></tr>
+      <tr><td><code>data-xz-chart-values</code> <code>-patterns</code> <code>-legend="off"</code></td><td>Write values on bars, add patterns and line dashes so series differ by more than colour, hide the legend.</td></tr>
+      <tr><td><code>data-xz-chart-zero="false"</code> <code>-min</code> <code>-max</code> <code>-empty</code></td><td>Let a line chart's axis start near the data, fix the axis ends, and change the text shown when there is no data.</td></tr>
+      <tr><td><code>th[data-xz-color="viz-3"]</code></td><td>Pick a chart colour for a series. Colours come from the theme's <code>--xz-viz-1</code> to <code>--xz-viz-8</code>.</td></tr>
+      <tr><td><code>--xz-chart-height</code> <code>-radius</code> <code>-line</code> <code>-donut</code> <code>-area</code> <code>-grid-dash</code></td><td>The look: height (16rem, 12rem on phones), bar corners, line width, donut thickness, area fill and grid dashes.</td></tr>
+      <tr><td><code>Xsenze.chart(el, options)</code></td><td>Draw from JavaScript: <code>{ type, labels, series: [{ name, values, color }], format, stacked }</code>. Returns <code>{ update(data), destroy() }</code>; <code>update()</code> with no data reads the table again.</td></tr>
+      <tr><td><code>xz:legend</code> <code>xz:point</code></td><td>A series was shown or hidden; the focused or hovered point changed.</td></tr>
+      <tr><td><code>data-xz-sparkline="1 4 2 8"</code></td><td>A small trend line. Add <code>data-xz-sparkline-area</code> for a fill and an <code>aria-label</code> that says what the trend means.</td></tr>
+      <tr><td><code>xz-ring</code> + <code>style="--xz-ring: 72"</code></td><td>A progress ring from 0 to 100. Sizes <code>--sm</code>, <code>--lg</code>; colours <code>--success</code>, <code>--warning</code>, <code>--danger</code>. Give it <code>role="progressbar"</code> and the <code>aria-value</code> attributes.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -1750,7 +1894,7 @@
   <h2>Media, profile and pricing cards</h2>
   <p>Variants of the card for things people browse and compare. They use the same parts as the basic card.</p>
 
-  <h3>Media card</h3>
+  <h3 id="rich-cards--media-card">Media card</h3>
   <p>Put a picture or video in <code class="xz-code">xz-card__media</code>. It keeps a 16:9 shape so the page does not jump while the picture loads. Add <code class="xz-code">xz-card--horizontal</code> to place the picture on the left on wider screens.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 240px">
@@ -1789,7 +1933,7 @@
     </article>
   </div>
 
-  <h3>Profile card</h3>
+  <h3 id="rich-cards--profile-card">Profile card</h3>
   <div class="doc-example">
     <article class="xz-card xz-profile" style="width: 18rem">
       <div class="xz-profile__cover"></div>
@@ -1808,7 +1952,7 @@
     </article>
   </div>
 
-  <h3>Pricing</h3>
+  <h3 id="rich-cards--pricing">Pricing</h3>
   <p>Wrap the plans in <code class="xz-code">data-xz-pricing</code>. Any element with <code class="xz-code">data-monthly</code> and <code class="xz-code">data-yearly</code> swaps its text when the period changes. Mark one plan as featured, at most.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-pricing" data-xz-pricing>
@@ -2042,6 +2186,51 @@
       <tr><td><code>data-xz-shortcut="/"</code></td><td>Pressing this key anywhere on the page moves focus to the field.</td></tr>
       <tr><td><code>data-xz-max</code></td><td>Most suggestions to show. Default 8.</td></tr>
       <tr><td><code>xz:select</code> <code>xz:search</code></td><td>Fire when a suggestion is picked or a search runs. Call <code>event.preventDefault()</code> to handle it yourself.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= COMMAND PALETTE ================= -->
+<section class="doc-section" id="command-palette">
+  <h2>Command palette</h2>
+  <p>A search box in a dialog that finds pages and runs actions as people type. In an app it usually opens with Ctrl+K (⌘K on Apple devices); this demo opens from its button only, because Ctrl+K already opens the docs search. Typing ranks the best matches first, so "new inv" finds "New invoice", and recent picks come back at the top.</p>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" data-xz-open="#palette-demo"><i data-xz-icon="command" data-size="sm"></i>Open the palette</button>
+    <dialog id="palette-demo" data-xz-command data-xz-shortcut="none" data-xz-recent="docs-demo" aria-label="Command menu">
+      <ul class="xz-command-palette__source" hidden>
+        <li data-group="Pages" data-href="#command-palette" data-icon="layout-dashboard" data-pin>Dashboard</li>
+        <li data-group="Pages" data-href="#command-palette" data-icon="users" data-pin>Learners</li>
+        <li data-group="Pages" data-href="#command-palette" data-icon="receipt" data-pin>Invoices</li>
+        <li data-group="Actions" data-action="new-invoice" data-icon="plus" data-keywords="bill create" data-kbd="N">New invoice</li>
+        <li data-group="Actions" data-action="new-learner" data-icon="plus" data-keywords="student add enrol">New learner</li>
+        <li data-group="Actions" data-action="theme" data-icon="moon" data-keywords="dark light mode">Switch theme</li>
+        <li data-group="Learners" data-href="#command-palette" data-meta="B-14">Ananya Iyer</li>
+        <li data-group="Learners" data-href="#command-palette" data-meta="B-12">Rohan Deshmukh</li>
+      </ul>
+    </dialog>
+  </div>
+  <p>Handle actions with the <code class="xz-code">xz:command</code> event, or open a palette from JavaScript with your own items:</p>
+  <pre class="doc-snippet" data-lang="text">
+    document.addEventListener('xz:command', (e) => {
+      if (e.detail.action === 'theme') Xsenze.theme.toggle();
+    });
+
+    const item = await Xsenze.command.open({
+      placeholder: 'Find a learner',
+      items: [{ label: 'Ananya Iyer', group: 'Learners', href: '/learners/14', meta: 'B-14' }],
+      providers: [async (q, { signal }) => (await fetch('/api/find?q=' + q, { signal })).json()],
+    });
+  </pre>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Attribute or option</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>dialog[data-xz-command]</code></td><td>The palette. Open it with a button that has <code>data-xz-open="#id"</code>, or the shortcut.</td></tr>
+      <tr><td><code>.xz-command-palette__source &gt; li</code></td><td>Items. <code>data-group</code>, <code>data-href</code> or <code>data-action</code>, <code>data-icon</code>, <code>data-meta</code>, <code>data-keywords</code>, <code>data-kbd</code>, and <code>data-pin</code> to show the item before anything is typed.</td></tr>
+      <tr><td><code>data-xz-shortcut="mod+k"</code></td><td>The keyboard shortcut. <code>mod</code> is Ctrl, or ⌘ on Apple devices. <code>none</code> turns it off. It does nothing while someone is typing in a field.</td></tr>
+      <tr><td><code>data-xz-command-url</code></td><td>Also ask your server, with <code>{q}</code> in the address. Expects <code>[{ label, group, href, meta }]</code>; older requests are cancelled.</td></tr>
+      <tr><td><code>data-xz-recent="name"</code> <code>data-xz-max</code></td><td>Remember recent picks on this device, and the most results to show (50).</td></tr>
+      <tr><td><code>Xsenze.command.open(options)</code></td><td>Opens a palette with <code>items</code> and <code>providers</code>; returns a promise of the chosen item, or <code>null</code>. <code>Xsenze.command.register()</code> adds items to a palette in the page.</td></tr>
+      <tr><td><code>xz:command</code></td><td>Fires when an item is chosen, with <code>item</code>, <code>query</code> and <code>action</code>. Call <code>preventDefault()</code> to stop the link from opening.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -2296,7 +2485,7 @@
   <h2>Video and audio player</h2>
   <p>Kit controls over the browser's own player: play, time, seek, volume, speed, captions and full screen. Write a normal <code class="xz-code">video</code> or <code class="xz-code">audio</code> element with <code class="xz-code">controls</code>; the script swaps in the kit controls, and without it the browser's controls still work.</p>
   <p>Keyboard, with focus anywhere in the player: Space or K plays and pauses, Left and Right jump 5 seconds, M mutes, F goes full screen.</p>
-  <h3>Video</h3>
+  <h3 id="player--video">Video</h3>
   <div class="doc-example" data-layout="block">
     <div data-xz-player data-xz-title="Lesson 1, Reading a sales chart" data-xz-resume="docs-lesson-1" style="max-width: 40rem">
       <video controls preload="metadata" playsinline>
@@ -2305,7 +2494,7 @@
       </video>
     </div>
   </div>
-  <h3>Audio</h3>
+  <h3 id="player--audio">Audio</h3>
   <div class="doc-example" data-layout="block">
     <div data-xz-player data-xz-title="Podcast, Episode 12" style="max-width: 32rem">
       <div class="xz-player__meta">
@@ -2352,6 +2541,18 @@
   document.getElementById('val-form').addEventListener('submit', (event) => {
     event.preventDefault();
     Xsenze.toast({ message: 'Account created', variant: 'success' });
+  });
+  // Command palette demo: actions show a toast, "Switch theme" switches it.
+  document.getElementById('palette-demo')?.addEventListener('xz:command', (e) => {
+    if (!e.detail.action) return;
+    e.preventDefault();
+    if (e.detail.action === 'theme') Xsenze.theme.toggle();
+    else Xsenze.toast({ message: 'Action: ' + e.detail.item.label });
+  });
+  // Table demo: bulk buttons show a toast instead of posting.
+  document.getElementById('tb-learners')?.addEventListener('xz:bulk', (e) => {
+    e.preventDefault();
+    Xsenze.toast({ message: `Reminder sent to ${e.detail.ids.length} learner${e.detail.ids.length === 1 ? '' : 's'}` });
   });
 </script>
 </body>

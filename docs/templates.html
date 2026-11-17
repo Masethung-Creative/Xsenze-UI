@@ -6,9 +6,10 @@
 <link rel="icon" href="data:,">
 <title>Templates · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
-<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <link rel="stylesheet" href="docs.css">
+<script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
+<script src="viewer.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
 </head>
 <body class="doc" data-page="templates">
@@ -27,21 +28,16 @@
 <section class="doc-section" id="auth">
   <h2>Sign in and account</h2>
   <p>A two-panel layout: brand panel on the left, form on the right. On phones the brand panel is hidden and the logo moves above the form. Forms validate before they submit and show the kit's error messages.</p>
-  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 15rem">
-    <a class="xz-card xz-card--interactive" href="../templates/login.html">
-      <div class="doc-thumb"><iframe src="../templates/login.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">Login</h3><p class="xz-card__subtitle">Email, password with show and hide, remember me, and a single sign-on button.</p></div>
-    </a>
-    <a class="xz-card xz-card--interactive" href="../templates/signup.html">
-      <div class="doc-thumb"><iframe src="../templates/signup.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">Signup</h3><p class="xz-card__subtitle">Name, email, +91 mobile number, password rules, role and terms.</p></div>
-    </a>
-    <a class="xz-card xz-card--interactive" href="../templates/forgot-password.html">
-      <div class="doc-thumb"><iframe src="../templates/forgot-password.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">Forgot password</h3><p class="xz-card__subtitle">One field, then a confirmation that does not reveal whether the account exists.</p></div>
-    </a>
-  </div>
-  <h3>Layout classes</h3>
+  <h3 id="template-login">Login</h3>
+  <p>Email, password with show and hide, remember me, and a single sign-on button.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/login.html" data-title="Login"></div>
+  <h3 id="template-signup">Signup</h3>
+  <p>Name, email, +91 mobile number, password rules, role and terms.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/signup.html" data-title="Signup"></div>
+  <h3 id="template-forgot-password">Forgot password</h3>
+  <p>One field, then a confirmation that does not reveal whether the account exists.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/forgot-password.html" data-title="Forgot password"></div>
+  <h3 id="auth--layout-classes">Layout classes</h3>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class</th><th>Role</th></tr></thead>
     <tbody>
@@ -57,13 +53,10 @@
 <section class="doc-section" id="dashboard">
   <h2>Dashboard</h2>
   <p>The application shell: a sidebar that becomes a drawer below 1024px, a sticky top bar, a page header, KPI cards, a searchable table with sorting, pagination and row actions, and a side column for progress and activity.</p>
-  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 100%">
-    <a class="xz-card xz-card--interactive" href="../templates/dashboard.html">
-      <div class="doc-thumb"><iframe src="../templates/dashboard.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">Dashboard layout</h3><p class="xz-card__subtitle">Shell, KPIs, table, modal form and toast.</p></div>
-    </a>
-  </div>
-  <h3>Shell structure</h3>
+  <h3 id="template-dashboard">Dashboard layout</h3>
+  <p>Shell, KPIs, table, modal form and toast.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/dashboard.html" data-title="Dashboard layout"></div>
+  <h3 id="dashboard--shell-structure">Shell structure</h3>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <div class="xz-shell">
       <aside class="xz-sidebar">…</aside>
@@ -87,27 +80,20 @@
 <section class="doc-section" id="errors">
   <h2>Error pages</h2>
   <p>Both pages say what happened in plain words and give a way forward. The 500 page shows a reference the person can quote to support.</p>
-  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 20rem">
-    <a class="xz-card xz-card--interactive" href="../templates/404.html">
-      <div class="doc-thumb"><iframe src="../templates/404.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">404: page not found</h3><p class="xz-card__subtitle">Go to the dashboard or go back.</p></div>
-    </a>
-    <a class="xz-card xz-card--interactive" href="../templates/500.html">
-      <div class="doc-thumb"><iframe src="../templates/500.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">500: server error</h3><p class="xz-card__subtitle">Try again or contact support.</p></div>
-    </a>
-  </div>
+  <h3 id="template-404">404: page not found</h3>
+  <p>Go to the dashboard or go back.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/404.html" data-title="404: page not found"></div>
+  <h3 id="template-500">500: server error</h3>
+  <p>Try again or contact support.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/500.html" data-title="500: server error"></div>
 </section>
 
 <section class="doc-section" id="landing">
   <h2>Landing page</h2>
   <p>A full product page built from the blocks: hero with a flow diagram, customer names, a module catalogue, three feature rows with live demos, a pricing claim, a closing band and a dark footer. Every section is documented on the <a class="xz-link" href="blocks.html">Blocks</a> page, with its code ready to paste.</p>
-  <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 100%">
-    <a class="xz-card xz-card--interactive" href="../templates/landing.html">
-      <div class="doc-thumb"><iframe src="../templates/landing.html" title="" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true"></iframe></div>
-      <div class="xz-card__body xz-stack xz-gap-2"><h3 class="xz-card__title">Landing page</h3><p class="xz-card__subtitle">Eight sections, light and dark, with a button that pauses all motion.</p></div>
-    </a>
-  </div>
+  <h3 id="template-landing">Landing page</h3>
+  <p>Eight sections, light and dark, with a button that pauses all motion.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/landing.html" data-title="Landing page"></div>
 </section>
 
 <section class="doc-section" id="use">

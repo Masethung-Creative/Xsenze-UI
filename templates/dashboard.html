@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="../dist/xsenze.min.css">
 <link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <script src="../dist/xsenze.min.js" defer></script>
+<script src="../dist/xsenze-charts.min.js" defer></script>
 </head>
 <body>
 <a class="xz-skip-link" href="#main">Skip to content</a>
@@ -126,6 +127,64 @@
             <div class="xz-stat__meta">14 invoices · 5 overdue</div>
           </div>
         </section>
+
+        <!-- Charts are drawn from the tables inside them. In PHP, print one row per month or course. -->
+        <div class="xz-grid">
+          <section class="xz-card xz-col-lg-8" aria-label="Revenue">
+            <div class="xz-card__body">
+              <figure class="xz-chart" data-xz-chart="bar" data-xz-chart-format="inr">
+                <figcaption>Revenue by month</figcaption>
+                <table>
+                  <thead><tr><th>Month</th><th>Collected</th><th>Due</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Jun</th><td>1240000</td><td>310000</td></tr>
+                    <tr><th scope="row">Jul</th><td>1385000</td><td>280000</td></tr>
+                    <tr><th scope="row">Aug</th><td>1190000</td><td>365000</td></tr>
+                    <tr><th scope="row">Sep</th><td>1520000</td><td>240000</td></tr>
+                    <tr><th scope="row">Oct</th><td>1610000</td><td>205000</td></tr>
+                    <tr><th scope="row">Nov</th><td>1840000</td><td>320000</td></tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+          </section>
+          <section class="xz-card xz-col-lg-4" aria-label="Course mix">
+            <div class="xz-card__body">
+              <figure class="xz-chart" data-xz-chart="donut">
+                <figcaption>Learners by course</figcaption>
+                <table>
+                  <thead><tr><th>Course</th><th>Learners</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Data Analytics</th><td>820</td></tr>
+                    <tr><th scope="row">Python</th><td>610</td></tr>
+                    <tr><th scope="row">Full Stack</th><td>540</td></tr>
+                    <tr><th scope="row">Sales</th><td>300</td></tr>
+                    <tr><th scope="row">Leadership</th><td>210</td></tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+          </section>
+          <section class="xz-card xz-col-12" aria-label="Enrolments">
+            <div class="xz-card__body">
+              <figure class="xz-chart" data-xz-chart="area" data-xz-chart-curve="smooth" style="--xz-chart-height: 12rem">
+                <figcaption>New learners each week</figcaption>
+                <table>
+                  <thead><tr><th>Week</th><th>Online</th><th>Classroom</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">29 Sep</th><td>38</td><td>22</td></tr>
+                    <tr><th scope="row">6 Oct</th><td>41</td><td>25</td></tr>
+                    <tr><th scope="row">13 Oct</th><td>36</td><td>27</td></tr>
+                    <tr><th scope="row">20 Oct</th><td>47</td><td>24</td></tr>
+                    <tr><th scope="row">27 Oct</th><td>52</td><td>29</td></tr>
+                    <tr><th scope="row">3 Nov</th><td>49</td><td>31</td></tr>
+                    <tr><th scope="row">10 Nov</th><td>58</td><td>34</td></tr>
+                  </tbody>
+                </table>
+              </figure>
+            </div>
+          </section>
+        </div>
 
         <div class="xz-grid">
 

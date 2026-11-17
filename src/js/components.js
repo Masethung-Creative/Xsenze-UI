@@ -2,6 +2,9 @@
 // suggestions, bottom sheet, wizard, carousel, lightbox, video and audio player, pricing switch.
 // Everything starts from data attributes. Markup without the script still shows its content.
 import { place, placeAt } from './place.js';
+import { openFloating, releaseFloating, bindGlobal, floating } from './floating.js';
+import { termsOf, ranked, highlight, recentList, fetchItems } from './listbox.js';
+import { parseShortcut, matchShortcut, typing } from './shared.js';
 
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const ready = (el) => {
@@ -17,76 +20,6 @@ const nextId = (p) => `xz-${p}-c${++uid}`;
 
 let icon = () => '';
 let validateField = () => true;
-
-// ---------- one floating panel at a time ----------
-// Popovers, the mega menu, context menus and search suggestions share this, so opening one closes the others.
-let current = null;
-function openFloating(entry) {
-  if (current && current.panel !== entry.panel) current.close(false);
-  current = entry;
-}
-function releaseFloating(panel) {
-  if (current?.panel === panel) current = null;
-}
-let bound = false;
-function bindGlobal() {
-  if (bound) return;
-  bound = true;
-  document.addEventListener('pointerdown', (e) => {
-    if (current && !current.panel.contains(e.target) && !current.trigger?.contains(e.target)) current.close(false);
-  });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && current) {
-      e.preventDefault();
-      current.close(true);
-    }
-  });
-  // Panels are pinned to the viewport. When the page moves under them, most close;
-  // search suggestions follow their field instead, because phones scroll the page as the keyboard opens.
-  const moved = (e) => {
-    if (!current || (e && e.target !== document && current.panel.contains(e.target))) return;
-    if (current.follow) current.follow();
-    else current.close(false);
-  };
-  addEventListener('resize', () => moved());
-  document.addEventListener('scroll', moved, true);
-}
-
-/** Shared open and close logic for a button that shows a panel. */
-function floating({ wrapper, trigger, panel, position, focusPanel }) {
-  panel.id ||= nextId('panel');
-  panel.hidden = true;
-  trigger.setAttribute('aria-expanded', 'false');
-  trigger.setAttribute('aria-controls', panel.id);
-  const close = (refocus) => {
-    if (panel.hidden) return;
-    panel.hidden = true;
-    trigger.setAttribute('aria-expanded', 'false');
-    wrapper.classList.remove('is-open');
-    releaseFloating(panel);
-    if (refocus) trigger.focus();
-    fire(wrapper, 'xz:close');
-  };
-  const open = () => {
-    openFloating({ panel, trigger, close });
-    panel.hidden = false;
-    trigger.setAttribute('aria-expanded', 'true');
-    wrapper.classList.add('is-open');
-    position();
-    if (focusPanel) (panel.querySelector('[autofocus]') || panel).focus({ preventScroll: true });
-    fire(wrapper, 'xz:open');
-  };
-  trigger.addEventListener('click', () => (panel.hidden ? open() : close(false)));
-  // Leaving with Tab closes the panel.
-  panel.addEventListener('focusout', (e) => {
-    if (e.relatedTarget && !panel.contains(e.relatedTarget) && e.relatedTarget !== trigger) close(false);
-  });
-  panel.addEventListener('click', (e) => {
-    if (e.target.closest('[data-xz-popover-close]')) close(true);
-  });
-  wrapper.xzPopover = { open, close };
-  return { open, close };
-}
 
 // ---------- popover ----------
 function initPopovers(root) {
@@ -263,30 +196,14 @@ function initContextMenus(root) {
 }
 
 // ---------- search with suggestions ----------
-const RECENT_MAX = 5;
-const recentKey = (name) => `xz-search-recent:${name}`;
-function readRecent(name) {
-  try {
-    return JSON.parse(localStorage.getItem(recentKey(name)) || '[]').slice(0, RECENT_MAX);
-  } catch {
-    return [];
-  }
-}
-function saveRecent(name, query) {
-  if (!name || !query) return;
-  try {
-    const list = [query, ...readRecent(name).filter((q) => q.toLowerCase() !== query.toLowerCase())].slice(0, RECENT_MAX);
-    localStorage.setItem(recentKey(name), JSON.stringify(list));
-  } catch {}
-}
-function mark(label, query) {
-  const i = query ? label.toLowerCase().indexOf(query.toLowerCase()) : -1;
-  if (i < 0) return esc(label);
-  return esc(label.slice(0, i)) + '<mark>' + esc(label.slice(i, i + query.length)) + '</mark>' + esc(label.slice(i + query.length));
-}
+const recentSearches = (name) => recentList(name ? `xz-search-recent:${name}` : '', { max: 5, same: (a, b) => a.toLowerCase() === b.toLowerCase() });
+const readRecent = (name) => recentSearches(name).get();
+const saveRecent = (name, query) => name && query && recentSearches(name).add(query);
+const mark = (label, query) => highlight(label, termsOf(query));
 
 function initSearches(root) {
-  for (const box of $$('[data-xz-search]', root)) {
+  // A table with data-xz-search names its own filter field; that is the table's, not a suggestion box.
+  for (const box of $$('[data-xz-search]:not(table)', root)) {
     if (ready(box)) continue;
     const input = box.querySelector('input[type="search"], input[type="text"]');
     if (!input) continue;
@@ -362,9 +279,11 @@ function initSearches(root) {
       status.textContent = query ? (n ? `${n} suggestion${n === 1 ? '' : 's'}` : 'No suggestions') : '';
     };
 
+    // Best matches first within each group; groups keep the order they have in the page.
+    const groupOrder = [...new Set(source.map((o) => o.group))];
     const local = (q) => {
-      const needle = q.toLowerCase();
-      return source.filter((o) => (o.label + ' ' + o.meta + ' ' + o.keywords).toLowerCase().includes(needle)).slice(0, max);
+      const best = ranked(source, termsOf(q));
+      return groupOrder.flatMap((g) => best.filter((o) => o.group === g)).slice(0, max);
     };
     const update = () => {
       const q = input.value.trim();
@@ -381,11 +300,9 @@ function initSearches(root) {
       timer = setTimeout(async () => {
         pending = new AbortController();
         try {
-          const res = await fetch(url.includes('{q}') ? url.replace('{q}', encodeURIComponent(q)) : url + encodeURIComponent(q), { signal: pending.signal, headers: { Accept: 'application/json' } });
-          if (!res.ok) throw new Error(res.statusText);
-          const data = await res.json();
+          const data = await fetchItems(url, q, pending.signal);
           if (input.value.trim() !== q) return;
-          render(withQuery([...local(q), ...data.map((d) => ({ label: String(d.label), group: d.group || '', href: d.href || '', meta: d.meta || '' }))].slice(0, max)), q);
+          render(withQuery([...local(q), ...data].slice(0, max)), q);
         } catch (err) {
           if (err.name !== 'AbortError') render(withQuery(local(q)), q, 'Could not load more suggestions.');
         }
@@ -455,12 +372,13 @@ function initSearches(root) {
       });
     }
 
+    // A single key such as "/" focuses the field when nothing else is being typed. "mod+k" style shortcuts also work.
     const key = box.getAttribute('data-xz-shortcut');
     if (key) {
+      const combo = key.length > 1 && key.includes('+') ? parseShortcut(key) : null;
       document.addEventListener('keydown', (e) => {
-        if (e.key !== key || e.ctrlKey || e.metaKey || e.altKey) return;
-        const t = e.target;
-        if (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)) return;
+        if (combo ? !matchShortcut(e, combo) : e.key !== key || e.ctrlKey || e.metaKey || e.altKey) return;
+        if (typing(e.target) && !combo) return;
         e.preventDefault();
         input.focus();
       });

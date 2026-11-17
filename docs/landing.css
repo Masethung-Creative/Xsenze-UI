@@ -17,7 +17,7 @@
 .lp-hero h1 { margin: var(--xz-space-6) 0; font-size: clamp(2.5rem, 6.4vw, 4.5rem); }
 .lp-hero .xz-lead { max-width: 34rem; margin-bottom: var(--xz-space-8); }
 .lp-install { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-3); max-width: 30rem; margin-top: var(--xz-space-6); padding: var(--xz-space-2) var(--xz-space-2) var(--xz-space-2) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-control); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); }
-.lp-install code { overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+.lp-install code { min-width: 0; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
 .lp-ticks { display: flex; flex-wrap: wrap; gap: var(--xz-space-2) var(--xz-space-5); margin: var(--xz-space-6) 0 0; padding: 0; list-style: none; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
 .lp-ticks li { display: inline-flex; align-items: center; gap: var(--xz-space-2); }
 .lp-ticks .xz-icon { color: var(--xz-success-text); }

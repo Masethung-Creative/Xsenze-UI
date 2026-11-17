@@ -6,8 +6,8 @@
 <link rel="icon" href="data:,">
 <title>Get started · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
-<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <link rel="stylesheet" href="docs.css">
+<script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
 </head>
@@ -21,21 +21,12 @@
 <header class="doc-hero">
   <p class="xz-overline">Get started</p>
   <h1 class="xz-h1">Install the kit</h1>
-  <p class="xz-lead">Two files give you everything: one stylesheet and one script. There is no build step for HTML and PHP projects.</p>
+  <p class="xz-lead">Two files give you everything: one stylesheet and one script. Link them from the CDN, install them with npm, or copy them into your project. There is no build step for HTML and PHP projects.</p>
 </header>
 
 <section class="doc-section" id="quick-start">
   <h2>Quick start</h2>
-  <p>Build the kit once, copy the <code class="xz-code">dist</code> folder into your project, then link the two files.</p>
-  <h3>1. Build</h3>
-  <pre class="doc-snippet" data-lang="text">
-    cd xsenze-ui-kit
-    npm install
-    npm run build
-  </pre>
-  <h3>2. Copy</h3>
-  <p>Copy <code class="xz-code">dist/</code> to your project, for example to <code class="xz-code">assets/xsenze/</code>. Keep the folder together: the stylesheet loads its fonts from <code class="xz-code">fonts/</code> next to it.</p>
-  <h3>3. Link</h3>
+  <p>Add two tags to your page. They load the kit from a free CDN, so there is nothing to install or build.</p>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <!doctype html>
     <html lang="en" data-theme="light">
@@ -43,9 +34,8 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>My page</title>
-      <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css">
-      <link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css">
-      <script src="/assets/xsenze/xsenze.min.js" defer></script>
+      <link rel="stylesheet" href="__XZ_CDN__/xsenze.min.css">
+      <script src="__XZ_CDN__/xsenze.min.js" defer></script>
     </head>
     <body>
       <main class="xz-container">
@@ -58,40 +48,81 @@
     </html>
   </textarea>
   <p>That is the whole setup. Components start by themselves when the page loads.</p>
-  <h3>4. The heading font</h3>
-  <p>Headings, buttons and numbers use <strong>Satoshi</strong>. Its free licence lets you use it on any website, but not pass the font file on, so the npm package does not include it. Download Satoshi from Fontshare, then put <code class="xz-code">Satoshi-Variable.woff2</code> in the <code class="xz-code">fonts/</code> folder next to <code class="xz-code">xsenze-satoshi.css</code>.</p>
+  <div class="xz-alert xz-alert--info" role="note">
+    <i data-xz-icon="info"></i>
+    <div class="xz-alert__body">
+      <div class="xz-alert__title">The version is part of the address</div>
+      <div class="xz-alert__text">These links point at version <span data-doc-var>__XZ_VERSION__</span>, and that address never changes. Your pages keep working when a new version comes out; change the number when you are ready to update.</div>
+    </div>
+  </div>
+</section>
+
+<section class="doc-section" id="install">
+  <h2>Ways to install</h2>
+  <p>Pick one. All three give you the same files.</p>
+  <h3 id="cdn">CDN</h3>
+  <p>The files are served from the kit's GitHub repository by jsDelivr, a free public CDN. It sends the headers that fonts need, so nothing else is required.</p>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <link rel="stylesheet" href="__XZ_CDN__/xsenze.min.css">
+    <script src="__XZ_CDN__/xsenze.min.js" defer></script>
+
+    <!-- Only on pages with charts -->
+    <script src="__XZ_CDN__/xsenze-charts.min.js" defer></script>
+  </textarea>
+  <p>Headings use the Satoshi font when it is available. Its licence does not allow the CDN to serve it, so on the CDN headings use Space Grotesk. To use Satoshi, host the files yourself (see <a class="xz-link" href="#quick-start--4-the-heading-font">the heading font</a>).</p>
+  <h3 id="npm">npm</h3>
+  <p>Install the kit straight from its GitHub release. The package name stays <code class="xz-code">@sfj/ui-kit</code> in your imports.</p>
+  <pre class="doc-snippet" data-lang="text">
+    npm install __XZ_NPM__
+  </pre>
+  <pre class="doc-snippet" data-lang="text">
+    import '@sfj/ui-kit/css';
+    import Xsenze from '@sfj/ui-kit';
+
+    // Charts, only where you need them:
+    import charts from '@sfj/ui-kit/charts';
+    Xsenze.use(charts);
+
+    // After you add markup to the page later (a route change, an AJAX response):
+    Xsenze.init(document.querySelector('#new-content'));
+  </pre>
+  <h3 id="download">Download</h3>
+  <p>To host the files yourself, build the kit once and copy the <code class="xz-code">dist</code> folder into your project, as in the steps below.</p>
+</section>
+
+<section class="doc-section" id="self-host">
+  <h2>Host the files yourself</h2>
+  <h3 id="quick-start--1-build">1. Build</h3>
+  <pre class="doc-snippet" data-lang="text">
+    git clone __XZ_REPO__.git xsenze-ui-kit
+    cd xsenze-ui-kit
+    npm install
+    npm run build
+  </pre>
+  <h3 id="quick-start--2-copy">2. Copy</h3>
+  <p>Copy <code class="xz-code">dist/</code> to your project, for example to <code class="xz-code">assets/xsenze/</code>. Keep the folder together: the stylesheet loads its fonts from <code class="xz-code">fonts/</code> next to it.</p>
+  <h3 id="quick-start--3-link">3. Link</h3>
+  <textarea class="doc-snippet" data-lang="html" hidden>
+    <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css">
+    <link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css">
+    <script src="/assets/xsenze/xsenze.min.js" defer></script>
+  </textarea>
+  <h3 id="quick-start--4-the-heading-font">4. The heading font</h3>
+  <p>Headings, buttons and numbers use <strong>Satoshi</strong>. Its free licence lets you use it on any website, but not pass the font file on, so neither the CDN nor the npm package includes it. Download Satoshi from Fontshare, then put <code class="xz-code">Satoshi-Variable.woff2</code> in the <code class="xz-code">fonts/</code> folder next to <code class="xz-code">xsenze-satoshi.css</code>.</p>
   <p>Without the file, or without <code class="xz-code">xsenze-satoshi.css</code>, headings use Space Grotesk. Nothing breaks.</p>
 </section>
 
-<section class="doc-section" id="files">
-  <h2>What is in dist</h2>
-  <div class="doc-table-wrap"><table class="doc-table">
-    <thead><tr><th>File</th><th>Use it for</th></tr></thead>
-    <tbody>
-      <tr><td><code>xsenze.min.css</code></td><td>Everything: body and code fonts, tokens, base styles and all components. Use this in production.</td></tr>
-      <tr><td><code>xsenze-satoshi.css</code></td><td>The heading font. Load it after the main stylesheet.</td></tr>
-      <tr><td><code>xsenze.css</code></td><td>The same, readable. Use it while debugging.</td></tr>
-      <tr><td><code>xsenze.min.js</code></td><td>Behaviours and icons for pages loaded with a script tag. Adds the global <code>Xsenze</code>.</td></tr>
-      <tr><td><code>xsenze.esm.js</code></td><td>The same as an ES module, for bundlers.</td></tr>
-      <tr><td><code>tokens/tokens.css</code></td><td>CSS variables only, with no component styles. For projects that only want the tokens.</td></tr>
-      <tr><td><code>tokens/tokens.json</code></td><td>Flat values for each theme. For scripts, emails and native apps.</td></tr>
-      <tr><td><code>tokens/tokens.dtcg.json</code></td><td>Tokens in the Design Tokens format. Import this into Figma variables.</td></tr>
-      <tr><td><code>icons/</code></td><td>Each icon as an SVG file, plus <code>sprite.svg</code>.</td></tr>
-      <tr><td><code>fonts/</code></td><td>Space Grotesk and JetBrains Mono, self-hosted, so no request leaves your server. Add Satoshi here yourself; see step 4.</td></tr>
-      <tr><td><code>brand/</code></td><td>Logo and mark.</td></tr>
-    </tbody>
-  </table></div>
-</section>
-
-<section class="doc-section" id="php">
-  <h2>PHP projects</h2>
-  <p>Put the two tags in your shared header file and add a version to the address, so browsers fetch the new files after you update the kit.</p>
+<section class="doc-section" id="platforms">
+  <h2>Platforms</h2>
+  <p>The kit is plain HTML, CSS and JavaScript, so it works in any stack. These are the usual places to put the two tags, and how to start components in markup that arrives after the page has loaded.</p>
+  <h3 id="html">Plain HTML</h3>
+  <p>Put the tags in the <code class="xz-code">head</code> of each page, as in the quick start. When a script adds markup later, call <code class="xz-code">Xsenze.init(element)</code> on it.</p>
+  <h3 id="php">PHP</h3>
+  <p>Put the tags in your shared header file. The version is in the CDN address, so browsers fetch the new files after you update.</p>
   <textarea class="doc-snippet" data-lang="html" hidden>
     <!-- partials/head.php -->
-    <?php $xz = '0.5.0'; ?>
-    <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css?v=<?= $xz ?>">
-    <link rel="stylesheet" href="/assets/xsenze/xsenze-satoshi.css?v=<?= $xz ?>">
-    <script src="/assets/xsenze/xsenze.min.js?v=<?= $xz ?>" defer></script>
+    <link rel="stylesheet" href="__XZ_CDN__/xsenze.min.css">
+    <script src="__XZ_CDN__/xsenze.min.js" defer></script>
   </textarea>
   <p>Format money and dates on the server the same way the kit does in the browser:</p>
   <pre class="doc-snippet" data-lang="text">
@@ -103,39 +134,78 @@
     // 15 Nov 2026
     echo date('j M Y', strtotime('2026-11-15'));
   </pre>
-</section>
-
-<section class="doc-section" id="cdn">
-  <h2>CDN</h2>
-  <p>The <code class="xz-code">dist</code> folder is the CDN build. Upload it to any static host or your own CDN and link to it with the version in the path, so each release has a permanent address.</p>
+  <h3 id="laravel">Laravel</h3>
+  <p>Add the tags to your main Blade layout. With Livewire, start components again after each page update.</p>
   <textarea class="doc-snippet" data-lang="html" hidden>
-    <link rel="stylesheet" href="https://cdn.example.com/xsenze/0.5.0/xsenze.min.css">
-    <link rel="stylesheet" href="https://cdn.example.com/xsenze/0.5.0/xsenze-satoshi.css">
-    <script src="https://cdn.example.com/xsenze/0.5.0/xsenze.min.js" defer></script>
-  </textarea>
-  <p>Replace <code class="xz-code">cdn.example.com</code> with your host. Serve the files with CORS enabled (<code class="xz-code">Access-Control-Allow-Origin: *</code>) so the fonts load from other domains.</p>
-  <div class="xz-alert xz-alert--info" role="note">
-    <i data-xz-icon="info"></i>
-    <div class="xz-alert__body">
-      <div class="xz-alert__title">Not on npm yet</div>
-      <div class="xz-alert__text">The package is named <code class="xz-code">@sfj/ui-kit</code> and is ready to publish, but publishing is part of Phase 2. Until then, use the dist folder.</div>
-    </div>
-  </div>
-</section>
+    <!-- resources/views/layouts/app.blade.php -->
+    <link rel="stylesheet" href="__XZ_CDN__/xsenze.min.css">
+    <script src="__XZ_CDN__/xsenze.min.js" defer></script>
 
-<section class="doc-section" id="bundlers">
-  <h2>Bundlers and frameworks</h2>
-  <p>In a project with a bundler, install the kit from its folder and import it.</p>
+    <!-- With Livewire: -->
+    <script>
+      document.addEventListener('livewire:navigated', () => Xsenze.init());
+    </script>
+  </textarea>
+  <h3 id="wordpress">WordPress</h3>
+  <p>Load the files from your theme's <code class="xz-code">functions.php</code>.</p>
   <pre class="doc-snippet" data-lang="text">
-    npm install ../xsenze-ui-kit
+    add_action('wp_enqueue_scripts', function () {
+      $cdn = '__XZ_CDN__';
+      wp_enqueue_style('xsenze', "$cdn/xsenze.min.css", [], null);
+      wp_enqueue_script('xsenze', "$cdn/xsenze.min.js", [], null, ['strategy' => 'defer']);
+    });
   </pre>
+  <h3 id="bundlers">With a bundler</h3>
+  <p>Install with npm and import the stylesheet and the script once, in your entry file. Importing is safe during server rendering: the kit only touches the page in the browser. Calling <code class="xz-code">Xsenze.init()</code> again is safe too, because each component starts only once.</p>
+  <h3 id="react">React and Next.js</h3>
   <pre class="doc-snippet" data-lang="text">
+    // app/xsenze-kit.jsx, used once in the root layout
+    'use client';
+    import { useEffect } from 'react';
+    import { usePathname } from 'next/navigation';
+    import '@sfj/ui-kit/css';
+
+    export default function XsenzeKit() {
+      const pathname = usePathname();
+      useEffect(() => {
+        import('@sfj/ui-kit').then(({ default: Xsenze }) => Xsenze.init());
+      }, [pathname]);
+      return null;
+    }
+  </pre>
+  <h3 id="vue">Vue</h3>
+  <pre class="doc-snippet" data-lang="text">
+    // main.js
+    import { createApp, nextTick } from 'vue';
     import '@sfj/ui-kit/css';
     import Xsenze from '@sfj/ui-kit';
+    import App from './App.vue';
+    import router from './router';
 
-    // After you add markup to the page later (a route change, an AJAX response):
-    Xsenze.init(document.querySelector('#new-content'));
+    createApp(App).use(router).mount('#app');
+    router.afterEach(() => nextTick(() => Xsenze.init()));
   </pre>
+</section>
+
+<section class="doc-section" id="files">
+  <h2>What is in dist</h2>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>File</th><th>Use it for</th></tr></thead>
+    <tbody>
+      <tr><td><code>xsenze.min.css</code></td><td>Everything: body and code fonts, tokens, base styles and all components. Use this in production.</td></tr>
+      <tr><td><code>xsenze-satoshi.css</code></td><td>The heading font. Load it after the main stylesheet, when you host Satoshi yourself.</td></tr>
+      <tr><td><code>xsenze.css</code></td><td>The same, readable. Use it while debugging.</td></tr>
+      <tr><td><code>xsenze.min.js</code></td><td>Behaviours and icons for pages loaded with a script tag. Adds the global <code>Xsenze</code>.</td></tr>
+      <tr><td><code>xsenze.esm.js</code></td><td>The same as an ES module, for bundlers.</td></tr>
+      <tr><td><code>xsenze-charts.min.js</code></td><td>Charts. Optional: load it after the main script, only on pages with charts. <code>xsenze-charts.esm.js</code> is the module version.</td></tr>
+      <tr><td><code>tokens/tokens.css</code></td><td>CSS variables only, with no component styles. For projects that only want the tokens.</td></tr>
+      <tr><td><code>tokens/tokens.json</code></td><td>Flat values for each theme. For scripts, emails and native apps.</td></tr>
+      <tr><td><code>tokens/tokens.dtcg.json</code></td><td>Tokens in the Design Tokens format. Import this into Figma variables.</td></tr>
+      <tr><td><code>icons/</code></td><td>Each icon as an SVG file, plus <code>sprite.svg</code>.</td></tr>
+      <tr><td><code>fonts/</code></td><td>Space Grotesk and JetBrains Mono, self-hosted, so no request leaves your server. Add Satoshi here yourself; see the heading font above.</td></tr>
+      <tr><td><code>brand/</code></td><td>Logo and mark.</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 <section class="doc-section" id="tokens-only">
@@ -188,7 +258,7 @@
       <tr><td><code>Xsenze.theme.set('dark')</code></td><td>Sets and remembers a theme. Also <code>get()</code> and <code>toggle()</code>.</td></tr>
     </tbody>
   </table></div>
-  <h3>Round the corners</h3>
+  <h3 id="themes--round-the-corners">Round the corners</h3>
   <p>Corners are 4px. Two tokens control the corner radius of every component, so a product that needs a square or a softer look can change it in one place.</p>
   <pre class="doc-snippet" data-lang="text">
     :root {
@@ -213,7 +283,7 @@
       <tr><td><code>Xsenze.theme.set(name)</code></td><td>Switches the theme.</td></tr>
     </tbody>
   </table></div>
-  <h3>Events</h3>
+  <h3 id="script--events">Events</h3>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Event</th><th>Fires on</th><th>Detail</th></tr></thead>
     <tbody>

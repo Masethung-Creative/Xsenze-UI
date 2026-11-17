@@ -36,9 +36,16 @@ const pairs = [
   ['on-info', 'info', text], ['info-text', 'surface', text], ['info-text', ['info-soft', 'surface'], text],
   ['on-inverse', 'inverse', text],
   ['on-accent-2', 'accent-2', text], ['accent-2-text', 'surface', text], ['accent-2-text', ['accent-2-soft', 'surface'], text],
-  ['border-control', 'bg', ui], ['border-control', 'surface', ui],
-  ...[1, 2, 3, 4, 5, 6, 7, 8].map((n) => [`viz-${n}`, 'surface', ui]),
+  ['border-control', 'bg', ui], ['border-control', 'surface', ui], ['border-control', 'surface-2', ui],
+  // Chart colours against every background a chart sits on.
+  ...[1, 2, 3, 4, 5, 6, 7, 8].flatMap((n) => [[`viz-${n}`, 'surface', ui], [`viz-${n}`, 'bg', ui], [`viz-${n}`, 'surface-2', ui]]),
   ['focus', 'bg', ui], ['focus', 'surface', ui], ['accent-strong', 'surface', ui], ['danger', 'surface', ui],
+  // Toasts sit on the inverse surface, so their focus ring uses on-inverse.
+  ['on-inverse', 'inverse', ui],
+  // Progress bars and rings: the fill against the grey track.
+  ['accent', 'surface-3', ui], ['success-text', 'surface-3', ui], ['warning-text', 'surface-3', ui], ['danger-text', 'surface-3', ui], ['info-text', 'surface-3', ui],
+  // Selected table rows and highlighted text.
+  ['text', 'surface-3', text], ['text', ['accent-2-soft', 'surface'], text],
 ];
 
 let failed = 0;

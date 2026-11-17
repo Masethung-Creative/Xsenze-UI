@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Test: command palette</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body>
+<main class="xz-container" style="padding-block: 2rem">
+  <h1 class="xz-h3">Command palette fixture</h1>
+  <p><a class="xz-btn" href="#search" data-xz-open="#cmd" id="open-cmd">Search <kbd class="xz-kbd">Ctrl K</kbd></a>
+    <input class="xz-input" id="field" aria-label="A text field" style="max-width: 16rem"></p>
+  <dialog id="cmd" data-xz-command data-xz-recent="test">
+    <ul class="xz-command-palette__source" hidden>
+      <li data-group="Pages" data-href="#dashboard" data-icon="layout-dashboard" data-pin>Dashboard</li>
+      <li data-group="Pages" data-href="#learners" data-icon="users" data-pin>Learners</li>
+      <li data-group="Pages" data-href="#invoices" data-icon="receipt" data-pin>Invoices</li>
+      <li data-group="Actions" data-action="new-invoice" data-icon="plus" data-kbd="N" data-keywords="bill create">New invoice</li>
+      <li data-group="Actions" data-action="new-learner" data-icon="plus" data-keywords="student add">New learner</li>
+      <li data-group="Actions" data-action="theme" data-icon="moon" data-keywords="dark light">Switch theme</li>
+      <li data-group="Learners" data-href="#l1" data-meta="B-14">Ananya Iyer</li>
+      <li data-group="Learners" data-href="#l2" data-meta="B-12">Rohan Deshmukh</li>
+    </ul>
+  </dialog>
+  <p>Last command: <output id="last">none</output></p>
+</main>
+<script>
+  document.addEventListener('xz:command', (e) => {
+    document.getElementById('last').textContent = e.detail.action || e.detail.item.href || e.detail.item.label;
+    if (e.detail.action) e.preventDefault();
+  });
+</script>
+</body>
+</html>

@@ -3,7 +3,22 @@
 (() => {
   const page = document.body.dataset.page;
   const base = document.body.dataset.base || '';
-  const version = (window.XZ_DOCS && window.XZ_DOCS.version) || '0.5.0';
+  // site.generated.js (written by the build) carries the version and the public addresses.
+  const site = window.XZ_SITE || { urls: {} };
+  const version = site.version || (window.XZ_DOCS && window.XZ_DOCS.version) || '';
+  const urls = site.urls || {};
+  const onPublicSite = Boolean(urls.site) && location.href.startsWith(urls.site);
+  // The heading font may not be published, so the public site uses the fallback font. Locally it loads as usual.
+  if (!onPublicSite && !document.querySelector('link[href$="xsenze-satoshi.css"]')) {
+    const css = document.querySelector('link[href$="xsenze.css"]');
+    if (css) css.insertAdjacentHTML('afterend', `<link rel="stylesheet" href="${css.getAttribute('href').replace(/xsenze\.css$/, 'xsenze-satoshi.css')}">`);
+  }
+  // Snippets can say __XZ_VERSION__, __XZ_CDN__, __XZ_NPM__ or __XZ_REPO__; the current values go in before the code is shown.
+  const vars = { __XZ_VERSION__: version, __XZ_CDN__: urls.cdn || '', __XZ_NPM__: urls.npm || '', __XZ_REPO__: urls.repo || '' };
+  const fill = (s) => s.replace(/__XZ_(VERSION|CDN|NPM|REPO)__/g, (m) => vars[m] ?? m);
+  for (const el of document.querySelectorAll('textarea.doc-snippet')) el.value = fill(el.value);
+  for (const el of document.querySelectorAll('pre.doc-snippet, [data-doc-var]')) if (el.textContent.includes('__XZ_')) el.textContent = fill(el.textContent);
+  for (const el of document.querySelectorAll('[data-doc-copy]')) el.setAttribute('data-doc-copy', fill(el.getAttribute('data-doc-copy')));
   // The four reference pages share one "Docs" link in the header and a side menu inside the pages.
   const docsPages = [
     ['foundations', 'Foundations', 'foundations.html'],
@@ -57,6 +72,7 @@
       <nav aria-label="Main"><ul class="xz-navbar__nav">${nav.map(link).join('')}</ul></nav>
       <span class="xz-navbar__spacer"></span>
       <div class="xz-navbar__actions">
+        <button class="xz-btn doc-search-btn" type="button" data-doc-search aria-label="Search the docs" aria-keyshortcuts="Control+K Meta+K"><i data-xz-icon="search" data-size="sm"></i><span class="xz-hide-mobile">Search</span><kbd class="xz-kbd xz-hide-mobile" data-doc-search-key>Ctrl K</kbd></button>
         <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-theme-toggle aria-label="Switch between light and dark theme" data-xz-tooltip="Switch theme" data-xz-tooltip-place="bottom"><i data-xz-icon="sun"></i></button>
         <button class="xz-btn xz-btn--ghost xz-btn--icon xz-hide-desktop" type="button" data-xz-open="#doc-nav" aria-label="Open menu"><i data-xz-icon="menu"></i></button>
       </div>`;
@@ -213,15 +229,42 @@
     update();
   }
 
-  // Template pictures: scale each 1280px page to the width of its card.
-  const thumbs = document.querySelectorAll('.doc-thumb');
-  if (thumbs.length) {
-    const fitThumb = new ResizeObserver((entries) => {
-      for (const e of entries) e.target.style.setProperty('--doc-scale', e.contentRect.width / 1280);
-    });
-    thumbs.forEach((el) => fitThumb.observe(el));
-  }
+  // ---- search: Ctrl+K (⌘K on Apple devices) or the Search button ----
+  // The index is a separate file, loaded the first time search opens (or when the pointer reaches the button).
+  const apple = /Mac|iPhone|iPad|iPod/.test(navigator.platform || navigator.userAgent || '');
+  for (const k of document.querySelectorAll('[data-doc-search-key]')) k.textContent = apple ? '⌘K' : 'Ctrl K';
+  let index = null;
+  const loadIndex = () =>
+    (index ||= new Promise((resolve, reject) => {
+      if (window.XZ_SEARCH) return resolve(window.XZ_SEARCH);
+      const s = Object.assign(document.createElement('script'), { src: `${base}search.generated.js?v=${encodeURIComponent(version)}` });
+      s.onload = () => resolve(window.XZ_SEARCH || []);
+      s.onerror = () => {
+        index = null;
+        reject(new Error('The search index did not load.'));
+      };
+      document.head.append(s);
+    }));
+  const openSearch = async () => {
+    if (!window.Xsenze?.command) return;
+    let items;
+    try {
+      items = await loadIndex();
+    } catch {
+      return;
+    }
+    window.Xsenze.command.open({ items: items.map((it) => ({ ...it, href: it.href ? base + it.href : '' })), placeholder: 'Search components, sections, tokens and icons', recent: 'docs' });
+  };
+  const searchBtn = document.querySelector('[data-doc-search]');
+  searchBtn?.addEventListener('click', openSearch);
+  searchBtn?.addEventListener('pointerenter', () => loadIndex().catch(() => {}), { once: true });
+  document.addEventListener('keydown', (e) => {
+    if (!e.key || e.key.toLowerCase() !== 'k' || !(e.ctrlKey || e.metaKey) || e.altKey || e.shiftKey || e.isComposing) return;
+    e.preventDefault();
+    if (document.querySelector('dialog.xz-command-palette[open]')) return window.Xsenze?.command.close();
+    openSearch();
+  });
 
   // For pages that build code panels later, such as the section templates read from a template file.
-  window.XZ_DOC = { codeBlock, dedent };
+  window.XZ_DOC = { codeBlock, dedent, url: (key) => urls[key] || '' };
 })();

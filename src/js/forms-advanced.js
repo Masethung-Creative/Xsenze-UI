@@ -589,7 +589,7 @@ function initTimepickers(root) {
 }
 
 // ---------- rich text editor ----------
-const ALLOWED = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'P', 'BR', 'UL', 'OL', 'LI', 'H3', 'A']);
+const ALLOWED = new Set(['B', 'STRONG', 'I', 'EM', 'U', 'P', 'BR', 'UL', 'OL', 'LI', 'H3', 'A', 'BLOCKQUOTE', 'PRE', 'CODE']);
 const SAFE_LINK = /^(https?:|mailto:)/i;
 /** Keeps a short list of tags, drops every attribute except a safe link address. Clean the HTML again on the server. */
 export function sanitize(html) {
@@ -643,7 +643,7 @@ function initEditors(root) {
     const state = () => {
       for (const btn of buttons) {
         const cmd = btn.dataset.xzCmd;
-        if (cmd === 'h3') btn.setAttribute('aria-pressed', String(inside() && block() === 'h3'));
+        if (cmd === 'h3' || cmd === 'quote' || cmd === 'code') btn.setAttribute('aria-pressed', String(inside() && block() === { h3: 'h3', quote: 'blockquote', code: 'pre' }[cmd]));
         else if (['bold', 'italic', 'underline', 'insertUnorderedList', 'insertOrderedList'].includes(cmd)) btn.setAttribute('aria-pressed', String(inside() && document.queryCommandState(cmd)));
       }
     };
@@ -661,8 +661,11 @@ function initEditors(root) {
       if (cmd === 'link') {
         const url = window.prompt('Link address', 'https://');
         if (url && SAFE_LINK.test(url.trim())) exec('createLink', url.trim());
-      } else if (cmd === 'h3') exec('formatBlock', block() === 'h3' ? 'p' : 'h3');
-      else exec(cmd);
+      } else if (cmd === 'h3' || cmd === 'quote' || cmd === 'code') {
+        // Heading, quote and code block switch the current paragraph, and switch it back when pressed again.
+        const tag = { h3: 'h3', quote: 'blockquote', code: 'pre' }[cmd];
+        exec('formatBlock', block() === tag ? 'p' : tag);
+      } else exec(cmd);
       sync();
       state();
     });

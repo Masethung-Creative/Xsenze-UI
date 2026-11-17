@@ -1,0 +1,70 @@
+/* Prose: long text such as articles, help pages, lesson notes and the HTML from the rich text editor.
+   Put .xz-prose on the element around the text. :where() keeps these rules weak, so kit components
+   placed inside still look like themselves. Put .xz-not-prose on a part that should opt out. */
+.xz-prose {
+  --xz-prose-size: var(--xz-font-size-md);
+  --xz-prose-leading: var(--xz-line-height-relaxed);
+  --xz-prose-measure: 68ch;
+  --xz-prose-gap: 1.25em;
+  max-width: var(--xz-prose-measure);
+  font-size: var(--xz-prose-size);
+  line-height: var(--xz-prose-leading);
+  color: var(--xz-text);
+  overflow-wrap: break-word;
+}
+.xz-prose--sm { --xz-prose-size: var(--xz-font-size-sm); --xz-prose-gap: 1em; }
+.xz-prose--lg { --xz-prose-size: var(--xz-font-size-lg); }
+.xz-prose--full { --xz-prose-measure: none; }
+
+.xz-prose :where(p, ul, ol, dl, blockquote, pre, figure, table, hr, .xz-table-wrap):not(:where(.xz-not-prose, .xz-not-prose *)) { margin-block: 0 var(--xz-prose-gap); }
+.xz-prose > :where(:last-child) { margin-block-end: 0; }
+
+/* Headings: more space above than below, so each heading belongs to the text after it. */
+.xz-prose :where(h1, h2, h3, h4):not(:where(.xz-not-prose, .xz-not-prose *)) { margin-block: 1.6em 0.6em; font-family: var(--xz-font-display); font-weight: var(--xz-font-weight-bold); letter-spacing: var(--xz-letter-spacing-tight); line-height: var(--xz-line-height-snug); color: var(--xz-text); }
+.xz-prose :where(h1):not(:where(.xz-not-prose *)) { font-size: 2em; line-height: var(--xz-line-height-tight); }
+.xz-prose :where(h2):not(:where(.xz-not-prose *)) { font-size: 1.5em; }
+.xz-prose :where(h3):not(:where(.xz-not-prose *)) { font-size: 1.25em; }
+.xz-prose :where(h4):not(:where(.xz-not-prose *)) { font-size: 1.05em; font-weight: var(--xz-font-weight-semibold); letter-spacing: 0; }
+.xz-prose > :where(h1, h2, h3, h4):first-child { margin-block-start: 0; }
+.xz-prose :where(h1, h2, h3, h4) + :where(h1, h2, h3, h4) { margin-block-start: 0.6em; }
+
+/* Inline text */
+.xz-prose :where(a):not(:where(.xz-not-prose *, .xz-btn)) { color: var(--xz-accent-text); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.xz-prose :where(a):not(:where(.xz-not-prose *, .xz-btn)):hover { text-decoration-thickness: 2px; }
+.xz-prose :where(strong, b) { font-weight: var(--xz-font-weight-semibold); color: var(--xz-text); }
+.xz-prose :where(mark) { padding: 0 0.15em; background: var(--xz-accent-2-soft); color: inherit; border-radius: 2px; }
+.xz-prose :where(small) { font-size: 0.875em; color: var(--xz-text-muted); }
+.xz-prose :where(abbr[title]) { text-decoration: underline dotted; cursor: help; }
+.xz-prose :where(sub, sup) { font-size: 0.75em; line-height: 0; }
+
+/* Code */
+.xz-prose :where(code):not(:where(pre *, .xz-not-prose *)) { padding: 0.1em 0.35em; font-family: var(--xz-font-mono); font-size: 0.875em; background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); }
+.xz-prose :where(pre):not(:where(.xz-not-prose *)) { direction: ltr; padding: var(--xz-space-4); overflow-x: auto; font-family: var(--xz-font-mono); font-size: 0.875em; line-height: var(--xz-line-height-normal); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); tab-size: 2; }
+.xz-prose :where(kbd):not(:where(.xz-not-prose *)) { padding: 0.05em 0.35em; font-family: var(--xz-font-mono); font-size: 0.8em; background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-bottom-width: 2px; border-radius: var(--xz-radius-control); }
+
+/* Quotes and rules */
+.xz-prose :where(blockquote):not(:where(.xz-not-prose *)) { padding-inline-start: var(--xz-space-4); border-inline-start: 3px solid var(--xz-accent-2); color: var(--xz-text-muted); font-style: italic; }
+.xz-prose :where(blockquote) :where(p:last-child) { margin-block-end: 0; }
+.xz-prose :where(hr):not(:where(.xz-not-prose *)) { height: 0; border: 0; border-top: 1px solid var(--xz-border); margin-block: 2em; }
+
+/* Lists */
+.xz-prose :where(ul, ol):not(:where(.xz-not-prose *)) { padding-inline-start: 1.5em; }
+.xz-prose :where(li) + :where(li) { margin-block-start: 0.35em; }
+.xz-prose :where(li) > :where(ul, ol) { margin-block: 0.35em 0; }
+.xz-prose :where(ul) :where(ul) { list-style-type: circle; }
+.xz-prose :where(ul) :where(ul) :where(ul) { list-style-type: square; }
+.xz-prose :where(ol) :where(ol) { list-style-type: lower-alpha; }
+.xz-prose :where(li)::marker { color: var(--xz-text-muted); }
+.xz-prose :where(dt) { font-weight: var(--xz-font-weight-semibold); }
+.xz-prose :where(dd) { margin-block-end: 0.5em; padding-inline-start: 1.5em; color: var(--xz-text-muted); }
+
+/* Tables: simple lines. Wrap a wide table in .xz-table-wrap so it scrolls on phones. */
+.xz-prose :where(table):not(:where(.xz-not-prose *, .xz-table)) { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+.xz-prose :where(table):not(:where(.xz-table)) :where(th, td) { padding: 0.5em 0.75em; border-bottom: 1px solid var(--xz-border); text-align: start; vertical-align: top; }
+.xz-prose :where(table):not(:where(.xz-table)) :where(th) { font-weight: var(--xz-font-weight-semibold); }
+.xz-prose :where(table):not(:where(.xz-table)) :where(thead th) { border-bottom-color: var(--xz-border-strong); }
+
+/* Media */
+.xz-prose :where(img, video, iframe):not(:where(.xz-not-prose *)) { max-width: 100%; height: auto; border-radius: var(--xz-radius-surface); }
+.xz-prose :where(iframe):not(:where(.xz-not-prose *)) { width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.xz-prose :where(figcaption) { margin-block-start: 0.5em; font-size: 0.875em; color: var(--xz-text-muted); }

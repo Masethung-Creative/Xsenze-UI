@@ -6,9 +6,9 @@
 <link rel="icon" href="data:,">
 <title>Forms · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
-<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <link rel="stylesheet" href="docs.css">
 <script src="data.generated.js" defer></script>
+<script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
 </head>
@@ -42,7 +42,7 @@
     </div>
   </div>
 
-  <h3>Date range</h3>
+  <h3 id="date--date-range">Date range</h3>
   <p>Add <code class="xz-code">data-xz-datepicker="range"</code> and a second hidden field. The first click sets the start and the second sets the end.</p>
   <div class="doc-example" data-layout="stack">
     <div class="xz-field" style="max-width: 20rem">
@@ -233,6 +233,8 @@
           <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="h3" aria-pressed="false" aria-label="Heading"><i data-xz-icon="heading" data-size="sm"></i></button>
           <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="insertUnorderedList" aria-pressed="false" aria-label="Bulleted list"><i data-xz-icon="list" data-size="sm"></i></button>
           <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="insertOrderedList" aria-pressed="false" aria-label="Numbered list"><i data-xz-icon="list-ordered" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="quote" aria-pressed="false" aria-label="Quote"><i data-xz-icon="quote" data-size="sm"></i></button>
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="code" aria-pressed="false" aria-label="Code block"><i data-xz-icon="code" data-size="sm"></i></button>
           <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="link" aria-label="Add a link"><i data-xz-icon="link" data-size="sm"></i></button>
           <span class="xz-editor__sep" role="separator"></span>
           <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" data-xz-cmd="undo" aria-label="Undo"><i data-xz-icon="undo-2" data-size="sm"></i></button>
@@ -244,7 +246,8 @@
       </div>
     </div>
   </div>
-  <p>Clean the HTML again on the server before you store or show it. <code class="xz-code">Xsenze.sanitize(html)</code> applies the same rules in the browser.</p>
+  <p>Clean the HTML again on the server before you store or show it. <code class="xz-code">Xsenze.sanitize(html)</code> applies the same rules in the browser: it keeps bold, italic, underline, paragraphs, line breaks, lists, list items, h3 headings, quotes (<code class="xz-code">blockquote</code>), code (<code class="xz-code">pre</code>, <code class="xz-code">code</code>) and links to web or email addresses, and removes every other tag and attribute. If your server keeps its own list of allowed tags, add <code class="xz-code">blockquote</code>, <code class="xz-code">pre</code> and <code class="xz-code">code</code> to it.</p>
+  <p>To show the saved text, put it inside an element with <code class="xz-code">xz-prose</code>; see <a class="xz-link" href="foundations.html#typography--long-text">Long text</a>.</p>
 </section>
 
 </main>

@@ -73,8 +73,6 @@ button, input, select, textarea {
 .xz-mono, .xz-code { font-family: var(--xz-font-mono); font-size: 0.9em; }
 .xz-code { padding: 0.1em 0.35em; background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); }
 .xz-num { font-variant-numeric: tabular-nums; }
-.xz-prose > * + * { margin-top: var(--xz-space-4); }
-.xz-prose { max-width: 68ch; line-height: var(--xz-line-height-relaxed); }
 
 /* Indic and other tall scripts need more line height and no negative tracking. */
 :lang(hi), :lang(mr), :lang(ta), :lang(kn), :lang(te), :lang(ml), :lang(bn), :lang(gu), :lang(pa) {

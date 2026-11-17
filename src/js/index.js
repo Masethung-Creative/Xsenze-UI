@@ -5,6 +5,11 @@ import icons from './icons.generated.js';
 import * as format from './format.js';
 import { initAdvancedForms, sanitize } from './forms-advanced.js';
 import { initComponents } from './components.js';
+import { initTables } from './table.js';
+import { initCommands, command } from './command.js';
+import { initSparklines } from './sparkline.js';
+import { place, placeAt } from './place.js';
+import { fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready } from './shared.js';
 import { initBlocks, motion, copy } from '../blocks/index.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -393,105 +398,6 @@ function initComboboxes(root) {
   }
 }
 
-// ---------- table: sort, search, pagination ----------
-function initTables(root) {
-  for (const table of $$('table[data-xz-table]', root)) {
-    if (table.xzReady) continue;
-    table.xzReady = true;
-    const tbody = table.tBodies[0];
-    const rows = Array.from(tbody.rows);
-    const heads = Array.from(table.tHead.rows[0].cells);
-    const pageSize = Number(table.getAttribute('data-xz-page-size')) || 0;
-    const pager = $(table.getAttribute('data-xz-pagination') || null) || null;
-    const search = $(table.getAttribute('data-xz-search') || null) || null;
-    const empty = $(table.getAttribute('data-xz-empty') || null) || null;
-    const state = { page: 1, sort: -1, dir: 1, query: '' };
-
-    const cellValue = (row, col, type) => {
-      const cell = row.cells[col];
-      const raw = cell.getAttribute('data-value') ?? cell.textContent.trim();
-      if (type === 'number') return parseFloat(String(raw).replace(/[^\d.-]/g, '')) || 0;
-      if (type === 'date') return new Date(raw).getTime() || 0;
-      return raw.toLowerCase();
-    };
-
-    heads.forEach((th, col) => {
-      if (!th.hasAttribute('data-xz-sort')) return;
-      const type = th.getAttribute('data-xz-sort') || 'text';
-      const btn = Object.assign(document.createElement('button'), { type: 'button', className: 'xz-table__sort' });
-      btn.append(...th.childNodes);
-      th.append(btn);
-      th.setAttribute('aria-sort', 'none');
-      btn.addEventListener('click', () => {
-        state.dir = state.sort === col ? -state.dir : 1;
-        state.sort = col;
-        state.type = type;
-        state.page = 1;
-        heads.forEach((h) => h.hasAttribute('aria-sort') && h.setAttribute('aria-sort', 'none'));
-        th.setAttribute('aria-sort', state.dir === 1 ? 'ascending' : 'descending');
-        update();
-      });
-    });
-
-    const update = () => {
-      let list = state.query ? rows.filter((r) => r.textContent.toLowerCase().includes(state.query)) : rows.slice();
-      if (state.sort >= 0) {
-        list.sort((a, b) => {
-          const x = cellValue(a, state.sort, state.type);
-          const y = cellValue(b, state.sort, state.type);
-          return (x < y ? -1 : x > y ? 1 : 0) * state.dir;
-        });
-      }
-      const total = list.length;
-      const pages = pageSize ? Math.max(1, Math.ceil(total / pageSize)) : 1;
-      state.page = Math.min(state.page, pages);
-      const from = pageSize ? (state.page - 1) * pageSize : 0;
-      const visible = pageSize ? list.slice(from, from + pageSize) : list;
-      tbody.replaceChildren(...visible);
-      if (empty) empty.hidden = total > 0;
-      table.closest('.xz-table-wrap')?.toggleAttribute('hidden', Boolean(empty) && total === 0);
-      if (pager) renderPager(pager, { page: state.page, pages, total, from, count: visible.length, go: (p) => ((state.page = p), update()) });
-      table.dispatchEvent(new CustomEvent('xz:table', { bubbles: true, detail: { total, page: state.page, pages } }));
-    };
-
-    if (search) {
-      search.addEventListener('input', () => {
-        state.query = search.value.trim().toLowerCase();
-        state.page = 1;
-        update();
-      });
-    }
-    update();
-  }
-}
-
-function renderPager(el, { page, pages, total, from, count, go }) {
-  el.innerHTML = '';
-  el.classList.add('xz-pagination');
-  el.setAttribute('role', 'navigation');
-  el.setAttribute('aria-label', 'Pagination');
-  const info = Object.assign(document.createElement('span'), { className: 'xz-pagination__info', textContent: total ? `Showing ${from + 1} to ${from + count} of ${total}` : 'No results' });
-  info.setAttribute('aria-live', 'polite');
-  el.append(info);
-  const button = (label, target, { current, disabled, aria } = {}) => {
-    const b = Object.assign(document.createElement('button'), { type: 'button', className: 'xz-pagination__item', textContent: label, disabled: Boolean(disabled) });
-    if (aria) b.setAttribute('aria-label', aria);
-    if (current) b.setAttribute('aria-current', 'page');
-    b.addEventListener('click', () => go(target));
-    el.append(b);
-  };
-  button('←', page - 1, { disabled: page <= 1, aria: 'Previous page' });
-  // 1 … 4 5 6 … 20
-  const nums = new Set([1, pages, page - 1, page, page + 1].filter((n) => n >= 1 && n <= pages));
-  let last = 0;
-  for (const n of [...nums].sort((a, b) => a - b)) {
-    if (n - last > 1) el.append(Object.assign(document.createElement('span'), { className: 'xz-pagination__gap', textContent: '…' }));
-    button(String(n), n, { current: n === page, aria: `Page ${n}` });
-    last = n;
-  }
-  button('→', page + 1, { disabled: page >= pages, aria: 'Next page' });
-}
-
 // ---------- form validation ----------
 const messages = {
   valueMissing: (f) => `Enter ${fieldName(f)}`,
@@ -583,9 +489,12 @@ function initForms(root) {
 function initFormats(root) {
   for (const el of $$('[data-xz-format]', root)) {
     const kind = el.getAttribute('data-xz-format');
-    const value = el.getAttribute('data-value') ?? el.textContent;
     const fn = { inr: format.inr, 'inr-compact': format.inrCompact, number: format.number, compact: format.compact, date: format.date, 'date-short': format.dateShort, 'date-time': format.dateTime, relative: format.relative, percent: format.percent }[kind];
-    if (fn) el.textContent = fn(kind.startsWith('date') || kind === 'relative' ? value : Number(value));
+    if (!fn) continue;
+    // Keep the raw value, so running Xsenze.init again formats the same number, not the formatted text.
+    if (!el.hasAttribute('data-value')) el.setAttribute('data-value', el.textContent.trim());
+    const value = el.getAttribute('data-value');
+    el.textContent = fn(kind.startsWith('date') || kind === 'relative' ? value : Number(value));
   }
 }
 
@@ -601,7 +510,7 @@ function listen() {
     const closer = t.closest('[data-xz-close]');
     if (closer) closeDialog(closer.closest('dialog'), closer.getAttribute('data-xz-close') || undefined);
     // Click on the backdrop closes, unless the dialog is marked data-xz-static.
-    if (t.matches?.('dialog.xz-modal, dialog.xz-drawer, dialog.xz-sheet') && !t.hasAttribute('data-xz-static')) {
+    if (t.matches?.('dialog.xz-modal, dialog.xz-drawer, dialog.xz-sheet, dialog.xz-command-palette') && !t.hasAttribute('data-xz-static')) {
       const r = t.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) t.close();
     }
@@ -622,9 +531,10 @@ function listen() {
     const toaster = t.closest('[data-xz-toast]');
     if (toaster) toast({ message: toaster.getAttribute('data-xz-toast'), title: toaster.getAttribute('data-xz-toast-title') || undefined, variant: toaster.getAttribute('data-xz-toast-variant') || undefined });
     const pressed = t.closest('button.xz-chip[aria-pressed], .xz-btn-group[data-xz-toggle] > .xz-btn');
-    if (pressed) {
+    if (pressed && !pressed.disabled) {
       if (pressed.matches('.xz-chip')) pressed.setAttribute('aria-pressed', String(pressed.getAttribute('aria-pressed') !== 'true'));
       else for (const b of pressed.parentElement.children) b.setAttribute('aria-pressed', String(b === pressed));
+      fire(pressed, 'xz:press', { pressed: pressed.getAttribute('aria-pressed') === 'true' });
     }
     if (!t.closest('[data-xz-menu]')) closeMenus();
   });
@@ -642,6 +552,20 @@ function listen() {
   document.addEventListener('scroll', hideTip, true);
 }
 
+// ---------- plugins ----------
+// Optional parts, such as charts, add themselves with Xsenze.use({ name, init(root, helpers), api }).
+// `api` becomes Xsenze[name]; `init` runs now and on every later Xsenze.init(root).
+const plugins = [];
+let started = false;
+const helpers = { icon, format, place, placeAt, fire, esc, nextId, store, watch, perFrame, motionOn, onMotion, isRtl, dirKey, ready };
+function use(plugin) {
+  if (!plugin || plugins.includes(plugin)) return Xsenze;
+  plugins.push(plugin);
+  if (plugin.name && plugin.api) Xsenze[plugin.name] = plugin.api;
+  if (started && typeof document !== 'undefined') plugin.init?.(document, helpers);
+  return Xsenze;
+}
+
 let listening = false;
 function init(root = document) {
   if (!listening) {
@@ -653,12 +577,16 @@ function init(root = document) {
   initTabs(root);
   initMenus(root);
   initComboboxes(root);
-  initTables(root);
+  initTables(root, { icon, init });
   initForms(root);
   initFormats(root);
+  initSparklines(root);
   initAdvancedForms(root, { icon });
   initComponents(root, { icon, validateField });
+  initCommands(root, { icon, openDialog, closeDialog });
   initBlocks(root, { icon });
+  for (const p of plugins) p.init?.(root, helpers);
+  started = true;
   theme.sync();
 }
 
@@ -682,6 +610,14 @@ const Xsenze = {
   sanitize,
   motion,
   copy,
+  command,
+  use,
 };
+
+// Optional parts that loaded before the kit wait in window.XsenzePlugins.
+if (typeof window !== 'undefined') {
+  const waiting = window.XsenzePlugins;
+  if (Array.isArray(waiting)) waiting.splice(0).forEach(use);
+}
 
 export default Xsenze;

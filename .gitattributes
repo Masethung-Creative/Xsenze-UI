@@ -1,0 +1,6 @@
+# Files written by the build: keep line endings stable and collapse them in GitHub diffs.
+docs/data.generated.js linguist-generated=true eol=lf
+docs/site.generated.js linguist-generated=true eol=lf
+docs/search.generated.js linguist-generated=true eol=lf
+src/js/icons.generated.js linguist-generated=true eol=lf
+dist/** linguist-generated=true

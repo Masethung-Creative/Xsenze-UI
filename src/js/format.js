@@ -79,6 +79,21 @@ export function financialYear(value = new Date()) {
   return `FY ${start}-${String((start + 1) % 100).padStart(2, '0')}`;
 }
 
+/**
+ * Reads a number back from text the kit or a person wrote:
+ * "₹1,24,999" -> 124999, "−₹4,500" -> -4500, "₹1.25 Cr" -> 12500000, "2.5 L" -> 250000, "12.5%" -> 0.125.
+ * Returns NaN when there is no number.
+ */
+export function parse(value) {
+  if (typeof value === 'number') return value;
+  const s = String(value ?? '').trim();
+  const m = s.replace(/,/g, '').match(/([−-]?)\s*[₹$]?\s*(\d+(?:\.\d+)?|\.\d+)\s*(cr|crore|l|lakh|lac|k|%)?/i);
+  if (!m) return NaN;
+  const scale = { cr: 1e7, crore: 1e7, l: 1e5, lakh: 1e5, lac: 1e5, k: 1e3, '%': 0.01 }[(m[3] || '').toLowerCase()] || 1;
+  const sign = m[1] || /^[−-]/.test(s) ? -1 : 1;
+  return sign * Number(m[2]) * scale;
+}
+
 /** "9876543210" -> "+91 98765 43210" */
 export function phone(value) {
   const digits = String(value).replace(/\D/g, '').replace(/^91(?=\d{10}$)/, '').replace(/^0(?=\d{10}$)/, '');

@@ -4,6 +4,21 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+## 0.6.0 (17 Nov 2026)
+
+High-priority work: install links, search, live previews, charts, a stronger data table and long-text styles, plus the blocks for landing pages.
+
+- Install from a CDN: each version tag is served by jsDelivr straight from the GitHub repository, and `npm install github:Masethung-Creative/Xsenze-UI#v0.6.0` works without the npm registry. Getting started has guides for plain HTML, PHP, Laravel, WordPress, React and Next.js, and Vue. The docs are ready for GitHub Pages
+- Command palette (`dialog[data-xz-command]`, `Xsenze.command`): finds pages and runs actions as people type, ranks the best matches first ("new inv" finds "New invoice"), remembers recent picks, can ask your server, and opens with Ctrl+K (⌘K on Apple devices). Event `xz:command`
+- Docs search: Ctrl+K or the Search button finds any page, section, component, token and icon
+- Data table: row selection with Shift ranges and "select all results", a bulk bar (`data-xz-bulk`, `xz:bulk`), filters by column (`data-xz-filter`) that combine with search, a Columns menu remembered on each device, detail rows (`tr.xz-table__detail`), CSV export with ₹ and Indian names intact, a sticky header that stays in view (`xz-table-wrap--scroll`) and a sticky first column. `table.xzTable` adds `refresh()` and `replace()` for rows added later. Selected rows are now clearly marked in the light theme
+- Charts in an optional file, `xsenze-charts.min.js`: bar (grouped, stacked, horizontal), line, area, donut and pie, drawn from a table that stays for screen readers. Indian number formats on axes and tooltips, a legend that hides series, keyboard reading with the arrow keys, patterns for colour-blind readers, and a one-time entrance that respects reduced motion. `Xsenze.chart(el, options)`. In the main file: a sparkline (`data-xz-sparkline`) and a progress ring (`xz-ring`)
+- Long text: `xz-prose` styles headings, lists, quotes, code, tables and images in articles and in rich text editor output. The editor gains quote and code block buttons, and `Xsenze.sanitize` now keeps `blockquote`, `pre` and `code`. If your server cleans editor HTML with its own list of tags, add these three
+- Live previews on the Blocks and Templates pages have a toolbar: Preview or Code, desktop, tablet or phone width, reload, open in a new tab and copy
+- `Xsenze.use(plugin)` lets optional files add themselves to the kit
+- Search suggestions rank the best matches first within each group
+- Fixed: a table's own `data-xz-search` no longer starts a suggestion box; table search ignores the text of row menus; number sorting reads "−", ₹, commas and L/Cr; running `Xsenze.init()` twice no longer turns formatted values into "₹NaN"; focus rings show on toasts; warning, danger and info progress bars have enough contrast against the track
+- 9 more icons
 - Blocks for landing pages, in `src/blocks/` and inside the same two files: hero, band, eyebrow, feature row, window, tiles, checklist, command with copy button, marquee, facts, flow diagram, compare, ledger, footer brand and wordmark, overlay navbar that follows the band beneath it, scroll progress and expanding tabs. Motion: reveal, rolling words, typewriter, scripted demos, border beam, dot field, layered stack, depth scroll and an opening band. Everything stops for reduced motion and with the new motion button (`data-xz-motion-toggle`, `Xsenze.motion`), and reads fully without the script. New Blocks page in the docs and a landing page template
 - New token `--xz-duration-reveal` (640ms) for text and sections rising into place. New `Xsenze.copy(text)`
 - Docs site: the header has five links (Get started, Docs, Blocks, Templates, Create). Foundations, Components, Forms and Guidelines sit under Docs, with a side menu on those pages to move between them. The side menu is a tree: the current page opens to its sections, the section you are reading opens to its sub-headings, and the menu keeps it in view as you scroll

@@ -10,4 +10,5 @@ building-2 shield-check zap package terminal code palette layers layout-grid typ
 languages table-2 square-check toggle-left message-square paperclip save printer key-round badge-check
 receipt clipboard-list file-warning server-crash compass
 bold italic underline list list-ordered undo-2 redo-2 heading cloud-upload calendar-range play pause
-volume-2 volume-x maximize minimize history check-check bell-dot images crown smartphone lock-open shuffle`.split(/\s+/).filter(Boolean);
+volume-2 volume-x maximize minimize history check-check bell-dot images crown smartphone lock-open shuffle
+command list-filter columns-3 chart-line chart-pie monitor tablet rotate-cw quote`.split(/\s+/).filter(Boolean);

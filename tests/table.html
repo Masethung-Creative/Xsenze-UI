@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Test: data table</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<script src="../dist/xsenze.js" defer></script>
+</head>
+<body>
+<main class="xz-container" style="padding-block: 2rem">
+  <h1 class="xz-h3">Data table fixture</h1>
+  <form method="post" action="#bulk" id="bulk-form">
+    <div class="xz-table-toolbar">
+      <div class="xz-table-filters">
+        <input class="xz-input" type="search" id="t-search" placeholder="Search learners" aria-label="Search learners" style="max-width: 14rem">
+        <select class="xz-select" data-xz-filter="#learners" data-xz-column="city" data-xz-options="auto" aria-label="City">
+          <option value="">All cities</option>
+        </select>
+        <div role="group" aria-label="Status" data-xz-filter="#learners" data-xz-column="status">
+          <button type="button" class="xz-chip" aria-pressed="false" value="Paid">Paid</button>
+          <button type="button" class="xz-chip" aria-pressed="false" value="Due">Due</button>
+          <button type="button" class="xz-chip" aria-pressed="false" value="Overdue">Overdue</button>
+        </div>
+        <button type="button" class="xz-btn xz-btn--ghost xz-btn--sm" data-xz-filter-clear="#learners">Clear</button>
+      </div>
+      <div class="xz-row xz-gap-2">
+        <div data-xz-columns="#learners"></div>
+        <button type="button" class="xz-btn xz-btn--sm" data-xz-export="#learners" data-xz-filename="learners.csv">Export CSV</button>
+      </div>
+    </div>
+    <div class="xz-table-bulk" data-xz-bulk="#learners">
+      <span data-xz-bulk-count></span>
+      <button type="button" class="xz-btn xz-btn--sm xz-btn--ghost" data-xz-bulk-all></button>
+      <button type="submit" class="xz-btn xz-btn--sm" data-xz-bulk-action="remind" name="action" value="remind">Send reminder</button>
+      <button type="button" class="xz-btn xz-btn--sm xz-btn--ghost" data-xz-bulk-clear>Clear selection</button>
+    </div>
+    <div class="xz-table-wrap xz-table-wrap--scroll" style="--xz-table-height: 22rem">
+      <table class="xz-table xz-table--sticky" id="learners" data-xz-table="learners" data-xz-page-size="5" data-xz-pagination="#t-pager" data-xz-search="#t-search">
+        <thead>
+          <tr>
+            <th class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select-all aria-label="Select all rows on this page"></label></th>
+            <th data-xz-sort data-xz-fixed>Learner</th>
+            <th data-xz-sort data-xz-key="city">City</th>
+            <th data-xz-key="status">Status</th>
+            <th data-xz-sort="number" class="xz-table__num" data-xz-key="fee">Fee paid</th>
+            <th data-xz-sort="date" data-xz-hidden>Joined</th>
+            <th class="xz-table__actions"><span class="xz-sr-only">Details</span></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <p id="t-pager"></p>
+    </div>
+  </form>
+  <p>Last event: <output id="last">none</output></p>
+</main>
+<script>
+  // Rows are written by the page, the way a PHP loop would print them.
+  const people = [
+    ['Aarav Sharma', 'Pune', 'Paid', 24999, '2026-11-02'], ['Bhavna Patel', 'Ahmedabad', 'Due', 0, '2026-10-21'], ['Chitra Subramanian', 'Chennai', 'Overdue', -4500, '2026-09-14'],
+    ['Dev Malhotra', 'Delhi', 'Paid', 125000, '2026-08-30'], ['Esha Banerjee', 'Kolkata', 'Paid', 18500, '2026-11-10'], ['Farhan Khan', 'Mumbai', 'Due', 6250, '2026-07-12'],
+    ['Gauri Kulkarni', 'Pune', 'Paid', 8333, '2026-06-05'], ['Harish Reddy', 'Hyderabad', 'Overdue', 12500, '2026-05-19'], ['Ishita Bose', 'Kolkata', 'Due', 0, '2026-04-02'],
+    ['Jai Verma', 'Delhi', 'Paid', 31000, '2026-03-28'], ['Kavya Nair', 'Kochi', 'Paid', 22000, '2026-02-17'], ['=HYPERLINK("x")', 'Mumbai', 'Due', 1, '2026-01-09'],
+  ];
+  const inr = (n) => (n < 0 ? '−' : '') + '₹' + Math.abs(n).toLocaleString('en-IN');
+  document.querySelector('#learners tbody').innerHTML = people.map(([n, c, s, f, d], i) => `
+    <tr>
+      <td class="xz-table__check"><label class="xz-check"><input type="checkbox" data-xz-select name="ids[]" value="${i + 1}" aria-label="Select ${n}"></label></td>
+      <td class="xz-table__primary">${n}</td><td>${c}</td><td>${s}</td>
+      <td class="xz-table__num" data-value="${f}">${inr(f)}</td><td data-value="${d}">${d}</td>
+      <td class="xz-table__actions"><button type="button" class="xz-table__expand" data-xz-expand aria-label="Show details for ${n}"><i data-xz-icon="chevron-down" data-size="sm"></i></button></td>
+    </tr>
+    <tr class="xz-table__detail"><td colspan="7">Notes for ${n}: batch B-${10 + i}, mentor assigned.</td></tr>`).join('');
+  for (const t of ['xz:table', 'xz:selection', 'xz:bulk', 'xz:expand', 'xz:columns']) document.addEventListener(t, (e) => (document.getElementById('last').textContent = `${t} ${JSON.stringify(e.detail, (k, v) => (v instanceof Element ? v.tagName : v))}`.slice(0, 200)));
+  document.addEventListener('xz:bulk', (e) => e.preventDefault());
+</script>
+</body>
+</html>

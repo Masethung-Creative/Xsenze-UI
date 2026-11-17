@@ -6,9 +6,9 @@
 <link rel="icon" href="data:,">
 <title>Foundations · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
-<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <link rel="stylesheet" href="docs.css">
 <script src="data.generated.js" defer></script>
+<script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
 </head>
@@ -29,36 +29,36 @@
   <h2>Colour</h2>
   <p>The palette is black and white on pure grey neutrals, one orange for highlights, and four status colours. Use the <strong>theme tokens</strong> in your styles, not the raw palette, so your screen works in both themes.</p>
 
-  <h3>Brand</h3>
+  <h3 id="colour--brand">Brand</h3>
   <p><code class="xz-code">brand-500</code> is the brand orange. It is the logo colour and the second accent: use it for small highlights and data, such as a featured tag or one series in a chart. Main actions are black in the light theme and white in the dark theme, not orange.</p>
   <div class="doc-swatches" data-palette="brand"></div>
 
-  <h3>Neutrals</h3>
+  <h3 id="colour--neutrals">Neutrals</h3>
   <div class="doc-swatches" data-palette="neutral"></div>
 
-  <h3>Status</h3>
+  <h3 id="colour--status">Status</h3>
   <p>Green means success, amber means warning, rose means error or a destructive action, blue means information. Rose is used for errors because it stays clearly different from the brand orange.</p>
   <div class="doc-swatches" data-palette="green"></div>
   <div class="doc-swatches" data-palette="amber"></div>
   <div class="doc-swatches" data-palette="rose"></div>
   <div class="doc-swatches" data-palette="blue"></div>
 
-  <h3>Theme tokens</h3>
+  <h3 id="colour--theme-tokens">Theme tokens</h3>
   <p>These names describe a job, and each one has a light and a dark value. The swatches show the theme that is active now. Use the button in the top bar to switch.</p>
-  <h3>Surfaces</h3>
+  <h3 id="colour--surfaces">Surfaces</h3>
   <div class="doc-swatches doc-swatches--wide" data-theme-tokens="bg surface surface-2 surface-3 inverse overlay"></div>
-  <h3>Text</h3>
+  <h3 id="colour--text">Text</h3>
   <div class="doc-swatches doc-swatches--wide" data-theme-tokens="text text-muted text-subtle accent-text on-accent on-inverse"></div>
-  <h3>Borders</h3>
+  <h3 id="colour--borders">Borders</h3>
   <div class="doc-swatches doc-swatches--wide" data-theme-tokens="border border-control border-strong focus"></div>
-  <h3>Interaction states</h3>
+  <h3 id="colour--interaction-states">Interaction states</h3>
   <p>The main fill shifts one step toward grey on hover and one more when pressed, and its label stays readable in every state. Disabled controls use the two disabled tokens and no brand colour.</p>
   <div class="doc-swatches doc-swatches--wide" data-theme-tokens="accent accent-hover accent-active accent-strong accent-soft accent-border accent-2 accent-2-text accent-2-soft accent-2-border disabled-bg disabled-text"></div>
-  <h3>Status tokens</h3>
+  <h3 id="colour--status-tokens">Status tokens</h3>
   <p>Each status has a fill, a text colour for use on plain surfaces, a soft background and a border.</p>
   <div class="doc-swatches doc-swatches--wide" data-theme-tokens="success success-text success-soft success-border warning warning-text warning-soft warning-border danger danger-text danger-soft danger-border info info-text info-soft info-border"></div>
 
-  <h3>Contrast</h3>
+  <h3 id="colour--contrast">Contrast</h3>
   <p>Text pairs meet 4.5:1 and control outlines and focus rings meet 3:1 in both themes. <code class="xz-code">npm run check</code> tests every pair and fails if one drops below the limit.</p>
   <div class="doc-dodont">
     <div class="doc-do"><strong>Do</strong><ul><li>Pair <code class="xz-code">on-accent</code> with <code class="xz-code">accent</code>, and <code class="xz-code">on-accent-2</code> (dark) with the orange <code class="xz-code">accent-2</code>.</li><li>Use <code class="xz-code">accent-text</code> for links and <code class="xz-code">accent-2-text</code> for orange text.</li><li>Pair colour with an icon or a word for status.</li></ul></div>
@@ -74,20 +74,55 @@
     <p style="font-family: var(--xz-font-sans); font-size: var(--xz-font-size-2xl); font-weight: 500">Space Grotesk Aa ₹ 0123456789</p>
     <p style="font-family: var(--xz-font-mono); font-size: var(--xz-font-size-2xl)">JetBrains Mono Aa ₹ 0123456789</p>
   </div>
-  <h3>Type styles</h3>
+  <h3 id="typography--type-styles">Type styles</h3>
   <p>Use these classes. Each one sets size, weight, line height and letter spacing together.</p>
   <div class="doc-scale" id="type-styles"></div>
-  <h3>Size scale</h3>
+  <h3 id="typography--size-scale">Size scale</h3>
   <div class="doc-scale" data-scale="font-size" data-kind="text"></div>
-  <h3>Weights and line heights</h3>
+  <h3 id="typography--weights-and-line-heights">Weights and line heights</h3>
   <div class="doc-table-wrap"><table class="doc-table" data-token-table="font-weight line-height letter-spacing"></table></div>
-  <h3>Indian languages</h3>
+  <h3 id="typography--indian-languages">Indian languages</h3>
   <p>Set the <code class="xz-code">lang</code> attribute on text in an Indian language. The kit then uses a taller line height and removes negative letter spacing, which keeps matras and conjuncts from touching.</p>
   <div class="doc-example" data-layout="stack">
     <p class="xz-h4" lang="hi">अपना पाठ्यक्रम शुरू करें</p>
     <p class="xz-h4" lang="ta">உங்கள் பாடத்தைத் தொடங்குங்கள்</p>
     <p class="xz-h4" lang="kn">ನಿಮ್ಮ ಕೋರ್ಸ್ ಪ್ರಾರಂಭಿಸಿ</p>
   </div>
+  <h3 id="typography--long-text">Long text</h3>
+  <p>Put <code class="xz-code">xz-prose</code> around articles, help pages, lesson notes and the HTML saved by the rich text editor. Headings, lists, quotes, code, tables and images get the kit's spacing and type, and lines stop at a comfortable 68 characters. Kit components inside still look like themselves; add <code class="xz-code">xz-not-prose</code> to a part that should be left alone.</p>
+  <div class="doc-example" data-layout="block">
+    <article class="xz-prose">
+      <h2>Paying your course fees</h2>
+      <p>You can pay the full fee at once or in <strong>three instalments</strong>. Each instalment is due on the 5th of the month, and you get a receipt by email within an hour. See <a href="#typography--long-text">refund rules</a> before you pay.</p>
+      <h3>Ways to pay</h3>
+      <ul>
+        <li>UPI, with any app</li>
+        <li>Net banking or a debit card
+          <ul><li>Cards issued outside India may need a one-time approval</li></ul>
+        </li>
+        <li>Cash at the front desk, with a printed receipt</li>
+      </ul>
+      <blockquote><p>Paying the first instalment holds your seat in the batch for 30 days.</p></blockquote>
+      <p>Your learner ID is on the receipt, for example <code>B-14-0412</code>. Press <kbd>Ctrl</kbd> + <kbd>P</kbd> to print it.</p>
+      <table>
+        <thead><tr><th>Instalment</th><th>Amount</th><th>Due</th></tr></thead>
+        <tbody>
+          <tr><td>First</td><td>₹8,333</td><td>5 Dec 2026</td></tr>
+          <tr><td>Second</td><td>₹8,333</td><td>5 Jan 2027</td></tr>
+          <tr><td>Third</td><td>₹8,334</td><td>5 Feb 2027</td></tr>
+        </tbody>
+      </table>
+    </article>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or variable</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-prose</code></td><td>Styles everything inside: headings h1 to h4, paragraphs, links, lists, quotes, code, keyboard keys, marks, rules, tables, images and captions.</td></tr>
+      <tr><td><code>xz-prose--sm</code> <code>--lg</code> <code>--full</code></td><td>Smaller text (chat, side notes), larger text, and no line-length limit.</td></tr>
+      <tr><td><code>--xz-prose-size</code> <code>-leading</code> <code>-measure</code> <code>-gap</code></td><td>Text size, line height, line length (68ch) and the space between blocks.</td></tr>
+      <tr><td><code>xz-not-prose</code></td><td>A part inside that keeps its own styles, such as a demo or a card.</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 <section class="doc-section" id="spacing">
@@ -95,14 +130,14 @@
   <p>Spacing uses a 4px base. Pick from the scale for every margin, padding and gap.</p>
   <div class="doc-scale" data-scale="space" data-kind="bar"></div>
 
-  <h3>Breakpoints and containers</h3>
+  <h3 id="spacing--breakpoints-and-containers">Breakpoints and containers</h3>
   <p>Styles are written mobile first. A breakpoint applies from its width upwards.</p>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Name</th><th>From</th><th>Container width</th><th>Typical device</th></tr></thead>
     <tbody id="breakpoints"></tbody>
   </table></div>
 
-  <h3>Grid</h3>
+  <h3 id="spacing--grid">Grid</h3>
   <p>The grid has 12 columns. A column is full width until you give it a span, and spans can change at each breakpoint: <code class="xz-code">xz-col-sm-6 xz-col-lg-3</code>. The gutter is 16px on phones and 24px from 768px.</p>
   <div class="doc-example" data-layout="block">
     <div class="xz-grid">
@@ -115,19 +150,19 @@
     </div>
   </div>
   <p>For a row of equal cards that wraps by itself, use <code class="xz-code">xz-grid xz-grid--auto</code> and set the smallest card width with <code class="xz-code">--xz-grid-min</code>.</p>
-  <h3>Stack and row</h3>
+  <h3 id="spacing--stack-and-row">Stack and row</h3>
   <p><code class="xz-code">xz-stack</code> places items in a column and <code class="xz-code">xz-row</code> in a wrapping line. Set the gap with <code class="xz-code">xz-gap-1</code> to <code class="xz-code">xz-gap-8</code>.</p>
 </section>
 
 <section class="doc-section" id="shape">
   <h2>Shape and depth</h2>
-  <h3>Radius</h3>
+  <h3 id="shape--radius">Radius</h3>
   <p>Components use a 4px corner: buttons, inputs and badges through <code class="xz-code">radius-control</code>, cards and dialogs through <code class="xz-code">radius-surface</code>. The rest of the scale exists for avatars, chips and products that choose a different look.</p>
   <div class="doc-example" data-code="off" id="radius-demo"></div>
-  <h3>Border width</h3>
+  <h3 id="shape--border-width">Border width</h3>
   <p>Borders are 1px. Use 2px for the active tab and 4px for the edge of an alert.</p>
   <div class="doc-example" data-code="off" id="border-demo"></div>
-  <h3>Elevation</h3>
+  <h3 id="shape--elevation">Elevation</h3>
   <p>The kit is flat. Borders separate surfaces, and shadows are kept for things that float above the page: menus, toasts, modals.</p>
   <div class="doc-example" data-code="off">
     <div class="doc-box" style="box-shadow: var(--xz-shadow-xs)">xs</div>
@@ -145,10 +180,10 @@
       <tr><td><code>--xz-shadow-xl</code></td><td>Modals and drawers</td></tr>
     </tbody>
   </table></div>
-  <h3>Layers</h3>
+  <h3 id="shape--layers">Layers</h3>
   <p>Use these z-index tokens so overlays always stack in the same order.</p>
   <div class="doc-table-wrap"><table class="doc-table" data-token-table="z"></table></div>
-  <h3>Opacity</h3>
+  <h3 id="shape--opacity">Opacity</h3>
   <div class="doc-example" data-code="off" id="opacity-demo"></div>
 </section>
 
@@ -168,7 +203,7 @@
       <tr><td><code>--xz-ease-in-out</code></td><td>Soft at both ends</td><td>Things that move from one place to another</td></tr>
     </tbody>
   </table></div>
-  <h3>Entrance classes</h3>
+  <h3 id="motion--entrance-classes">Entrance classes</h3>
   <p>Add one of these classes when you show an element. Select a box to play it again.</p>
   <div class="doc-example" id="motion-demo">
     <button type="button" class="doc-box xz-fade-in" data-motion="xz-fade-in">fade-in</button>
@@ -189,7 +224,7 @@
 
 <section class="doc-section" id="effects">
   <h2>Gradients, blur and aspect ratios</h2>
-  <h3>Gradients</h3>
+  <h3 id="effects--gradients">Gradients</h3>
   <p>The kit is flat, so a gradient stands out. Use at most one per screen, for a hero band or a featured card.</p>
   <div class="doc-example" data-code="off">
     <div class="xz-gradient-brand" style="flex: 1 1 12rem; padding: var(--xz-space-6); border-radius: var(--xz-radius-surface)"><strong>gradient-brand</strong><br><span class="xz-small">Brand highlight</span></div>
@@ -204,14 +239,14 @@
       <tr><td><code>xz-scrim</code></td><td><code>--xz-gradient-scrim</code></td><td>Darkens the lower part of a photo so light text on it stays readable.</td></tr>
     </tbody>
   </table></div>
-  <h3>Blur</h3>
+  <h3 id="effects--blur">Blur</h3>
   <p><code class="xz-code">xz-glass</code> gives a bar that floats over content a frosted background. Where the browser cannot blur, it falls back to a solid surface. Tokens: <code class="xz-code">--xz-blur-sm</code> 4px, <code class="xz-code">-md</code> 8px, <code class="xz-code">-lg</code> 16px, <code class="xz-code">-xl</code> 24px.</p>
   <div class="doc-example" data-code="off">
     <div style="position: relative; flex: 1 1 100%; height: 7rem; border-radius: var(--xz-radius-surface); overflow: hidden; background: repeating-linear-gradient(45deg, var(--xz-viz-1) 0 1.5rem, var(--xz-viz-2) 1.5rem 3rem, var(--xz-viz-3) 3rem 4.5rem)">
       <div class="xz-glass" style="position: absolute; inset: var(--xz-space-4); display: flex; align-items: center; justify-content: center; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control)"><strong>xz-glass</strong></div>
     </div>
   </div>
-  <h3>Aspect ratios</h3>
+  <h3 id="effects--aspect-ratios">Aspect ratios</h3>
   <p>Give images and video a fixed shape so the page does not jump while they load.</p>
   <div class="doc-example" data-code="off" id="aspect-demo"></div>
 </section>
@@ -239,7 +274,7 @@
   <h2>Icons</h2>
   <p>Icons are line icons on a 24px grid with a 1.75px stroke and square ends. They take the colour of the text around them. Select an icon to copy its markup.</p>
   <div class="doc-icons" id="icon-grid"></div>
-  <h3>Sizes</h3>
+  <h3 id="icons--sizes">Sizes</h3>
   <div class="doc-example">
     <i data-xz-icon="graduation-cap" data-size="xs"></i>
     <i data-xz-icon="graduation-cap" data-size="sm"></i>
@@ -257,7 +292,7 @@
       <tr><td><code>data-size="xl"</code></td><td>32</td><td>Feature tiles</td></tr>
     </tbody>
   </table></div>
-  <h3>Accessibility</h3>
+  <h3 id="icons--accessibility">Accessibility</h3>
   <p>An icon next to a text label is decoration and is hidden from screen readers. An icon that stands alone needs a name: put <code class="xz-code">aria-label</code> on its button.</p>
   <div class="doc-example">
     <button class="xz-btn" type="button"><i data-xz-icon="download"></i> Download report</button>

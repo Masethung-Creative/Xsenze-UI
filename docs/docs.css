@@ -59,12 +59,19 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-example__code > summary:hover { color: var(--xz-text); background: var(--xz-surface-2); }
 
 .doc-code { position: relative; margin: var(--xz-space-4) 0 var(--xz-space-6); background: var(--xz-neutral-950); border: 1px solid var(--xz-border); }
-/* Picture of a whole template page inside its card: the real page at 1280 x 800, scaled to fit (Templates page). */
-.doc-thumb { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: var(--xz-surface-2); border-bottom: 1px solid var(--xz-border); }
-.doc-thumb > iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 800px; border: 0; transform: scale(var(--doc-scale, 0.25)); transform-origin: 0 0; pointer-events: none; }
-/* Live preview of a whole page section, drawn in a frame (Blocks page). */
-.doc-frame { position: relative; overflow: hidden; background: var(--xz-bg); }
-.doc-frame > iframe { position: absolute; top: 0; left: 0; display: block; border: 0; transform-origin: 0 0; }
+/* Live preview with a toolbar (viewer.js): Blocks sections and whole templates at desktop, tablet or phone width. */
+.doc-viewer { margin: var(--xz-space-4) 0 var(--xz-space-8); background: var(--xz-surface); border: 1px solid var(--xz-border); }
+.doc-viewer__bar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); border-bottom: 1px solid var(--xz-border); }
+.doc-viewer__title { margin-inline-end: auto; font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
+.doc-viewer__bar .xz-segmented span { min-height: 1.75rem; padding-inline: var(--xz-space-2); font-size: var(--xz-font-size-xs); }
+.doc-viewer__bar .xz-btn--icon { width: 2rem; min-width: 2rem; height: 2rem; min-height: 2rem; padding: 0; }
+.doc-viewer__stage { display: flex; justify-content: center; padding: var(--xz-space-4); overflow: hidden; background-image: radial-gradient(var(--xz-border) 1px, transparent 1px); background-size: 16px 16px; }
+.doc-viewer--fragment[data-device="desktop"] .doc-viewer__stage { padding: 0; }
+.doc-viewer__screen { position: relative; flex: none; overflow: hidden; background: var(--xz-bg); box-shadow: 0 0 0 1px var(--xz-border); }
+.doc-viewer:is([data-device="tablet"], [data-device="phone"]) .doc-viewer__screen { border-radius: 14px; box-shadow: 0 0 0 1px var(--xz-border-strong), var(--xz-shadow-md); }
+.doc-viewer__screen iframe { position: absolute; top: 0; left: 0; display: block; border: 0; background: var(--xz-bg); transform-origin: 0 0; }
+.doc-viewer__code .doc-code { margin: 0; border: 0; }
+.doc-viewer__note { margin: 0; padding: var(--xz-space-4); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
 .doc-example .doc-code { margin: 0; border: 0; border-top: 1px solid var(--xz-border); }
 .doc-code pre { margin: 0; padding: var(--xz-space-4); overflow-x: auto; color: var(--xz-neutral-200); font-family: var(--xz-font-mono); font-size: 0.8125rem; line-height: 1.6; tab-size: 2; }
 .doc-code__copy { position: absolute; top: var(--xz-space-2); right: var(--xz-space-2); padding: var(--xz-space-1) var(--xz-space-2); background: var(--xz-neutral-800); border: 1px solid var(--xz-neutral-700); color: var(--xz-neutral-200); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); cursor: pointer; }
@@ -74,6 +81,10 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-code .s { color: var(--xz-brand-200); } /* string */
 .doc-code .c { color: var(--xz-neutral-500); } /* comment */
 
+/* Header search button: a quiet field-like button with the shortcut. */
+.doc-search-btn { gap: var(--xz-space-2); min-width: 0; color: var(--xz-text-muted); font-weight: var(--xz-font-weight-regular); }
+.doc-search-btn .xz-kbd { min-height: 1.25rem; }
+@media (min-width: 1024px) { .doc-search-btn { min-width: 12rem; justify-content: flex-start; } .doc-search-btn .xz-kbd { margin-inline-start: auto; } }
 .doc-install { display: flex; align-items: center; justify-content: space-between; gap: var(--xz-space-4); width: 100%; max-width: 34rem; padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border-control); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); }
 .doc-install code { overflow-x: auto; white-space: nowrap; }
 

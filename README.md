@@ -9,16 +9,13 @@ Design tokens, CSS components and small behaviours for Xsenze products. It works
 - WCAG 2.2 AA contrast, tested by a script on every build
 - Indian formats: ₹, lakh and crore grouping, day-first dates
 
-Version 0.5.0 covers Phase 1 (foundation and core) and the first two parts of Phase 2: new foundations, advanced form controls, the Create page and 13 new components. See [ROADMAP.md](ROADMAP.md) for what comes next.
+Version 0.6.0 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, and the high-priority additions: a command palette, charts, a stronger data table, long-text styles, CDN links and docs search. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
+
+Documentation: <https://masethung-creative.github.io/Xsenze-UI/docs/>
 
 ## Quick start
 
-```bash
-npm install
-npm run build
-```
-
-Copy the `dist/` folder into your project and link two files:
+Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight from this repository's release tag:
 
 ```html
 <!doctype html>
@@ -26,8 +23,8 @@ Copy the `dist/` folder into your project and link two files:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/assets/xsenze/xsenze.min.css">
-  <script src="/assets/xsenze/xsenze.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.0/dist/xsenze.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.0/dist/xsenze.min.js" defer></script>
 </head>
 <body>
   <main class="xz-container">
@@ -39,7 +36,15 @@ Copy the `dist/` folder into your project and link two files:
 </html>
 ```
 
-Keep `dist/` together. The stylesheet loads its fonts from the `fonts/` folder beside it.
+On pages with charts, add `xsenze-charts.min.js` from the same address after the main script.
+
+With npm, install the release from GitHub; the import name stays `@sfj/ui-kit`:
+
+```bash
+npm install github:Masethung-Creative/Xsenze-UI#v0.6.0
+```
+
+To host the files yourself, run `npm install` and `npm run build`, then copy `dist/` into your project. Keep `dist/` together: the stylesheet loads its fonts from the `fonts/` folder beside it.
 
 ## Documentation
 
@@ -47,17 +52,17 @@ Keep `dist/` together. The stylesheet loads its fonts from the `fonts/` folder b
 npm run dev
 ```
 
-Then open <http://localhost:4173/docs/>. The docs cover installation, foundations, every component with copyable markup, guidelines and the page templates.
+Then open <http://localhost:4173/docs/>. The docs cover installation, foundations, every component with copyable markup, guidelines and the page templates. Press Ctrl+K (⌘K on Apple devices) to search them.
 
 ## What is included
 
 | Area | Contents |
 | --- | --- |
-| Foundations | Colour (brand, neutrals, status, surfaces, text, borders, states), typography, spacing, grid, breakpoints, containers, radius, border widths, elevation, layers, opacity, 102 icons, logo rules |
-| Components | Buttons, inputs, textarea, checkbox, radio, toggle, select, searchable combobox, labels and messages, badges, tags, chips, avatars, links, dividers, tooltips, spinners, progress bars, skeletons |
+| Foundations | Colour (brand, neutrals, status, surfaces, text, borders, states), typography and long-text styles, spacing, grid, breakpoints, containers, radius, border widths, elevation, layers, opacity, 135 icons, logo rules |
+| Components | Buttons, inputs, textarea, checkbox, radio, toggle, select, searchable combobox, labels and messages, badges, tags, chips, avatars, links, dividers, tooltips, spinners, progress bars and rings, skeletons |
 | Composites | Cards, stat cards, tabs, accordion, breadcrumbs, pagination, alerts, banners, lists, empty states |
-| Navigation and overlays | Navbar, sidebar, footer, app shell, modal, drawer, toast, dropdown menu |
-| Data | Table with sorting, search, pagination and row actions |
+| Navigation and overlays | Navbar, sidebar, footer, app shell, modal, drawer, toast, dropdown menu, command palette |
+| Data | Table with sorting, search, filters, pages, row selection and bulk actions, a column menu, detail rows and CSV export; charts (bar, line, area, donut, pie) in an optional file; sparklines |
 | Blocks | Hero, band, feature row, window, tiles, checklist, command with copy, marquee, facts, flow diagram, compare, ledger, footer wordmark, overlay navbar, scroll progress, expanding tabs, and motion: reveal, rolling words, typewriter, scripted demos, border beam, dot field, layered stack, depth scroll, opening band, and one button that pauses it all |
 | Templates | Login, signup, forgot password, dashboard, 404, 500, landing page |
 | Helpers | Form validation with plain-language messages, Indian number, currency and date formats, theme switch |
@@ -66,9 +71,11 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 
 | File | Use |
 | --- | --- |
-| `dist/xsenze.min.css` | Fonts, tokens and all components |
+| `dist/xsenze.min.css` | Fonts, tokens and all components, including chart styles |
 | `dist/xsenze.min.js` | Behaviours and icons, global `Xsenze` |
 | `dist/xsenze.esm.js` | ES module build |
+| `dist/xsenze-charts.min.js` | Charts, optional. `dist/xsenze-charts.esm.js` for bundlers (`import charts from '@sfj/ui-kit/charts'`) |
+| `dist/xsenze-satoshi.css` | The heading font, for projects that host Satoshi themselves |
 | `dist/tokens/tokens.css` | CSS variables only |
 | `dist/tokens/tokens.json` | Flat values for each theme |
 | `dist/tokens/tokens.dtcg.json` | Design Tokens format, for Figma variables |
@@ -78,25 +85,27 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 ## Project layout
 
 ```
-tokens/tokens.json   Source of truth for every value
-src/css/             Component styles, one file per group
-src/js/              Behaviours (index.js) and formats (format.js)
-src/blocks/          Blocks for landing pages, one folder per kind (navigation, hero, content, forms, data-display, footer, motion)
-src/brand/           Logo files
-scripts/build.mjs    Builds dist/
-scripts/contrast.mjs Checks colour pairs against WCAG AA
-docs/                Documentation site
-templates/           Page templates
+tokens/tokens.json      Source of truth for every value
+src/css/                Component styles, one file per group
+src/js/                 Behaviours (index.js), formats (format.js), table, command palette, and charts/ (optional file)
+src/blocks/             Blocks for landing pages, one folder per kind (navigation, hero, content, forms, data-display, footer, motion)
+src/brand/              Logo files
+scripts/build.mjs       Builds dist/ and the docs data
+scripts/contrast.mjs    Checks colour pairs against WCAG AA
+scripts/docs/           Docs site data (site.config.mjs lists the pages), search index and the docs checker
+docs/                   Documentation site
+templates/              Page templates
+tests/                  Pages for checking behaviour in a browser
 ```
 
 ## Commands
 
 | Command | What it does |
 | --- | --- |
-| `npm run build` | Builds `dist/` and the data file the docs read |
+| `npm run build` | Builds `dist/`, the docs data and the search index. Warns when a file passes its size limit |
 | `npm run check` | Tests colour contrast in both themes. Fails if a pair is below AA. |
+| `npm run check:docs` | Checks every docs link, id and code sample, and that the docs data is up to date |
 | `npm run dev` | Serves the docs and templates on port 4173 |
-
 ## Changing tokens
 
 1. Edit `tokens/tokens.json`.

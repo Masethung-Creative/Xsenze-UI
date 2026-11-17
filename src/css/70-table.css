@@ -6,7 +6,21 @@
 .xz-table thead th { background: var(--xz-surface-2); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; white-space: nowrap; }
 .xz-table tbody tr:last-child > * { border-bottom: 0; }
 .xz-table tbody tr:hover { background: var(--xz-surface-2); }
-.xz-table tbody tr[aria-selected="true"] { background: var(--xz-accent-soft); }
+.xz-table--striped tbody tr:nth-child(even) { background: var(--xz-surface-2); }
+/* Selected rows: a stronger fill than hover and a bar at the start of the row, so selection never relies on a faint tint. */
+.xz-table tbody tr[aria-selected="true"], .xz-table tbody tr.is-selected, .xz-table tbody tr:has(input[data-xz-select]:checked) { background: var(--xz-surface-3); }
+.xz-table tbody tr:is([aria-selected="true"], .is-selected, :has(input[data-xz-select]:checked)) > :first-child { box-shadow: inset 3px 0 0 var(--xz-accent); }
+[dir="rtl"] .xz-table tbody tr:is([aria-selected="true"], .is-selected, :has(input[data-xz-select]:checked)) > :first-child { box-shadow: inset -3px 0 0 var(--xz-accent); }
+.xz-table__check { width: 1%; padding-inline-end: 0; }
+.xz-table__check .xz-check { gap: 0; }
+.xz-table__check input { margin: 0; }
+/* Detail rows open under their row. */
+.xz-table__detail > td { background: var(--xz-surface-2); }
+.xz-table tbody tr.xz-table__detail:hover { background: transparent; }
+.xz-table__expand { display: inline-grid; place-items: center; width: 2rem; height: 2rem; padding: 0; background: transparent; border: 1px solid transparent; border-radius: var(--xz-radius-control); color: var(--xz-text-muted); cursor: pointer; }
+.xz-table__expand:hover { color: var(--xz-text); border-color: var(--xz-border); }
+.xz-table__expand > .xz-icon { transition: transform var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-table__expand[aria-expanded="true"] > .xz-icon { transform: rotate(180deg); }
 .xz-table__num, .xz-table th.xz-table__num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 .xz-table__actions { width: 1%; text-align: right; white-space: nowrap; }
 .xz-table__primary { font-weight: var(--xz-font-weight-semibold); color: var(--xz-text); white-space: nowrap; }
@@ -14,8 +28,15 @@
 .xz-table td[data-value] { white-space: nowrap; }
 .xz-table__secondary { display: block; font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
 .xz-table--compact th, .xz-table--compact td { padding: var(--xz-space-2) var(--xz-space-3); }
-.xz-table--striped tbody tr:nth-child(even) { background: var(--xz-surface-2); }
-.xz-table--sticky thead th { position: sticky; top: 0; z-index: 1; }
+/* Sticky header: give the wrap a height (xz-table-wrap--scroll) so the header has something to stick to.
+   Collapsed borders do not travel with sticky cells, so the line under the header is drawn as a shadow. */
+.xz-table-wrap--scroll { max-height: var(--xz-table-height, 70vh); overflow: auto; overscroll-behavior: contain; }
+.xz-table--sticky thead { position: sticky; top: 0; z-index: 2; }
+.xz-table--sticky thead th { box-shadow: inset 0 -1px 0 var(--xz-border); }
+.xz-table--sticky-first :is(th, td):first-child { position: sticky; inset-inline-start: 0; z-index: 1; background: var(--xz-surface); }
+.xz-table--sticky-first thead th:first-child { z-index: 3; background: var(--xz-surface-2); }
+.xz-table--sticky-first tbody tr:hover > :first-child { background: var(--xz-surface-2); }
+.xz-table--sticky-first tbody tr:is(.is-selected, :has(input[data-xz-select]:checked)) > :first-child { background: var(--xz-surface-3); }
 
 /* sortable header */
 .xz-table__sort { display: inline-flex; align-items: center; gap: var(--xz-space-1); margin: calc(var(--xz-space-1) * -1) calc(var(--xz-space-2) * -1); padding: var(--xz-space-1) var(--xz-space-2); background: transparent; border: 0; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
@@ -28,4 +49,17 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-table-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--xz-space-3); padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); border-bottom: 0; border-radius: var(--xz-radius-control) var(--xz-radius-control) 0 0; }
 .xz-table-toolbar + .xz-table-wrap { border-top-left-radius: 0; border-top-right-radius: 0; }
 .xz-table-wrap:has(~ .xz-table-footer) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+/* Bulk bar: shows how many rows are selected and what can be done with them. */
+.xz-table-bulk { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2) var(--xz-space-3); margin-bottom: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border: 1px solid var(--xz-border-strong); border-radius: var(--xz-radius-control); font-size: var(--xz-font-size-sm); }
+.xz-table-bulk[hidden] { display: none; }
+.xz-table-bulk [data-xz-bulk-count] { margin-inline-end: auto; font-weight: var(--xz-font-weight-semibold); }
+@media (max-width: 639px) {
+  .xz-table-bulk { position: sticky; bottom: var(--xz-space-2); z-index: var(--xz-z-sticky); box-shadow: var(--xz-shadow-lg); }
+}
+/* Filters above a table: selects and chip groups side by side. */
+.xz-table-filters { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); }
+.xz-table-filters .xz-select { width: auto; }
+/* Column menu */
+.xz-table-columns { position: relative; display: inline-flex; }
+.xz-table-columns__panel { display: flex; flex-direction: column; gap: var(--xz-space-2); min-width: 12rem; max-height: min(60dvh, 20rem); overflow-y: auto; padding: var(--xz-space-3); }
 .xz-table-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--xz-space-3); padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); border-top: 0; border-radius: 0 0 var(--xz-radius-control) var(--xz-radius-control); }

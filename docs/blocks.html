@@ -5,9 +5,10 @@
 <link rel="icon" href="data:,">
 <title>Blocks · Xsenze UI Kit</title>
 <link rel="stylesheet" href="../dist/xsenze.css">
-<link rel="stylesheet" href="../dist/xsenze-satoshi.css">
 <link rel="stylesheet" href="docs.css">
+<script src="site.generated.js" defer></script>
 <script src="docs.js" defer></script>
+<script src="viewer.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
 </head>
 <body class="doc" data-page="blocks">
@@ -66,7 +67,7 @@
     </tbody>
   </table></div>
 
-  <h3>What uses what</h3>
+  <h3 id="graph--what-uses-what">What uses what</h3>
   <ul>
     <li><strong>Hero</strong> holds an Eyebrow, a title with a Rotator and its caret, buttons, a Flow and a Command with Copy and Beam, over a Dot field. Its parts come in with Reveal.</li>
     <li><strong>Flow</strong> joins a card with an avatar and a Checklist (the source), Layers and a small Command (the hub), and Tiles (the targets).</li>
@@ -603,16 +604,23 @@
       <tr><td>Footer</td><td>Footer, Footer brand and wordmark, theme</td><td>Columns wrap</td><td>None</td></tr>
     </tbody>
   </table></div>
-  <p class="xz-caption" data-section-note hidden>The code panels below need the docs site running through <code class="xz-code">npm run dev</code>. You can also open <code class="xz-code">templates/landing.html</code> and copy each section between its <code class="xz-code">section:</code> comments.</p>
 
-  <h3>Navigation</h3><div data-section-code="navigation"></div>
-  <h3>Hero</h3><div data-section-code="hero"></div>
-  <h3>Social proof</h3><div data-section-code="social-proof"></div>
-  <h3>Showcase</h3><div data-section-code="showcase"></div>
-  <h3>Features</h3><div data-section-code="features"></div>
-  <h3>Proof</h3><div data-section-code="proof"></div>
-  <h3>Call to action</h3><div data-section-code="cta"></div>
-  <h3>Footer</h3><div data-section-code="footer"></div>
+  <h3 id="sections--navigation">Navigation</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="navigation" data-title="Navigation"></div>
+  <h3 id="sections--hero">Hero</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="hero" data-title="Hero"></div>
+  <h3 id="sections--social-proof">Social proof</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="social-proof" data-title="Social proof"></div>
+  <h3 id="sections--showcase">Showcase</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="showcase" data-title="Showcase"></div>
+  <h3 id="sections--features">Features</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="features" data-title="Features"></div>
+  <h3 id="sections--proof">Proof</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="proof" data-title="Proof"></div>
+  <h3 id="sections--call-to-action">Call to action</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="cta" data-title="Call to action"></div>
+  <h3 id="sections--footer">Footer</h3>
+  <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="footer" data-title="Footer"></div>
 </section>
 
 <!-- ================= TOKENS ================= -->
@@ -651,7 +659,7 @@
     <li><strong>Source:</strong> the blocks live in <code>src/blocks/</code>, one folder per kind: <code>navigation</code>, <code>hero</code>, <code>content</code>, <code>forms</code>, <code>data-display</code>, <code>footer</code> and <code>motion</code>.</li>
   </ul>
 
-  <h3>Paste a section</h3>
+  <h3 id="integration--paste-a-section">Paste a section</h3>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Section</th><th>Where it goes</th><th>Fill in</th></tr></thead>
     <tbody>
@@ -666,7 +674,7 @@
     </tbody>
   </table></div>
 
-  <h3>Not included, on purpose</h3>
+  <h3 id="integration--not-included-on-purpose">Not included, on purpose</h3>
   <ul>
     <li><strong>Real 3D models.</strong> The kit has no dependencies and no 3D engine, so Layers draws a stack of plates in CSS instead. For a true 3D object, add your own renderer inside <code>xz-flow__hub</code>.</li>
     <li><strong>Particle effects drawn on the graphics card.</strong> Dot field gives a similar moving texture with CSS, at a fraction of the cost, and works everywhere.</li>
@@ -680,89 +688,5 @@
 </main>
 </div>
 <footer data-doc-footer></footer>
-
-<script>
-// Section templates: read each section from the landing page template, so the code always matches it.
-// Each one is shown live in its own frame, because the navbar and progress bar are fixed to the screen
-// and would sit on top of this page. Wide screens draw the section at 1280px and scale it to fit.
-document.addEventListener('DOMContentLoaded', async () => {
-  const slots = document.querySelectorAll('[data-section-code]');
-  const root = document.documentElement;
-  const frames = [];
-  let html;
-  try {
-    const res = await fetch('../templates/landing.html');
-    if (!res.ok) throw new Error(res.status);
-    html = await res.text();
-  } catch {
-    document.querySelector('[data-section-note]').hidden = false;
-    return;
-  }
-  const head = (html.match(/<head>([\s\S]*?)<\/head>/) || [, ''])[1];
-  // Inside the frame: links do nothing (it is a preview), and the frame reports its height.
-  const inner = `<script>
-document.addEventListener('click', (e) => { if (e.target.closest('a[href]')) e.preventDefault(); });
-const send = () => parent.postMessage({ xzFrameHeight: Math.ceil(document.documentElement.getBoundingClientRect().height) }, '*');
-new ResizeObserver(send).observe(document.documentElement);
-<\/script>`;
-  const page = (name, body) => `<!doctype html><html lang="en" data-theme="${root.dataset.theme || 'light'}"><head>${head}<style>body { min-height: ${name === 'navigation' ? '4.5rem' : '0'}; }</style></head><body>${body}${inner}</body></html>`;
-
-  const fit = (f) => {
-    const w = f.box.clientWidth;
-    const view = w >= 768 ? 1280 : w; // phones see the phone layout at full size
-    const scale = w / view;
-    f.frame.style.width = `${view}px`;
-    f.frame.style.height = `${f.height}px`;
-    f.frame.style.transform = scale === 1 ? '' : `scale(${scale})`;
-    f.box.style.height = `${Math.ceil(f.height * scale)}px`;
-  };
-  addEventListener('message', (e) => {
-    const f = frames.find((x) => x.frame.contentWindow === e.source);
-    if (!f || typeof e.data?.xzFrameHeight !== 'number') return;
-    f.height = Math.max(e.data.xzFrameHeight, 1);
-    fit(f);
-  });
-  const resize = new ResizeObserver((entries) => entries.forEach((en) => { const f = frames.find((x) => x.box === en.target); if (f) fit(f); }));
-  // Load each frame when it comes near the screen.
-  const near = new IntersectionObserver((entries) => {
-    for (const en of entries) {
-      if (!en.isIntersecting) continue;
-      const f = frames.find((x) => x.box === en.target);
-      f.frame.srcdoc = page(f.name, f.body);
-      near.unobserve(en.target);
-    }
-  }, { rootMargin: '800px 0px' });
-
-  for (const slot of slots) {
-    const name = slot.getAttribute('data-section-code');
-    const match = html.match(new RegExp(`<!-- section:${name} -->\\r?\\n([\\s\\S]*?)\\r?\\n<!-- /section:${name} -->`));
-    if (!match) continue;
-    const title = slot.previousElementSibling?.textContent || name;
-    const example = Object.assign(document.createElement('div'), { className: 'doc-example' });
-    const box = Object.assign(document.createElement('div'), { className: 'doc-frame' });
-    const frame = Object.assign(document.createElement('iframe'), { title: `${title} section, live preview` });
-    box.append(frame);
-    const details = Object.assign(document.createElement('details'), { className: 'doc-example__code' });
-    details.append(document.createElement('summary'), window.XZ_DOC.codeBlock(window.XZ_DOC.dedent(match[1])));
-    example.append(box, details);
-    slot.append(example);
-    const f = { name, body: match[1], box, frame, height: 240 };
-    frames.push(f);
-    fit(f);
-    resize.observe(box);
-    near.observe(box);
-  }
-  const link = Object.assign(document.createElement('p'), { innerHTML: `<a class="xz-link" href="../templates/landing.html">Open the whole landing page</a>` });
-  slots[slots.length - 1]?.after(link);
-
-  // The previews follow this page's light or dark theme.
-  new MutationObserver(() => {
-    for (const f of frames) {
-      const d = f.frame.contentDocument?.documentElement;
-      if (d) d.dataset.theme = root.dataset.theme;
-    }
-  }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-});
-</script>
 </body>
 </html>

@@ -1,0 +1,34 @@
+/* Command palette: a dialog with a search field and grouped results. Opens near the top, like a search bar. */
+.xz-command-palette { border-radius: var(--xz-radius-surface); width: min(calc(100vw - 2rem), var(--xz-command-width, 40rem)); max-height: min(calc(100dvh - 4rem), 34rem); margin: 12vh auto auto; padding: 0; overflow: hidden; background: var(--xz-surface); color: var(--xz-text); border: 1px solid var(--xz-border-strong); box-shadow: var(--xz-shadow-xl); }
+.xz-command-palette[open] { display: flex; flex-direction: column; animation: xz-pop var(--xz-duration-base) var(--xz-ease-out); }
+.xz-command-palette::backdrop { background: var(--xz-overlay); }
+.xz-command-palette__source { display: none; }
+.xz-command-palette__search { display: flex; align-items: center; gap: var(--xz-space-2); padding-inline: var(--xz-space-4); border-bottom: 1px solid var(--xz-border); }
+.xz-command-palette__search > .xz-icon { flex: none; color: var(--xz-text-muted); }
+.xz-command-palette__input { flex: 1; min-width: 0; height: 3.25rem; padding: 0; background: transparent; border: 0; color: inherit; font: inherit; font-size: var(--xz-font-size-md); }
+.xz-command-palette__input:focus { outline: none; }
+.xz-command-palette__input::placeholder { color: var(--xz-text-subtle); }
+.xz-command-palette__list { flex: 1; min-height: 0; padding: var(--xz-space-1); overflow-y: auto; overscroll-behavior: contain; }
+.xz-command-palette__list:empty { display: none; }
+.xz-command-palette__group { padding: var(--xz-space-3) var(--xz-space-3) var(--xz-space-1); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; color: var(--xz-text-subtle); }
+.xz-command-palette__list > [role="group"] + [role="group"] { margin-top: var(--xz-space-1); padding-top: var(--xz-space-1); border-top: 1px solid var(--xz-border); }
+.xz-command-palette__option { display: flex; align-items: center; gap: var(--xz-space-3); min-height: 2.5rem; padding: var(--xz-space-1) var(--xz-space-3); border-radius: calc(var(--xz-radius-control) - 1px); font-size: var(--xz-font-size-sm); cursor: pointer; }
+.xz-command-palette__option > .xz-icon { flex: none; color: var(--xz-text-muted); }
+.xz-command-palette__option.is-active { background: var(--xz-surface-2); box-shadow: inset 2px 0 0 var(--xz-accent); }
+[dir="rtl"] .xz-command-palette__option.is-active { box-shadow: inset -2px 0 0 var(--xz-accent); }
+.xz-command-palette__option.is-active > .xz-icon { color: var(--xz-text); }
+.xz-command-palette__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xz-command-palette__label mark { background: transparent; color: inherit; font-weight: var(--xz-font-weight-bold); text-decoration: underline; text-decoration-color: var(--xz-accent-2); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.xz-command-palette__meta { flex: none; max-width: 40%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
+.xz-command-palette__note { margin: 0; padding: var(--xz-space-6) var(--xz-space-4); text-align: center; font-size: var(--xz-font-size-sm); color: var(--xz-text-muted); }
+.xz-command-palette__footer { display: flex; flex-wrap: wrap; gap: var(--xz-space-4); padding: var(--xz-space-2) var(--xz-space-4); border-top: 1px solid var(--xz-border); background: var(--xz-surface-2); font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); }
+.xz-command-palette__footer span { display: inline-flex; align-items: center; gap: var(--xz-space-1); }
+.xz-command-palette__footer .xz-kbd { min-height: 1.25rem; }
+/* Phones: the palette fills the top of the screen, and the key hints are not needed. */
+@media (max-width: 639px) {
+  .xz-command-palette { width: 100vw; max-width: none; max-height: 100dvh; height: 100dvh; margin: 0; border: 0; border-radius: 0; }
+}
+@media (pointer: coarse) {
+  .xz-command-palette__option { min-height: var(--xz-control-touch); }
+  .xz-command-palette__footer { display: none; }
+}
