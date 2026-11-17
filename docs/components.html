@@ -10,6 +10,7 @@
 <script src="docs.js" defer></script>
 <script src="../dist/xsenze.js" defer></script>
 <script src="../dist/xsenze-charts.js" defer></script>
+<script src="../dist/xsenze-apps.js" defer></script>
 </head>
 <body class="doc" data-page="components">
 <a class="xz-skip-link" href="#main">Skip to content</a>
@@ -2086,6 +2087,59 @@
   </table></div>
 </section>
 
+<!-- ================= HOVER CARD ================= -->
+<section class="doc-section" id="hover-card">
+  <h2>Hover card</h2>
+  <p>A preview of what a link leads to: a learner, a course, an invoice. It opens when the pointer rests on the link for half a second, or when the link gets keyboard focus, and it stays open while the pointer moves onto it. Esc closes it.</p>
+  <p>The card is extra detail only. On touch screens a tap follows the link, so the page behind the link must show everything the card does, and the card must never hold the only way to do something.</p>
+  <div class="doc-example">
+    <span class="xz-hovercard" data-xz-hovercard>
+      <a class="xz-link" href="#hover-card">Data Analytics, Batch B-14</a>
+      <span class="xz-hovercard__panel">
+        <span class="xz-hovercard__head">
+          <span class="xz-avatar xz-avatar--sm">DA</span>
+          <span><span class="xz-hovercard__title">Data Analytics</span><br><span class="xz-hovercard__meta">Batch B-14 · Starts 24/11/2026</span></span>
+        </span>
+        <span>Excel, SQL and Power BI over 16 weeks, with live classes on weekday evenings.</span>
+        <span class="xz-row xz-row--between"><span class="xz-badge xz-badge--success">12 seats left</span><strong>₹24,999</strong></span>
+      </span>
+    </span>
+  </div>
+  <h3 id="hover-card--one-card-for-many-rows">One card for many rows</h3>
+  <p>In a table, write the card once in a <code class="xz-code">template</code> and point each row at it. An element with <code class="xz-code">data-xz-field="batch"</code> shows the row's <code class="xz-code">data-batch</code>, and so on.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-table-wrap">
+      <table class="xz-table">
+        <caption class="xz-sr-only">Learners, with batch and attendance</caption>
+        <thead><tr><th scope="col">Learner</th><th scope="col">Batch</th><th scope="col" class="xz-table__num">Attendance</th></tr></thead>
+        <tbody>
+          <tr><td><span class="xz-hovercard" data-xz-hovercard="#learner-card" data-initials="AI" data-name="Ananya Iyer" data-batch="B-14 · Data Analytics" data-note="Fees paid. Next class: DAX measures, 18 Nov."><a class="xz-link" href="#hover-card">Ananya Iyer</a></span></td><td>B-14</td><td class="xz-table__num">96%</td></tr>
+          <tr><td><span class="xz-hovercard" data-xz-hovercard="#learner-card" data-initials="RD" data-name="Rohan Deshmukh" data-batch="B-14 · Data Analytics" data-note="Second instalment due on 26 Nov."><a class="xz-link" href="#hover-card">Rohan Deshmukh</a></span></td><td>B-14</td><td class="xz-table__num">88%</td></tr>
+          <tr><td><span class="xz-hovercard" data-xz-hovercard="#learner-card" data-initials="SQ" data-name="Sana Qureshi" data-batch="B-11 · UX Design" data-note="Assignment 3 is waiting for review."><a class="xz-link" href="#hover-card">Sana Qureshi</a></span></td><td>B-11</td><td class="xz-table__num">91%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <template id="learner-card">
+      <div class="xz-hovercard__head">
+        <span class="xz-avatar xz-avatar--sm" data-xz-field="initials"></span>
+        <div><p class="xz-hovercard__title" data-xz-field="name"></p><p class="xz-hovercard__meta" data-xz-field="batch"></p></div>
+      </div>
+      <p data-xz-field="note"></p>
+    </template>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-hovercard</code></td><td>On a wrapper around a link or a button, followed by its <code>xz-hovercard__panel</code>. Inside a sentence or a table cell, make the wrapper and the panel <code>span</code> elements.</td></tr>
+      <tr><td><code>data-xz-hovercard="#id"</code></td><td>Builds the panel from that <code>template</code>, filling each <code>data-xz-field</code> from the wrapper's <code>data-*</code> values.</td></tr>
+      <tr><td><code>xz-hovercard__head</code></td><td>A row for an avatar, <code>__title</code> and <code>__meta</code>.</td></tr>
+      <tr><td><code>data-xz-delay</code> <code>data-xz-close-delay</code></td><td>Milliseconds before it opens (500) and closes (300).</td></tr>
+      <tr><td><code>data-xz-hovercard-describe</code></td><td>Also reads the card's text out as the link's description. Use it only for short cards.</td></tr>
+      <tr><td><code>xz:open</code> <code>xz:close</code></td><td>Events on the wrapper. <code>element.xzPopover.open()</code> and <code>close()</code> work from script.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
 <!-- ================= NOTIFICATIONS ================= -->
 <section class="doc-section" id="notifications">
   <h2>Notification centre</h2>
@@ -2516,6 +2570,280 @@
   </table></div>
 </section>
 
+<!-- ================= CALENDAR ================= -->
+<section class="doc-section" id="calendar">
+  <h2>Calendar</h2>
+  <p>A month of events: classes, tests, fee dates and holidays. Write the events as a list and the script draws the month from it. Picking a day lists its events under the grid. On phones the month shows as an agenda, and without the script the list itself reads as one.</p>
+  <div class="doc-example" data-layout="block">
+    <section class="xz-calendar-view" data-xz-calendar data-xz-month="2026-11" aria-label="Batch B-14 schedule" id="calendar-demo">
+      <ol class="xz-calendar-view__events">
+        <li data-date="2026-11-02" data-time="18:30" data-color="info"><a href="#calendar">Live class: Pivot tables</a></li>
+        <li data-date="2026-11-04" data-time="18:30" data-color="info"><a href="#calendar">Live class: Lookups</a></li>
+        <li data-date="2026-11-05" data-color="warning">First fee instalment due</li>
+        <li data-date="2026-11-07" data-end="2026-11-11" data-color="accent">Diwali break</li>
+        <li data-date="2026-11-16" data-time="18:30" data-color="info"><a href="#calendar">Live class: Power BI basics</a></li>
+        <li data-date="2026-11-18" data-time="10:00" data-color="viz-5">Mentor office hours</li>
+        <li data-date="2026-11-18" data-time="16:00" data-color="viz-3">Guest talk: Analytics at a bank</li>
+        <li data-date="2026-11-18" data-time="18:30" data-color="info"><a href="#calendar">Live class: DAX measures</a></li>
+        <li data-date="2026-11-18" data-time="23:59" data-color="warning">Assignment 3 due</li>
+        <li data-date="2026-11-21" data-time="10:00" data-color="danger">Mock test</li>
+        <li data-date="2026-11-23" data-time="18:30" data-color="info"><a href="#calendar">Live class: Dashboards</a></li>
+        <li data-date="2026-11-26" data-color="warning">Second fee instalment due</li>
+        <li data-date="2026-11-28" data-time="11:00" data-color="success">Project demo day</li>
+      </ol>
+    </section>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-calendar</code></td><td>On a <code>section</code> with an <code>aria-label</code>, around the events list.</td></tr>
+      <tr><td><code>data-xz-month="2026-11"</code></td><td>The month to show first. Without it, this month.</td></tr>
+      <tr><td><code>data-xz-week-start</code></td><td><code>1</code> starts weeks on Monday (the default), <code>0</code> on Sunday.</td></tr>
+      <tr><td><code>xz-calendar-view__events</code></td><td>The <code>ol</code> of events. Each <code>li</code> has <code>data-date</code> (YYYY-MM-DD) and can have <code>data-end</code> for events over several days, <code>data-time</code> in 24-hour form (<code>18:30</code>, so the day sorts in order) and <code>data-color</code>. A link inside opens the event.</td></tr>
+      <tr><td><code>data-color</code></td><td><code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code>, <code>accent</code>, <code>viz-1</code> to <code>viz-8</code>, or any CSS colour. Colour is a hint only: the event's name says what it is.</td></tr>
+      <tr><td><code>data-xz-calendar-url</code></td><td>Loads each month's events from your server. <code>{start}</code> and <code>{end}</code> in the address become the first and last dates on the grid, and the reply is a JSON list of <code>{title, date, end, time, href, color}</code>.</td></tr>
+      <tr><td><code>xz:day</code></td><td>Fires when a day is picked, with <code>event.detail.date</code> and <code>event.detail.events</code>. Call <code>preventDefault()</code> to show the day your own way.</td></tr>
+      <tr><td><code>xz:month</code></td><td>Fires when the month changes, with <code>month</code>, <code>start</code> and <code>end</code>.</td></tr>
+      <tr><td><code>element.xzCalendar</code></td><td><code>go('2026-12')</code>, <code>select('2026-11-18')</code>, <code>setEvents(list)</code> and <code>month()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= TIMELINE ================= -->
+<section class="doc-section" id="timeline">
+  <h2>Timeline</h2>
+  <p>What happened, in order: a learner's activity, an application's progress, an order's history. Each item has a marker, a title and a line of detail, and day headings group the items. It is CSS only.</p>
+  <div class="doc-example" data-layout="block">
+    <ol class="xz-timeline" style="max-width: 34rem">
+      <li class="xz-timeline__day">Today</li>
+      <li class="xz-timeline__item xz-timeline__item--success">
+        <span class="xz-timeline__marker"><i data-xz-icon="indian-rupee" data-size="sm"></i></span>
+        <div class="xz-timeline__body">
+          <p class="xz-timeline__title">Fee paid <time class="xz-timeline__time" datetime="2026-11-17T10:42">10:42 am</time></p>
+          <p class="xz-timeline__meta">₹12,500 by UPI. The receipt went to ananya.iyer@example.com.</p>
+        </div>
+      </li>
+      <li class="xz-timeline__item xz-timeline__item--info">
+        <span class="xz-timeline__marker"><i data-xz-icon="play" data-size="sm"></i></span>
+        <div class="xz-timeline__body">
+          <p class="xz-timeline__title">Watched Lesson 7: Pivot tables <time class="xz-timeline__time" datetime="2026-11-17T09:05">9:05 am</time></p>
+          <p class="xz-timeline__meta">42 of 42 minutes</p>
+        </div>
+      </li>
+      <li class="xz-timeline__day">Yesterday</li>
+      <li class="xz-timeline__item xz-timeline__item--warning">
+        <span class="xz-timeline__marker"><i data-xz-icon="file-text" data-size="sm"></i></span>
+        <div class="xz-timeline__body">
+          <p class="xz-timeline__title">Assignment 3 sent back for changes <time class="xz-timeline__time" datetime="2026-11-16T17:20">5:20 pm</time></p>
+          <p class="xz-timeline__meta">Meera Iyer: "Label both axes on the sales chart."</p>
+          <div class="xz-timeline__actions"><a class="xz-btn xz-btn--sm" href="#timeline">Open feedback</a></div>
+        </div>
+      </li>
+      <li class="xz-timeline__item">
+        <span class="xz-timeline__marker"></span>
+        <div class="xz-timeline__body">
+          <p class="xz-timeline__title">Joined Batch B-14 <time class="xz-timeline__time" datetime="2026-11-16T11:00">11:00 am</time></p>
+        </div>
+      </li>
+    </ol>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-timeline</code></td><td>On an <code>ol</code>. Newest first is usual for activity; oldest first suits steps.</td></tr>
+      <tr><td><code>xz-timeline__item</code></td><td>One event: <code>__marker</code> then <code>__body</code> with <code>__title</code>, <code>__meta</code> and optional <code>__actions</code>. Put a <code>time</code> with <code>__time</code> in the title.</td></tr>
+      <tr><td><code>xz-timeline__marker</code></td><td>Holds a small icon. Leave it empty for a dot.</td></tr>
+      <tr><td><code>--success</code> <code>--warning</code> <code>--danger</code> <code>--info</code> <code>--accent</code></td><td>Colours the marker. The title must still say what happened.</td></tr>
+      <tr><td><code>xz-timeline__day</code></td><td>A heading item, such as "Today", between events.</td></tr>
+      <tr><td><code>xz-timeline--compact</code></td><td>Smaller markers and less space, for side panels.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= TREE VIEW ================= -->
+<section class="doc-section" id="tree-view">
+  <h2>Tree view</h2>
+  <p>Folders that open and close: course modules and lessons, departments and teams, files. Write nested lists; the script adds the arrows and the keys people know from file managers. Without it every level shows.</p>
+  <div class="doc-example" data-layout="block">
+    <ul class="xz-tree" data-xz-tree="docs-modules" aria-label="Course modules" style="max-width: 24rem">
+      <li><span><i data-xz-icon="folder" data-size="sm"></i>Module 1: Spreadsheets<span class="xz-tree__meta">3 lessons</span></span>
+        <ul>
+          <li><a href="#tree-view"><i data-xz-icon="file-text" data-size="sm"></i>Cells and ranges</a></li>
+          <li><a href="#tree-view" aria-current="page"><i data-xz-icon="file-text" data-size="sm"></i>Formulas</a></li>
+          <li><a href="#tree-view"><i data-xz-icon="play" data-size="sm"></i>Pivot tables</a></li>
+        </ul>
+      </li>
+      <li><span><i data-xz-icon="folder" data-size="sm"></i>Module 2: SQL<span class="xz-tree__meta">2 lessons</span></span>
+        <ul>
+          <li><a href="#tree-view"><i data-xz-icon="file-text" data-size="sm"></i>Select and filter</a></li>
+          <li><a href="#tree-view"><i data-xz-icon="file-text" data-size="sm"></i>Joins</a></li>
+          <li><span><i data-xz-icon="folder" data-size="sm"></i>Practice sets</span>
+            <ul>
+              <li><a href="#tree-view"><i data-xz-icon="file" data-size="sm"></i>Set A: Sales</a></li>
+              <li><a href="#tree-view"><i data-xz-icon="file" data-size="sm"></i>Set B: Admissions</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#tree-view"><i data-xz-icon="badge-check" data-size="sm"></i>Final test</a></li>
+    </ul>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-tree="name"</code></td><td>On the top <code>ul</code>, with an <code>aria-label</code>. The name remembers open folders on this device; leave the value empty to start closed each time.</td></tr>
+      <tr><td><code>li</code></td><td>Its first child is the label: a link for a page, or a <code>span</code> for a folder. A nested <code>ul</code> makes it a folder.</td></tr>
+      <tr><td><code>data-open</code></td><td>On an <code>li</code>: the folder starts open.</td></tr>
+      <tr><td><code>aria-current="page"</code></td><td>On the link to the page you are on. It is marked, and its folders open.</td></tr>
+      <tr><td><code>xz-tree__meta</code></td><td>Small text at the end of a label, such as a count.</td></tr>
+      <tr><td><code>xz:toggle</code></td><td>Fires when a folder opens or closes, with <code>event.detail.item</code> and <code>event.detail.open</code>.</td></tr>
+      <tr><td><code>xz:select</code></td><td>Fires when an item is chosen by click, Enter or Space, with <code>event.detail.item</code> and <code>event.detail.label</code>. Call <code>preventDefault()</code> to stop a link opening.</td></tr>
+      <tr><td><code>element.xzTree</code></td><td><code>open(label)</code>, <code>close(label)</code>, <code>expandAll()</code> and <code>collapseAll()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= CHAT ================= -->
+<section class="doc-section" id="chat">
+  <h2>Chat and AI</h2>
+  <p>A message list and a prompt box, for a help desk, a mentor chat or an AI assistant. People's messages sit in a filled bubble. Replies read as plain text with the kit's prose styles, so lists, code and links in an answer look right. The kit runs the list and the box; your page sends the message and writes the reply.</p>
+  <p>The chat and the quiz live in <code class="xz-code">xsenze-apps.min.js</code>. Load it after the main script, on the pages that use them.</p>
+  <div class="doc-example" data-layout="block">
+    <section class="xz-chat" data-xz-chat aria-label="Course helper" id="chat-demo" style="max-width: 42rem; --xz-chat-height: 24rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface)">
+      <ol class="xz-chat__list">
+        <li class="xz-message xz-message--assistant">
+          <span class="xz-message__avatar" aria-hidden="true"><i data-xz-icon="bot" data-size="sm"></i></span>
+          <div class="xz-message__body">
+            <div class="xz-message__bubble xz-prose xz-prose--sm"><p>Namaste! I can help with fees, class times and certificates.</p></div>
+          </div>
+        </li>
+        <li class="xz-message xz-message--user">
+          <div class="xz-message__body">
+            <div class="xz-message__bubble">When is the next live class?</div>
+            <div class="xz-message__meta"><time datetime="2026-11-17T10:40">10:40 am</time></div>
+          </div>
+        </li>
+        <li class="xz-message xz-message--assistant">
+          <span class="xz-message__avatar" aria-hidden="true"><i data-xz-icon="bot" data-size="sm"></i></span>
+          <div class="xz-message__body">
+            <div class="xz-message__bubble xz-prose xz-prose--sm"><p>Your next live class is <strong>DAX measures</strong>, on Wednesday 18 November at 6:30 pm. Before it:</p><ul><li>Finish Lesson 7, Pivot tables.</li><li>Download the sales workbook from Module 2.</li></ul></div>
+            <ul class="xz-sources" aria-label="Sources"><li><a href="#calendar">Batch B-14 schedule</a></li><li><a href="#tree-view">Module 2 notes</a></li></ul>
+            <div class="xz-message__actions">
+              <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-copy-message aria-label="Copy reply"><i data-xz-icon="copy" data-size="sm"></i></button>
+              <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-feedback="up" aria-pressed="false" aria-label="Good reply"><i data-xz-icon="thumbs-up" data-size="sm"></i></button>
+              <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-feedback="down" aria-pressed="false" aria-label="Poor reply"><i data-xz-icon="thumbs-down" data-size="sm"></i></button>
+              <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-retry aria-label="Write the reply again"><i data-xz-icon="refresh-cw" data-size="sm"></i></button>
+            </div>
+          </div>
+        </li>
+      </ol>
+      <div class="xz-chat__suggestions">
+        <button class="xz-chip" type="button" data-xz-suggest>When is my next fee due?</button>
+        <button class="xz-chip" type="button" data-xz-suggest>How do I get my certificate?</button>
+      </div>
+      <form class="xz-prompt" data-xz-prompt data-xz-dropzone action="#chat" method="post" id="chat-prompt">
+        <ul class="xz-dropzone__list"></ul>
+        <label class="xz-sr-only" for="chat-message">Message</label>
+        <textarea id="chat-message" name="message" rows="1" placeholder="Ask about fees, classes or certificates"></textarea>
+        <div class="xz-prompt__bar">
+          <label class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-prompt__attach"><input class="xz-sr-only" type="file" name="files" multiple accept=".pdf,image/*"><i data-xz-icon="paperclip" data-size="sm"></i><span class="xz-sr-only">Attach files</span></label>
+          <button class="xz-btn xz-btn--primary xz-btn--icon xz-btn--sm" type="submit" aria-label="Send"><i data-xz-icon="send" data-size="sm"></i></button>
+        </div>
+      </form>
+    </section>
+  </div>
+  <p>Enter sends and Shift+Enter adds a line. On phones Enter adds a line, because Send is on screen. Enter never sends while an input method is still building a word, as when typing Hindi or Tamil. Screen readers hear each finished reply once, not word by word.</p>
+  <h3 id="chat--answer-on-the-page">Answer on the page</h3>
+  <p>Without <code class="xz-code">preventDefault()</code> the form posts like any form, so a chat works before your script does.</p>
+  <pre class="doc-snippet" data-lang="text">
+    const form = document.querySelector('#chat-prompt');
+    const chat = document.querySelector('#chat-demo').xzChat;
+
+    form.addEventListener('xz:send', async (event) => {
+      event.preventDefault();               // answer here; the box clears
+      chat.add({ role: 'user', text: event.detail.text });
+      chat.typing(true);
+      form.xzPrompt.busy(true);              // Send becomes Stop
+      const reply = chat.stream();
+      for await (const piece of askYourServer(event.detail.text)) reply.append(piece);
+      reply.done();                          // read out once, here
+      form.xzPrompt.busy(false);
+    });
+  </pre>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-chat</code></td><td>On a <code>section</code> with an <code>aria-label</code>, around the list, the suggestions and the prompt form.</td></tr>
+      <tr><td><code>xz-chat__list</code></td><td>The <code>ol</code> of messages. It scrolls inside <code>--xz-chat-height</code> (28rem), and a "Jump to latest" button shows when a message arrives while someone is reading above.</td></tr>
+      <tr><td><code>xz-message--user</code> <code>--assistant</code></td><td>One message. Parts: <code>__avatar</code>, <code>__body</code>, <code>__bubble</code>, <code>__meta</code> and <code>__actions</code>. Give reply bubbles <code>xz-prose xz-prose--sm</code>.</td></tr>
+      <tr><td><code>--xz-chat-user-bg</code> <code>--xz-chat-user-text</code></td><td>Colours of people's bubbles, set on the chat.</td></tr>
+      <tr><td><code>xz-sources</code></td><td>Numbered links under a reply, to the pages it came from.</td></tr>
+      <tr><td><code>data-xz-copy-message</code> <code>data-xz-feedback="up"</code> <code>data-xz-retry</code></td><td>Buttons in <code>xz-message__actions</code>. Copy copies the reply. Feedback buttons toggle and fire <code>xz:feedback</code> with <code>value</code> (<code>up</code>, <code>down</code> or <code>null</code>). Retry fires <code>xz:retry</code>.</td></tr>
+      <tr><td><code>data-xz-suggest</code></td><td>A suggestion button. It sends its text, or the attribute's value.</td></tr>
+      <tr><td><code>form[data-xz-prompt]</code></td><td>The prompt box: a <code>textarea</code> and an <code>xz-prompt__bar</code> with the Send button. It grows up to <code>data-xz-max-rows</code> lines (8).</td></tr>
+      <tr><td><code>data-xz-dropzone</code></td><td>On the prompt form, with a file input in the bar: attachments show above the text and can be dropped on the box.</td></tr>
+      <tr><td><code>xz:send</code></td><td>Fires on the form with <code>event.detail.text</code> and <code>files</code>.</td></tr>
+      <tr><td><code>form.xzPrompt</code></td><td><code>value</code>, <code>clear()</code>, <code>focus()</code> and <code>busy(true)</code>, which turns Send into Stop until <code>busy(false)</code>. Stop fires <code>xz:stop</code>.</td></tr>
+      <tr><td><code>element.xzChat</code></td><td><code>add({role, text, html, author, avatar, time})</code>, <code>stream()</code> with <code>append(text)</code> and <code>done(html)</code>, <code>typing(true)</code> and <code>scrollToEnd()</code>. HTML is cleaned first unless you add <code>trusted: true</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= QUIZ ================= -->
+<section class="doc-section" id="quiz">
+  <h2>Quiz and questionnaire</h2>
+  <p>A test or a survey, one question at a time, with a count, a progress bar, Flag for review and a review grid before submitting. Choose a mode:</p>
+  <ul>
+    <li><strong>Practice</strong> scores in the browser and shows why each answer is right.</li>
+    <li><strong>Exam</strong> sends the answers to your server. The right answers are never in the page.</li>
+    <li><strong>Survey</strong> has no right answers.</li>
+  </ul>
+  <p>Without the script it is one long form that still submits.</p>
+  <div class="doc-example" data-layout="block">
+    <form class="xz-quiz" data-xz-quiz="practice" data-xz-pass="60" data-xz-quiz-save="docs-quiz" action="#quiz" id="quiz-demo">
+      <p data-xz-quiz-time="900">15 minutes</p>
+      <fieldset class="xz-quiz__question" data-xz-answer="b">
+        <legend>1. Which function adds up a column of fees?</legend>
+        <label class="xz-quiz__option"><input type="radio" name="q1" value="a"> AVERAGE</label>
+        <label class="xz-quiz__option"><input type="radio" name="q1" value="b"> SUM</label>
+        <label class="xz-quiz__option"><input type="radio" name="q1" value="c"> COUNT</label>
+        <p class="xz-quiz__explain">SUM adds every number in the range. COUNT only counts the cells that hold numbers.</p>
+      </fieldset>
+      <fieldset class="xz-quiz__question" data-xz-answer="a,c">
+        <legend>2. Which of these are chart types? Choose all that apply.</legend>
+        <label class="xz-quiz__option"><input type="checkbox" name="q2" value="a"> Bar</label>
+        <label class="xz-quiz__option"><input type="checkbox" name="q2" value="b"> Pivot</label>
+        <label class="xz-quiz__option"><input type="checkbox" name="q2" value="c"> Line</label>
+        <p class="xz-quiz__explain">Bar and line are charts. A pivot table sums up data, but it is a table.</p>
+      </fieldset>
+      <fieldset class="xz-quiz__question" data-xz-answer="b">
+        <legend>3. How do you say ₹12,34,567?</legend>
+        <label class="xz-quiz__option"><input type="radio" name="q3" value="a"> One crore, twenty-three lakh, forty-five thousand, six hundred and seventy</label>
+        <label class="xz-quiz__option"><input type="radio" name="q3" value="b"> Twelve lakh, thirty-four thousand, five hundred and sixty-seven</label>
+        <label class="xz-quiz__option"><input type="radio" name="q3" value="c"> One million, two hundred and thirty-four thousand</label>
+        <p class="xz-quiz__explain">Indian grouping puts a comma after every two digits once past the thousands, so 12,34,567 is twelve lakh, thirty-four thousand, five hundred and sixty-seven.</p>
+      </fieldset>
+      <button class="xz-btn xz-btn--primary" type="submit">Submit</button>
+    </form>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>data-xz-quiz</code></td><td>On the <code>form</code>: <code>practice</code>, <code>exam</code> or <code>survey</code>.</td></tr>
+      <tr><td><code>fieldset.xz-quiz__question</code></td><td>One question, with a <code>legend</code> and its choices. Number the legend yourself.</td></tr>
+      <tr><td><code>xz-quiz__option</code></td><td>A <code>label</code> around a radio button or a checkbox.</td></tr>
+      <tr><td><code>data-xz-answer="b"</code></td><td>Practice only: the right value, or values joined by commas (<code>a,c</code>). Leave it out in exam mode; your server marks the answers.</td></tr>
+      <tr><td><code>xz-quiz__explain</code></td><td>Why the answer is right. It shows with the result, when the question has <code>is-correct</code> or <code>is-wrong</code>.</td></tr>
+      <tr><td><code>data-xz-pass="60"</code></td><td>The pass mark in per cent, for the result badge.</td></tr>
+      <tr><td><code>data-xz-quiz-time="900"</code></td><td>On any element in the form: a countdown in seconds, shown in the header. Or use <code>data-xz-quiz-deadline</code> with a date and time from your server. A reload does not reset it. Screen readers hear a warning at 5 minutes and at 1 minute, and the quiz is submitted when time runs out.</td></tr>
+      <tr><td><code>data-xz-quiz-save="key"</code></td><td>Saves answers on this device as people go, so a reload keeps them.</td></tr>
+      <tr><td><code>xz:quiz</code></td><td>Fires before the quiz ends, with <code>answers</code>, <code>reason</code> (<code>submit</code> or <code>time</code>) and, in practice mode, <code>score</code>, <code>total</code> and <code>percent</code>. Call <code>preventDefault()</code> to stop it.</td></tr>
+      <tr><td><code>xz:step</code> <code>xz:timeup</code></td><td>Fire when the question changes and when time runs out.</td></tr>
+      <tr><td><code>form.xzQuiz</code></td><td><code>go(index)</code>, <code>review()</code>, <code>submit()</code>, <code>answers()</code> and <code>score()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
 </main>
 </div>
 <footer data-doc-footer></footer>
@@ -2553,6 +2881,48 @@
   document.getElementById('tb-learners')?.addEventListener('xz:bulk', (e) => {
     e.preventDefault();
     Xsenze.toast({ message: `Reminder sent to ${e.detail.ids.length} learner${e.detail.ids.length === 1 ? '' : 's'}` });
+  });
+  // Chat demo: answers a few questions on the page, piece by piece, and Stop works.
+  (() => {
+    const form = document.getElementById('chat-prompt');
+    const box = document.getElementById('chat-demo');
+    const replies = [
+      [/fee|pay|instal/i, '<p>Your second instalment, <strong>₹12,500</strong>, is due on 26 November. Pay by UPI, card or net banking from <em>Fees</em> in your dashboard; the receipt comes by email.</p>'],
+      [/certificate/i, '<p>You get your certificate when you:</p><ul><li>score 60% or more in the final test, and</li><li>present your project on demo day, 28 November.</li></ul><p>It arrives by email as a PDF.</p>'],
+    ];
+    const other = '<p>I can answer questions about fees, class times and certificates. For anything else, write to your mentor, Meera Iyer, from <em>Messages</em>.</p>';
+    let wait = 0;
+    let tick = 0;
+    let reply = null;
+    const finish = (html) => {
+      clearTimeout(wait);
+      clearInterval(tick);
+      box.xzChat.typing(false);
+      reply?.done(html);
+      reply = null;
+      form.xzPrompt.busy(false);
+    };
+    form.addEventListener('xz:send', (e) => {
+      e.preventDefault();
+      const { text, files } = e.detail;
+      box.xzChat.add({ role: 'user', text: [text, files.length ? `(Attached: ${files.map((f) => f.name).join(', ')})` : ''].filter(Boolean).join('\n') });
+      box.xzChat.typing(true);
+      form.xzPrompt.busy(true);
+      const html = (replies.find(([test]) => test.test(text)) || [null, other])[1];
+      const words = html.replace(/<\/(p|li)>/g, ' ').replace(/<[^>]+>/g, '').trim().split(/(\s+)/);
+      wait = setTimeout(() => {
+        reply = box.xzChat.stream({ avatar: Xsenze.icon('bot', { size: 'sm' }) });
+        let i = 0;
+        tick = setInterval(() => (i < words.length ? reply.append(words[i++]) : finish(html)), 35);
+      }, 700);
+    });
+    form.addEventListener('xz:stop', () => finish());
+    box.addEventListener('xz:retry', () => Xsenze.toast({ message: 'Your page would ask for a new reply here.' }));
+    box.addEventListener('xz:feedback', (e) => e.detail.value && Xsenze.toast({ message: 'Thanks. Feedback helps improve the answers.' }));
+  })();
+  // Quiz demo: the result stays on this page.
+  document.getElementById('quiz-demo')?.addEventListener('xz:quiz', (e) => {
+    if (e.detail.reason === 'time') Xsenze.toast({ message: 'Time is up. Your answers were marked.' });
   });
 </script>
 </body>

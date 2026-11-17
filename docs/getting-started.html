@@ -68,6 +68,9 @@
 
     <!-- Only on pages with charts -->
     <script src="__XZ_CDN__/xsenze-charts.min.js" defer></script>
+
+    <!-- Only on pages with a chat or a quiz -->
+    <script src="__XZ_CDN__/xsenze-apps.min.js" defer></script>
   </textarea>
   <p>The fonts come with the stylesheet: headings in Plus Jakarta Sans, body text in Space Grotesk and code in JetBrains Mono. Nothing else to add.</p>
   <h3 id="npm">npm</h3>
@@ -82,6 +85,10 @@
     // Charts, only where you need them:
     import charts from '@sfj/ui-kit/charts';
     Xsenze.use(charts);
+
+    // Chat and quiz, only where you need them:
+    import apps from '@sfj/ui-kit/apps';
+    Xsenze.use(apps);
 
     // After you add markup to the page later (a route change, an AJAX response):
     Xsenze.init(document.querySelector('#new-content'));
@@ -197,6 +204,7 @@
       <tr><td><code>xsenze.min.js</code></td><td>Behaviours and icons for pages loaded with a script tag. Adds the global <code>Xsenze</code>.</td></tr>
       <tr><td><code>xsenze.esm.js</code></td><td>The same as an ES module, for bundlers.</td></tr>
       <tr><td><code>xsenze-charts.min.js</code></td><td>Charts. Optional: load it after the main script, only on pages with charts. <code>xsenze-charts.esm.js</code> is the module version.</td></tr>
+      <tr><td><code>xsenze-apps.min.js</code></td><td>Chat and quiz. Optional: load it after the main script, only on pages that use them. <code>xsenze-apps.esm.js</code> is the module version.</td></tr>
       <tr><td><code>tokens/tokens.css</code></td><td>CSS variables only, with no component styles. For projects that only want the tokens.</td></tr>
       <tr><td><code>tokens/tokens.json</code></td><td>Flat values for each theme. For scripts, emails and native apps.</td></tr>
       <tr><td><code>tokens/tokens.dtcg.json</code></td><td>Tokens in the Design Tokens format. Import this into Figma variables.</td></tr>

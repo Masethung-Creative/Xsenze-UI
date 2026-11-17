@@ -13,6 +13,8 @@
   for (const el of document.querySelectorAll('textarea.doc-snippet')) el.value = fill(el.value);
   for (const el of document.querySelectorAll('pre.doc-snippet, [data-doc-var]')) if (el.textContent.includes('__XZ_')) el.textContent = fill(el.textContent);
   for (const el of document.querySelectorAll('[data-doc-copy]')) el.setAttribute('data-doc-copy', fill(el.getAttribute('data-doc-copy')));
+  // Links and kit copy buttons can use the placeholders too.
+  for (const el of document.querySelectorAll('a[href*="__XZ_"], [data-xz-copy*="__XZ_"]')) for (const name of ['href', 'data-xz-copy']) if (el.hasAttribute(name)) el.setAttribute(name, fill(el.getAttribute(name)));
   // The four reference pages share one "Docs" link in the header and a side menu inside the pages.
   const docsPages = [
     ['foundations', 'Foundations', 'foundations.html'],
@@ -58,6 +60,9 @@
     .join('');
 
   const header = document.querySelector('[data-doc-header]');
+  // Pages with parts that move by themselves get the kit's motion button, so anyone can pause them.
+  const moving = document.querySelector('[data-xz-rotator], .xz-marquee, .xz-dotfield, [data-xz-sequence]');
+  const motionBtn = moving ? '<button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-motion-toggle aria-label="Pause animations" data-xz-tooltip="Pause animations" data-xz-tooltip-place="bottom"><i data-xz-icon="pause"></i></button>' : '';
   if (header) {
     header.className = 'xz-navbar';
     header.innerHTML = `
@@ -67,6 +72,7 @@
       <span class="xz-navbar__spacer"></span>
       <div class="xz-navbar__actions">
         <button class="xz-btn doc-search-btn" type="button" data-doc-search aria-label="Search the docs" aria-keyshortcuts="Control+K Meta+K"><i data-xz-icon="search" data-size="sm"></i><span class="xz-hide-mobile">Search</span><kbd class="xz-kbd xz-hide-mobile" data-doc-search-key>Ctrl K</kbd></button>
+        ${motionBtn}
         <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-xz-theme-toggle aria-label="Switch between light and dark theme" data-xz-tooltip="Switch theme" data-xz-tooltip-place="bottom"><i data-xz-icon="sun"></i></button>
         <button class="xz-btn xz-btn--ghost xz-btn--icon xz-hide-desktop" type="button" data-xz-open="#doc-nav" aria-label="Open menu"><i data-xz-icon="menu"></i></button>
       </div>`;

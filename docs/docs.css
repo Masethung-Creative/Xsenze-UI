@@ -42,7 +42,8 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-section > h3 { font-family: var(--xz-font-display); margin: var(--xz-space-10) 0 var(--xz-space-3); font-size: var(--xz-font-size-lg); font-weight: var(--xz-font-weight-semibold); }
 .doc-section > p, .doc-section > ul, .doc-section > ol { max-width: 44rem; margin-bottom: var(--xz-space-4); color: var(--xz-text-muted); line-height: var(--xz-line-height-relaxed); }
 .doc-section > ul, .doc-section > ol { padding-left: var(--xz-space-5); }
-.doc-section li + li { margin-top: var(--xz-space-1); }
+/* Only the page's own lists: the examples show components exactly as they look in a project. */
+.doc-section > :is(ul, ol) li + li { margin-top: var(--xz-space-1); }
 .doc-section strong { color: var(--xz-text); }
 
 /* example = live preview + its code */
