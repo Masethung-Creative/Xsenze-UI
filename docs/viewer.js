@@ -1,4 +1,4 @@
-// Live previews with a toolbar: Preview or Code, desktop, tablet or phone width, reload, open in a new tab and copy.
+// Live previews with a toolbar: Preview or Code, light or dark, desktop, tablet or phone width, reload, open in a new tab and copy.
 //   <div class="doc-viewer" data-doc-viewer="fragment" data-template="../templates/landing.html" data-section="hero" data-title="Hero"></div>
 //     One section of a template, cut out between its <!-- section:NAME --> comments. The frame is as tall as the section.
 //   <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/login.html" data-title="Login"></div>
@@ -53,6 +53,7 @@ new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.
       <div class="doc-viewer__bar" role="group" aria-label="${title} preview">
         <div class="xz-segmented" role="radiogroup" aria-label="Show">${radios(`${id}-view`, [['preview', 'Preview'], ['code', 'Code']], 'preview')}</div>
         <span class="doc-viewer__title">${title}</span>
+        <div class="xz-segmented doc-viewer__themes" role="radiogroup" aria-label="Theme of this preview">${radios(`${id}-theme`, [['light', 'Light', 'sun'], ['dark', 'Dark', 'moon']], root.dataset.theme === 'dark' ? 'dark' : 'light')}</div>
         <div class="xz-segmented doc-viewer__devices" role="radiogroup" aria-label="Screen width">${radios(`${id}-device`, Object.entries(DEVICES).map(([k, d]) => [k, d.label, d.icon]), start)}</div>
         <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" data-act="reload" aria-label="Reload the preview" data-xz-tooltip="Reload"><i data-xz-icon="rotate-cw" data-size="sm"></i></button>
         <a class="xz-btn xz-btn--ghost xz-btn--icon" data-act="open" href="${url}" target="_blank" rel="noopener" aria-label="Open in a new tab" data-xz-tooltip="Open in a new tab"><i data-xz-icon="external-link" data-size="sm"></i></a>
@@ -66,8 +67,18 @@ new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.
     const frame = box.querySelector('iframe');
     const codeBox = box.querySelector('.doc-viewer__code');
     const note = box.querySelector('.doc-viewer__note');
-    const v = { box, kind, frame, stage, screen, device: DEVICES[start] ? start : 'desktop', height: 0, grows: 0, loaded: false, source: '', html: '' };
+    const v = { box, kind, frame, stage, screen, device: DEVICES[start] ? start : 'desktop', height: 0, grows: 0, loaded: false, source: '', html: '', theme: '' };
     all.push(v);
+    // The preview's own theme choice, or the docs page's theme until someone picks one.
+    const themeOf = () => v.theme || (root.dataset.theme === 'dark' ? 'dark' : 'light');
+    const applyTheme = () => {
+      try {
+        const d = frame.contentDocument?.documentElement;
+        if (d) d.dataset.theme = themeOf();
+      } catch {}
+    };
+    v.themeOf = themeOf;
+    v.applyTheme = applyTheme;
 
     const fit = () => {
       const d = DEVICES[v.device];
@@ -89,7 +100,7 @@ new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.
     v.fit = fit;
 
     const page = (sectionHtml, head) =>
-      `<!doctype html><html lang="en" data-theme="${root.dataset.theme || 'light'}"><head><base href="${absolute(template)}">${head}<style>body { min-height: ${section === 'navigation' ? '4.5rem' : '0'}; }</style></head><body>${sectionHtml}${inner}</body></html>`;
+      `<!doctype html><html lang="en" data-theme="${themeOf()}"><head><base href="${absolute(template)}">${head}<style>body { min-height: ${section === 'navigation' ? '4.5rem' : '0'}; }</style></head><body>${sectionHtml}${inner}</body></html>`;
     const load = async () => {
       v.loaded = true;
       if (kind === 'page') {
@@ -110,18 +121,17 @@ new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.
       }
     };
     v.load = load;
-    frame.addEventListener('load', () => {
-      // Whole pages follow the docs theme too.
-      if (kind === 'page') {
-        try {
-          frame.contentDocument.documentElement.dataset.theme = root.dataset.theme;
-        } catch {}
-      }
-    });
+    // After loading, the kit in the frame restores the saved site theme, so the preview's choice goes on again.
+    frame.addEventListener('load', applyTheme);
 
     box.addEventListener('change', (e) => {
       const t = e.target;
-      if (t.name === `${id}-device`) {
+      if (t.name === `${id}-theme`) {
+        v.theme = t.value;
+        // The area around the frame takes the chosen theme too.
+        stage.dataset.theme = t.value;
+        applyTheme();
+      } else if (t.name === `${id}-device`) {
         v.device = t.value;
         v.capped = false;
         v.grows = 0;
@@ -189,13 +199,13 @@ new ResizeObserver(() => parent.postMessage({ xzFrameHeight: Math.ceil(document.
     resize.observe(v.stage);
     near.observe(v.stage);
   }
-  // The previews follow the docs page's light or dark theme.
+  // Previews without a theme of their own follow the docs page's light or dark theme.
   new MutationObserver(() => {
     for (const v of all) {
-      try {
-        const d = v.frame.contentDocument?.documentElement;
-        if (d) d.dataset.theme = root.dataset.theme;
-      } catch {}
+      if (v.theme) continue;
+      v.applyTheme();
+      const radio = v.box.querySelector(`.doc-viewer__themes input[value="${v.themeOf()}"]`);
+      if (radio) radio.checked = true;
     }
   }).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 })();

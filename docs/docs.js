@@ -37,6 +37,8 @@
   const sections = [...document.querySelectorAll('.doc-section[id]')].map((el) => ({
     el,
     id: el.id,
+    // A family label just before a section starts a group, shown in the side menu too.
+    family: el.previousElementSibling?.matches('.doc-family-label') ? el.previousElementSibling.textContent.trim() : '',
     title: (el.querySelector('h2')?.textContent || el.id).trim(),
     subs: [...el.querySelectorAll(':scope > h3')].map((h) => {
       if (!h.id) {
@@ -134,19 +136,115 @@
     return wrap;
   }
 
+  // Every preview has its own light and dark switch. Wide parts, whose layout changes with the screen,
+  // also get desktop, tablet and phone: tablet and phone draw the example in a frame of that width,
+  // so the kit's own small-screen layouts show. data-widths="on" or "off" overrides the guess.
+  const WIDE = '.xz-table-wrap, .xz-table, .xz-panel, .xz-split, .xz-duallist, .xz-calendar-view, .xz-chat, .xz-quiz, .xz-tabs, .xz-wizard, .xz-navbar, .xz-sidebar, .xz-hero, .xz-band, .xz-feature, .xz-footer, .xz-codeblock, .xz-readings, .xz-shades, .xz-colorpicker, .xz-contrast, .xz-beforeafter, .xz-pagestrip, .xz-carousel, .xz-player, .xz-editor, .xz-dropzone, .xz-chart, .xz-menubar, .xz-stage, .xz-card, .xz-pricing, .xz-profile, .xz-notifications, .xz-bottom-nav, .xz-megamenu, .xz-flow, .xz-ledger, .xz-compare, .xz-window, .xz-tiles, .xz-facts, .xz-grid, .xz-auth, .xz-gallery';
+  const WIDTHS = { desktop: ['Desktop', 'monitor', 0], tablet: ['Tablet', 'tablet', 768], phone: ['Phone', 'smartphone', 390] };
+  const kitFiles = {
+    css: ['../dist/xsenze.css', '../dist/xsenze-tools.css'],
+    js: ['../dist/xsenze.js', '../dist/xsenze-charts.js', '../dist/xsenze-apps.js', '../dist/xsenze-tools.js'],
+  };
+  const pageTheme = () => document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const frameDoc = (html, theme, layout) => `<!doctype html><html lang="en" data-theme="${theme}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><base href="${location.href.split('#')[0]}">${kitFiles.css.map((h) => `<link rel="stylesheet" href="${h}">`).join('')}${kitFiles.js.map((s) => `<script src="${s}" defer><\/script>`).join('')}<style>body { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; margin: 0; padding: 24px 16px; background: var(--xz-surface); color: var(--xz-text); } body.stack { flex-direction: column; } body.stack > * { width: 100%; } body.block { display: block; } body.block > * { margin-inline: auto; }</style></head><body class="${layout}">${html}<script>document.addEventListener('click', (e) => { if (e.target.closest('a[href]')) e.preventDefault(); }); new ResizeObserver(() => parent.postMessage({ xzExampleHeight: Math.ceil(document.documentElement.getBoundingClientRect().height) }, '*')).observe(document.documentElement);<\/script></body></html>`;
+  const radioSet = (name, label, items, checked) =>
+    `<div class="xz-segmented doc-example__set" role="radiogroup" aria-label="${label}">${items.map(([value, text, icon]) => `<label data-xz-tooltip="${text}"><input type="radio" name="${name}" value="${value}"${value === checked ? ' checked' : ''} aria-label="${text}"><span><i data-xz-icon="${icon}" data-size="sm"></i></span></label>`).join('')}</div>`;
+  const frames = [];
+  let exampleId = 0;
   for (const ex of document.querySelectorAll('.doc-example')) {
+    const id = `doc-ex-${++exampleId}`;
     const source = dedent(ex.innerHTML);
     const preview = document.createElement('div');
     preview.className = 'doc-example__preview';
     preview.append(...ex.childNodes);
     ex.append(preview);
-    if (ex.dataset.code === 'off') continue;
-    const details = document.createElement('details');
-    details.className = 'doc-example__code';
-    details.append(document.createElement('summary'), codeBlock(source));
-    if (ex.dataset.code === 'open') details.open = true;
-    ex.append(details);
+    const wide = ex.dataset.widths === 'on' || (ex.dataset.widths !== 'off' && Boolean(preview.querySelector(WIDE)));
+    ex.dataset.kind = wide ? 'wide' : preview.querySelector('.xz-field, .xz-input, .xz-select, .xz-textarea, .xz-colorfield, .xz-input-group') ? 'field' : 'small';
+    const foot = Object.assign(document.createElement('div'), { className: 'doc-example__foot' });
+    const bar = Object.assign(document.createElement('div'), { className: 'doc-example__bar' });
+    bar.setAttribute('role', 'group');
+    bar.setAttribute('aria-label', 'Preview settings');
+    bar.innerHTML =
+      (wide ? radioSet(`${id}-width`, 'Screen width', Object.entries(WIDTHS).map(([k, [t, i]]) => [k, t, i]), 'desktop') : '') +
+      radioSet(`${id}-theme`, 'Theme of this preview', [['light', 'Light', 'sun'], ['dark', 'Dark', 'moon']], pageTheme());
+    foot.append(bar);
+    if (ex.dataset.code !== 'off') {
+      const details = document.createElement('details');
+      details.className = 'doc-example__code';
+      details.append(document.createElement('summary'), codeBlock(source));
+      if (ex.dataset.code === 'open') details.open = true;
+      foot.append(details);
+    } else foot.classList.add('doc-example__foot--bare');
+    ex.append(foot);
+
+    let frameBox = null;
+    let frame = null;
+    let width = 'desktop';
+    const theme = () => preview.getAttribute('data-theme') || pageTheme();
+    const fitFrame = (height) => {
+      if (!frameBox) return;
+      const w = WIDTHS[width][2];
+      const room = frameBox.clientWidth - 32;
+      const scale = Math.min(1, room / w);
+      if (height) frame.dataset.height = height;
+      const h = Number(frame.dataset.height || 400);
+      frame.style.width = `${w}px`;
+      frame.style.height = `${h}px`;
+      frame.style.transform = scale < 1 ? `scale(${scale})` : '';
+      frame.parentElement.style.width = `${Math.round(w * scale)}px`;
+      frame.parentElement.style.height = `${Math.round(h * scale)}px`;
+    };
+    ex.addEventListener('change', (e) => {
+      const t = e.target;
+      if (t.name === `${id}-theme`) {
+        preview.setAttribute('data-theme', t.value);
+        frameBox?.setAttribute('data-theme', t.value);
+        try {
+          if (frame) frame.contentDocument.documentElement.dataset.theme = t.value;
+        } catch {}
+      } else if (t.name === `${id}-width`) {
+        width = t.value;
+        ex.dataset.width = width;
+        if (width === 'desktop') {
+          preview.hidden = false;
+          if (frameBox) frameBox.hidden = true;
+          return;
+        }
+        if (!frameBox) {
+          frameBox = Object.assign(document.createElement('div'), { className: 'doc-example__frame' });
+          frameBox.innerHTML = `<div class="doc-example__screen"><iframe title="Preview at a smaller screen width" loading="lazy"></iframe></div>`;
+          if (preview.hasAttribute('data-theme')) frameBox.setAttribute('data-theme', preview.getAttribute('data-theme'));
+          preview.after(frameBox);
+          frame = frameBox.querySelector('iframe');
+          frame.srcdoc = frameDoc(source, theme(), ex.dataset.layout || 'row');
+          // The kit in the frame restores the saved site theme on load, so the preview's choice goes on after it.
+          frame.addEventListener('load', () => {
+            try {
+              frame.contentDocument.documentElement.dataset.theme = theme();
+            } catch {}
+          });
+          frames.push({ frame, fit: fitFrame });
+        }
+        preview.hidden = true;
+        frameBox.hidden = false;
+        fitFrame();
+      }
+    });
+    // Without a choice of its own, a preview follows the page's theme switch.
+    new MutationObserver(() => {
+      if (preview.hasAttribute('data-theme')) return;
+      const radio = bar.querySelector(`input[name="${id}-theme"][value="${pageTheme()}"]`);
+      if (radio) radio.checked = true;
+      try {
+        if (frame) frame.contentDocument.documentElement.dataset.theme = pageTheme();
+      } catch {}
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   }
+  addEventListener('message', (e) => {
+    const f = frames.find((x) => x.frame.contentWindow === e.source);
+    if (f && typeof e.data?.xzExampleHeight === 'number') f.fit(Math.max(80, e.data.xzExampleHeight));
+  });
+  addEventListener('resize', () => frames.forEach((f) => f.fit()));
 
   // <pre class="doc-snippet"> or <textarea class="doc-snippet" data-lang="html"> -> code block with a copy button
   for (const pre of document.querySelectorAll('.doc-snippet')) {
@@ -168,7 +266,7 @@
   const toc = document.querySelector('[data-doc-toc]');
   if (toc && (inDocs || sections.length)) {
     const tree = sections.length
-      ? `<ul class="doc-tree__list">${sections.map((s) => `<li class="doc-tree__item" data-id="${s.id}"><a class="doc-tree__link" href="#${s.id}">${s.title}</a>${s.subs.length
+      ? `<ul class="doc-tree__list">${sections.map((s) => `${s.family ? `<li class="doc-tree__family">${s.family}</li>` : ''}<li class="doc-tree__item" data-id="${s.id}"><a class="doc-tree__link" href="#${s.id}">${s.title}</a>${s.subs.length
         ? `<ul class="doc-tree__list doc-tree__list--sub" hidden>${s.subs.map((h) => `<li class="doc-tree__item"><a class="doc-tree__link" href="#${h.id}">${h.title}</a></li>`).join('')}</ul>`
         : ''}</li>`).join('')}</ul>`
       : '';

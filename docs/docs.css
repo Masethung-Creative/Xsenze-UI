@@ -48,13 +48,51 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 /* Code in tables is read letter by letter, so no ligatures: >= stays two characters. */
 .doc-table code { font-variant-ligatures: none; }
 
-/* example = live preview + its code */
+/* example = live preview + its settings bar + its code */
 .doc-example { margin: var(--xz-space-4) 0 var(--xz-space-6); border: 1px solid var(--xz-border); background: var(--xz-surface); }
-.doc-example__preview { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-4); padding: var(--xz-space-6); background-image: radial-gradient(var(--xz-border) 1px, transparent 1px); background-size: 16px 16px; overflow-x: auto; }
-.doc-example[data-layout="stack"] > .doc-example__preview { flex-direction: column; align-items: stretch; }
+/* The preview carries its own theme (data-theme from the bar), so its colours come from inside it. */
+.doc-example__preview { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: var(--xz-space-4); padding: var(--xz-space-6); background-color: var(--xz-surface); background-image: radial-gradient(var(--xz-border) 1px, transparent 1px); background-size: 16px 16px; color: var(--xz-text); overflow-x: auto; }
+/* Alignment by what the preview shows: small parts sit centred; wide parts fill the width, or sit centred
+   when they set their own width; fields keep a readable width. */
+.doc-example[data-layout="stack"] > .doc-example__preview { flex-direction: column; align-items: center; }
+.doc-example[data-layout="stack"] > .doc-example__preview > * { width: 100%; }
 .doc-example[data-layout="block"] > .doc-example__preview { display: block; }
+.doc-example[data-layout="block"] > .doc-example__preview > * { margin-inline: auto; }
+.doc-example[data-kind="field"] > .doc-example__preview > :is(.xz-field, .xz-input-group, .xz-colorfield, .xz-input, .xz-select, .xz-textarea, form, fieldset) { width: 100%; max-width: 32rem; }
 .doc-example[data-flush] > .doc-example__preview { padding: 0; background-image: none; }
-.doc-example__code { border-top: 1px solid var(--xz-border); }
+.doc-example__code { border-top: 0; }
+/* Settings bar: light or dark, and screen widths for wide parts. It sits at the end of the "Show code" row. */
+.doc-example__foot { position: relative; border-top: 1px solid var(--xz-border); }
+.doc-example__foot--bare { display: flex; justify-content: flex-end; }
+.doc-example__bar { position: absolute; top: 0; inset-inline-end: 0; z-index: 1; display: flex; align-items: center; gap: var(--xz-space-2); height: 2.5rem; padding-inline: var(--xz-space-2); }
+.doc-example__foot--bare .doc-example__bar { position: static; }
+.doc-example__set { padding: 2px; }
+.doc-example__set span { min-height: 1.75rem; padding-inline: var(--xz-space-2); }
+/* Tablet and phone: the example drawn in a frame of that width, so the kit's small-screen layouts show.
+   The area around the frame takes the preview's theme too (data-theme from the bar). */
+.doc-example__frame { display: flex; justify-content: center; padding: var(--xz-space-6) var(--xz-space-4); overflow: hidden; background-color: var(--xz-surface); background-image: radial-gradient(var(--xz-border) 1px, transparent 1px); background-size: 16px 16px; }
+.doc-example__screen { position: relative; flex: none; overflow: hidden; background: var(--xz-surface); border-radius: 14px; box-shadow: 0 0 0 1px var(--xz-border-strong), var(--xz-shadow-md); }
+.doc-example__screen iframe { position: absolute; top: 0; left: 0; display: block; border: 0; background: transparent; transform-origin: 0 0; }
+
+/* Families: every variant of one kind of part together, each with where it is documented. */
+.doc-family-label { display: flex; align-items: center; gap: var(--xz-space-3); margin: 0 0 var(--xz-space-6); color: var(--xz-accent-2-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-wide); text-transform: uppercase; }
+.doc-family-label::after { content: ""; flex: 1; border-top: 1px solid var(--xz-border); }
+/* Tiles share their borders, and a short last row leaves no grey gap. A family with few tiles spreads across the width. */
+.doc-family { display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr)); width: 100%; margin: 0; padding: 0 1px 1px 0; list-style: none; text-align: start; }
+.doc-family > li { display: flex; flex-direction: column; gap: var(--xz-space-1); min-width: 0; margin: 0 -1px -1px 0; padding: var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); }
+.doc-family__sample { display: grid; grid-template-columns: minmax(0, 1fr); place-items: center; min-height: 4.75rem; margin-bottom: var(--xz-space-2); }
+.doc-family__sample > * { max-width: 100%; }
+.doc-family__icon { color: var(--xz-text-muted); }
+.doc-family__name { font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
+.doc-family__where { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+.doc-section > ul.doc-family { max-width: none; margin: var(--xz-space-4) 0 var(--xz-space-6); padding: 0 1px 1px 0; }
+.doc-section > ul.doc-family > li { margin: 0 -1px -1px 0; }
+.doc-family--links { grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+.doc-family--links > li { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: var(--xz-space-2); padding: var(--xz-space-3) var(--xz-space-4); }
+.doc-family--links .doc-family__where { flex-basis: 100%; padding-inline-start: calc(var(--xz-icon-sm) + var(--xz-space-2)); }
+.doc-family-note { display: flex; gap: var(--xz-space-2); align-items: baseline; max-width: 44rem; margin: 0 0 var(--xz-space-4); padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border-inline-start: 2px solid var(--xz-accent-2); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.doc-tree__family { margin: var(--xz-space-3) 0 var(--xz-space-1); padding-inline-start: var(--xz-space-4); color: var(--xz-text-subtle); font-family: var(--xz-font-mono); font-size: 0.6875rem; letter-spacing: var(--xz-letter-spacing-wide); text-transform: uppercase; }
+.doc-tree__family:first-child { margin-top: var(--xz-space-1); }
 .doc-example__code > summary { display: flex; align-items: center; justify-content: space-between; min-height: 2.5rem; padding: 0 var(--xz-space-4); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); color: var(--xz-text-muted); list-style: none; cursor: pointer; }
 .doc-example__code > summary::-webkit-details-marker { display: none; }
 .doc-example__code > summary::before { content: "< > Show code"; }
@@ -68,7 +106,7 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-viewer__title { margin-inline-end: auto; font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
 .doc-viewer__bar .xz-segmented span { min-height: 1.75rem; padding-inline: var(--xz-space-2); font-size: var(--xz-font-size-xs); }
 .doc-viewer__bar .xz-btn--icon { width: 2rem; min-width: 2rem; height: 2rem; min-height: 2rem; padding: 0; }
-.doc-viewer__stage { display: flex; justify-content: center; padding: var(--xz-space-4); overflow: hidden; background-image: radial-gradient(var(--xz-border) 1px, transparent 1px); background-size: 16px 16px; }
+.doc-viewer__stage { display: flex; justify-content: center; padding: var(--xz-space-4); overflow: hidden; background-color: var(--xz-surface); background-image: radial-gradient(var(--xz-border) 1px, transparent 1px); background-size: 16px 16px; }
 .doc-viewer--fragment[data-device="desktop"] .doc-viewer__stage { padding: 0; }
 .doc-viewer__screen { position: relative; flex: none; overflow: hidden; background: var(--xz-bg); box-shadow: 0 0 0 1px var(--xz-border); }
 .doc-viewer:is([data-device="tablet"], [data-device="phone"]) .doc-viewer__screen { border-radius: 14px; box-shadow: 0 0 0 1px var(--xz-border-strong), var(--xz-shadow-md); }
