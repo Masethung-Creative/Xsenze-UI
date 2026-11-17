@@ -1,6 +1,6 @@
 /* Charts. The drawing comes from xsenze-charts.js; the table inside the figure stays for screen readers
    and shows with "Show table". Change the look with the variables on .xz-chart. */
-.xz-chart { --xz-chart-height: 16rem; --xz-chart-radius: 2px; --xz-chart-line: 2px; --xz-chart-donut: 0.36; --xz-chart-area: 0.14; --xz-chart-grid-dash: none; display: flex; flex-direction: column; gap: var(--xz-space-3); min-width: 0; margin: 0; }
+.xz-chart { --xz-chart-height: 16rem; --xz-chart-radius: 2px; --xz-chart-line: 2px; --xz-chart-donut: 0.36; --xz-chart-area: 0.14; --xz-chart-fade: 0.45; --xz-chart-grid-dash: none; display: flex; flex-direction: column; gap: var(--xz-space-3); min-width: 0; margin: 0; }
 @media (max-width: 639px) { .xz-chart { --xz-chart-height: 12rem; } }
 .xz-chart > figcaption { font-family: var(--xz-font-display); font-size: var(--xz-font-size-md); font-weight: var(--xz-font-weight-semibold); line-height: var(--xz-line-height-snug); }
 .xz-chart__plot { position: relative; height: var(--xz-chart-height); min-width: 0; }
@@ -14,6 +14,12 @@
 .xz-chart__bar { fill: var(--_c); }
 .xz-chart__line { fill: none; stroke: var(--_c); stroke-width: var(--xz-chart-line); stroke-linejoin: round; stroke-linecap: round; }
 .xz-chart__area { fill: var(--_c); fill-opacity: var(--xz-chart-area); stroke: none; }
+.xz-chart__area.is-gradient { fill-opacity: 1; }
+/* Radar: rings of the grid, and one shape per series */
+.xz-chart__grid polygon { fill: none; stroke: var(--xz-border); stroke-width: 1px; stroke-dasharray: var(--xz-chart-grid-dash); }
+.xz-chart__radar { fill: var(--_c); fill-opacity: var(--xz-chart-area); stroke: var(--_c); stroke-width: var(--xz-chart-line); stroke-linejoin: round; }
+/* Radial bars: each ring on its own track */
+.xz-chart__track { fill: var(--xz-surface-3); }
 .xz-chart__point { fill: var(--xz-surface); stroke: var(--_c); stroke-width: 2px; }
 .xz-chart__slice { fill: var(--_c); stroke: var(--xz-surface); stroke-width: 2px; stroke-linejoin: round; }
 .xz-chart__pattern-mark { fill: var(--xz-surface); stroke: var(--xz-surface); stroke-width: 1.4px; }
@@ -62,9 +68,11 @@
 .xz-chart__svg.is-horizontal.is-entering .xz-chart__bar { transform-origin: 0 50%; animation-name: xz-chart-grow-x; }
 .xz-chart__svg.is-entering .xz-chart__line { stroke-dasharray: 1 1; animation: xz-chart-draw var(--xz-duration-reveal) var(--xz-ease-out) both; }
 .xz-chart__svg.is-entering :is(.xz-chart__area, .xz-chart__point, .xz-chart__total) { animation: xz-fade-in var(--xz-duration-reveal) var(--xz-ease-out) both; }
-.xz-chart__svg.is-entering .xz-chart__slices { transform-box: fill-box; transform-origin: center; animation: xz-chart-pop var(--xz-duration-reveal) var(--xz-ease-out) both; }
+.xz-chart__svg.is-entering :is(.xz-chart__slices, .xz-chart__rings) { transform-box: fill-box; transform-origin: center; animation: xz-chart-pop var(--xz-duration-reveal) var(--xz-ease-out) both; }
+.xz-chart__svg.is-entering .xz-chart__radar { transform-box: view-box; transform-origin: center; animation: xz-chart-spread var(--xz-duration-reveal) var(--xz-ease-out) both; }
 [data-xz-motion="off"] .xz-chart__svg.is-entering * { animation: none !important; }
 @keyframes xz-chart-grow { from { transform: scaleY(0); } }
 @keyframes xz-chart-grow-x { from { transform: scaleX(0); } }
 @keyframes xz-chart-draw { from { stroke-dashoffset: 1; } }
 @keyframes xz-chart-pop { from { opacity: 0; transform: scale(0.9) rotate(-8deg); } }
+@keyframes xz-chart-spread { from { opacity: 0; transform: scale(0.4); } }
