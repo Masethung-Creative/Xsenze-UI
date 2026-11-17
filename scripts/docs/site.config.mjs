@@ -4,6 +4,7 @@ export default {
   pages: [
     { file: 'index.html', label: 'Home', kind: 'page' },
     { file: 'getting-started.html', label: 'Get started', kind: 'guide' },
+    { file: 'parts.html', label: 'All parts', kind: 'guide' },
     { file: 'foundations.html', label: 'Foundations', kind: 'guide' },
     { file: 'components.html', label: 'Components', kind: 'components' },
     { file: 'forms.html', label: 'Forms', kind: 'components' },

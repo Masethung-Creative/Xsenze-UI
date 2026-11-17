@@ -17,6 +17,7 @@
   for (const el of document.querySelectorAll('a[href*="__XZ_"], [data-xz-copy*="__XZ_"]')) for (const name of ['href', 'data-xz-copy']) if (el.hasAttribute(name)) el.setAttribute(name, fill(el.getAttribute(name)));
   // The reference pages share one "Docs" link in the header and a side menu inside the pages.
   const docsPages = [
+    ['parts', 'All parts', 'parts.html'],
     ['foundations', 'Foundations', 'foundations.html'],
     ['components', 'Components', 'components.html'],
     ['forms', 'Forms', 'forms.html'],

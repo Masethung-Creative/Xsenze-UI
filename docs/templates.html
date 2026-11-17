@@ -37,6 +37,9 @@
   <h3 id="template-forgot-password">Forgot password</h3>
   <p>One field, then a confirmation that does not reveal whether the account exists.</p>
   <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/forgot-password.html" data-title="Forgot password"></div>
+  <h3 id="template-verify">One-time code</h3>
+  <p>Six boxes for the code sent by SMS, sent as soon as the last digit is in. A wrong code empties the boxes and says so, and "Send again" opens after 30 seconds. In this demo the right code is 123456.</p>
+  <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/verify.html" data-title="One-time code"></div>
   <h3 id="auth--layout-classes">Layout classes</h3>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class</th><th>Role</th></tr></thead>
@@ -54,7 +57,7 @@
   <h2>Dashboard</h2>
   <p>The application shell: a sidebar that becomes a drawer below 1024px, a sticky top bar, a page header, KPI cards, a searchable table with sorting, pagination and row actions, and a side column for progress and activity.</p>
   <h3 id="template-dashboard">Dashboard layout</h3>
-  <p>Shell, KPIs, table, modal form and toast.</p>
+  <p>Shell, KPIs, table, modal form and toast. The button at the top of the sidebar folds it to a rail of icons and remembers the choice, and Courses opens a group of sub-pages.</p>
   <div class="doc-viewer" data-doc-viewer="page" data-src="../templates/dashboard.html" data-title="Dashboard layout"></div>
   <h3 id="dashboard--shell-structure">Shell structure</h3>
   <textarea class="doc-snippet" data-lang="html" hidden>
@@ -74,7 +77,7 @@
       <div class="xz-sidebar">…</div>
     </dialog>
   </textarea>
-  <p>Set the sidebar width with <code class="xz-code">--xz-sidebar-width</code> on <code class="xz-code">xz-shell</code>. The button with <code class="xz-code">xz-shell__toggle</code> hides by itself once the sidebar is visible.</p>
+  <p>Set the sidebar width with <code class="xz-code">--xz-sidebar-width</code> on <code class="xz-code">xz-shell</code>. The button with <code class="xz-code">xz-shell__toggle</code> hides by itself once the sidebar is visible. A button with <code class="xz-code">data-xz-sidebar-toggle</code> in the sidebar header folds it to a rail; see <a class="xz-link" href="components.html#navigation--rail">Sidebar that folds to icons</a>.</p>
 </section>
 
 <section class="doc-section" id="errors">

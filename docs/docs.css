@@ -136,6 +136,16 @@ html { scroll-behavior: smooth; scroll-padding-top: calc(3.5rem + var(--xz-space
 .doc-table code { font-family: var(--xz-font-mono); font-size: 0.8125rem; color: var(--xz-accent-text); white-space: nowrap; }
 .doc-table-wrap { overflow-x: auto; }
 
+/* All parts: the counts, and the A to Z index in columns, grouped by first letter. */
+.doc-counts { margin: var(--xz-space-4) 0 var(--xz-space-6); }
+.doc-az { columns: 13rem; column-gap: var(--xz-space-8); margin: var(--xz-space-4) 0 var(--xz-space-8); }
+.doc-az__group { break-inside: avoid; margin: 0 0 var(--xz-space-5); }
+.doc-az__letter { margin: 0 0 var(--xz-space-1); color: var(--xz-accent-2-text); font-family: var(--xz-font-mono); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+.doc-az ul { margin: 0; padding: 0; list-style: none; }
+.doc-az li { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: var(--xz-space-2); padding-block: 3px; font-size: var(--xz-font-size-sm); }
+.doc-az__where { color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); }
+.doc-az .xz-badge { align-self: center; }
+
 /* foundations */
 /* Swatches share their borders, so a short last row leaves no grey gap. */
 .doc-swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); margin: var(--xz-space-3) 0 var(--xz-space-6); padding: 0 1px 1px 0; }

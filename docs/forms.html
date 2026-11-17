@@ -63,13 +63,35 @@
       </div>
     </div>
   </div>
+
+  <h3 id="date--inline">Calendar in the page</h3>
+  <p>Add <code class="xz-code">data-xz-inline</code> and the calendar is drawn in the page and stays open, with or without a text box: for booking pages and side panels. It takes the same values and keys as the date picker.</p>
+  <div class="doc-example">
+    <div class="xz-datepicker" data-xz-datepicker data-xz-inline data-xz-min="2026-11-01" role="group" aria-label="Demo class date">
+      <input type="hidden" name="demo_date" value="2026-11-24">
+    </div>
+    <div class="xz-datepicker" data-xz-datepicker="range" data-xz-inline role="group" aria-label="Leave dates">
+      <input type="hidden" name="leave_from" value="2026-11-23">
+      <input type="hidden" name="leave_to" value="2026-11-27">
+    </div>
+  </div>
+
+  <h3 id="date--multiple">Several dates</h3>
+  <p>With <code class="xz-code">data-xz-datepicker="multiple"</code> each click adds or removes a day, such as the holidays of a batch. The hidden field holds the dates as a comma list, and a text box, if there is one, says how many are chosen.</p>
+  <div class="doc-example">
+    <div class="xz-datepicker" data-xz-datepicker="multiple" data-xz-inline role="group" aria-label="Holidays in Batch B-14">
+      <input type="hidden" name="holidays" value="2026-11-14,2026-11-26">
+    </div>
+  </div>
+
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Attribute</th><th>What it does</th></tr></thead>
     <tbody>
-      <tr><td><code>data-xz-datepicker</code></td><td>Turns the wrapper into a date picker. Use the value <code>range</code> for two dates.</td></tr>
+      <tr><td><code>data-xz-datepicker</code></td><td>Turns the wrapper into a date picker. Use the value <code>range</code> for two dates, or <code>multiple</code> for any number of dates kept as a comma list.</td></tr>
+      <tr><td><code>data-xz-inline</code></td><td>Draws the calendar in the page, always open. The text box is optional.</td></tr>
       <tr><td><code>data-xz-min</code>, <code>data-xz-max</code></td><td>Earliest and latest allowed date, as YYYY-MM-DD. Days outside are struck through and cannot be chosen.</td></tr>
       <tr><td><code>data-xz-week-start="0"</code></td><td>Starts the week on Sunday. The default is Monday.</td></tr>
-      <tr><td><code>xz:date</code> event</td><td>Fires on the wrapper when the value changes. <code>event.detail</code> has <code>start</code> and <code>end</code>.</td></tr>
+      <tr><td><code>xz:date</code> event</td><td>Fires on the wrapper when the value changes. <code>event.detail</code> has <code>start</code> and <code>end</code>, or <code>dates</code> for several dates.</td></tr>
     </tbody>
   </table></div>
   <p><strong>Keyboard:</strong> Down arrow in the field opens the calendar. Arrow keys move by day and week, Page Up and Page Down by month, Home and End to the ends of the week, Enter chooses, Escape closes.</p>
@@ -265,6 +287,7 @@
       <li class="is-here"><div class="doc-family__sample" inert><i data-xz-icon="cloud-upload" data-size="xl"></i></div><a class="doc-family__name xz-link" href="#upload">Drop zone</a><span class="doc-family__where">Forms</span></li>
       <li><div class="doc-family__sample" inert><span class="xz-filefield" data-xz-filefield-ready style="width: 100%; padding: 0"><span class="xz-filefield__label">Logo</span><span class="xz-filefield__btn">Choose</span></span></div><a class="doc-family__name xz-link" href="tools.html#panel--file">File field</a><span class="doc-family__where">Tools</span></li>
       <li><div class="doc-family__sample" inert><i data-xz-icon="paperclip" data-size="xl"></i></div><a class="doc-family__name xz-link" href="components.html#chat">Chat attachments</a><span class="doc-family__where">Components › Chat</span></li>
+      <li class="is-here"><div class="doc-family__sample" inert><span class="xz-file" style="width: 100%"><span class="xz-file__icon"><i data-xz-icon="file-text" data-size="sm"></i></span><span class="xz-file__body"><span class="xz-file__name">Receipt.pdf</span><span class="xz-file__meta">240 KB</span></span></span></div><a class="doc-family__name xz-link" href="#upload--file-card">File card</a><span class="doc-family__where">Forms</span></li>
     </ul>
   </div>
   <div class="doc-example" data-layout="stack">
@@ -292,6 +315,26 @@
     </tbody>
   </table></div>
   <p>Check the type and size again on the server. Browser checks help people, but they can be bypassed.</p>
+
+  <h3 id="upload--file-card">File card</h3>
+  <p>One file with its type, size and actions, wherever a file is shown: an attachment on a message, a document on a profile, a file being sent. <code class="xz-code">is-uploading</code> adds a progress line, <code class="xz-code">is-error</code> marks a file that could not be sent, and a picture can show as a thumbnail. Make the card a link to open or download the file.</p>
+  <div class="doc-example">
+    <ul class="xz-files" aria-label="Documents">
+      <li><a class="xz-file" href="#upload--file-card"><span class="xz-file__icon"><i data-xz-icon="file-text" data-size="sm"></i></span><span class="xz-file__body"><span class="xz-file__name">Fee receipt, November.pdf</span><span class="xz-file__meta">PDF · 240 KB</span></span></a></li>
+      <li><div class="xz-file"><img class="xz-file__thumb" src="media/cover-campus.svg" alt=""><span class="xz-file__body"><span class="xz-file__name">Campus photo.jpg</span><span class="xz-file__meta">JPG · 1.8 MB</span></span><span class="xz-file__actions"><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Remove Campus photo.jpg" data-xz-tooltip="Remove"><i data-xz-icon="x" data-size="sm"></i></button></span></div></li>
+      <li><div class="xz-file is-uploading"><span class="xz-file__icon"><i data-xz-icon="file" data-size="sm"></i></span><span class="xz-file__body"><span class="xz-file__name">Aadhaar card.pdf</span><span class="xz-file__meta">Sending, 64%</span></span><progress class="xz-file__progress" max="100" value="64" aria-label="Aadhaar card.pdf sent">64%</progress></div></li>
+      <li><div class="xz-file is-error"><span class="xz-file__icon"><i data-xz-icon="circle-alert" data-size="sm"></i></span><span class="xz-file__body"><span class="xz-file__name">Marksheet.heic</span><span class="xz-file__meta">This type is not allowed</span></span></div></li>
+    </ul>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-file</code></td><td>One file: <code>__icon</code> or <code>img.__thumb</code>, <code>__body</code> with <code>__name</code> and <code>__meta</code>, then <code>__actions</code>. Works on <code>a</code> to open the file.</td></tr>
+      <tr><td><code>is-uploading</code> + <code>progress.xz-file__progress</code></td><td>A thin progress line along the bottom while the file is sent.</td></tr>
+      <tr><td><code>is-error</code></td><td>A file that could not be sent; say why in <code>__meta</code>.</td></tr>
+      <tr><td><code>xz-files</code></td><td>A row of file cards that wraps.</td></tr>
+    </tbody>
+  </table></div>
 </section>
 
 </main>

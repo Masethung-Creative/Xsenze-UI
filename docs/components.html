@@ -94,7 +94,7 @@
   </div>
 
   <h3 id="buttons--button-group">Button group</h3>
-  <p>With <code class="xz-code">data-xz-toggle</code> the group works as a single choice: the pressed button gets <code class="xz-code">aria-pressed="true"</code>.</p>
+  <p>Joined buttons with square inner corners. With <code class="xz-code">data-xz-toggle</code> the group works as a single choice: the pressed button gets <code class="xz-code">aria-pressed="true"</code>. <code class="xz-code">xz-btn-group--vertical</code> stacks them, as for a short list of views in a side panel.</p>
   <div class="doc-example">
     <div class="xz-btn-group" data-xz-toggle role="group" aria-label="Report period">
       <button class="xz-btn" type="button" aria-pressed="true">Week</button>
@@ -102,6 +102,24 @@
       <button class="xz-btn" type="button" aria-pressed="false">Quarter</button>
       <button class="xz-btn" type="button" aria-pressed="false">FY</button>
     </div>
+    <div class="xz-btn-group" role="group" aria-label="Export">
+      <button class="xz-btn" type="button"><i data-xz-icon="download" data-size="sm"></i>Export</button>
+      <button class="xz-btn xz-btn--icon" type="button" aria-label="More export options" data-xz-tooltip="More options"><i data-xz-icon="chevron-down" data-size="sm"></i></button>
+    </div>
+    <div class="xz-btn-group xz-btn-group--vertical" data-xz-toggle role="group" aria-label="Lesson view">
+      <button class="xz-btn" type="button" aria-pressed="true">Video</button>
+      <button class="xz-btn" type="button" aria-pressed="false">Notes</button>
+      <button class="xz-btn" type="button" aria-pressed="false">Transcript</button>
+    </div>
+  </div>
+
+  <h3 id="buttons--toggle">Toggle button</h3>
+  <p>A button that stays pressed until it is pressed again, such as Mute or Pin. Give it <code class="xz-code">aria-pressed="false"</code> and <code class="xz-code">data-xz-toggle</code>; the kit flips the state and fires <code class="xz-code">xz:press</code>. Keep the label the same in both states, because screen readers say "pressed" or "not pressed" for you.</p>
+  <div class="doc-example">
+    <button class="xz-btn" type="button" aria-pressed="true" data-xz-toggle><i data-xz-icon="volume-x" data-size="sm"></i>Mute class</button>
+    <button class="xz-btn" type="button" aria-pressed="false" data-xz-toggle><i data-xz-icon="star" data-size="sm"></i>Pin to top</button>
+    <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-pressed="false" data-xz-toggle aria-label="Bold" data-xz-tooltip="Bold"><i data-xz-icon="bold" data-size="sm"></i></button>
+    <button class="xz-btn xz-btn--ghost xz-btn--icon" type="button" aria-pressed="true" data-xz-toggle aria-label="Italic" data-xz-tooltip="Italic"><i data-xz-icon="italic" data-size="sm"></i></button>
   </div>
 
   <div class="doc-table-wrap"><table class="doc-table">
@@ -116,7 +134,8 @@
       <tr><td><code>xz-btn--icon</code></td><td>Square, icon only. Needs <code>aria-label</code>.</td></tr>
       <tr><td><code>xz-btn--block</code></td><td>Full width.</td></tr>
       <tr><td><code>is-loading</code></td><td>Shows a spinner and blocks clicks. Add <code>aria-busy="true"</code>.</td></tr>
-      <tr><td><code>xz-btn-group</code> + <code>data-xz-toggle</code></td><td>Joined buttons, single choice.</td></tr>
+      <tr><td><code>xz-btn-group</code> + <code>data-xz-toggle</code></td><td>Joined buttons, single choice. <code>xz-btn-group--vertical</code> stacks them.</td></tr>
+      <tr><td><code>aria-pressed</code> + <code>data-xz-toggle</code> on a button</td><td>Toggle button: stays pressed until pressed again. Fires <code>xz:press</code> with <code>pressed</code>.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -170,9 +189,11 @@
   <ul class="doc-family doc-family--links" aria-label="Inputs">
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="type" data-size="sm"></i><a class="doc-family__name xz-link" href="#inputs--text">Text and password</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="list" data-size="sm"></i><a class="doc-family__name xz-link" href="#inputs--textarea">Textarea</a><span class="doc-family__where">Components</span></li>
+    <li class="is-here"><i class="doc-family__icon" data-xz-icon="indian-rupee" data-size="sm"></i><a class="doc-family__name xz-link" href="#inputs--box">Words and a bar in the box</a><span class="doc-family__where">Components</span></li>
+    <li class="is-here"><i class="doc-family__icon" data-xz-icon="panel-left" data-size="sm"></i><a class="doc-family__name xz-link" href="#inputs--row">Side-by-side field</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="chevrons-up-down" data-size="sm"></i><a class="doc-family__name xz-link" href="#select">Select and combobox</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="search" data-size="sm"></i><a class="doc-family__name xz-link" href="#search">Search with suggestions</a><span class="doc-family__where">Components</span></li>
-    <li><i class="doc-family__icon" data-xz-icon="calendar" data-size="sm"></i><a class="doc-family__name xz-link" href="forms.html#date">Date and date range</a><span class="doc-family__where">Forms</span></li>
+    <li><i class="doc-family__icon" data-xz-icon="calendar" data-size="sm"></i><a class="doc-family__name xz-link" href="forms.html#date">Date, range and calendar</a><span class="doc-family__where">Forms</span></li>
     <li><i class="doc-family__icon" data-xz-icon="clock" data-size="sm"></i><a class="doc-family__name xz-link" href="forms.html#time">Time</a><span class="doc-family__where">Forms</span></li>
     <li><i class="doc-family__icon" data-xz-icon="key-round" data-size="sm"></i><a class="doc-family__name xz-link" href="forms.html#otp">One-time code</a><span class="doc-family__where">Forms</span></li>
     <li><i class="doc-family__icon" data-xz-icon="tag" data-size="sm"></i><a class="doc-family__name xz-link" href="forms.html#tags">Tags</a><span class="doc-family__where">Forms</span></li>
@@ -235,6 +256,57 @@
       <label class="xz-label" for="in-notes">Notes for the trainer <span class="xz-label__optional">(optional)</span></label>
       <textarea class="xz-textarea" id="in-notes" rows="4" placeholder="Anything the trainer should know before the first session"></textarea>
     </div>
+  </div>
+
+  <h3 id="inputs--box">Words, buttons and a bar inside the box</h3>
+  <p>With <code class="xz-code">xz-input-group--box</code> the group draws the border, so words such as ₹ or https://, an icon, a button or a bar of tools sit inside the box with the field. The whole box shows focus and errors. Add <code class="xz-code">--area</code> for a text area with a bar under it.</p>
+  <div class="doc-example" data-layout="stack">
+    <div class="xz-field">
+      <label class="xz-label" for="in-box-fee">Monthly fee</label>
+      <div class="xz-input-group xz-input-group--box">
+        <span class="xz-input-group__text">₹</span>
+        <input class="xz-input" id="in-box-fee" type="number" inputmode="decimal" min="0" value="2499">
+        <span class="xz-input-group__text">per month</span>
+      </div>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-box-link">Class link</label>
+      <div class="xz-input-group xz-input-group--box">
+        <span class="xz-input-group__text">https://</span>
+        <input class="xz-input" id="in-box-link" type="text" value="meet.xsenze.in/b14" readonly>
+        <button class="xz-btn xz-btn--sm" type="button" data-xz-copy="https://meet.xsenze.in/b14">Copy</button>
+      </div>
+    </div>
+    <div class="xz-field">
+      <label class="xz-label" for="in-box-reply">Reply to the batch</label>
+      <div class="xz-input-group xz-input-group--box xz-input-group--area">
+        <textarea class="xz-textarea" id="in-box-reply" rows="3" placeholder="Write to all 32 learners" aria-describedby="in-box-count"></textarea>
+        <div class="xz-input-group__bar">
+          <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Attach a file" data-xz-tooltip="Attach a file"><i data-xz-icon="paperclip" data-size="sm"></i></button>
+          <span class="xz-caption" id="in-box-count">Up to 500 characters</span>
+          <button class="xz-btn xz-btn--primary xz-btn--sm" type="button"><i data-xz-icon="send" data-size="sm"></i>Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 id="inputs--row">Side-by-side fields</h3>
+  <p>On settings pages the label and its help can sit beside the control: add <code class="xz-code">xz-field--row</code> and put the words in <code class="xz-code">xz-field__text</code>. Below 640px the field stacks again. A switch or a checkbox sits at the end of the row.</p>
+  <div class="doc-example" data-layout="stack" data-widths="on">
+    <form class="xz-form" style="max-width: 42rem">
+      <div class="xz-field xz-field--row">
+        <div class="xz-field__text"><label class="xz-label" for="in-row-name">Institute name</label><p class="xz-help" id="in-row-name-help">Printed on certificates and receipts.</p></div>
+        <input class="xz-input" id="in-row-name" type="text" value="Saffron Learning Institute" aria-describedby="in-row-name-help">
+      </div>
+      <div class="xz-field xz-field--row">
+        <div class="xz-field__text"><label class="xz-label" for="in-row-lang">Language of emails</label></div>
+        <select class="xz-select" id="in-row-lang"><option>English</option><option lang="hi">हिन्दी</option><option lang="ta">தமிழ்</option></select>
+      </div>
+      <div class="xz-field xz-field--row">
+        <div class="xz-field__text"><span class="xz-label" id="in-row-sms">SMS reminders</span><p class="xz-help" id="in-row-sms-help">A text the evening before each class.</p></div>
+        <label class="xz-toggle"><input type="checkbox" role="switch" checked aria-labelledby="in-row-sms" aria-describedby="in-row-sms-help"></label>
+      </div>
+    </form>
   </div>
 
   <h3 id="inputs--sizes">Sizes</h3>
@@ -308,6 +380,8 @@
       <tr><td><code>xz-label</code> <code>xz-help</code> <code>xz-error</code></td><td>Label, helper text, error message.</td></tr>
       <tr><td><code>xz-input</code> <code>xz-textarea</code></td><td>The control. Sizes: <code>xz-input--sm</code>, <code>xz-input--lg</code>.</td></tr>
       <tr><td><code>xz-input-group</code></td><td>Wraps an input with <code>__icon</code>, <code>__addon</code>, <code>__action</code> or <code>__kbd</code>. Add <code>--action</code> when there is a trailing button.</td></tr>
+      <tr><td><code>xz-input-group--box</code></td><td>The group draws the border. Inside: <code>__text</code> (words such as ₹), an icon, a button. <code>--area</code> with a text area and <code>__bar</code> under it.</td></tr>
+      <tr><td><code>xz-field--row</code> + <code>xz-field__text</code></td><td>Label and help beside the control from 640px up.</td></tr>
       <tr><td><code>data-xz-password-toggle</code></td><td>On the trailing button. Shows or hides the password and updates its label.</td></tr>
       <tr><td><code>aria-invalid="true"</code></td><td>Error outline. <code>is-valid</code> gives the success outline.</td></tr>
     </tbody>
@@ -511,6 +585,8 @@
       <li class="is-here"><div class="doc-family__sample" inert><label class="xz-check"><input type="checkbox" checked><span>Agree</span></label></div><a class="doc-family__name xz-link" href="#choices--checkbox">Checkbox</a><span class="doc-family__where">Components</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><label class="xz-radio"><input type="radio" name="fam-radio" checked><span>Monthly</span></label></div><a class="doc-family__name xz-link" href="#choices--radio-group">Radio</a><span class="doc-family__where">Components</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><label class="xz-toggle"><input type="checkbox" role="switch" checked><span>On</span></label></div><a class="doc-family__name xz-link" href="#choices--toggle">Switch</a><span class="doc-family__where">Components</span></li>
+      <li class="is-here"><div class="doc-family__sample" inert><label class="xz-radio xz-choice-card" style="width: 100%; padding: var(--xz-space-2) var(--xz-space-3)"><input type="radio" name="fam-card" checked><span class="xz-choice-card__body"><span class="xz-choice-card__title">Live</span></span></label></div><a class="doc-family__name xz-link" href="#choices--cards">Choice card</a><span class="doc-family__where">Components</span></li>
+      <li class="is-here"><div class="doc-family__sample" inert><button class="xz-btn xz-btn--sm" type="button" aria-pressed="true" data-xz-toggle><i data-xz-icon="volume-x" data-size="sm"></i>Mute</button></div><a class="doc-family__name xz-link" href="#buttons--toggle">Toggle button</a><span class="doc-family__where">Components › Buttons</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><div class="xz-segmented"><label><input type="radio" name="fam-seg" checked><span>Day</span></label><label><input type="radio" name="fam-seg"><span>Week</span></label></div></div><a class="doc-family__name xz-link" href="#segmented">Segmented</a><span class="doc-family__where">Components</span></li>
       <li><div class="doc-family__sample" inert><div class="xz-segmented xz-segmented--cells" style="width: 8.5rem"><label><input type="radio" name="fam-cells" checked><span>A4</span></label><label><input type="radio" name="fam-cells"><span>A5</span></label></div></div><a class="doc-family__name xz-link" href="tools.html#panel--cells">Option cells</a><span class="doc-family__where">Tools</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><div class="xz-btn-group"><button class="xz-btn xz-btn--sm" type="button" aria-pressed="true">Day</button><button class="xz-btn xz-btn--sm" type="button" aria-pressed="false">Week</button></div></div><a class="doc-family__name xz-link" href="#buttons--button-group">Button group</a><span class="doc-family__where">Components › Buttons</span></li>
@@ -567,9 +643,30 @@
     <label class="xz-toggle"><input type="checkbox" role="switch" name="tg-d" disabled><span>Disabled</span></label>
   </div>
 
+  <h3 id="choices--cards">Choice cards</h3>
+  <p>When each option needs a line of detail, such as a plan or a batch, put the radio or checkbox in a card: add <code class="xz-code">xz-choice-card</code> to the <code class="xz-code">xz-radio</code> or <code class="xz-code">xz-check</code> label. The whole card is the click target, and <code class="xz-code">xz-choice-cards</code> lays them out in a grid.</p>
+  <div class="doc-example" data-layout="stack">
+    <fieldset class="xz-fieldset">
+      <legend>Choose a batch</legend>
+      <div class="xz-choice-cards">
+        <label class="xz-radio xz-choice-card"><input type="radio" name="cc-batch" value="weekday" checked><span class="xz-choice-card__body"><span class="xz-choice-card__title">Weekday evenings <span class="xz-badge xz-badge--success">8 seats</span></span><span class="xz-choice-card__text">Mon to Fri, 7 to 9 pm. Starts 2 Dec.</span></span></label>
+        <label class="xz-radio xz-choice-card"><input type="radio" name="cc-batch" value="weekend"><span class="xz-choice-card__body"><span class="xz-choice-card__title">Weekends</span><span class="xz-choice-card__text">Sat and Sun, 10 am to 1 pm. Starts 7 Dec.</span></span></label>
+        <label class="xz-radio xz-choice-card"><input type="radio" name="cc-batch" value="fast" disabled><span class="xz-choice-card__body"><span class="xz-choice-card__title">Fast track <span class="xz-badge">Full</span></span><span class="xz-choice-card__text">Daily for four weeks. Join the waiting list.</span></span></label>
+      </div>
+    </fieldset>
+    <fieldset class="xz-fieldset">
+      <legend>Add to the course</legend>
+      <div class="xz-choice-cards">
+        <label class="xz-check xz-choice-card"><input type="checkbox" name="cc-add" value="mentor" checked><span class="xz-choice-card__body"><span class="xz-choice-card__title">Mentor hours <span>₹1,999</span></span><span class="xz-choice-card__text">Four one-to-one calls with a working analyst.</span></span></label>
+        <label class="xz-check xz-choice-card"><input type="checkbox" name="cc-add" value="print"><span class="xz-choice-card__body"><span class="xz-choice-card__title">Printed certificate <span>₹499</span></span><span class="xz-choice-card__text">Posted to your address in 7 days.</span></span></label>
+      </div>
+    </fieldset>
+  </div>
+
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class</th><th>What it does</th></tr></thead>
     <tbody>
+      <tr><td><code>xz-choice-card</code></td><td>With <code>xz-radio</code> or <code>xz-check</code> on the label: the option in a card. Inside: <code>__body</code> with <code>__title</code> and <code>__text</code>. <code>xz-choice-cards</code> is the grid.</td></tr>
       <tr><td><code>xz-check</code></td><td>Label wrapping a checkbox and its text.</td></tr>
       <tr><td><code>xz-radio</code></td><td>Label wrapping a radio and its text.</td></tr>
       <tr><td><code>xz-toggle</code></td><td>Label wrapping a checkbox with <code>role="switch"</code>.</td></tr>
@@ -624,6 +721,7 @@
       <li class="is-here"><div class="doc-family__sample" inert><span class="xz-badge xz-badge--dot xz-badge--success">Online</span></div><a class="doc-family__name xz-link" href="#badges--badges">Dot badge</a><span class="doc-family__where">Components</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><span class="xz-badge xz-badge--count">12</span></div><a class="doc-family__name xz-link" href="#badges--badges">Count</a><span class="doc-family__where">Components</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><span class="xz-tag">Python</span></div><a class="doc-family__name xz-link" href="#badges--tags">Tag</a><span class="doc-family__where">Components</span></li>
+      <li class="is-here"><div class="doc-family__sample" inert><span class="xz-kbd-group"><kbd class="xz-kbd">Ctrl</kbd>+<kbd class="xz-kbd">K</kbd></span></div><a class="doc-family__name xz-link" href="#badges--keys">Keyboard keys</a><span class="doc-family__where">Components</span></li>
       <li><div class="doc-family__sample" inert><span class="xz-status xz-status--danger">Blocked</span></div><a class="doc-family__name xz-link" href="tools.html#panel--status">Status</a><span class="doc-family__where">Tools</span></li>
       <li><div class="doc-family__sample" inert><span class="xz-lamp xz-lamp--danger is-on"><i data-xz-icon="circle-dot"></i>Recording</span></div><a class="doc-family__name xz-link" href="tools.html#readouts--lamps">Lamp</a><span class="doc-family__where">Tools</span></li>
     </ul>
@@ -673,9 +771,20 @@
     <span class="xz-chip">Fee under ₹25,000 <button class="xz-chip__remove" type="button" data-xz-dismiss aria-label="Remove fee filter"><i data-xz-icon="x" data-size="xs"></i></button></span>
   </div>
 
+  <h3 id="badges--keys">Keyboard keys</h3>
+  <p>Show a key or a shortcut with <code class="xz-code">kbd.xz-kbd</code>. Keys pressed together go in <code class="xz-code">xz-kbd-group</code> with a plus between them. Write the key as it is printed on the keyboard.</p>
+  <div class="doc-example">
+    <kbd class="xz-kbd">Esc</kbd>
+    <kbd class="xz-kbd">Enter</kbd>
+    <span class="xz-kbd-group"><kbd class="xz-kbd">Ctrl</kbd>+<kbd class="xz-kbd">K</kbd></span>
+    <span class="xz-kbd-group"><kbd class="xz-kbd">Shift</kbd>+<kbd class="xz-kbd">Enter</kbd></span>
+    <span class="xz-small">Press <kbd class="xz-kbd">/</kbd> to search</span>
+  </div>
+
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
     <tbody>
+      <tr><td><code>xz-kbd</code> <code>xz-kbd-group</code></td><td>A key on <code>kbd</code>, and keys pressed together.</td></tr>
       <tr><td><code>xz-badge</code></td><td>Neutral status. Colours: <code>--accent</code> <code>--success</code> <code>--warning</code> <code>--danger</code> <code>--info</code> <code>--solid</code>.</td></tr>
       <tr><td><code>xz-badge--dot</code> <code>xz-badge--count</code></td><td>Leading dot. Centred number.</td></tr>
       <tr><td><code>xz-tag</code></td><td>Monospace category label. Use <code>a</code> to make it a link.</td></tr>
@@ -893,6 +1002,8 @@
       <li class="is-here"><div class="doc-family__sample" inert><span class="xz-stack xz-gap-2" style="width: 7rem"><span class="xz-skeleton xz-skeleton--title"></span><span class="xz-skeleton xz-skeleton--text"></span></span></div><a class="doc-family__name xz-link" href="#loading--skeleton">Skeleton</a><span class="doc-family__where">Components</span></li>
       <li class="is-here"><div class="doc-family__sample" inert><span class="xz-typing"><i></i><i></i><i></i></span></div><a class="doc-family__name xz-link" href="#chat">Typing dots</a><span class="doc-family__where">Components › Chat</span></li>
       <li><div class="doc-family__sample" inert><span class="xz-loader"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div><a class="doc-family__name xz-link" href="tools.html#loaders">Pixel loader</a><span class="doc-family__where">Tools</span></li>
+      <li class="is-here"><div class="doc-family__sample" inert><span class="xz-shimmer xz-small">Thinking…</span></div><a class="doc-family__name xz-link" href="#loading--shimmer">Shimmer text</a><span class="doc-family__where">Components</span></li>
+      <li><div class="doc-family__sample" inert><span class="xz-spinner xz-spinner--sm"></span></div><a class="doc-family__name xz-link" href="#timeline--steps">Running step</a><span class="doc-family__where">Components › Timeline</span></li>
     </ul>
   </div>
 
@@ -944,9 +1055,16 @@
     </div>
   </div>
 
+  <h3 id="loading--shimmer">Shimmer text</h3>
+  <p>A light sweeps along a line of text while the work goes on, so people can read what is happening: "Checking the timetable", "Matching bank credits". Put it in a <code class="xz-code">role="status"</code> region. It stands still with less motion or the motion button off.</p>
+  <div class="doc-example">
+    <p class="xz-shimmer" role="status">Checking the timetable for Batch B-14…</p>
+  </div>
+
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class</th><th>What it does</th></tr></thead>
     <tbody>
+      <tr><td><code>xz-shimmer</code></td><td>Text with a moving light, for work in progress.</td></tr>
       <tr><td><code>xz-spinner</code></td><td>Sizes: <code>--sm</code>, <code>--lg</code>.</td></tr>
       <tr><td><code>xz-progress</code> + <code>xz-progress__bar</code></td><td>Sizes: <code>--sm</code>, <code>--lg</code>. Colours: <code>--success</code>, <code>--warning</code>, <code>--danger</code>.</td></tr>
       <tr><td><code>xz-progress--indeterminate</code></td><td>Moving bar for unknown length. Leave out <code>aria-valuenow</code>.</td></tr>
@@ -1239,6 +1357,78 @@
   </table></div>
 </section>
 
+<!-- ================= LIST ROWS ================= -->
+<section class="doc-section" id="list-rows">
+  <h2>List rows</h2>
+  <p>A row with a picture or icon, a title and a line of detail, and actions at the end: files, lessons, people, payments. Plain rows have dividers. <code class="xz-code">xz-list--boxed</code> frames the list, <code class="xz-code">--framed</code> frames each row, <code class="xz-code">--muted</code> tints them and <code class="xz-code">--sm</code> makes them tighter. A row with an <code class="xz-code">xz-list__link</code> opens as a whole, and its actions still work on their own.</p>
+
+  <h3 id="list-rows--plain">Plain, with actions</h3>
+  <div class="doc-example" data-layout="stack">
+    <ul class="xz-list" aria-label="Lesson files">
+      <li class="xz-list__item">
+        <span class="xz-list__media"><i data-xz-icon="file-text"></i></span>
+        <div class="xz-list__body"><div class="xz-list__title">Week 3 notes: pivot tables</div><div class="xz-list__text">PDF · 1.2 MB · added 12 Nov</div></div>
+        <div class="xz-list__actions"><button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm" type="button" aria-label="Download Week 3 notes" data-xz-tooltip="Download"><i data-xz-icon="download" data-size="sm"></i></button></div>
+      </li>
+      <li class="xz-list__item">
+        <span class="xz-list__media"><i data-xz-icon="video"></i></span>
+        <div class="xz-list__body"><div class="xz-list__title">Recording: Power BI dashboards</div><div class="xz-list__text">1 h 42 min · watched by 28 of 32</div></div>
+        <div class="xz-list__actions"><button class="xz-btn xz-btn--sm" type="button">Watch</button></div>
+      </li>
+      <li class="xz-list__item">
+        <span class="xz-list__media"><i data-xz-icon="list-checks"></i></span>
+        <div class="xz-list__body"><div class="xz-list__title">Quiz 3: lookups and joins</div><div class="xz-list__text">10 questions · due Friday</div></div>
+        <span class="xz-badge xz-badge--warning">Due soon</span>
+      </li>
+    </ul>
+  </div>
+
+  <h3 id="list-rows--boxed">Boxed rows that open</h3>
+  <div class="doc-example" data-layout="stack">
+    <ul class="xz-list xz-list--boxed" aria-label="Learners">
+      <li class="xz-list__item">
+        <span class="xz-list__media"><span class="xz-avatar xz-avatar--accent" aria-hidden="true">AI</span></span>
+        <div class="xz-list__body"><a class="xz-list__link xz-list__title" href="#list-rows--boxed">Ananya Iyer</a><div class="xz-list__text">Batch B-14 · 92% attendance</div></div>
+        <span class="xz-list__meta">Paid</span>
+      </li>
+      <li class="xz-list__item">
+        <span class="xz-list__media"><span class="xz-avatar" aria-hidden="true">RK</span></span>
+        <div class="xz-list__body"><a class="xz-list__link xz-list__title" href="#list-rows--boxed">Rohan Kulkarni</a><div class="xz-list__text">Batch B-14 · 76% attendance</div></div>
+        <div class="xz-list__actions"><button class="xz-btn xz-btn--sm" type="button">Send reminder</button></div>
+      </li>
+    </ul>
+  </div>
+
+  <h3 id="list-rows--framed">Framed and tinted rows</h3>
+  <div class="doc-example" data-layout="stack">
+    <ul class="xz-list xz-list--framed" aria-label="Payments">
+      <li class="xz-list__item">
+        <span class="xz-list__media"><i data-xz-icon="indian-rupee"></i></span>
+        <div class="xz-list__body"><div class="xz-list__title">₹24,999 from Priya Nair</div><div class="xz-list__text">UPI · 18 Nov, 10:42 am</div></div>
+        <span class="xz-badge xz-badge--success">Received</span>
+      </li>
+      <li class="xz-list__item">
+        <span class="xz-list__media"><i data-xz-icon="indian-rupee"></i></span>
+        <div class="xz-list__body"><div class="xz-list__title">₹12,500 from Arjun Mehta</div><div class="xz-list__text">Card · instalment 2 of 3</div></div>
+        <span class="xz-badge xz-badge--warning">Pending</span>
+      </li>
+    </ul>
+    <ul class="xz-list xz-list--framed xz-list--muted xz-list--sm" aria-label="Reminders">
+      <li class="xz-list__item"><span class="xz-list__media"><i data-xz-icon="bell" data-size="sm"></i></span><div class="xz-list__body"><div class="xz-list__title">Class at 7 pm today</div></div><span class="xz-list__meta">in 2 h</span></li>
+      <li class="xz-list__item"><span class="xz-list__media"><i data-xz-icon="calendar" data-size="sm"></i></span><div class="xz-list__body"><div class="xz-list__title">Fee due on 1 Dec</div></div><span class="xz-list__meta">in 13 days</span></li>
+    </ul>
+  </div>
+
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-list</code> + <code>__item</code></td><td>A list of rows with dividers. Inside a row: <code>__media</code> (icon, avatar or <code>img</code>), <code>__body</code> with <code>__title</code> and <code>__text</code>, then <code>__meta</code> or <code>__actions</code>.</td></tr>
+      <tr><td><code>xz-list__link</code></td><td>On the title link: the whole row opens it. Buttons in <code>__actions</code> stay separate.</td></tr>
+      <tr><td><code>xz-list--boxed</code> <code>--framed</code> <code>--muted</code> <code>--sm</code></td><td>One frame round the list; a frame round each row; tinted rows; tighter rows.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
 <!-- ================= FAMILY: NAVIGATION ================= -->
 <p class="doc-family-label" id="family-navigation">Navigation</p>
 <!-- ================= NAVIGATION ================= -->
@@ -1249,7 +1439,9 @@
   <ul class="doc-family doc-family--links" aria-label="Navigation">
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="panel-left" data-size="sm"></i><a class="doc-family__name xz-link" href="#navigation--top-navbar">Navbar</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="layout-dashboard" data-size="sm"></i><a class="doc-family__name xz-link" href="#navigation--sidebar">Sidebar</a><span class="doc-family__where">Components</span></li>
-    <li><i class="doc-family__icon" data-xz-icon="columns-3" data-size="sm"></i><a class="doc-family__name xz-link" href="tools.html#rail">Rail sidebar</a><span class="doc-family__where">Tools</span></li>
+    <li class="is-here"><i class="doc-family__icon" data-xz-icon="columns-3" data-size="sm"></i><a class="doc-family__name xz-link" href="#navigation--rail">Sidebar that folds to icons</a><span class="doc-family__where">Components</span></li>
+    <li class="is-here"><i class="doc-family__icon" data-xz-icon="folder-open" data-size="sm"></i><a class="doc-family__name xz-link" href="#navigation--groups">Sidebar groups</a><span class="doc-family__where">Components</span></li>
+    <li class="is-here"><i class="doc-family__icon" data-xz-icon="chevrons-up-down" data-size="sm"></i><a class="doc-family__name xz-link" href="#accordion--collapsible">Collapsible</a><span class="doc-family__where">Components › Accordion</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="smartphone" data-size="sm"></i><a class="doc-family__name xz-link" href="#bottom-nav">Bottom navigation</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="chevrons-right" data-size="sm"></i><a class="doc-family__name xz-link" href="#wayfinding--breadcrumbs">Breadcrumbs</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="chevrons-left" data-size="sm"></i><a class="doc-family__name xz-link" href="#wayfinding--pagination">Pagination</a><span class="doc-family__where">Components</span></li>
@@ -1316,6 +1508,62 @@
     </nav>
   </div>
 
+  <h3 id="navigation--rail">Sidebar that folds to icons</h3>
+  <p>A button with <code class="xz-code">data-xz-sidebar-toggle</code> folds the sidebar to a rail of icons and back, and the width changes smoothly. In the rail each link shows its name as a tooltip, and screen readers still read the whole name. With <code class="xz-code">data-xz-sidebar="name"</code> on the sidebar, the choice is kept on this device. Inside <code class="xz-code">xz-shell</code> the page widens with it. For a sidebar that always stays narrow, as on tool screens, add <code class="xz-code">xz-sidebar--rail</code> yourself.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <nav class="xz-sidebar" aria-label="Folding sidebar example" style="height: 24rem">
+      <div class="xz-sidebar__header">
+        <a class="xz-logo" href="#navigation--rail">Xsenze</a>
+        <button class="xz-btn xz-btn--ghost xz-btn--icon xz-btn--sm xz-sidebar__toggle" type="button" data-xz-sidebar-toggle aria-label="Collapse the menu" data-xz-tooltip="Collapse the menu" data-xz-tooltip-place="end"><i data-xz-icon="panel-left" data-size="sm"></i></button>
+      </div>
+      <div class="xz-sidebar__section">
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#navigation--rail" aria-current="page"><i data-xz-icon="layout-dashboard" data-size="sm"></i>Dashboard</a></li>
+          <li><a class="xz-sidebar__link" href="#navigation--rail"><i data-xz-icon="book-open" data-size="sm"></i>Courses</a></li>
+          <li><a class="xz-sidebar__link" href="#navigation--rail"><i data-xz-icon="users" data-size="sm"></i>Learners <span class="xz-badge xz-badge--count">24</span></a></li>
+        </ul>
+      </div>
+      <div class="xz-sidebar__section">
+        <div class="xz-sidebar__heading">Finance</div>
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#navigation--rail"><i data-xz-icon="indian-rupee" data-size="sm"></i>Fees</a></li>
+          <li><a class="xz-sidebar__link" href="#navigation--rail"><i data-xz-icon="receipt" data-size="sm"></i>Invoices</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <h3 id="navigation--groups">Groups with sub-pages</h3>
+  <p>A link that opens a list of sub-pages is a <code class="xz-code">details.xz-sidebar__group</code>: its <code class="xz-code">summary</code> is the link, and a <code class="xz-code">ul.xz-sidebar__sub</code> holds the sub-pages. It works without the script, and opening a group while the sidebar is folded widens the sidebar first.</p>
+  <div class="doc-example" data-layout="block" data-flush>
+    <nav class="xz-sidebar" aria-label="Sidebar with groups" style="height: 22rem">
+      <div class="xz-sidebar__section">
+        <ul class="xz-sidebar__nav">
+          <li><a class="xz-sidebar__link" href="#navigation--groups"><i data-xz-icon="layout-dashboard" data-size="sm"></i>Dashboard</a></li>
+          <li>
+            <details class="xz-sidebar__group" open>
+              <summary class="xz-sidebar__link"><i data-xz-icon="book-open" data-size="sm"></i>Courses</summary>
+              <ul class="xz-sidebar__sub">
+                <li><a class="xz-sidebar__link" href="#navigation--groups">All courses</a></li>
+                <li><a class="xz-sidebar__link" href="#navigation--groups" aria-current="page">Data analytics</a></li>
+                <li><a class="xz-sidebar__link" href="#navigation--groups">Full stack web</a></li>
+              </ul>
+            </details>
+          </li>
+          <li>
+            <details class="xz-sidebar__group">
+              <summary class="xz-sidebar__link"><i data-xz-icon="users" data-size="sm"></i>Learners</summary>
+              <ul class="xz-sidebar__sub">
+                <li><a class="xz-sidebar__link" href="#navigation--groups">All learners</a></li>
+                <li><a class="xz-sidebar__link" href="#navigation--groups">Waiting list</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
   <h3 id="navigation--footer">Footer</h3>
   <div class="doc-example" data-layout="block" data-flush>
     <footer class="xz-footer">
@@ -1370,6 +1618,10 @@
       <tr><td><code>xz-navbar</code></td><td>Sticky top bar. Parts: <code>__nav</code>, <code>__link</code>, <code>__spacer</code>, <code>__actions</code>, <code>__title</code>.</td></tr>
       <tr><td><code>xz-shell</code></td><td>Page layout: sidebar plus <code>xz-shell__main</code> and <code>xz-shell__content</code>.</td></tr>
       <tr><td><code>xz-sidebar</code></td><td>Parts: <code>__header</code>, <code>__section</code>, <code>__heading</code>, <code>__nav</code>, <code>__link</code>, <code>__footer</code>.</td></tr>
+      <tr><td><code>data-xz-sidebar-toggle</code></td><td>On a button (with <code>xz-sidebar__toggle</code> in the header): folds the sidebar to a rail and back. Give it a selector to fold another sidebar. Fires <code>xz:sidebar</code> with <code>collapsed</code>.</td></tr>
+      <tr><td><code>data-xz-sidebar="name"</code></td><td>Keeps the folded or open choice on this device.</td></tr>
+      <tr><td><code>xz-sidebar--rail</code></td><td>The rail: icons only, names in tooltips. Set it in the markup for a sidebar that stays narrow.</td></tr>
+      <tr><td><code>details.xz-sidebar__group</code> + <code>xz-sidebar__sub</code></td><td>A link that opens a list of sub-pages.</td></tr>
       <tr><td><code>xz-drawer--nav</code></td><td>A left drawer sized to hold the sidebar on small screens.</td></tr>
       <tr><td><code>xz-footer</code></td><td>Parts: <code>__grid</code>, <code>__heading</code>, <code>__links</code>, <code>__bottom</code>. <code>--simple</code> is one line.</td></tr>
       <tr><td><code>xz-logo</code></td><td>The name as text. <code>xz-logo--lg</code> for auth pages. <code>xz-logo__mark</code> is the slot for a logo image.</td></tr>
@@ -1483,8 +1735,8 @@
 
 <!-- ================= ACCORDION ================= -->
 <section class="doc-section" id="accordion">
-  <h2>Accordion</h2>
-  <p>Use an accordion for content people scan and open selectively, such as FAQs. It is built on the native <code class="xz-code">details</code> element, so it works without script and browser find-in-page can open it.</p>
+  <h2>Accordion and collapsible</h2>
+  <p>Use an accordion for content people scan and open selectively, such as FAQs, and a collapsible for one section that shows and hides, such as "Show 4 more lessons". Both are built on the native <code class="xz-code">details</code> element, so they work without script and browser find-in-page can open them. Where the browser can, they open and close with a smooth change of height.</p>
 
   <h3 id="accordion--independent-items">Independent items</h3>
   <div class="doc-example" data-layout="block">
@@ -1523,9 +1775,39 @@
     </div>
   </div>
 
+  <h3 id="accordion--collapsible">Collapsible</h3>
+  <p>One section on its own. The trigger's words can change with the state: put them in <code class="xz-code">xz-collapsible__more</code> and <code class="xz-code">xz-collapsible__less</code>. <code class="xz-code">xz-collapsible--box</code> frames the section with the trigger as its header.</p>
+  <div class="doc-example" data-layout="stack">
+    <div>
+      <ul class="xz-list xz-list--sm" aria-label="Lessons this week">
+        <li class="xz-list__item"><span class="xz-list__media"><i data-xz-icon="video" data-size="sm"></i></span><div class="xz-list__body"><div class="xz-list__title">Lookups with XLOOKUP</div></div><span class="xz-list__meta">Mon</span></li>
+        <li class="xz-list__item"><span class="xz-list__media"><i data-xz-icon="video" data-size="sm"></i></span><div class="xz-list__body"><div class="xz-list__title">Pivot tables</div></div><span class="xz-list__meta">Wed</span></li>
+      </ul>
+      <details class="xz-collapsible">
+        <summary class="xz-collapsible__trigger"><span class="xz-collapsible__more">Show 2 more lessons</span><span class="xz-collapsible__less">Show fewer lessons</span></summary>
+        <ul class="xz-list xz-list--sm xz-collapsible__content" aria-label="More lessons this week">
+          <li class="xz-list__item"><span class="xz-list__media"><i data-xz-icon="video" data-size="sm"></i></span><div class="xz-list__body"><div class="xz-list__title">Charts that tell a story</div></div><span class="xz-list__meta">Fri</span></li>
+          <li class="xz-list__item"><span class="xz-list__media"><i data-xz-icon="list-checks" data-size="sm"></i></span><div class="xz-list__body"><div class="xz-list__title">Quiz 3</div></div><span class="xz-list__meta">Sat</span></li>
+        </ul>
+      </details>
+    </div>
+    <details class="xz-collapsible xz-collapsible--box">
+      <summary class="xz-collapsible__trigger">Fee breakdown</summary>
+      <div class="xz-collapsible__content">
+        <dl class="xz-stack xz-gap-1" style="margin: 0">
+          <div class="xz-row xz-row--between"><dt>Course fee</dt><dd style="margin: 0">₹21,185</dd></div>
+          <div class="xz-row xz-row--between"><dt>GST at 18%</dt><dd style="margin: 0">₹3,814</dd></div>
+          <div class="xz-row xz-row--between"><dt><strong>Total</strong></dt><dd style="margin: 0"><strong>₹24,999</strong></dd></div>
+        </dl>
+      </div>
+    </details>
+  </div>
+
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
     <tbody>
+      <tr><td><code>details.xz-collapsible</code></td><td>One section that shows and hides: <code>summary.xz-collapsible__trigger</code> and <code>xz-collapsible__content</code>. <code>--box</code> frames it.</td></tr>
+      <tr><td><code>xz-collapsible__more</code> <code>__less</code></td><td>Trigger words for the closed and the open state.</td></tr>
       <tr><td><code>xz-accordion</code></td><td>Bordered wrapper.</td></tr>
       <tr><td><code>details.xz-accordion__item</code></td><td>One section. Add <code>open</code> to start expanded.</td></tr>
       <tr><td><code>summary.xz-accordion__trigger</code></td><td>The clickable heading.</td></tr>
@@ -1756,6 +2038,7 @@
   <h3 id="overlays--family">Every overlay in the kit</h3>
   <ul class="doc-family doc-family--links" aria-label="Overlays">
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="square" data-size="sm"></i><a class="doc-family__name xz-link" href="#overlays--modal">Modal</a><span class="doc-family__where">Components</span></li>
+    <li class="is-here"><i class="doc-family__icon" data-xz-icon="triangle-alert" data-size="sm"></i><a class="doc-family__name xz-link" href="#overlays--alert-dialog">Alert dialog</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="panel-left" data-size="sm"></i><a class="doc-family__name xz-link" href="#overlays--drawer">Drawer</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="message-square" data-size="sm"></i><a class="doc-family__name xz-link" href="#overlays--toast">Toast</a><span class="doc-family__where">Components</span></li>
     <li class="is-here"><i class="doc-family__icon" data-xz-icon="smartphone" data-size="sm"></i><a class="doc-family__name xz-link" href="#bottom-sheet">Bottom sheet</a><span class="doc-family__where">Components</span></li>
@@ -1828,22 +2111,34 @@
     </dialog>
   </div>
 
-  <h3 id="overlays--destructive-confirmation">Destructive confirmation</h3>
-  <p>Name the thing being deleted and say what is lost. <code class="xz-code">data-xz-static</code> stops a stray click on the backdrop from closing it, and the safe button comes first so it gets focus.</p>
+  <h3 id="overlays--alert-dialog">Alert dialog</h3>
+  <p>Ask before a step that is hard to undo. Name the thing and say what is lost. <code class="xz-code">role="alertdialog"</code> tells screen readers it needs an answer, <code class="xz-code">data-xz-static</code> stops a stray click on the backdrop from closing it, and the safe button comes first so it gets the focus. Escape answers with the safe choice.</p>
   <div class="doc-example">
     <button class="xz-btn xz-btn--danger-outline" type="button" data-xz-open="#ov-confirm"><i data-xz-icon="trash-2" data-size="sm"></i>Delete course</button>
+    <button class="xz-btn" type="button" id="ov-confirm-js"><i data-xz-icon="user" data-size="sm"></i>Remove a learner, from script</button>
 
-    <dialog class="xz-modal xz-modal--sm" id="ov-confirm" data-xz-static aria-labelledby="ov-confirm-title" aria-describedby="ov-confirm-text">
-      <div class="xz-modal__header">
+    <dialog class="xz-modal xz-modal--sm xz-modal--alert" id="ov-confirm" role="alertdialog" data-xz-static aria-labelledby="ov-confirm-title" aria-describedby="ov-confirm-text">
+      <div class="xz-modal__body">
+        <span class="xz-modal__icon"><i data-xz-icon="triangle-alert"></i></span>
         <h3 class="xz-modal__title" id="ov-confirm-title">Delete "Tally with GST"?</h3>
+        <p id="ov-confirm-text">This removes 12 lessons and the progress of 28 learners. You cannot undo this.</p>
       </div>
-      <div class="xz-modal__body" id="ov-confirm-text">This removes 12 lessons and the progress of 28 learners. You cannot undo this.</div>
       <div class="xz-modal__footer">
         <button class="xz-btn" type="button" data-xz-close>Keep course</button>
         <button class="xz-btn xz-btn--danger" type="button" data-xz-close="delete" data-xz-toast="Course deleted" data-xz-toast-variant="danger">Delete course</button>
       </div>
     </dialog>
   </div>
+  <p>From script, <code class="xz-code">Xsenze.confirm()</code> builds the same dialog and answers <code class="xz-code">true</code> or <code class="xz-code">false</code>:</p>
+  <pre class="doc-snippet" data-lang="text">
+    const ok = await Xsenze.confirm({
+      title: 'Remove Rohan from Batch B-14?',
+      message: 'He loses the recordings and quizzes of this batch.',
+      confirm: 'Remove learner',
+      danger: true,
+    });
+    if (ok) removeLearner();
+  </pre>
 
   <h3 id="overlays--drawer">Drawer</h3>
   <div class="doc-example">
@@ -1939,6 +2234,8 @@
       <tr><td><code>data-xz-open="#id"</code></td><td>On any button or link. Opens that dialog.</td></tr>
       <tr><td><code>data-xz-close</code></td><td>Inside a dialog. Closes it. A value becomes the dialog's <code>returnValue</code>.</td></tr>
       <tr><td><code>data-xz-static</code></td><td>On the dialog. Clicking the backdrop does not close it.</td></tr>
+      <tr><td><code>role="alertdialog"</code> + <code>xz-modal--alert</code></td><td>Alert dialog: needs an answer. <code>xz-modal__icon</code> shows the warning sign.</td></tr>
+      <tr><td><code>Xsenze.confirm(options)</code></td><td>Builds an alert dialog and resolves <code>true</code> or <code>false</code>. Options: <code>title</code>, <code>message</code>, <code>confirm</code>, <code>cancel</code>, <code>danger</code>.</td></tr>
       <tr><td><code>aria-labelledby</code></td><td>On the dialog, pointing at its title. Always set it.</td></tr>
       <tr><td><code>data-xz-toast="Message"</code></td><td>Shows a toast on click. Options: <code>data-xz-toast-title</code>, <code>data-xz-toast-variant</code>.</td></tr>
     </tbody>
@@ -2483,7 +2780,7 @@
 <!-- ================= CHARTS ================= -->
 <section class="doc-section" id="charts">
   <h2>Charts</h2>
-  <p>Bar, line, area, donut and pie charts, drawn from a table in the page. The table stays for screen readers and behind a "Show table" link, so the numbers are never only in a picture. Hover a chart, or Tab to it and use the arrow keys. Charts are an optional file: add <code class="xz-code">xsenze-charts.min.js</code> after the main script on pages that show them.</p>
+  <p>Bar, line, area, donut, pie, radar and radial charts, drawn from a table in the page. The table stays for screen readers and behind a "Show table" link, so the numbers are never only in a picture. Hover a chart, or Tab to it and use the arrow keys. Charts are an optional file: add <code class="xz-code">xsenze-charts.min.js</code> after the main script on pages that show them.</p>
   <h3 id="charts--bar">Bar</h3>
   <div class="doc-example" data-layout="block">
     <figure class="xz-chart" data-xz-chart="bar" data-xz-chart-format="inr">
@@ -2534,6 +2831,80 @@
       </table>
     </figure>
   </div>
+  <h3 id="charts--radar">Radar</h3>
+  <p>One spoke per category and one shape per series, for scores across several skills. Arrow keys move round the spokes; Up and Down move between series.</p>
+  <div class="doc-example" data-layout="block">
+    <figure class="xz-chart" data-xz-chart="radar" data-xz-chart-max="100" style="--xz-chart-height: 18rem">
+      <figcaption>Skills after 12 weeks, Batch B-14</figcaption>
+      <table>
+        <thead><tr><th>Skill</th><th>Batch average</th><th>Ananya</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Excel</th><td>82</td><td>94</td></tr>
+          <tr><th scope="row">SQL</th><td>68</td><td>88</td></tr>
+          <tr><th scope="row">Power BI</th><td>74</td><td>79</td></tr>
+          <tr><th scope="row">Statistics</th><td>61</td><td>72</td></tr>
+          <tr><th scope="row">Python</th><td>55</td><td>64</td></tr>
+          <tr><th scope="row">Storytelling</th><td>70</td><td>90</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </div>
+  <h3 id="charts--radial">Radial bars</h3>
+  <p>One ring per category, filled to its share of the largest value, or of <code class="xz-code">data-xz-chart-max</code>, such as 100 for percentages. With one ring it reads like a progress ring with its share in the middle.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 16rem">
+      <figure class="xz-chart" data-xz-chart="radial" data-xz-chart-max="100" style="--xz-chart-height: 14rem">
+        <figcaption>Course completion</figcaption>
+        <table>
+          <thead><tr><th>Course</th><th>Completed, %</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Data Analytics</th><td>86</td></tr>
+            <tr><th scope="row">Full Stack</th><td>71</td></tr>
+            <tr><th scope="row">UX Design</th><td>64</td></tr>
+            <tr><th scope="row">Python</th><td>52</td></tr>
+          </tbody>
+        </table>
+      </figure>
+      <figure class="xz-chart" data-xz-chart="radial" data-xz-chart-max="100" data-xz-chart-legend="off" style="--xz-chart-height: 14rem">
+        <figcaption>Attendance this month</figcaption>
+        <table>
+          <thead><tr><th>Batch</th><th>Attendance, %</th></tr></thead>
+          <tbody><tr><th scope="row">Batch B-14</th><td>92</td></tr></tbody>
+        </table>
+      </figure>
+    </div>
+  </div>
+  <h3 id="charts--styles">Steps, 100% stacks and fades</h3>
+  <p><code class="xz-code">data-xz-chart-curve="step"</code> draws lines and areas in steps, for values that change at set times, such as fees. <code class="xz-code">data-xz-chart-expand</code> stacks each category to 100%, so the bars or areas show shares; the tooltip still gives the amounts. <code class="xz-code">data-xz-chart-gradient</code> fades an area towards the axis.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-grid xz-grid--auto" style="--xz-grid-min: 20rem">
+      <figure class="xz-chart" data-xz-chart="area" data-xz-chart-curve="step" data-xz-chart-gradient data-xz-chart-format="inr" style="--xz-chart-height: 13rem">
+        <figcaption>Monthly fee for a new learner</figcaption>
+        <table>
+          <thead><tr><th>Month</th><th>Fee</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Jun</th><td>2499</td></tr>
+            <tr><th scope="row">Jul</th><td>2499</td></tr>
+            <tr><th scope="row">Aug</th><td>2999</td></tr>
+            <tr><th scope="row">Sep</th><td>2999</td></tr>
+            <tr><th scope="row">Oct</th><td>2799</td></tr>
+            <tr><th scope="row">Nov</th><td>3299</td></tr>
+          </tbody>
+        </table>
+      </figure>
+      <figure class="xz-chart" data-xz-chart="bar" data-xz-chart-expand style="--xz-chart-height: 13rem">
+        <figcaption>How learners pay</figcaption>
+        <table>
+          <thead><tr><th>Month</th><th>UPI</th><th>Card</th><th>Net banking</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Sep</th><td>412</td><td>188</td><td>96</td></tr>
+            <tr><th scope="row">Oct</th><td>468</td><td>171</td><td>88</td></tr>
+            <tr><th scope="row">Nov</th><td>531</td><td>160</td><td>74</td></tr>
+          </tbody>
+        </table>
+      </figure>
+    </div>
+  </div>
   <h3 id="charts--sparkline-and-progress-ring">Sparkline and progress ring</h3>
   <p>Two small pieces in the main file, for stat cards and table cells. They need no chart file.</p>
   <div class="doc-example">
@@ -2545,14 +2916,15 @@
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Attribute or option</th><th>What it does</th></tr></thead>
     <tbody>
-      <tr><td><code>data-xz-chart="bar"</code></td><td>On a <code>figure.xz-chart</code> with a <code>figcaption</code> and a <code>table</code>. Types: <code>bar</code>, <code>line</code>, <code>area</code>, <code>donut</code>, <code>pie</code>. Header cells name the series; the first cell of each row names the category.</td></tr>
+      <tr><td><code>data-xz-chart="bar"</code></td><td>On a <code>figure.xz-chart</code> with a <code>figcaption</code> and a <code>table</code>. Types: <code>bar</code>, <code>line</code>, <code>area</code>, <code>donut</code>, <code>pie</code>, <code>radar</code>, <code>radial</code>. Header cells name the series; the first cell of each row names the category. Donut, pie and radial read the first series.</td></tr>
       <tr><td><code>data-xz-chart-format</code></td><td>How numbers read: <code>number</code>, <code>inr</code>, <code>inr-compact</code>, <code>compact</code> or <code>percent</code> (values as fractions). Axes use the short form, such as ₹10 L.</td></tr>
-      <tr><td><code>data-xz-chart-stacked</code> <code>-horizontal</code> <code>-curve="smooth"</code></td><td>Stack the series, lay bars sideways, smooth the lines (without overshooting the data).</td></tr>
+      <tr><td><code>data-xz-chart-stacked</code> <code>-horizontal</code> <code>-curve="smooth"</code> <code>-curve="step"</code></td><td>Stack the series, lay bars sideways, smooth the lines (without overshooting the data) or draw them in steps.</td></tr>
+      <tr><td><code>data-xz-chart-expand</code> <code>-gradient</code></td><td>Stack each category to 100% so it shows shares; fade areas towards the axis (<code>--xz-chart-fade</code> sets how strong).</td></tr>
       <tr><td><code>data-xz-chart-values</code> <code>-patterns</code> <code>-legend="off"</code></td><td>Write values on bars, add patterns and line dashes so series differ by more than colour, hide the legend.</td></tr>
       <tr><td><code>data-xz-chart-zero="false"</code> <code>-min</code> <code>-max</code> <code>-empty</code></td><td>Let a line chart's axis start near the data, fix the axis ends, and change the text shown when there is no data.</td></tr>
       <tr><td><code>th[data-xz-color="viz-3"]</code></td><td>Pick a chart colour for a series. Colours come from the theme's <code>--xz-viz-1</code> to <code>--xz-viz-8</code>.</td></tr>
       <tr><td><code>--xz-chart-height</code> <code>-radius</code> <code>-line</code> <code>-donut</code> <code>-area</code> <code>-grid-dash</code></td><td>The look: height (16rem, 12rem on phones), bar corners, line width, donut thickness, area fill and grid dashes.</td></tr>
-      <tr><td><code>Xsenze.chart(el, options)</code></td><td>Draw from JavaScript: <code>{ type, labels, series: [{ name, values, color }], format, stacked }</code>. Returns <code>{ update(data), destroy() }</code>; <code>update()</code> with no data reads the table again.</td></tr>
+      <tr><td><code>Xsenze.chart(el, options)</code></td><td>Draw from JavaScript: <code>{ type, labels, series: [{ name, values, color }], format, stacked, expand, gradient, curve }</code>. Returns <code>{ update(data), destroy() }</code>; <code>update()</code> with no data reads the table again.</td></tr>
       <tr><td><code>xz:legend</code> <code>xz:point</code></td><td>A series was shown or hidden; the focused or hovered point changed.</td></tr>
       <tr><td><code>data-xz-sparkline="1 4 2 8"</code></td><td>A small trend line. Add <code>data-xz-sparkline-area</code> for a fill and an <code>aria-label</code> that says what the trend means.</td></tr>
       <tr><td><code>xz-ring</code> + <code>style="--xz-ring: 72"</code></td><td>A progress ring from 0 to 100. Sizes <code>--sm</code>, <code>--lg</code>; colours <code>--success</code>, <code>--warning</code>, <code>--danger</code>. Give it <code>role="progressbar"</code> and the <code>aria-value</code> attributes.</td></tr>
@@ -2637,9 +3009,39 @@
       </li>
     </ol>
   </div>
+
+  <h3 id="timeline--steps">Steps</h3>
+  <p>What a job or an assistant did, step by step: what it read, what it checked, what it found. Each step shows its state, done, running (<code class="xz-code">is-running</code>) or waiting (<code class="xz-code">is-waiting</code>), and a step whose body is a <code class="xz-code">details</code> element opens to show its detail. It suits reports being made, imports, and the working behind an assistant's answer.</p>
+  <div class="doc-example" data-layout="block">
+    <ol class="xz-timeline xz-timeline--steps" aria-label="How the answer was found" style="max-width: 34rem">
+      <li class="xz-timeline__item xz-timeline__item--success">
+        <span class="xz-timeline__marker"><i data-xz-icon="check" data-size="xs"></i></span>
+        <details class="xz-timeline__body">
+          <summary class="xz-timeline__title">Read the fee rules for Batch B-14 <span class="xz-timeline__time">0.8 s</span></summary>
+          <div class="xz-timeline__detail">Fee plan: 3 instalments of ₹12,500. Second instalment due 26 November.</div>
+        </details>
+      </li>
+      <li class="xz-timeline__item xz-timeline__item--success">
+        <span class="xz-timeline__marker"><i data-xz-icon="check" data-size="xs"></i></span>
+        <details class="xz-timeline__body">
+          <summary class="xz-timeline__title">Checked Ananya's payments <span class="xz-timeline__time">1.2 s</span></summary>
+          <div class="xz-timeline__detail">Instalment 1 paid on 26 October by UPI. Nothing overdue.</div>
+        </details>
+      </li>
+      <li class="xz-timeline__item is-running">
+        <span class="xz-timeline__marker"><span class="xz-spinner"></span></span>
+        <div class="xz-timeline__body"><p class="xz-timeline__title xz-shimmer" role="status">Writing the answer</p></div>
+      </li>
+      <li class="xz-timeline__item is-waiting">
+        <span class="xz-timeline__marker"></span>
+        <div class="xz-timeline__body"><p class="xz-timeline__title">Send a reminder on WhatsApp</p></div>
+      </li>
+    </ol>
+  </div>
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class</th><th>What it does</th></tr></thead>
     <tbody>
+      <tr><td><code>xz-timeline--steps</code></td><td>Smaller markers for a list of steps. Make a step's body <code>details.xz-timeline__body</code> with <code>summary.xz-timeline__title</code> and an <code>xz-timeline__detail</code> to open it. <code>is-running</code> and <code>is-waiting</code> on an item set its state; put an <code>xz-spinner</code> in a running step's marker.</td></tr>
       <tr><td><code>xz-timeline</code></td><td>On an <code>ol</code>. Newest first is usual for activity; oldest first suits steps.</td></tr>
       <tr><td><code>xz-timeline__item</code></td><td>One event: <code>__marker</code> then <code>__body</code> with <code>__title</code>, <code>__meta</code> and optional <code>__actions</code>. Put a <code>time</code> with <code>__time</code> in the title.</td></tr>
       <tr><td><code>xz-timeline__marker</code></td><td>Holds a small icon. Leave it empty for a dot.</td></tr>
@@ -2689,6 +3091,50 @@
       <tr><td><code>xz:toggle</code></td><td>Fires when a folder opens or closes, with <code>event.detail.item</code> and <code>event.detail.open</code>.</td></tr>
       <tr><td><code>xz:select</code></td><td>Fires when an item is chosen by click, Enter or Space, with <code>event.detail.item</code> and <code>event.detail.label</code>. Call <code>preventDefault()</code> to stop a link opening.</td></tr>
       <tr><td><code>element.xzTree</code></td><td><code>open(label)</code>, <code>close(label)</code>, <code>expandAll()</code> and <code>collapseAll()</code>.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= SCROLL AREA ================= -->
+<section class="doc-section" id="scroll-area">
+  <h2>Scroll area</h2>
+  <p>A box with its own thin scrollbar, for a long list inside a card, a menu or a side panel, so the page around it stays put. Name it with <code class="xz-code">aria-label</code>: the script makes it a region and lets keyboard users reach it with Tab when it scrolls, then scroll it with the arrow keys. <code class="xz-code">xz-scroll--fade</code> softens the edges that have more to scroll to, and <code class="xz-code">xz-scroll--x</code> scrolls sideways.</p>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-card" style="max-width: 22rem">
+      <div class="xz-card__header"><span class="xz-card__title">Batch B-14</span><span class="xz-badge">32 learners</span></div>
+      <div class="xz-scroll xz-scroll--fade" aria-label="Learners in Batch B-14" style="--xz-scroll-height: 13rem">
+        <ul class="xz-list xz-list--sm" style="padding-inline: var(--xz-space-4)">
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">AI</span><div class="xz-list__body">Ananya Iyer</div><span class="xz-list__meta">92%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">AM</span><div class="xz-list__body">Arjun Mehta</div><span class="xz-list__meta">88%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">DS</span><div class="xz-list__body">Divya Shah</div><span class="xz-list__meta">85%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">KR</span><div class="xz-list__body">Kavya Reddy</div><span class="xz-list__meta">81%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">MI</span><div class="xz-list__body">Meera Iyer</div><span class="xz-list__meta">79%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">PN</span><div class="xz-list__body">Priya Nair</div><span class="xz-list__meta">77%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">RK</span><div class="xz-list__body">Rohan Kulkarni</div><span class="xz-list__meta">76%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">SB</span><div class="xz-list__body">Siddharth Bose</div><span class="xz-list__meta">71%</span></li>
+          <li class="xz-list__item"><span class="xz-avatar xz-avatar--sm" aria-hidden="true">TJ</span><div class="xz-list__body">Tanvi Joshi</div><span class="xz-list__meta">68%</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="doc-example" data-layout="block">
+    <div class="xz-scroll xz-scroll--x xz-scroll--fade" aria-label="Upcoming classes">
+      <div class="xz-row xz-row--nowrap" style="width: max-content; padding-block-end: var(--xz-space-2)">
+        <div class="xz-card" style="width: 12rem"><div class="xz-card__body"><p class="xz-overline">Mon 7 pm</p><p class="xz-small"><strong>Lookups</strong></p></div></div>
+        <div class="xz-card" style="width: 12rem"><div class="xz-card__body"><p class="xz-overline">Wed 7 pm</p><p class="xz-small"><strong>Pivot tables</strong></p></div></div>
+        <div class="xz-card" style="width: 12rem"><div class="xz-card__body"><p class="xz-overline">Fri 7 pm</p><p class="xz-small"><strong>Charts</strong></p></div></div>
+        <div class="xz-card" style="width: 12rem"><div class="xz-card__body"><p class="xz-overline">Sat 10 am</p><p class="xz-small"><strong>Quiz 3</strong></p></div></div>
+        <div class="xz-card" style="width: 12rem"><div class="xz-card__body"><p class="xz-overline">Mon 7 pm</p><p class="xz-small"><strong>Power BI</strong></p></div></div>
+        <div class="xz-card" style="width: 12rem"><div class="xz-card__body"><p class="xz-overline">Wed 7 pm</p><p class="xz-small"><strong>Dashboards</strong></p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="doc-table-wrap"><table class="doc-table">
+    <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>xz-scroll</code> or <code>data-xz-scroll</code></td><td>A box with its own thin scrollbar. <code>--xz-scroll-height</code> sets the height (16rem). Give it an <code>aria-label</code>.</td></tr>
+      <tr><td><code>xz-scroll--x</code></td><td>Scrolls sideways, for a row of cards.</td></tr>
+      <tr><td><code>xz-scroll--fade</code></td><td>Fades the edges that have more to scroll to. The script sets <code>has-before</code> and <code>has-after</code>.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -2923,9 +3369,90 @@
       form.xzPrompt.busy(false);
     });
   </pre>
+
+  <h3 id="chat--people">Chats between people: bubbles, notes, files and reactions</h3>
+  <p>For a teacher and a learner, or a batch group, <code class="xz-code">xz-chat--bubbles</code> puts every message in a bubble, with the sender's name above it. Notes mark a day, a status or a word from the system. Files sit under a message as file cards, and reactions toggle and count. Several messages in a row from one side share one avatar and sit closer together.</p>
+  <div class="doc-example" data-layout="block">
+    <section class="xz-chat xz-chat--bubbles" data-xz-chat aria-label="Batch B-14 group" id="chat-people" style="max-width: 42rem; --xz-chat-height: 26rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface)">
+      <ol class="xz-chat__list">
+        <li class="xz-chat__note xz-chat__note--line">Yesterday</li>
+        <li class="xz-message xz-message--assistant">
+          <span class="xz-message__avatar" aria-hidden="true">MI</span>
+          <div class="xz-message__body">
+            <span class="xz-message__author" aria-hidden="true">Meera Iyer, mentor</span>
+            <p class="xz-sr-only">Meera Iyer said:</p>
+            <div class="xz-message__bubble">Here are the notes for tomorrow's class. Read pages 4 to 9 before you join.</div>
+            <ul class="xz-files"><li><a class="xz-file" href="#chat--people"><span class="xz-file__icon"><i data-xz-icon="file-text" data-size="sm"></i></span><span class="xz-file__body"><span class="xz-file__name">Week 3 notes.pdf</span><span class="xz-file__meta">PDF · 1.2 MB</span></span></a></li></ul>
+            <div class="xz-reactions" role="group" aria-label="Reactions"><button class="xz-reaction" type="button" aria-pressed="false" data-xz-react="thanks">🙏 <span class="xz-reaction__count">12</span></button><button class="xz-reaction" type="button" aria-pressed="true" data-xz-react="like">👍 <span class="xz-reaction__count">5</span></button></div>
+            <div class="xz-message__meta"><time datetime="2026-11-17T18:05">6:05 pm</time></div>
+          </div>
+        </li>
+        <li class="xz-chat__note"><i data-xz-icon="user" data-size="sm"></i><span>Rohan Kulkarni joined the group</span></li>
+        <li class="xz-chat__note xz-chat__note--line">Today</li>
+        <li class="xz-message xz-message--user">
+          <div class="xz-message__body">
+            <p class="xz-sr-only">You said:</p>
+            <div class="xz-message__bubble">Thank you! Is the quiz on Saturday open book?</div>
+          </div>
+        </li>
+        <li class="xz-message xz-message--user">
+          <div class="xz-message__body">
+            <p class="xz-sr-only">You said:</p>
+            <div class="xz-message__bubble">And can we use Excel?</div>
+            <div class="xz-message__meta"><time datetime="2026-11-18T09:12">9:12 am</time></div>
+          </div>
+        </li>
+        <li class="xz-message xz-message--assistant">
+          <span class="xz-message__avatar" aria-hidden="true">MI</span>
+          <div class="xz-message__body">
+            <span class="xz-message__author" aria-hidden="true">Meera Iyer, mentor</span>
+            <p class="xz-sr-only">Meera Iyer said:</p>
+            <div class="xz-message__bubble">Yes to both. Bring your workbook from Module 2.</div>
+            <div class="xz-message__meta"><time datetime="2026-11-18T09:20">9:20 am</time></div>
+          </div>
+        </li>
+        <li class="xz-chat__note xz-chat__note--box"><i data-xz-icon="info" data-size="sm"></i><span>Messages in this group are kept for the length of the course.</span></li>
+      </ol>
+    </section>
+  </div>
+
+  <h3 id="chat--history">Long messages, earlier messages and jumping to one</h3>
+  <p>With <code class="xz-code">data-xz-fold</code> on the chat, or on one message, a long message folds behind "Show more". <code class="xz-code">xzChat.prepend()</code> adds earlier messages above the others without moving the ones being read, for a "Load earlier messages" button. <code class="xz-code">xzChat.jumpTo(id)</code> scrolls to a message and marks it for a moment, as when a search result is opened. <code class="xz-code">typing(true, 'Checking the timetable…')</code> shows a line of status in place of the dots.</p>
+  <div class="doc-example" data-layout="block">
+    <div style="width: 100%; max-width: 42rem">
+      <div class="xz-row" style="margin-bottom: var(--xz-space-3)">
+        <button class="xz-btn xz-btn--sm" type="button" id="chat-earlier"><i data-xz-icon="history" data-size="sm"></i>Load earlier messages</button>
+        <button class="xz-btn xz-btn--sm" type="button" id="chat-jump"><i data-xz-icon="search" data-size="sm"></i>Jump to the fee question</button>
+        <button class="xz-btn xz-btn--sm" type="button" id="chat-status"><i data-xz-icon="loader-circle" data-size="sm"></i>Show a status line</button>
+      </div>
+      <section class="xz-chat" data-xz-chat data-xz-fold aria-label="Help history" id="chat-history" style="--xz-chat-height: 20rem; border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface)">
+        <ol class="xz-chat__list">
+          <li class="xz-message xz-message--user" id="chat-q-fee"><div class="xz-message__body"><p class="xz-sr-only">You said:</p><div class="xz-message__bubble">How is the course fee split?</div></div></li>
+          <li class="xz-message xz-message--assistant">
+            <span class="xz-message__avatar" aria-hidden="true"><i data-xz-icon="bot" data-size="sm"></i></span>
+            <div class="xz-message__body">
+              <p class="xz-sr-only">Assistant said:</p>
+              <div class="xz-message__bubble xz-prose xz-prose--sm"><p>The fee for Data Analytics is <strong>₹37,500</strong>, paid in three instalments:</p><ol><li>₹12,500 when you join.</li><li>₹12,500 on 26 November.</li><li>₹12,500 on 26 December.</li></ol><p>Each payment gets a GST invoice by email. You can pay by UPI, card or net banking from <em>Fees</em> in your dashboard. If a payment fails, nothing is charged and you can try again straight away. Paying the whole fee at once saves ₹2,500.</p><p>Scholarships of up to 50% are open to learners from partner colleges; ask your mentor for the form.</p></div>
+            </div>
+          </li>
+          <li class="xz-message xz-message--user"><div class="xz-message__body"><p class="xz-sr-only">You said:</p><div class="xz-message__bubble">Thanks. And when is the next class?</div></div></li>
+          <li class="xz-message xz-message--assistant">
+            <span class="xz-message__avatar" aria-hidden="true"><i data-xz-icon="bot" data-size="sm"></i></span>
+            <div class="xz-message__body"><p class="xz-sr-only">Assistant said:</p><div class="xz-message__bubble xz-prose xz-prose--sm"><p>Wednesday 18 November at 6:30 pm: <strong>DAX measures</strong>.</p></div></div>
+          </li>
+        </ol>
+      </section>
+    </div>
+  </div>
+
   <div class="doc-table-wrap"><table class="doc-table">
     <thead><tr><th>Class or attribute</th><th>What it does</th></tr></thead>
     <tbody>
+      <tr><td><code>xz-chat--bubbles</code> + <code>xz-message__author</code></td><td>Every message in a bubble, with the sender's name above, for chats between people.</td></tr>
+      <tr><td><code>xz-chat__note</code></td><td>A note in the list. <code>--line</code> for a day line, <code>--box</code> for a framed note; <code>--success</code>, <code>--warning</code>, <code>--danger</code> colour its icon.</td></tr>
+      <tr><td><code>xz-files</code> + <code>xz-file</code></td><td>Files on a message, as <a class="xz-link" href="forms.html#upload--file-card">file cards</a>.</td></tr>
+      <tr><td><code>xz-reactions</code> + <code>xz-reaction</code></td><td>Buttons with <code>aria-pressed</code> and an <code>__count</code>. They toggle, count and fire <code>xz:react</code> with <code>reaction</code>, <code>on</code> and <code>message</code>.</td></tr>
+      <tr><td><code>data-xz-fold</code></td><td>On the chat or a message: long messages fold after <code>--xz-chat-fold</code> (14rem) behind "Show more".</td></tr>
       <tr><td><code>data-xz-chat</code></td><td>On a <code>section</code> with an <code>aria-label</code>, around the list, the suggestions and the prompt form.</td></tr>
       <tr><td><code>xz-chat__list</code></td><td>The <code>ol</code> of messages. It scrolls inside <code>--xz-chat-height</code> (28rem), and a "Jump to latest" button shows when a message arrives while someone is reading above.</td></tr>
       <tr><td><code>xz-message--user</code> <code>--assistant</code></td><td>One message. Parts: <code>__avatar</code>, <code>__body</code>, <code>__bubble</code>, <code>__meta</code> and <code>__actions</code>. Give reply bubbles <code>xz-prose xz-prose--sm</code>.</td></tr>
@@ -2937,7 +3464,7 @@
       <tr><td><code>data-xz-dropzone</code></td><td>On the prompt form, with a file input in the bar: attachments show above the text and can be dropped on the box.</td></tr>
       <tr><td><code>xz:send</code></td><td>Fires on the form with <code>event.detail.text</code> and <code>files</code>.</td></tr>
       <tr><td><code>form.xzPrompt</code></td><td><code>value</code>, <code>clear()</code>, <code>focus()</code> and <code>busy(true)</code>, which turns Send into Stop until <code>busy(false)</code>. Stop fires <code>xz:stop</code>.</td></tr>
-      <tr><td><code>element.xzChat</code></td><td><code>add({role, text, html, author, avatar, time})</code>, <code>stream()</code> with <code>append(text)</code> and <code>done(html)</code>, <code>typing(true)</code> and <code>scrollToEnd()</code>. HTML is cleaned first unless you add <code>trusted: true</code>.</td></tr>
+      <tr><td><code>element.xzChat</code></td><td><code>add({role, text, html, author, avatar, time, files, id})</code>, <code>stream()</code> with <code>append(text)</code> and <code>done(html)</code>, <code>typing(true)</code> or <code>typing(true, 'status')</code>, <code>note({text, icon, tone, line, box})</code>, <code>prepend(messages)</code>, <code>jumpTo(idOrElement)</code> and <code>scrollToEnd()</code>. HTML is cleaned first unless you add <code>trusted: true</code>.</td></tr>
     </tbody>
   </table></div>
 </section>
@@ -3014,6 +3541,11 @@
       action: { label: 'Undo', onClick: () => Xsenze.toast('Learner restored') },
     });
   });
+  // Alert dialog from script: the answer shows in a toast.
+  document.getElementById('ov-confirm-js').addEventListener('click', async () => {
+    const ok = await Xsenze.confirm({ title: 'Remove Rohan from Batch B-14?', message: 'He loses the recordings and quizzes of this batch.', confirm: 'Remove learner', danger: true });
+    Xsenze.toast({ message: ok ? 'Rohan was removed from Batch B-14.' : 'Nothing was changed.' });
+  });
   // Phase 2 demos stay on this page and show what happened in a toast.
   document.getElementById('ctx-demo').addEventListener('xz:action', (e) => Xsenze.toast({ message: 'Action: ' + e.detail.action }));
   document.getElementById('search-demo').addEventListener('xz:select', (e) => { e.preventDefault(); Xsenze.toast({ message: 'Opened ' + e.detail.item.label }); });
@@ -3073,6 +3605,28 @@
     form.addEventListener('xz:stop', () => finish());
     box.addEventListener('xz:retry', () => Xsenze.toast({ message: 'Your page would ask for a new reply here.' }));
     box.addEventListener('xz:feedback', (e) => e.detail.value && Xsenze.toast({ message: 'Thanks. Feedback helps improve the answers.' }));
+  })();
+  // Chat history demo: earlier messages go in above without a jump; jumping marks a message; a status line replaces the dots.
+  (() => {
+    const chat = document.getElementById('chat-history');
+    const bot = () => Xsenze.icon('bot', { size: 'sm' });
+    document.getElementById('chat-earlier').addEventListener('click', (e) => {
+      chat.xzChat.prepend([
+        { note: true, line: true, text: 'Monday' },
+        { role: 'user', text: 'Hi, I joined Batch B-14 today.' },
+        { role: 'assistant', avatar: bot(), html: '<p>Welcome! Your first class is on Wednesday at 6:30 pm. The joining link is in <em>Classes</em>.</p>' },
+      ]);
+      e.currentTarget.disabled = true;
+    });
+    document.getElementById('chat-jump').addEventListener('click', () => chat.xzChat.jumpTo('chat-q-fee'));
+    document.getElementById('chat-status').addEventListener('click', () => {
+      chat.xzChat.typing(true, 'Checking the timetable…');
+      setTimeout(() => {
+        chat.xzChat.typing(false);
+        chat.xzChat.add({ role: 'assistant', avatar: bot(), html: '<p>No change: the class is on Wednesday at 6:30 pm.</p>' });
+      }, 2400);
+    });
+    document.getElementById('chat-people').addEventListener('xz:react', (e) => e.detail.on && Xsenze.toast({ message: 'Reaction sent' }));
   })();
   // Quiz demo: the result stays on this page.
   document.getElementById('quiz-demo')?.addEventListener('xz:quiz', (e) => {
