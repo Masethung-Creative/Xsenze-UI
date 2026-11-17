@@ -1,0 +1,47 @@
+/* Chat and AI pieces (behaviour in xsenze-apps.js). The look is set with the variables on .xz-chat:
+   people's messages sit in a filled bubble on the end side, replies read as plain text. */
+.xz-chat { --xz-chat-user-bg: var(--xz-accent); --xz-chat-user-text: var(--xz-on-accent); --xz-chat-height: 28rem; position: relative; display: flex; flex-direction: column; min-width: 0; }
+.xz-chat__list { display: flex; flex-direction: column; gap: var(--xz-space-4); max-height: var(--xz-chat-height); margin: 0; padding: var(--xz-space-4); overflow-y: auto; overscroll-behavior: contain; list-style: none; }
+.xz-message { display: flex; gap: var(--xz-space-3); max-width: 100%; }
+.xz-message__avatar { flex: none; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--xz-surface-2); border: 1px solid var(--xz-border); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+.xz-message__body { display: grid; gap: var(--xz-space-1); min-width: 0; max-width: min(42rem, 100%); }
+.xz-message__bubble { min-width: 0; overflow-wrap: anywhere; }
+.xz-message--user { flex-direction: row-reverse; margin-inline-start: auto; }
+.xz-message--user .xz-message__body { justify-items: end; }
+.xz-message--user .xz-message__bubble { padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-chat-user-bg); color: var(--xz-chat-user-text); border-radius: var(--xz-radius-surface); border-end-end-radius: 2px; white-space: pre-wrap; --xz-focus: var(--xz-chat-user-text); }
+.xz-message__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); }
+.xz-message__actions { display: flex; gap: var(--xz-space-1); }
+.xz-message__actions .xz-btn { width: 1.75rem; min-width: 1.75rem; height: 1.75rem; min-height: 1.75rem; padding: 0; }
+.xz-message__actions [aria-pressed="true"] { color: var(--xz-accent-2-text); }
+.xz-message.is-streaming .xz-message__bubble::after { content: "▍"; margin-inline-start: 1px; color: var(--xz-accent-2); animation: xz-caret 1s steps(1) infinite; }
+.xz-message--typing .xz-message__body { padding: var(--xz-space-2) 0; }
+/* Sources under a reply */
+.xz-sources { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); margin: var(--xz-space-1) 0 0; padding: 0; list-style: none; counter-reset: xz-source; }
+.xz-sources li { counter-increment: xz-source; }
+.xz-sources a { display: inline-flex; align-items: center; gap: var(--xz-space-1); max-width: 16rem; padding: 2px var(--xz-space-2); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); font-size: var(--xz-font-size-xs); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xz-sources a::before { content: counter(xz-source); font-family: var(--xz-font-mono); color: var(--xz-text-muted); }
+.xz-sources a:hover { border-color: var(--xz-border-strong); }
+/* Typing dots: they stay still when motion is reduced or off. */
+.xz-typing { display: inline-flex; gap: 4px; }
+.xz-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--xz-text-muted); animation: xz-typing 1.2s var(--xz-ease-in-out) infinite; }
+.xz-typing i:nth-child(2) { animation-delay: 0.15s; }
+.xz-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes xz-typing { 0%, 60%, 100% { opacity: 0.35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+[data-xz-motion="off"] .xz-typing i, [data-xz-motion="off"] .xz-message.is-streaming .xz-message__bubble::after { animation: none; }
+.xz-chat__latest { position: absolute; inset-block-end: var(--xz-space-4); inset-inline-start: 50%; transform: translateX(-50%); box-shadow: var(--xz-shadow-md); }
+.xz-chat__latest[hidden] { display: none; }
+.xz-chat__suggestions { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); padding: 0 var(--xz-space-4) var(--xz-space-3); }
+/* Prompt box */
+.xz-prompt { display: grid; gap: var(--xz-space-2); margin: 0 var(--xz-space-4) var(--xz-space-4); padding: var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-surface); }
+.xz-prompt:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-prompt textarea { width: 100%; min-height: 2.5rem; max-height: 14rem; padding: var(--xz-space-2); resize: none; background: transparent; border: 0; color: var(--xz-text); font: inherit; line-height: var(--xz-line-height-normal); }
+.xz-prompt textarea:focus { outline: none; }
+.xz-prompt__bar { display: flex; align-items: center; gap: var(--xz-space-2); }
+.xz-prompt__bar > :last-child { margin-inline-start: auto; }
+/* Attachments: data-xz-dropzone on the form and a file input in the bar. Files can be dropped on the box. */
+.xz-prompt__attach { position: relative; }
+.xz-prompt__attach:has(input:focus-visible) { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-prompt.is-dragover { border-style: dashed; border-color: var(--xz-text); background: var(--xz-surface-2); }
+.xz-prompt .xz-dropzone__list { flex-direction: row; flex-wrap: wrap; }
+.xz-prompt .xz-dropzone__list:not(:empty) { margin-top: 0; }
+.xz-prompt .xz-dropzone__file { max-width: 16rem; gap: var(--xz-space-2); padding: 2px 2px 2px var(--xz-space-2); background: var(--xz-surface-2); }

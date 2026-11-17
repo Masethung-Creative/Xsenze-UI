@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Test: 0.7.0 components</title>
+<link rel="stylesheet" href="../dist/xsenze.css">
+<script src="../dist/xsenze.js" defer></script>
+<script src="../dist/xsenze-apps.js" defer></script>
+</head>
+<body>
+<main class="xz-container xz-stack xz-gap-8" style="padding-block: 2rem">
+  <h1 class="xz-h3">0.7.0 components fixture</h1>
+
+  <section data-xz-calendar data-xz-month="2026-11" aria-label="School events" id="cal">
+    <ol class="xz-calendar-view__events">
+      <li data-date="2026-11-18" data-time="10:00" data-color="info"><a href="#cal">Parents' meeting</a></li>
+      <li data-date="2026-11-18" data-time="14:00"><span>Science fair setup</span></li>
+      <li data-date="2026-11-20" data-end="2026-11-22" data-color="warning"><span>Term exams</span></li>
+      <li data-date="2026-11-26" data-color="success"><span>Fee due</span></li>
+    </ol>
+  </section>
+
+  <p>Learner: <span data-xz-hovercard="#learner-card" data-name="Ananya Iyer" data-batch="B-14 · Data Analytics" id="hc"><a href="#hc">Ananya Iyer</a></span></p>
+  <template id="learner-card">
+    <div class="xz-hovercard__head"><span class="xz-avatar xz-avatar--sm">AI</span><div><p class="xz-hovercard__title" data-xz-field="name"></p><p class="xz-hovercard__meta" data-xz-field="batch"></p></div></div>
+    <a class="xz-link" href="#hc">Open profile</a>
+  </template>
+
+  <ul data-xz-tree="test-modules" aria-label="Course modules" id="tree">
+    <li><span>Module 1: Spreadsheets</span>
+      <ul>
+        <li><a href="#tree">Lesson 1: Cells and ranges</a></li>
+        <li><a href="#tree">Lesson 2: Formulas</a></li>
+      </ul>
+    </li>
+    <li><span>Module 2: Dashboards</span>
+      <ul>
+        <li><a href="#tree">Lesson 3: Charts</a></li>
+        <li><span>Project</span>
+          <ul><li><a href="#tree">Brief</a></li></ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#tree">Final test</a></li>
+  </ul>
+
+  <ol class="xz-timeline">
+    <li class="xz-timeline__day">Today</li>
+    <li class="xz-timeline__item xz-timeline__item--success"><span class="xz-timeline__marker"><i data-xz-icon="check" data-size="sm"></i></span><div class="xz-timeline__body"><p class="xz-timeline__title">Fee paid</p><p class="xz-timeline__meta">₹24,999 by UPI · <time datetime="2026-11-17T10:42">10:42 am</time></p></div></li>
+    <li class="xz-timeline__item"><span class="xz-timeline__marker"></span><div class="xz-timeline__body"><p class="xz-timeline__title">Attended class</p><p class="xz-timeline__meta">Formulas · 9:00 am</p></div></li>
+  </ol>
+
+  <section data-xz-chat aria-label="Help chat" id="chat" style="border: 1px solid var(--xz-border)">
+    <ol class="xz-chat__list">
+      <li class="xz-message xz-message--assistant"><div class="xz-message__body"><div class="xz-message__bubble xz-prose xz-prose--sm"><p>Hello! Ask about fees, classes or results.</p></div></div></li>
+    </ol>
+    <div class="xz-chat__suggestions"><button class="xz-chip" type="button" data-xz-suggest>When is the next fee due?</button></div>
+    <form class="xz-prompt" data-xz-prompt action="#chat" method="post" id="prompt">
+      <label class="xz-sr-only" for="msg">Message</label>
+      <textarea id="msg" name="message" rows="1" placeholder="Ask a question"></textarea>
+      <div class="xz-prompt__bar"><button class="xz-btn xz-btn--primary xz-btn--icon" type="submit" aria-label="Send"><i data-xz-icon="send" data-size="sm"></i></button></div>
+    </form>
+  </section>
+
+  <form data-xz-quiz="practice" data-xz-pass="50" id="quiz" action="#quiz">
+    <p data-xz-quiz-time="600"></p>
+    <fieldset class="xz-quiz__question" data-xz-answer="b">
+      <legend>1. Which function adds up a column?</legend>
+      <label class="xz-quiz__option"><input type="radio" name="q1" value="a"> AVERAGE</label>
+      <label class="xz-quiz__option"><input type="radio" name="q1" value="b"> SUM</label>
+      <p class="xz-quiz__explain">SUM adds every number in the range.</p>
+    </fieldset>
+    <fieldset class="xz-quiz__question" data-xz-answer="a,c">
+      <legend>2. Which are chart types?</legend>
+      <label class="xz-quiz__option"><input type="checkbox" name="q2" value="a"> Bar</label>
+      <label class="xz-quiz__option"><input type="checkbox" name="q2" value="b"> Cell</label>
+      <label class="xz-quiz__option"><input type="checkbox" name="q2" value="c"> Line</label>
+    </fieldset>
+    <fieldset class="xz-quiz__question" data-xz-answer="a">
+      <legend>3. Is a dashboard a summary?</legend>
+      <label class="xz-quiz__option"><input type="radio" name="q3" value="a"> Yes</label>
+      <label class="xz-quiz__option"><input type="radio" name="q3" value="b"> No</label>
+    </fieldset>
+    <button class="xz-btn xz-btn--primary" type="submit">Submit</button>
+  </form>
+</main>
+<script>
+  document.getElementById('prompt').addEventListener('xz:send', (e) => {
+    e.preventDefault();
+    const chat = document.getElementById('chat').xzChat;
+    chat.add({ role: 'user', text: e.detail.text });
+    chat.typing(true);
+    setTimeout(() => { const r = chat.stream(); r.append('The next fee is due '); r.append('on 26 November.'); r.done(); }, 300);
+  });
+</script>
+</body>
+</html>
