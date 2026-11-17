@@ -37,10 +37,10 @@ Goal: cover complex workflows, plus LMS, ERP and CRM needs.
 - **Done (0.6.0)** Blocks for landing pages and a landing page template
 - **Done (0.6.0)** Data: table with filters, row selection and bulk actions, a column menu, detail rows, CSV export and a sticky header; charts (bar, line, area, donut, pie) in an optional file; sparklines and progress rings
 - **Done (0.6.0)** Command palette, long-text styles, CDN links from GitHub release tags, install guides per platform, docs search, live previews with a toolbar
-- Next (0.7.0): one docs page per component, code previews, changelog and theming pages, AI-friendly copies of the docs (llms.txt, Markdown), a calendar month view, hover cards, resizable panels, chat and AI message pieces, and a quiz
-- Then (0.8.0): named styles and chart colours on the Create page, a collapsible section, scroll areas, a menu bar, and right-to-left languages
-- Later: timeline, kanban, tree view
-- Domain: course card, lesson player, quiz, progress dashboards, attendance grid, leaderboard, certificates, approval workflow, role-based views, CSV import and export, invoices and receipts
+- **Done (0.7.0)** Calendar month view, hover card, timeline and tree view; chat and AI pieces and a quiz in an optional file; a docs home page built from the kit's blocks
+- Next (0.8.0): one docs page per component, code previews, changelog and theming pages, AI-friendly copies of the docs (llms.txt, Markdown), resizable panels and a kanban board
+- Then (0.9.0): named styles and chart colours on the Create page, a collapsible section, scroll areas, a menu bar, and right-to-left languages
+- Domain: course card, lesson player, quiz (**done in 0.7.0**), progress dashboards, attendance grid, leaderboard, certificates, approval workflow, role-based views, CSV import and export, invoices and receipts
 - Templates: onboarding, settings and profile, list and detail, multi-step forms, search results, inbox
 - Responsive: mobile behaviour for every component, swipe actions, action sheets, pull-to-refresh
 - Installation: **done (0.6.0)** CDN and npm install from GitHub release tags; still to do: publish `@sfj/ui-kit` to the npm registry, Tailwind and SCSS token exports, theme provider, component playground
@@ -50,7 +50,7 @@ Goal: cover complex workflows, plus LMS, ERP and CRM needs.
 Goal: make the kit enterprise-grade, multilingual and self-sustaining.
 
 - Localisation: Indic script support, bundled Noto Sans fallbacks, text expansion rules, right-to-left support if needed
-- Components: command palette (**done in 0.6.0**), chat bubbles (planned for 0.7.0), comments, colour picker, transfer list, code block, floating action button, back to top, scroll areas, consent banner, checkout patterns
+- Components: command palette (**done in 0.6.0**), chat bubbles (**done in 0.7.0**), comments, colour picker, transfer list, code block, floating action button, back to top, scroll areas, consent banner, checkout patterns
 - Content: voice and tone guide, writing standards, full microcopy library
 - Brand assets: email, social, presentation and document templates, favicon and app icons, print stylesheets
 - Engineering: framework packages, design-to-code linking, visual regression tests, performance budgets, browser support matrix

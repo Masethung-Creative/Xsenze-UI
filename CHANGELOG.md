@@ -4,6 +4,24 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+## 0.7.0 (17 Nov 2026)
+
+A new docs home page built from the kit's own blocks, and six components for school, college and learning-platform screens.
+
+- Docs home page: rebuilt from kit blocks. A hero with a live mini dashboard; numbers from the last build; five live demos (command palette, data table, charts, themes and Indian formats); tiles to every part of the docs; the dashboard template in the live preview; file sizes; questions; and a closing band. Docs pages with parts that move by themselves get the motion button in the header
+- Calendar month view (`section[data-xz-calendar]`): events written as a list become a month grid with coloured chips and "+n more", the chosen day's events show under the grid, and phones get an agenda. Arrow keys, Home, End, Page Up and Page Down move through days and months. Events can also load month by month from your server (`data-xz-calendar-url`). Events `xz:day` and `xz:month`; `element.xzCalendar`
+- Hover card (`data-xz-hovercard`): a preview that opens when the pointer rests on a link or the link gets keyboard focus, and stays open while the pointer is on it. One `template` can serve every row of a table. It never opens on touch screens, where a tap follows the link
+- Timeline (`ol.xz-timeline`): events with a marker, a title, a line of detail and actions, coloured markers, day headings and a compact size. CSS only
+- Tree view (`ul[data-xz-tree]`): nested lists that open and close with the keys people know from file managers, plus type-ahead and `*` to open a whole level. The way to the current page opens by itself, and open folders are remembered. Events `xz:toggle` and `xz:select`; `element.xzTree`
+- New optional file `xsenze-apps.min.js` (`@sfj/ui-kit/apps`), added with `Xsenze.use()` like the charts file:
+  - Chat and AI pieces (`[data-xz-chat]`, `form[data-xz-prompt]`): message bubbles with avatar, time, sources, and copy, retry and feedback buttons; typing dots; replies written as they arrive (`xzChat.stream()`); "Jump to latest"; suggestion chips. The prompt box grows as you type and sends on Enter, while Shift+Enter adds a line. Enter never sends while an input method is still building a word, as when typing Hindi or Tamil. Send turns into Stop while a reply is being written, and attachments use the file upload. Screen readers hear each finished reply once. Without the script the prompt posts as a plain form. Events `xz:send`, `xz:stop`, `xz:retry` and `xz:feedback`
+  - Quiz and questionnaire (`form[data-xz-quiz]`): one question at a time, with a count, progress, Flag for review, a review grid and a check before submitting with questions left. Practice mode scores in the browser and shows why each answer is right. Exam mode sends the answers to your server, so the right answers are never in the page. Survey mode has no right answers. A countdown that a reload does not reset, with warnings at 5 minutes and 1 minute, and answers saved as people go. Events `xz:quiz`, `xz:step` and `xz:timeup`
+- The date picker and the calendar share one set of date helpers (`src/js/dates.js`). File upload gains `element.xzDropzone.clear()`
+- Marquee: when it stands still (before the script, with motion off, or with less motion) its rows are centred and closer together, and no longer fade at the edges
+- 10 more icons: bot, send, thumbs-up, thumbs-down, flag, timer, list-checks, folder-open, file and square
+- Docs: Components has a section for each new part, the Guidelines keyboard table lists their keys, and Getting started shows the apps file. Lists inside examples no longer pick up the docs page's list spacing
+- The main script's size limit is now 46 KB gzipped (45.2 KB today), for the new components and icons
+
 ## 0.6.1 (17 Nov 2026)
 
 A heading font that can be shared, and the docs online.

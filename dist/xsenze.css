@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit v0.6.1 | MIT */
+/*! Xsenze UI Kit v0.7.0 | MIT */
 @font-face {
   font-family: "Plus Jakarta Sans Variable";
   font-style: normal;
@@ -1371,6 +1371,15 @@ span.xz-chip { cursor: default; }
 .xz-popover__title { margin-bottom: var(--xz-space-1); font-family: var(--xz-font-display); font-size: var(--xz-font-size-md); font-weight: var(--xz-font-weight-semibold); }
 .xz-popover__footer { display: flex; justify-content: flex-end; gap: var(--xz-space-2); margin-top: var(--xz-space-4); }
 
+/* ---- hover card ---- */
+.xz-hovercard { position: relative; display: inline; }
+.xz-hovercard__panel { --xz-popover-width: 18rem; display: grid; gap: var(--xz-space-2); }
+/* The card is extra detail, so it stays out of the way until the script is ready. */
+[data-xz-hovercard]:not([data-xz-hovercard-ready]) > .xz-hovercard__panel { display: none; }
+.xz-hovercard__head { display: flex; align-items: center; gap: var(--xz-space-3); }
+.xz-hovercard__title { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-md); font-weight: var(--xz-font-weight-semibold); }
+.xz-hovercard__meta { margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); }
+
 /* ---- notification centre ---- */
 .xz-notify-count { position: absolute; top: 2px; right: 2px; min-width: 1.125rem; height: 1.125rem; padding: 0 4px; background: var(--xz-accent-2); color: var(--xz-on-accent-2); border-radius: 9999px; box-shadow: 0 0 0 2px var(--xz-bg); font-family: var(--xz-font-display); font-size: 0.6875rem; font-weight: var(--xz-font-weight-bold); line-height: 1.125rem; text-align: center; }
 .xz-notifications { --xz-popover-width: 24rem; width: min(calc(100vw - 1rem), 24rem); padding: 0; }
@@ -1556,6 +1565,141 @@ span.xz-chip { cursor: default; }
   .xz-player__bar { gap: 2px; padding-inline: var(--xz-space-1); }
 }
 @media (pointer: coarse) { .xz-player__btn { min-width: var(--xz-control-touch); height: var(--xz-control-touch); } }
+
+/* ---- chat ---- */
+/* Chat and AI pieces (behaviour in xsenze-apps.js). The look is set with the variables on .xz-chat:
+   people's messages sit in a filled bubble on the end side, replies read as plain text. */
+.xz-chat { --xz-chat-user-bg: var(--xz-accent); --xz-chat-user-text: var(--xz-on-accent); --xz-chat-height: 28rem; position: relative; display: flex; flex-direction: column; min-width: 0; }
+.xz-chat__list { display: flex; flex-direction: column; gap: var(--xz-space-4); max-height: var(--xz-chat-height); margin: 0; padding: var(--xz-space-4); overflow-y: auto; overscroll-behavior: contain; list-style: none; }
+.xz-message { display: flex; gap: var(--xz-space-3); max-width: 100%; }
+.xz-message__avatar { flex: none; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--xz-surface-2); border: 1px solid var(--xz-border); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+.xz-message__body { display: grid; gap: var(--xz-space-1); min-width: 0; max-width: min(42rem, 100%); }
+.xz-message__bubble { min-width: 0; overflow-wrap: anywhere; }
+.xz-message--user { flex-direction: row-reverse; margin-inline-start: auto; }
+.xz-message--user .xz-message__body { justify-items: end; }
+.xz-message--user .xz-message__bubble { padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-chat-user-bg); color: var(--xz-chat-user-text); border-radius: var(--xz-radius-surface); border-end-end-radius: 2px; white-space: pre-wrap; --xz-focus: var(--xz-chat-user-text); }
+.xz-message__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); }
+.xz-message__actions { display: flex; gap: var(--xz-space-1); }
+.xz-message__actions .xz-btn { width: 1.75rem; min-width: 1.75rem; height: 1.75rem; min-height: 1.75rem; padding: 0; }
+.xz-message__actions [aria-pressed="true"] { color: var(--xz-accent-2-text); }
+.xz-message.is-streaming .xz-message__bubble::after { content: "▍"; margin-inline-start: 1px; color: var(--xz-accent-2); animation: xz-caret 1s steps(1) infinite; }
+.xz-message--typing .xz-message__body { padding: var(--xz-space-2) 0; }
+/* Sources under a reply */
+.xz-sources { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); margin: var(--xz-space-1) 0 0; padding: 0; list-style: none; counter-reset: xz-source; }
+.xz-sources li { counter-increment: xz-source; }
+.xz-sources a { display: inline-flex; align-items: center; gap: var(--xz-space-1); max-width: 16rem; padding: 2px var(--xz-space-2); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); font-size: var(--xz-font-size-xs); text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xz-sources a::before { content: counter(xz-source); font-family: var(--xz-font-mono); color: var(--xz-text-muted); }
+.xz-sources a:hover { border-color: var(--xz-border-strong); }
+/* Typing dots: they stay still when motion is reduced or off. */
+.xz-typing { display: inline-flex; gap: 4px; }
+.xz-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--xz-text-muted); animation: xz-typing 1.2s var(--xz-ease-in-out) infinite; }
+.xz-typing i:nth-child(2) { animation-delay: 0.15s; }
+.xz-typing i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes xz-typing { 0%, 60%, 100% { opacity: 0.35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
+[data-xz-motion="off"] .xz-typing i, [data-xz-motion="off"] .xz-message.is-streaming .xz-message__bubble::after { animation: none; }
+.xz-chat__latest { position: absolute; inset-block-end: var(--xz-space-4); inset-inline-start: 50%; transform: translateX(-50%); box-shadow: var(--xz-shadow-md); }
+.xz-chat__latest[hidden] { display: none; }
+.xz-chat__suggestions { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); padding: 0 var(--xz-space-4) var(--xz-space-3); }
+/* Prompt box */
+.xz-prompt { display: grid; gap: var(--xz-space-2); margin: 0 var(--xz-space-4) var(--xz-space-4); padding: var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border-control); border-radius: var(--xz-radius-surface); }
+.xz-prompt:focus-within { border-color: var(--xz-focus); box-shadow: 0 0 0 1px var(--xz-focus); }
+.xz-prompt textarea { width: 100%; min-height: 2.5rem; max-height: 14rem; padding: var(--xz-space-2); resize: none; background: transparent; border: 0; color: var(--xz-text); font: inherit; line-height: var(--xz-line-height-normal); }
+.xz-prompt textarea:focus { outline: none; }
+.xz-prompt__bar { display: flex; align-items: center; gap: var(--xz-space-2); }
+.xz-prompt__bar > :last-child { margin-inline-start: auto; }
+/* Attachments: data-xz-dropzone on the form and a file input in the bar. Files can be dropped on the box. */
+.xz-prompt__attach { position: relative; }
+.xz-prompt__attach:has(input:focus-visible) { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-prompt.is-dragover { border-style: dashed; border-color: var(--xz-text); background: var(--xz-surface-2); }
+.xz-prompt .xz-dropzone__list { flex-direction: row; flex-wrap: wrap; }
+.xz-prompt .xz-dropzone__list:not(:empty) { margin-top: 0; }
+.xz-prompt .xz-dropzone__file { max-width: 16rem; gap: var(--xz-space-2); padding: 2px 2px 2px var(--xz-space-2); background: var(--xz-surface-2); }
+
+/* ---- quiz ---- */
+/* Quiz and questionnaire (behaviour in xsenze-apps.js). Without the script every question shows. */
+.xz-quiz { display: grid; gap: var(--xz-space-5); max-width: 44rem; }
+.xz-quiz__head { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--xz-space-2) var(--xz-space-4); }
+.xz-quiz__head .xz-progress { grid-column: 1 / -1; grid-row: 2; }
+.xz-quiz__count { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); color: var(--xz-text-muted); }
+.xz-quiz__timer { display: inline-flex; align-items: center; gap: var(--xz-space-1); margin: 0; font-family: var(--xz-font-mono); font-size: var(--xz-font-size-sm); font-variant-numeric: tabular-nums; }
+.xz-quiz__timer.is-low { color: var(--xz-danger-text); font-weight: var(--xz-font-weight-semibold); }
+.xz-quiz__question { display: grid; gap: var(--xz-space-2); min-width: 0; margin: 0; padding: 0; border: 0; }
+.xz-quiz__question legend { margin-bottom: var(--xz-space-3); padding: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-semibold); line-height: var(--xz-line-height-snug); }
+.xz-quiz__question legend:focus { outline: none; }
+.xz-quiz__question[data-flagged] legend::after { content: " ⚑"; color: var(--xz-accent-2-text); }
+.xz-quiz__option { display: flex; align-items: flex-start; gap: var(--xz-space-3); padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); cursor: pointer; }
+.xz-quiz__option:hover { border-color: var(--xz-border-strong); }
+.xz-quiz__option:has(input:checked) { border-color: var(--xz-accent); box-shadow: inset 0 0 0 1px var(--xz-accent); }
+.xz-quiz__option:has(input:focus-visible) { outline: 2px solid var(--xz-focus); outline-offset: 2px; }
+.xz-quiz__option input { flex: none; margin-top: 0.2em; accent-color: var(--xz-accent); }
+/* Explanations show with the result: is-correct or is-wrong on the question, set by the script or by your server. */
+.xz-quiz__explain { display: none; margin: var(--xz-space-2) 0 0; padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface-2); border-radius: var(--xz-radius-control); color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-quiz__question:is(.is-correct, .is-wrong) .xz-quiz__explain { display: block; }
+.xz-quiz__question.is-correct legend::before { content: "✓ "; color: var(--xz-success-text); }
+.xz-quiz__question.is-wrong legend::before { content: "✗ "; color: var(--xz-danger-text); }
+.xz-quiz__option.is-answer { border-color: var(--xz-success-text); background: var(--xz-success-soft); }
+.xz-quiz__nav { display: flex; flex-wrap: wrap; align-items: center; gap: var(--xz-space-2); }
+.xz-quiz__nav[hidden] { display: none; }
+.xz-quiz__spacer { flex: 1; }
+.xz-quiz__review-title, .xz-quiz__score { margin: 0 0 var(--xz-space-3); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-bold); }
+.xz-quiz__review-title:focus, .xz-quiz__score:focus { outline: none; }
+.xz-quiz__note { margin: 0 0 var(--xz-space-3); color: var(--xz-text-muted); }
+.xz-quiz__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: var(--xz-space-2); margin: 0 0 var(--xz-space-4); padding: 0; list-style: none; }
+.xz-quiz__cell { display: grid; gap: 2px; width: 100%; padding: var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); font: inherit; font-weight: var(--xz-font-weight-semibold); cursor: pointer; }
+.xz-quiz__cell small { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-regular); }
+.xz-quiz__cell.is-answered { border-color: var(--xz-accent); }
+.xz-quiz__cell.is-flagged { border-color: var(--xz-accent-2); border-style: dashed; }
+.xz-quiz__cell.is-unanswered small { color: var(--xz-danger-text); }
+.xz-quiz__result { display: grid; gap: var(--xz-space-2); padding-block-end: var(--xz-space-4); border-block-end: 1px solid var(--xz-border); }
+.xz-quiz__result > .xz-badge { justify-self: start; }
+.xz-quiz__result[hidden], .xz-quiz__review[hidden] { display: none; }
+@media (pointer: coarse) { .xz-quiz__option { min-height: var(--xz-control-touch); } }
+
+/* ---- tree ---- */
+/* Tree view: folders and items that open and close. Course modules, departments, files.
+   Without the script it is a nested list with every level shown. */
+.xz-tree, .xz-tree ul { margin: 0; padding: 0; list-style: none; }
+.xz-tree ul { margin-inline-start: calc(var(--xz-space-3) + 0.5rem); padding-inline-start: var(--xz-space-2); border-inline-start: 1px solid var(--xz-border); }
+.xz-tree li > :is(a, span, button):first-child { display: flex; align-items: center; gap: var(--xz-space-2); width: 100%; min-height: 2rem; padding: var(--xz-space-1) var(--xz-space-2); background: transparent; border: 0; border-radius: var(--xz-radius-control); color: var(--xz-text); font: inherit; font-size: var(--xz-font-size-sm); text-align: start; text-decoration: none; cursor: pointer; }
+.xz-tree li > :is(a, span, button):first-child:hover { background: var(--xz-surface-2); }
+.xz-tree [role="treeitem"]:focus { outline: none; }
+.xz-tree [role="treeitem"]:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: -2px; }
+.xz-tree [role="treeitem"][aria-selected="true"], .xz-tree [aria-current="page"] { background: var(--xz-surface-3); font-weight: var(--xz-font-weight-semibold); }
+.xz-tree li > :first-child > .xz-icon { flex: none; color: var(--xz-text-muted); }
+.xz-tree__toggle { flex: none; display: inline-grid; place-items: center; width: 1rem; height: 1rem; color: var(--xz-text-muted); transition: transform var(--xz-duration-fast) var(--xz-ease-out); }
+.xz-tree__toggle--leaf { visibility: hidden; }
+[aria-expanded="true"] > .xz-tree__toggle { transform: rotate(90deg); }
+[dir="rtl"] .xz-tree__toggle { transform: scaleX(-1); }
+[dir="rtl"] [aria-expanded="true"] > .xz-tree__toggle { transform: rotate(-90deg) scaleX(-1); }
+.xz-tree__meta { margin-inline-start: auto; color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); font-variant-numeric: tabular-nums; }
+@media (pointer: coarse) { .xz-tree li > :is(a, span, button):first-child { min-height: var(--xz-control-touch); } }
+
+/* ---- timeline ---- */
+/* Timeline: what happened, newest first. Fee paid, class attended, certificate issued.
+   <ol class="xz-timeline"> with li.xz-timeline__item (marker + body) and optional li.xz-timeline__day headings. */
+.xz-timeline { --_size: 2rem; margin: 0; padding: 0; list-style: none; }
+.xz-timeline__item { --_c: var(--xz-text-muted); position: relative; display: grid; grid-template-columns: var(--_size) minmax(0, 1fr); gap: var(--xz-space-3); padding-block-end: var(--xz-space-5); }
+/* The line runs from each marker down to the next one. */
+.xz-timeline__item::before { content: ""; position: absolute; inset-block: calc(var(--_size) + var(--xz-space-1)) var(--xz-space-1); inset-inline-start: calc(var(--_size) / 2 - 1px); width: 2px; background: var(--xz-border); border-radius: 1px; }
+.xz-timeline__item:last-child::before, .xz-timeline__item:has(+ .xz-timeline__day)::before { display: none; }
+.xz-timeline__item:last-child { padding-block-end: 0; }
+.xz-timeline__marker { position: relative; display: grid; place-items: center; width: var(--_size); height: var(--_size); border-radius: 50%; background: var(--xz-surface); border: 1.5px solid var(--_c); color: var(--_c); }
+.xz-timeline__marker:empty::after { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--_c); }
+.xz-timeline__body { min-width: 0; padding-block-start: calc((var(--_size) - 1.4em) / 2); }
+.xz-timeline__title { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); line-height: 1.4; }
+.xz-timeline__meta { margin: var(--xz-space-1) 0 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-timeline__meta time, .xz-timeline__time { font-variant-numeric: tabular-nums; }
+.xz-timeline__time { float: inline-end; margin-inline-start: var(--xz-space-3); color: var(--xz-text-subtle); font-size: var(--xz-font-size-xs); }
+.xz-timeline__actions { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); margin-block-start: var(--xz-space-2); }
+.xz-timeline__day { padding-block: var(--xz-space-2) var(--xz-space-3); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-transform: uppercase; color: var(--xz-text-subtle); }
+.xz-timeline__item--success { --_c: var(--xz-success-text); }
+.xz-timeline__item--warning { --_c: var(--xz-warning-text); }
+.xz-timeline__item--danger { --_c: var(--xz-danger-text); }
+.xz-timeline__item--info { --_c: var(--xz-info-text); }
+.xz-timeline__item--accent { --_c: var(--xz-accent-2-text); }
+.xz-timeline--compact { --_size: 1.25rem; }
+.xz-timeline--compact .xz-timeline__item { padding-block-end: var(--xz-space-3); }
+.xz-timeline--compact .xz-timeline__marker .xz-icon { width: 0.75rem; height: 0.75rem; }
 
 /* ---- nav ---- */
 /* ---- logo ---- */
@@ -1783,6 +1927,41 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-table-columns { position: relative; display: inline-flex; }
 .xz-table-columns__panel { display: flex; flex-direction: column; gap: var(--xz-space-2); min-width: 12rem; max-height: min(60dvh, 20rem); overflow-y: auto; padding: var(--xz-space-3); }
 .xz-table-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--xz-space-3); padding: var(--xz-space-3) var(--xz-space-4); background: var(--xz-surface); border: 1px solid var(--xz-border); border-top: 0; border-radius: 0 0 var(--xz-radius-control) var(--xz-radius-control); }
+
+/* ---- calendar ---- */
+/* Calendar month view. Without the script the events list reads as an agenda.
+   With it: a month grid on wider screens and an agenda on phones, plus the chosen day's events. */
+.xz-calendar-view { display: grid; gap: var(--xz-space-3); min-width: 0; }
+.xz-calendar-view__events { margin: 0; padding-inline-start: var(--xz-space-5); }
+.xz-calendar-view.is-ready > .xz-calendar-view__events { display: none; }
+.xz-calendar-view__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--xz-space-3); }
+.xz-calendar-view__title { margin: 0; font-family: var(--xz-font-display); font-size: var(--xz-font-size-lg); font-weight: var(--xz-font-weight-semibold); }
+.xz-calendar-view__nav { display: flex; align-items: center; gap: var(--xz-space-1); }
+.xz-calendar-view__grid { width: 100%; table-layout: fixed; border-collapse: collapse; background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); }
+.xz-calendar-view__grid th { padding: var(--xz-space-2); border-bottom: 1px solid var(--xz-border); color: var(--xz-text-muted); font-family: var(--xz-font-display); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); letter-spacing: var(--xz-letter-spacing-label); text-align: start; text-transform: uppercase; }
+.xz-calendar-view__grid td { height: 6.5rem; padding: var(--xz-space-1); vertical-align: top; border: 1px solid var(--xz-border); }
+.xz-calendar-view__grid td.is-outside { background: var(--xz-surface-2); }
+.xz-calendar-view__grid td.is-outside .xz-calendar-view__num { color: var(--xz-text-subtle); }
+.xz-calendar-view__grid td[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--xz-accent); }
+.xz-calendar-view__date { display: inline-grid; place-items: center; min-width: 1.75rem; height: 1.75rem; padding: 0 var(--xz-space-1); background: transparent; border: 0; border-radius: var(--xz-radius-control); color: var(--xz-text); font: inherit; font-size: var(--xz-font-size-sm); font-variant-numeric: tabular-nums; cursor: pointer; }
+.xz-calendar-view__date:hover { background: var(--xz-surface-2); }
+.xz-calendar-view__date:focus-visible { outline: 2px solid var(--xz-focus); outline-offset: 1px; }
+.is-today > .xz-calendar-view__date { background: var(--xz-accent); color: var(--xz-on-accent); font-weight: var(--xz-font-weight-semibold); }
+.xz-calendar-view__chips { display: grid; gap: 2px; margin: var(--xz-space-1) 0 0; padding: 0; list-style: none; }
+.xz-calendar-view__chips li { overflow: hidden; padding: 1px var(--xz-space-1); border-inline-start: 3px solid var(--_c); background: var(--xz-surface-2); border-radius: 2px; font-size: var(--xz-font-size-xs); line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+.xz-calendar-view__chips li.is-more { border-color: transparent; background: none; color: var(--xz-text-muted); }
+.xz-calendar-view__agenda-day { margin: var(--xz-space-3) 0 var(--xz-space-1); font-family: var(--xz-font-display); font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); }
+.xz-calendar-view__list { display: grid; gap: var(--xz-space-1); margin: 0; padding: 0; list-style: none; }
+.xz-calendar-view__list li { display: flex; gap: var(--xz-space-2); padding: var(--xz-space-2) var(--xz-space-3); border-inline-start: 3px solid var(--_c); background: var(--xz-surface); border-radius: var(--xz-radius-control); font-size: var(--xz-font-size-sm); }
+.xz-calendar-view__time { flex: none; color: var(--xz-text-muted); font-variant-numeric: tabular-nums; }
+.xz-calendar-view__empty { margin: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-sm); }
+.xz-calendar-view__day[hidden] { display: none; }
+/* Phones: the agenda instead of the grid. */
+.xz-calendar-view__agenda { display: none; }
+@media (max-width: 639px) {
+  .xz-calendar-view.is-ready .xz-calendar-view__grid, .xz-calendar-view.is-ready .xz-calendar-view__day { display: none; }
+  .xz-calendar-view.is-ready .xz-calendar-view__agenda { display: block; }
+}
 
 /* ---- charts ---- */
 /* Charts. The drawing comes from xsenze-charts.js; the table inside the figure stays for screen readers
@@ -2366,11 +2545,16 @@ th[aria-sort="descending"] .xz-table__sort::after { content: "↓"; opacity: 1; 
 .xz-marquee--plain { --xz-marquee-gap: var(--xz-space-12); }
 .xz-marquee--plain .xz-marquee__item { padding: 0; background: none; border: 0; color: var(--xz-text-muted); font-size: var(--xz-font-size-xl); font-weight: var(--xz-font-weight-bold); letter-spacing: var(--xz-letter-spacing-tight); }
 .xz-marquees { display: flex; flex-direction: column; gap: var(--xz-space-3); }
-[data-xz-motion="off"] .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+/* Still (before the script, with motion off, or with less motion): centred rows that wrap,
+   closer together, and without the fading edges, so no name is half hidden. */
+.xz-marquee:not(.is-ready), [data-xz-motion="off"] .xz-marquee { -webkit-mask-image: none; mask-image: none; }
+.xz-marquee:not(.is-ready) .xz-marquee__track,
+[data-xz-motion="off"] .xz-marquee .xz-marquee__track { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; row-gap: var(--xz-space-3); min-width: 0; padding: 0; }
 [data-xz-motion="off"] .xz-marquee [data-xz-clone] { display: none; }
 @media (prefers-reduced-motion: reduce) {
+  .xz-marquee { -webkit-mask-image: none; mask-image: none; }
   .xz-marquee.is-ready .xz-marquee__track,
-  .xz-marquee .xz-marquee__track { animation: none; flex-wrap: wrap; min-width: 0; flex: 1 1 auto; }
+  .xz-marquee .xz-marquee__track { animation: none; flex: 1 1 auto; flex-wrap: wrap; justify-content: center; row-gap: var(--xz-space-3); min-width: 0; padding: 0; }
   .xz-marquee [data-xz-clone] { display: none; }
 }
 

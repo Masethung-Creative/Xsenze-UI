@@ -1,6 +1,6 @@
 {
   "name": "@sfj/ui-kit",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Xsenze UI Kit: design tokens, CSS components and small behaviours for HTML, PHP and framework projects.",
   "license": "MIT",
   "homepage": "https://xsenze-ui.vercel.app/",
@@ -27,6 +27,7 @@
     "./tokens.css": "./dist/tokens/tokens.css",
     "./tokens.json": "./dist/tokens/tokens.json",
     "./charts": "./dist/xsenze-charts.esm.js",
+    "./apps": "./dist/xsenze-apps.esm.js",
     "./dist/*": "./dist/*"
   },
   "scripts": {

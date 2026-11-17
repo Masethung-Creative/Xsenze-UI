@@ -9,7 +9,7 @@ Design tokens, CSS components and small behaviours for Xsenze products. It works
 - WCAG 2.2 AA contrast, tested by a script on every build
 - Indian formats: ₹, lakh and crore grouping, day-first dates
 
-Version 0.6.1 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, and the high-priority additions: a command palette, charts, a stronger data table, long-text styles, CDN links and docs search. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
+Version 0.7.0 covers Phase 1 (foundation and core), the first two parts of Phase 2 (new foundations, advanced form controls, the Create page and 13 components), landing page blocks, the high-priority additions (a command palette, charts, a stronger data table, long-text styles, CDN links and docs search), and components for learning platforms: a calendar month view, hover card, timeline, tree view, chat and quiz. See [CHANGELOG.md](CHANGELOG.md) for details and [ROADMAP.md](ROADMAP.md) for what comes next.
 
 Documentation: <https://xsenze-ui.vercel.app/docs/>
 
@@ -23,8 +23,8 @@ Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.1/dist/xsenze.min.css">
-  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.6.1/dist/xsenze.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.7.0/dist/xsenze.min.css">
+  <script src="https://cdn.jsdelivr.net/gh/Masethung-Creative/Xsenze-UI@v0.7.0/dist/xsenze.min.js" defer></script>
 </head>
 <body>
   <main class="xz-container">
@@ -36,12 +36,22 @@ Add two tags to any HTML or PHP page. They load the kit from jsDelivr, straight 
 </html>
 ```
 
-On pages with charts, add `xsenze-charts.min.js` from the same address after the main script.
+On pages with charts, add `xsenze-charts.min.js` from the same address after the main script. On pages with a chat or a quiz, add `xsenze-apps.min.js` the same way.
 
 With npm, install the release from GitHub; the import name stays `@sfj/ui-kit`:
 
 ```bash
-npm install github:Masethung-Creative/Xsenze-UI#v0.6.1
+npm install github:Masethung-Creative/Xsenze-UI#v0.7.0
+```
+
+The optional parts are added with `Xsenze.use()`:
+
+```js
+import Xsenze from '@sfj/ui-kit';
+import charts from '@sfj/ui-kit/charts';
+import apps from '@sfj/ui-kit/apps';
+Xsenze.use(charts);
+Xsenze.use(apps);
 ```
 
 To host the files yourself, run `npm install` and `npm run build`, then copy `dist/` into your project. Keep `dist/` together: the stylesheet loads its fonts from the `fonts/` folder beside it.
@@ -58,11 +68,12 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 
 | Area | Contents |
 | --- | --- |
-| Foundations | Colour (brand, neutrals, status, surfaces, text, borders, states), typography and long-text styles, spacing, grid, breakpoints, containers, radius, border widths, elevation, layers, opacity, 135 icons, logo rules |
-| Components | Buttons, inputs, textarea, checkbox, radio, toggle, select, searchable combobox, labels and messages, badges, tags, chips, avatars, links, dividers, tooltips, spinners, progress bars and rings, skeletons |
-| Composites | Cards, stat cards, tabs, accordion, breadcrumbs, pagination, alerts, banners, lists, empty states |
+| Foundations | Colour (brand, neutrals, status, surfaces, text, borders, states), typography and long-text styles, spacing, grid, breakpoints, containers, radius, border widths, elevation, layers, opacity, 145 icons, logo rules |
+| Components | Buttons, inputs, textarea, checkbox, radio, toggle, select, searchable combobox, labels and messages, badges, tags, chips, avatars, links, dividers, tooltips, hover cards, spinners, progress bars and rings, skeletons |
+| Composites | Cards, stat cards, tabs, accordion, breadcrumbs, pagination, alerts, banners, lists, empty states, timeline, tree view |
 | Navigation and overlays | Navbar, sidebar, footer, app shell, modal, drawer, toast, dropdown menu, command palette |
-| Data | Table with sorting, search, filters, pages, row selection and bulk actions, a column menu, detail rows and CSV export; charts (bar, line, area, donut, pie) in an optional file; sparklines |
+| Data | Table with sorting, search, filters, pages, row selection and bulk actions, a column menu, detail rows and CSV export; calendar month view; charts (bar, line, area, donut, pie) in an optional file; sparklines |
+| Apps (optional file) | Chat and AI pieces: messages, sources, typing dots, replies written as they arrive, a prompt box with Stop and attachments. Quiz and questionnaire: one question at a time, review grid, timer, practice scoring |
 | Blocks | Hero, band, feature row, window, tiles, checklist, command with copy, marquee, facts, flow diagram, compare, ledger, footer wordmark, overlay navbar, scroll progress, expanding tabs, and motion: reveal, rolling words, typewriter, scripted demos, border beam, dot field, layered stack, depth scroll, opening band, and one button that pauses it all |
 | Templates | Login, signup, forgot password, dashboard, 404, 500, landing page |
 | Helpers | Form validation with plain-language messages, Indian number, currency and date formats, theme switch |
@@ -75,6 +86,7 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 | `dist/xsenze.min.js` | Behaviours and icons, global `Xsenze` |
 | `dist/xsenze.esm.js` | ES module build |
 | `dist/xsenze-charts.min.js` | Charts, optional. `dist/xsenze-charts.esm.js` for bundlers (`import charts from '@sfj/ui-kit/charts'`) |
+| `dist/xsenze-apps.min.js` | Chat and quiz, optional. `dist/xsenze-apps.esm.js` for bundlers (`import apps from '@sfj/ui-kit/apps'`) |
 | `dist/xsenze-satoshi.css` | Optional: switches headings to Satoshi, for projects with their own copy of the font |
 | `dist/tokens/tokens.css` | CSS variables only |
 | `dist/tokens/tokens.json` | Flat values for each theme |
@@ -87,7 +99,7 @@ Then open <http://localhost:4173/docs/>. The docs cover installation, foundation
 ```
 tokens/tokens.json      Source of truth for every value
 src/css/                Component styles, one file per group
-src/js/                 Behaviours (index.js), formats (format.js), table, command palette, and charts/ (optional file)
+src/js/                 Behaviours (index.js), formats (format.js), dates, table, calendar, tree, command palette, and the optional files charts/ and apps/ (chat, quiz)
 src/blocks/             Blocks for landing pages, one folder per kind (navigation, hero, content, forms, data-display, footer, motion)
 src/brand/              Logo files
 scripts/build.mjs       Builds dist/ and the docs data
