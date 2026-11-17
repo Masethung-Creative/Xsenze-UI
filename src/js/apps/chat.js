@@ -3,7 +3,9 @@
 //   <form class="xz-prompt" data-xz-prompt action="/chat" method="post"> <textarea name="message"></textarea> … </form>
 // Without the script the form posts like any form. With it, Enter sends (Shift+Enter adds a line) and
 // the page answers through `xz:send` and `el.xzChat.add()` / `stream()`.
-import { $$, ready, fire, esc, composing } from '../shared.js';
+// Also: notes (`note()`), files on a message, reactions (`xz:react`), long messages that fold (data-xz-fold),
+// earlier messages added above without moving the reader (`prepend()`), and `jumpTo()` a message.
+import { $$, ready, fire, esc, composing, nextId, motionOn } from '../shared.js';
 
 let H = {};
 const live = () => {
@@ -122,17 +124,41 @@ function messages(chat) {
   scroller.addEventListener('scroll', () => nearEnd() && (jump.hidden = true));
   jump.addEventListener('click', toEnd);
   const clean = (msg) => (msg.trusted ? msg.html : H.sanitize ? H.sanitize(msg.html) : esc(msg.html));
+  const bubbles = chat.classList.contains('xz-chat--bubbles');
+  // Files on a message: [{ name, meta, url, icon }] as file cards.
+  const filesHtml = (files = []) =>
+    files.length
+      ? `<ul class="xz-files">${files.map((f) => `<li><${f.url ? `a href="${esc(f.url)}" download` : 'span'} class="xz-file"><span class="xz-file__icon">${H.icon?.(f.icon || 'file-text', { size: 'sm' }) || ''}</span><span class="xz-file__body"><span class="xz-file__name">${esc(f.name)}</span>${f.meta ? `<span class="xz-file__meta">${esc(f.meta)}</span>` : ''}</span></${f.url ? 'a' : 'span'}></li>`).join('')}</ul>`
+      : '';
   const make = (msg) => {
     const li = document.createElement('li');
     const role = msg.role === 'user' ? 'user' : 'assistant';
     li.className = `xz-message xz-message--${role}`;
+    if (msg.id) li.id = msg.id;
     const author = msg.author || (role === 'user' ? 'You' : 'Assistant');
     const time = msg.time ? `<time class="xz-message__time">${esc(msg.time)}</time>` : '';
-    li.innerHTML = `${msg.avatar ? `<span class="xz-message__avatar" aria-hidden="true">${msg.avatar}</span>` : ''}<div class="xz-message__body"><p class="xz-sr-only">${esc(author)} said:</p><div class="xz-message__bubble${role === 'assistant' ? ' xz-prose xz-prose--sm' : ''}"></div>${time ? `<div class="xz-message__meta">${time}</div>` : ''}</div>`;
+    li.innerHTML = `${msg.avatar ? `<span class="xz-message__avatar" aria-hidden="true">${msg.avatar}</span>` : ''}<div class="xz-message__body">${bubbles && msg.author ? `<span class="xz-message__author" aria-hidden="true">${esc(author)}</span>` : ''}<p class="xz-sr-only">${esc(author)} said:</p><div class="xz-message__bubble${role === 'assistant' && !bubbles ? ' xz-prose xz-prose--sm' : ''}"></div>${filesHtml(msg.files)}${time ? `<div class="xz-message__meta">${time}</div>` : ''}</div>`;
     const bubble = li.querySelector('.xz-message__bubble');
     if (msg.html != null) bubble.innerHTML = clean(msg);
     else bubble.textContent = msg.text || '';
     return li;
+  };
+  const makeNote = (o) => {
+    const li = document.createElement('li');
+    li.className = `xz-chat__note${o.line ? ' xz-chat__note--line' : o.box ? ' xz-chat__note--box' : ''}${o.tone ? ` xz-chat__note--${o.tone}` : ''}`;
+    li.innerHTML = `${o.icon ? H.icon?.(o.icon, { size: 'sm' }) || '' : ''}<span>${esc(o.text || '')}</span>`;
+    return li;
+  };
+  // Long messages fold behind "Show more" when the chat or the message has data-xz-fold.
+  const fold = (li) => {
+    const bubble = li.querySelector('.xz-message__bubble');
+    if (!bubble || li.querySelector('.xz-message__more') || !(chat.hasAttribute('data-xz-fold') || li.hasAttribute('data-xz-fold'))) return;
+    bubble.classList.add('is-folded');
+    if (bubble.scrollHeight <= bubble.clientHeight + 24) return bubble.classList.remove('is-folded');
+    const more = Object.assign(document.createElement('button'), { type: 'button', className: 'xz-message__more', textContent: 'Show more' });
+    more.setAttribute('aria-expanded', 'false');
+    more.setAttribute('aria-controls', (bubble.id ||= nextId('message')));
+    bubble.after(more);
   };
   let typingRow = null;
   const api = {
@@ -140,9 +166,40 @@ function messages(chat) {
       const stick = nearEnd();
       const li = make(msg);
       list.append(li);
+      fold(li);
       after(stick || msg.role === 'user');
       if (msg.role !== 'user') say(`${msg.author || 'Assistant'}: ${li.querySelector('.xz-message__bubble').textContent}`);
       return li;
+    },
+    /** A note in the conversation: { text, icon, tone: 'success' | 'warning' | 'danger', line: true for a day line, box: true for a framed note }. */
+    note(o) {
+      const opts = typeof o === 'string' ? { text: o } : o;
+      const stick = nearEnd();
+      const li = makeNote(opts);
+      list.append(li);
+      after(stick);
+      if (!opts.line) say(opts.text || '');
+      return li;
+    },
+    /** Earlier messages go in above the others, and the messages being read stay where they are. */
+    prepend(msgs) {
+      const from = scroller.scrollHeight - scroller.scrollTop;
+      const items = [].concat(msgs).map((m) => (m.note ? makeNote(m) : make(m)));
+      list.prepend(...items);
+      items.forEach(fold);
+      scroller.scrollTop = scroller.scrollHeight - from;
+      return items;
+    },
+    /** Scroll to a message (an element or its id) and mark it for a moment. */
+    jumpTo(m) {
+      const li = typeof m === 'string' ? document.getElementById(m) : m;
+      if (!li || !list.contains(li)) return;
+      const top = scroller.scrollTop + li.getBoundingClientRect().top - scroller.getBoundingClientRect().top - (scroller.clientHeight - li.offsetHeight) / 2;
+      scroller.scrollTo({ top, behavior: motionOn() ? 'smooth' : 'auto' });
+      li.classList.add('is-target');
+      setTimeout(() => li.classList.remove('is-target'), 1800);
+      li.tabIndex = -1;
+      li.focus({ preventScroll: true });
     },
     /** Write a reply bit by bit. Screen readers hear it once, when it is done. */
     stream(msg = {}) {
@@ -165,26 +222,44 @@ function messages(chat) {
         done(html) {
           li.classList.remove('is-streaming');
           if (html != null) bubble.innerHTML = clean({ ...msg, html });
+          fold(li);
           say(`${msg.author || 'Assistant'}: ${bubble.textContent}`);
         },
       };
     },
-    typing(on = true) {
-      if (on && !typingRow) {
-        typingRow = Object.assign(document.createElement('li'), { className: 'xz-message xz-message--assistant xz-message--typing' });
-        typingRow.innerHTML = '<div class="xz-message__body"><span class="xz-typing" role="status" aria-label="Writing a reply"><i></i><i></i><i></i></span></div>';
-        const stick = nearEnd();
-        list.append(typingRow);
-        after(stick);
-      } else if (!on && typingRow) {
-        typingRow.remove();
+    /** Typing dots while a reply is written, or a line of status in their place: typing(true, 'Checking the timetable…'). */
+    typing(on = true, label) {
+      if (!on) {
+        typingRow?.remove();
         typingRow = null;
+        return;
       }
+      const html = `<div class="xz-message__body">${label ? `<span class="xz-shimmer" role="status">${esc(label)}</span>` : '<span class="xz-typing" role="status" aria-label="Writing a reply"><i></i><i></i><i></i></span>'}</div>`;
+      if (typingRow) return void (typingRow.innerHTML = html);
+      typingRow = Object.assign(document.createElement('li'), { className: 'xz-message xz-message--assistant xz-message--typing', innerHTML: html });
+      const stick = nearEnd();
+      list.append(typingRow);
+      after(stick);
     },
     scrollToEnd: toEnd,
   };
   chat.xzChat = api;
   chat.addEventListener('click', (e) => {
+    const more = e.target.closest('.xz-message__more');
+    if (more) {
+      const open = more.getAttribute('aria-expanded') !== 'true';
+      document.getElementById(more.getAttribute('aria-controls'))?.classList.toggle('is-folded', !open);
+      more.setAttribute('aria-expanded', String(open));
+      more.textContent = open ? 'Show less' : 'Show more';
+    }
+    const re = e.target.closest('.xz-reaction');
+    if (re) {
+      const on = re.getAttribute('aria-pressed') !== 'true';
+      re.setAttribute('aria-pressed', String(on));
+      const n = re.querySelector('.xz-reaction__count');
+      if (n) n.textContent = String(Math.max(0, (parseInt(n.textContent, 10) || 0) + (on ? 1 : -1)));
+      fire(chat, 'xz:react', { reaction: re.getAttribute('data-xz-react') || re.textContent.trim(), on, message: re.closest('.xz-message') });
+    }
     const fb = e.target.closest('[data-xz-feedback]');
     if (fb) {
       const on = fb.getAttribute('aria-pressed') !== 'true';
@@ -204,5 +279,6 @@ function messages(chat) {
       }
     }
   });
+  $$('.xz-message', list).forEach(fold);
   toEnd();
 }

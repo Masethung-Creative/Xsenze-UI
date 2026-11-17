@@ -1,7 +1,8 @@
 /* Chat and AI pieces (behaviour in xsenze-apps.js). The look is set with the variables on .xz-chat:
    people's messages sit in a filled bubble on the end side, replies read as plain text. */
 .xz-chat { --xz-chat-user-bg: var(--xz-accent); --xz-chat-user-text: var(--xz-on-accent); --xz-chat-height: 28rem; position: relative; display: flex; flex-direction: column; min-width: 0; }
-.xz-chat__list { display: flex; flex-direction: column; gap: var(--xz-space-4); max-height: var(--xz-chat-height); margin: 0; padding: var(--xz-space-4); overflow-y: auto; overscroll-behavior: contain; list-style: none; }
+/* The list is positioned, so the hidden "said:" lines for screen readers stay inside its scroll area. */
+.xz-chat__list { position: relative; display: flex; flex-direction: column; gap: var(--xz-space-4); max-height: var(--xz-chat-height); margin: 0; padding: var(--xz-space-4); overflow-y: auto; overscroll-behavior: contain; list-style: none; }
 .xz-message { display: flex; gap: var(--xz-space-3); max-width: 100%; }
 .xz-message__avatar { flex: none; display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 50%; background: var(--xz-surface-2); border: 1px solid var(--xz-border); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
 .xz-message__body { display: grid; gap: var(--xz-space-1); min-width: 0; max-width: min(42rem, 100%); }
@@ -28,6 +29,32 @@
 .xz-typing i:nth-child(3) { animation-delay: 0.3s; }
 @keyframes xz-typing { 0%, 60%, 100% { opacity: 0.35; transform: none; } 30% { opacity: 1; transform: translateY(-3px); } }
 [data-xz-motion="off"] .xz-typing i, [data-xz-motion="off"] .xz-message.is-streaming .xz-message__bubble::after { animation: none; }
+/* Several messages in a row from one side share one avatar and sit closer together. */
+:is(.xz-message--user + .xz-message--user, .xz-message--assistant + .xz-message--assistant) { margin-block-start: calc(var(--xz-space-2) - var(--xz-space-4)); }
+:is(.xz-message--user + .xz-message--user, .xz-message--assistant + .xz-message--assistant) .xz-message__avatar { visibility: hidden; }
+/* --bubbles: replies sit in bubbles too, for chats between people, such as a teacher and a learner */
+.xz-chat--bubbles .xz-message--assistant .xz-message__bubble { justify-self: start; padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-surface); border-end-start-radius: 2px; }
+.xz-message__author { color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); font-weight: var(--xz-font-weight-semibold); }
+/* A long message folds after --xz-chat-fold, with a button to read the rest. */
+.xz-message__bubble.is-folded { max-height: var(--xz-chat-fold, 14rem); overflow: hidden; -webkit-mask-image: linear-gradient(#000 60%, transparent); mask-image: linear-gradient(#000 60%, transparent); }
+.xz-message__more { justify-self: start; padding: 0; background: none; border: 0; color: var(--xz-accent-text); font: inherit; font-size: var(--xz-font-size-sm); font-weight: var(--xz-font-weight-semibold); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.xz-message--user .xz-message__more { justify-self: end; }
+/* Reactions under a message */
+.xz-reactions { display: flex; flex-wrap: wrap; gap: var(--xz-space-1); }
+.xz-reaction { display: inline-flex; align-items: center; gap: var(--xz-space-1); min-height: 1.75rem; padding: 0 var(--xz-space-2); background: var(--xz-surface); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); color: var(--xz-text); font: inherit; font-size: var(--xz-font-size-xs); cursor: pointer; }
+.xz-reaction:hover { border-color: var(--xz-border-strong); }
+.xz-reaction[aria-pressed="true"] { background: var(--xz-accent-2-soft); border-color: var(--xz-accent-2-border); }
+.xz-reaction__count { color: var(--xz-text-muted); font-variant-numeric: tabular-nums; }
+/* Notes in a conversation: a day line, a status line, or a note from the system in a box. */
+.xz-chat__note { display: flex; align-items: center; justify-content: center; gap: var(--xz-space-2); color: var(--xz-text-muted); font-size: var(--xz-font-size-xs); text-align: center; }
+.xz-chat__note--line::before, .xz-chat__note--line::after { content: ""; flex: 1; border-top: 1px solid var(--xz-border); }
+.xz-chat__note--box { justify-content: flex-start; padding: var(--xz-space-2) var(--xz-space-3); background: var(--xz-surface-2); border: 1px solid var(--xz-border); border-radius: var(--xz-radius-control); text-align: start; }
+.xz-chat__note .xz-icon { flex: none; }
+.xz-chat__note--success .xz-icon { color: var(--xz-success-text); }
+.xz-chat__note--warning .xz-icon { color: var(--xz-warning-text); }
+.xz-chat__note--danger .xz-icon { color: var(--xz-danger-text); }
+/* A message the chat jumped to stands out for a moment. */
+.xz-message.is-target { border-radius: var(--xz-radius-surface); outline: 2px solid var(--xz-accent-2); outline-offset: 4px; }
 .xz-chat__latest { position: absolute; inset-block-end: var(--xz-space-4); inset-inline-start: 50%; transform: translateX(-50%); box-shadow: var(--xz-shadow-md); }
 .xz-chat__latest[hidden] { display: none; }
 .xz-chat__suggestions { display: flex; flex-wrap: wrap; gap: var(--xz-space-2); padding: 0 var(--xz-space-4) var(--xz-space-3); }
