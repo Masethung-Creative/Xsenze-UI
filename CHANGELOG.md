@@ -4,6 +4,27 @@ This project follows semantic versioning.
 
 ## Unreleased
 
+## 0.8.0 (17 Nov 2026)
+
+A tools pack for settings pages, editors, print set-ups, colour and maths, and a docs page that lists every part with its integration steps.
+
+- New optional pair of files, `xsenze-tools.min.css` and `xsenze-tools.min.js` (`@sfj/ui-kit/tools.css` and `@sfj/ui-kit/tools`). Load them after the main files, on the pages that use them. Every part draws on the kit's tokens, so themes change the tools too
+- Panel (`xz-panel`): rows with hairlines between them, a title bar, group labels, cells side by side, stages, empty rows and action strips. With it: option cells (`xz-segmented--cells`), a fader (`xz-slider--fader`), a number field with a unit (`xz-numfield`, `--big`), status dots (`xz-status`), copyable value lines (`xz-valueline`) and a compact file field (`data-xz-filefield`). CSS only, apart from the file name
+- Split view (`data-xz-split`): two panes with a handle to drag or move with the arrow keys; Enter folds the first pane away. Sizes are remembered by name, rows work too, and phones stack the panes. Event `xz:resize`; `element.xzSplit`
+- Menu bar (`data-xz-menubar`): File, Edit and View menus with tick items, dot items, submenus and key labels (`data-xz-shortcut`), and the keys of the WAI-ARIA menu bar. Event `xz:action`
+- Dual list (`data-xz-duallist`): pick items into a second list and order them, such as table columns. It starts as checkboxes, so forms work without the script. Event `xz:change`
+- Readouts: digits drawn as lit segments (`data-xz-readout`), a countdown and stopwatch (`data-xz-timer`) that warns once and says when time is up, lamps for live states, readings with level bars, change bars and a styled `meter`
+- Pixel loaders (`xz-loader`): nine cells in five patterns, still with less motion
+- Measure lines (`xz-measure`), a paper size picker for A3, A4, A5, Letter, Legal and ID cards (`data-xz-paper`), a page strip built on radio buttons, and a preview stage
+- Before and after (`data-xz-beforeafter`): two pictures with a line to drag or move with the keys
+- Colour: a field that takes any CSS colour with an eyedropper (`data-xz-color`), swatches that copy, eleven shades worked out in OKLCH (`data-xz-shades`), a WCAG contrast check (`data-xz-contrast`) and a colour picker with RGB, HSL and OKLCH faders (`data-xz-colorpicker`). `Xsenze.tools.color` reads, converts and compares colours
+- Maths: plain text such as `sqrt(x^2+1)/(2x)` shown as MathML (`data-xz-math`), a maths answer box with live notation (`data-xz-mathfield`) and a keypad in four tabs (`data-xz-mathpad`). `Xsenze.tools.math.toMathML()`
+- Text: a code block with a copy button and line numbers, a text box with paste, clear, share and a live count, and letter tiles that keep Hindi and Tamil letters whole
+- Rail sidebar (`xz-sidebar--rail`) and lit rows (`data-tone`)
+- Templates: Settings, and Certificate maker (menu bar, split view, paper, colours with a contrast check, page strip and an export job)
+- Docs: a Tools page. It starts with an inventory of every part a full tool kit needs and where each one lives in Xsenze (new, already in the kit, or left out and why), then the integration steps and the design tokens, then a live demo and a reference table for each part. The Guidelines keyboard table, Getting started and the home page list the tools
+- Core: 11 icons (mic, video, radio, circle-dot, contrast, sigma, ruler, clipboard-paste, keyboard, rotate-ccw, award), and optional parts can call `Xsenze.init` on markup they build. The main script's size limit is now 47 KB gzipped (45.7 KB today); the tools files have limits of 10 KB and 20 KB
+
 ## 0.7.0 (17 Nov 2026)
 
 A new docs home page built from the kit's own blocks, and six components for school, college and learning-platform screens.

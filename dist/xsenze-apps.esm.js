@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit apps v0.7.0 | MIT */
+/*! Xsenze UI Kit apps v0.8.0 | MIT */
 
 // src/js/shared.js
 var $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));

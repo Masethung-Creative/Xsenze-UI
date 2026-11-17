@@ -1,4 +1,4 @@
-/*! Xsenze UI Kit tools v0.7.0 | MIT */
+/*! Xsenze UI Kit tools v0.8.0 | MIT */
 
 // src/js/shared.js
 var $ = (sel, root = document) => root.querySelector(sel);
@@ -512,9 +512,8 @@ function initDuallists(root, { icon }) {
           box.checked = on;
           changed2.push(box);
         }
-        el.append(box.parentElement);
+        body.before(box.parentElement);
       }
-      el.append(body, actions, summary, status);
       const names = optionsIn(chosen.list).map(nameOf);
       summary.textContent = names.length ? names.join(" / ") : el.dataset.xzEmpty || "Nothing chosen";
       const selAvail = selected(avail.list).length;
@@ -1132,22 +1131,29 @@ function initShades(root, init) {
       renderShades(list, steps, init);
       if (emit) fire(el, "xz:shades", { shades: steps.map(({ step, hex }) => ({ step, hex })) });
     };
+    let quiet = false;
+    const setHue = (c) => {
+      if (!hueInput || !c) return;
+      hueInput.value = String(Math.round(toOklch(c).h));
+      quiet = true;
+      hueInput.dispatchEvent(new Event("input"));
+      quiet = false;
+    };
     if (hueInput) {
-      const c = parse(base);
-      if (c && !hueInput.hasAttribute("value")) hueInput.value = String(Math.round(toOklch(c).h));
-      hueInput.addEventListener("input", () => draw(true));
+      if (!hueInput.hasAttribute("value")) setHue(parse(base));
+      hueInput.addEventListener("input", () => !quiet && draw(true));
     }
     const source = el.dataset.xzShadesFor && document.querySelector(el.dataset.xzShadesFor);
     source == null ? void 0 : source.addEventListener("xz:color", (e) => {
       base = e.detail.hex;
-      if (hueInput) hueInput.value = String(Math.round(toOklch(e.detail.color).h));
+      setHue(e.detail.color);
       draw(true);
     });
     el.xzShades = {
       set(v2) {
         if (!parse(v2)) return;
         base = v2;
-        if (hueInput) hueInput.value = String(Math.round(toOklch(parse(v2)).h));
+        setHue(parse(v2));
         draw(true);
       },
       value: () => steps.map(({ step, hex }) => ({ step, hex }))
@@ -1822,9 +1828,8 @@ var target = (btn, attr) => {
 };
 var segmenter = (granularity) => typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter(void 0, { granularity }) : null;
 var graphemes = segmenter("grapheme");
-var wordSeg = segmenter("word");
 var letters = (s) => graphemes ? [...graphemes.segment(s)].map((x) => x.segment) : [...s];
-var wordCount = (s) => wordSeg ? [...wordSeg.segment(s)].filter((x) => x.isWordLike).length : (s.trim().match(/\S+/g) || []).length;
+var wordCount = (s) => (s.trim().match(/\S+/g) || []).length;
 var plural = (n, one) => `${n.toLocaleString("en-IN")} ${one}${n === 1 ? "" : "s"}`;
 function changed(field) {
   field.dispatchEvent(new Event("input", { bubbles: true }));
